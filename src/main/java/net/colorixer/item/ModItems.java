@@ -16,6 +16,7 @@ public class ModItems {
     public static final Item POINTY_STICK = registerItem("pointy_stick", Item::new, new Item.Settings());
     public static final Item BRANCH = registerItem("branch", Item::new, new Item.Settings());
     public static final Item FLINT_FRAGMENT = registerItem("flint_fragment", Item::new, new Item.Settings());
+    public static final Item SHARPEND_BONE = registerItem("sharpend_bone", Item::new, new Item.Settings());
 
     public static Item registerItem(String path, Function<Item.Settings, Item> factory, Item.Settings settings) {
         final RegistryKey<Item> registryKey = RegistryKey.of(RegistryKeys.ITEM, Identifier.of(TougherThanLlamas.MOD_ID, path));
@@ -28,6 +29,8 @@ public class ModItems {
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(entries -> {
             entries.add(POINTY_STICK);
             entries.add(BRANCH);
+            entries.add(FLINT_FRAGMENT);
+            entries.add(SHARPEND_BONE);
         });
     }
 }
