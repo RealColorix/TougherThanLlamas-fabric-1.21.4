@@ -1,5 +1,6 @@
 package net.colorixer;
 
+import net.colorixer.item.ItemsThatCanHitAndBreak;
 import net.colorixer.item.ModItems;
 import net.fabricmc.api.ModInitializer;
 
@@ -15,5 +16,7 @@ public class TougherThanLlamas implements ModInitializer {
 	public void onInitialize() {
 
 		ModItems.registerModItems();
+
+		ItemsThatCanHitAndBreak.register();
 	}
 }
