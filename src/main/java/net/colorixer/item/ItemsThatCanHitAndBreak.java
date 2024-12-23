@@ -50,8 +50,8 @@ public class ItemsThatCanHitAndBreak {
                     world.playSound(null, pos, SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.PLAYERS,
                             1.0F, 0.4F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
                     heldItemStack.decrement(1);
-                    ItemStack gravelStack = new ItemStack(ModItems.FLINT_FRAGMENT, 2);
-                    dropItem(world, player, gravelStack);
+                    ItemStack stack = new ItemStack(ModItems.FLINT_FRAGMENT, 2);
+                    dropItem(world, player, stack);
                     player.swingHand(hand, true);
                     player.getItemCooldownManager().set(heldItemStack, 20);
                     return ActionResult.SUCCESS;
@@ -68,8 +68,8 @@ public class ItemsThatCanHitAndBreak {
                     world.playSound(null, pos, SoundEvents.BLOCK_BAMBOO_WOOD_BREAK, SoundCategory.PLAYERS,
                             1.0F, 0.4F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
                     heldItemStack.decrement(1);
-                    ItemStack gravelStack = new ItemStack(ModItems.POINTY_STICK, 1);
-                    dropItem(world, player, gravelStack);
+                    ItemStack stack = new ItemStack(ModItems.POINTY_STICK, 1);
+                    dropItem(world, player, stack);
                     player.swingHand(hand, true);
                     player.getItemCooldownManager().set(heldItemStack, 20);
                     return ActionResult.SUCCESS;
@@ -86,8 +86,8 @@ public class ItemsThatCanHitAndBreak {
                     world.playSound(null, pos, SoundEvents.BLOCK_BAMBOO_WOOD_BREAK, SoundCategory.PLAYERS,
                             1.0F, 0.4F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
                     heldItemStack.decrement(1);
-                    ItemStack gravelStack = new ItemStack(Items.STICK, 1);
-                    dropItem(world, player, gravelStack);
+                    ItemStack stack = new ItemStack(Items.STICK, 1);
+                    dropItem(world, player, stack);
                     player.swingHand(hand, true);
                     player.getItemCooldownManager().set(heldItemStack, 20);
                     return ActionResult.SUCCESS;
@@ -104,13 +104,31 @@ public class ItemsThatCanHitAndBreak {
                     world.playSound(null, pos, SoundEvents.BLOCK_BONE_BLOCK_BREAK, SoundCategory.PLAYERS,
                             1.0F, 0.4F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
                     heldItemStack.decrement(1);
-                    ItemStack gravelStack = new ItemStack(ModItems.SHARPEND_BONE, 1);
-                    dropItem(world, player, gravelStack);
+                    ItemStack stack = new ItemStack(ModItems.SHARPEND_BONE, 1);
+                    dropItem(world, player, stack);
                     player.swingHand(hand, true);
                     player.getItemCooldownManager().set(heldItemStack, 20);
                     return ActionResult.SUCCESS;
                 } else {
                     world.playSound(null, pos, SoundEvents.BLOCK_BONE_BLOCK_HIT, SoundCategory.BLOCKS,
+                            1F, 0.4F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
+                    player.getItemCooldownManager().set(heldItemStack, 20);
+                    player.swingHand(hand, true);
+                    return ActionResult.PASS;
+                }
+            }else if (heldItemStack.getItem() == ModItems.POINTY_STICK) {
+                if (random.nextDouble() <= 0.33) {
+                    // Play the flint and steel use sound
+                    world.playSound(null, pos, SoundEvents.BLOCK_BAMBOO_WOOD_BREAK, SoundCategory.PLAYERS,
+                            1.0F, 0.4F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
+                    heldItemStack.decrement(1);
+                    ItemStack stack = new ItemStack(ModItems.SMALL_POINTY_STICKS, 1);
+                    dropItem(world, player, stack);
+                    player.swingHand(hand, true);
+                    player.getItemCooldownManager().set(heldItemStack, 20);
+                    return ActionResult.SUCCESS;
+                } else {
+                    world.playSound(null, pos, SoundEvents.BLOCK_STONE_HIT, SoundCategory.BLOCKS,
                             1F, 0.4F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
                     player.getItemCooldownManager().set(heldItemStack, 20);
                     player.swingHand(hand, true);
@@ -150,9 +168,7 @@ public class ItemsThatCanHitAndBreak {
         // Spawn the item entity in the world
         boolean success = world.spawnEntity(itemEntity);
 
-        if (!success) {
-            System.err.println("Failed to spawn ItemEntity for: " + itemStack.getItem());
-        }
+
     }
 
     private static boolean isValidBlock(Block block) {

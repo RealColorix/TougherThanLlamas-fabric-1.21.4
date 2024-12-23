@@ -2,5 +2,15 @@
   "item.ttll.pointy_stick": "Pointy Stick",
   "item.ttll.branch": "Branch",
   "item.ttll.flint_fragment": "Flint Fragment",
-  "item.ttll.sharpend_bone": "Sharpend Bone"
+  "item.ttll.sharpend_bone": "Sharpend Bone",
+  "item.ttll.flint_hatchet_string": "Flint Hatchet",
+  "item.ttll.flint_hatchet_twine": "Flint Hatchet",
+  "item.ttll.flint_hatchet_leather_string": "Flint Hatchet",
+  "item.ttll.flint_hatchet_leather_twine": "Flint Hatchet",
+  "item.ttll.leather_handle": "Leather Handle",
+  "item.ttll.flint_knife": "Flint Knife",
+  "item.ttll.grass_fiber": "Grass Fiber",
+  "item.ttll.knitting_sticks": "Knitting Sticks",
+  "item.ttll.small_pointy_stick": "Small Pointy Stick",
+  "item.ttll.twine": "Twine"
 }

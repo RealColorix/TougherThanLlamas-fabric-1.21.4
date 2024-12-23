@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#F",
+    "/ "
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:string"
+    },
+    "F": {
+      "item": "minecraft:flint"
+    },
+    "/": {
+      "item": "ttll:pointy_stick"
+    }
+  },
+  "result": {
+    "id": "ttll:flint_hatchet_string",
+    "count": 1
+  }
+}

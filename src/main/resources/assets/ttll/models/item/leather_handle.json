@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "ttll:item/pointy_stick",
+    "layer1": "ttll:item/axe_leather"
+  }
+}
