@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "/": "ttll:pointy_stick",
-    "S": "minecraft:string",
+    "S": "ttll:twine",
     "F": "minecraft:flint"
   },
   "pattern": [
@@ -12,6 +12,6 @@
   ],
   "result": {
     "count": 1,
-    "id": "ttll:flint_hatchet_string"
+    "id": "ttll:flint_hatchet_twine"
   }
 }

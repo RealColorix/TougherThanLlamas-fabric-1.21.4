@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "/": "ttll:pointy_stick"
+  },
+  "pattern": [
+    "//"
+  ],
+  "result": {
+    "count": 1,
+    "id": "ttll:knitting_sticks"
+  }
+}

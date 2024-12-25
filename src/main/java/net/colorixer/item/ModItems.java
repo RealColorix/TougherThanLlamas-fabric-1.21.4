@@ -16,9 +16,11 @@ public class ModItems {
     //AXES
     public static final Item FLINT_HATCHET_STRING = registerItem("flint_hatchet_string", Item::new, new Item.Settings());
     public static final Item FLINT_HATCHET_LEATHER_STRING = registerItem("flint_hatchet_leather_string", Item::new, new Item.Settings());
-    public static final Item FLINT_HATCHET_TWINE = registerItem("flint_hatchet_twine", Item::new, new Item.Settings());
+    public static final Item FLINT_HATCHET_TWINE = registerItem("flint_hatchet_twine",settings -> new AxeItem(TTLLToolMaterial.FLINT, 2.0F, -3.0F, settings), new Item.Settings());
     public static final Item FLINT_HATCHET_LEATHER_TWINE = registerItem("flint_hatchet_leather_twine", Item::new, new Item.Settings());
     public static final Item LEATHER_HANDLE = registerItem("leather_handle", Item::new, new Item.Settings());
+
+
 
     public static final Item POINTY_STICK = registerItem("pointy_stick", Item::new, new Item.Settings());
     public static final Item BRANCH = registerItem("branch", Item::new, new Item.Settings());
@@ -27,9 +29,9 @@ public class ModItems {
     public static final Item TWINE = registerItem("twine", Item::new, new Item.Settings());
     public static final Item SMALL_POINTY_STICKS = registerItem("small_pointy_stick", Item::new, new Item.Settings());
     public static final Item KNITTING_STICKS = registerItem("knitting_sticks", Item::new, new Item.Settings());
-    public static final Item FLINT_KNIFE = registerItem("flint_knife", Item::new, new Item.Settings());
+    public static final Item FLINT_KNIFE = registerItem("flint_knife", settings -> new KnifeItem(TTLLToolMaterial.FLINT, 1.5F, -1.0F, settings), new Item.Settings());
     public static final Item GRASS_FIBER = registerItem("grass_fiber", Item::new, new Item.Settings());
-
+    public static final Item KNITTING_GRASS_FIBER = registerItem("knitting_grass_fiber", KnittingSticksItem::new, new Item.Settings().maxCount(1));
 
 
 
@@ -38,6 +40,7 @@ public class ModItems {
         final RegistryKey<Item> registryKey = RegistryKey.of(RegistryKeys.ITEM, Identifier.of(TougherThanLlamas.MOD_ID, path));
         return Items.register(registryKey, factory, settings);
     }
+
 
     public static void registerModItems() {
         TougherThanLlamas.LOGGER.info("Registering Items for " + TougherThanLlamas.MOD_ID);
@@ -57,6 +60,7 @@ public class ModItems {
             entries.add(KNITTING_STICKS);
             entries.add(FLINT_KNIFE);
             entries.add(GRASS_FIBER);
+            entries.add(KNITTING_GRASS_FIBER);
         });
     }
 }
