@@ -1,7 +1,9 @@
 package net.colorixer;
 
+import net.colorixer.block.ModBlocks;
 import net.colorixer.item.ItemsThatCanHitAndBreak;
 import net.colorixer.item.ModItems;
+import net.colorixer.player.Chopable;
 import net.fabricmc.api.ModInitializer;
 
 import org.slf4j.Logger;
@@ -14,9 +16,12 @@ public class TougherThanLlamas implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-
 		ModItems.registerModItems();
-
+		ModBlocks.registerModBlocks();
 		ItemsThatCanHitAndBreak.register();
+
+		Chopable.initialize();
+
+
 	}
 }

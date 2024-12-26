@@ -13,5 +13,8 @@
   "item.ttll.knitting_sticks": "Knitting Sticks",
   "item.ttll.small_pointy_stick": "Small Pointy Stick",
   "item.ttll.twine": "Twine",
-  "item.ttll.knitting_grass_fiber": "Grass Fiber Knitting"
+  "item.ttll.knitting_grass_fiber": "Grass Fiber Knitting",
+
+  "block.ttll.oak_trunk": "Oak Trunk",
+  "block.ttll.oak_stem": "Oak Stem"
 }

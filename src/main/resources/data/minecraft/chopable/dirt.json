@@ -1,0 +1,8 @@
+{
+  "conditions": [
+    {
+      "item": "minecraft:iron_hoe",
+      "result": "minecraft:coarse_dirt"
+    }
+  ]
+}
