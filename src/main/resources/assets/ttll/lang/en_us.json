@@ -14,7 +14,22 @@
   "item.ttll.small_pointy_stick": "Small Pointy Stick",
   "item.ttll.twine": "Twine",
   "item.ttll.knitting_grass_fiber": "Grass Fiber Knitting",
+  "item.ttll.oak_firewood": "Oak Firewood",
+  "item.ttll.birch_firewood": "Birch Firewood",
+  "item.ttll.spruce_firewood": "Spruce Firewood",
+  "item.ttll.jungle_firewood": "Jungle Firewood",
+  "item.ttll.oak_bark": "Oak Bark",
+  "item.ttll.birch_bark": "Birch Bark",
+  "item.ttll.spruce_bark": "Spruce Bark",
+  "item.ttll.jungle_bark": "Jungle Bark",
+  "item.ttll.spear": "Spear",
 
   "block.ttll.oak_trunk": "Oak Trunk",
-  "block.ttll.oak_stem": "Oak Stem"
+  "block.ttll.oak_stem": "Oak Stem",
+  "block.ttll.birch_trunk": "Birch Trunk",
+  "block.ttll.birch_stem": "Birch Stem",
+  "block.ttll.jungle_trunk": "Jungle Trunk",
+  "block.ttll.jungle_stem": "Jungle Stem",
+  "block.ttll.spruce_trunk": "Spruce Trunk",
+  "block.ttll.spruce_stem": "Spruce Stem"
 }

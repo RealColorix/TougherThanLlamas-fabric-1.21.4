@@ -1,0 +1,8 @@
+{
+  "conditions": [
+    {
+      "item": "ttll:flint_hatchet_twine",
+      "result": "ttll:spruce_trunk"
+    }
+  ]
+}

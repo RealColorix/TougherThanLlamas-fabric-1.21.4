@@ -2,25 +2,39 @@ package net.colorixer.item;
 
 import net.colorixer.TougherThanLlamas;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.item.*;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Rarity;
 
 import java.util.function.Function;
 
 public class ModItems {
 
 
+    //Treesorts
+    public static final Item OAK_FIREWOOD = registerItem("oak_firewood", Item::new, new Item.Settings());
+    public static final Item BIRCH_FIREWOOD = registerItem("birch_firewood", Item::new, new Item.Settings());
+    public static final Item JUNGLE_FIREWOOD = registerItem("jungle_firewood", Item::new, new Item.Settings());
+    public static final Item SPRUCE_FIREWOOD = registerItem("spruce_firewood", Item::new, new Item.Settings());
+
+    public static final Item OAK_BARK = registerItem("oak_bark", Item::new, new Item.Settings());
+    public static final Item BIRCH_BARK = registerItem("birch_bark", Item::new, new Item.Settings());
+    public static final Item JUNGLE_BARK = registerItem("jungle_bark", Item::new, new Item.Settings());
+    public static final Item SPRUCE_BARK = registerItem("spruce_bark", Item::new, new Item.Settings());
+
+
+
+
 
     //AXES
     public static final Item FLINT_HATCHET_STRING = registerItem("flint_hatchet_string", Item::new, new Item.Settings());
     public static final Item FLINT_HATCHET_LEATHER_STRING = registerItem("flint_hatchet_leather_string", Item::new, new Item.Settings());
-    public static final Item FLINT_HATCHET_TWINE = registerItem("flint_hatchet_twine",settings -> new AxeItem(TTLLToolMaterial.FLINT, 2.0F, -3.0F, settings), new Item.Settings());
+    public static final Item FLINT_HATCHET_TWINE = registerItem("flint_hatchet_twine",settings -> new AxeItem(TTLLToolMaterial.FLINT, 2.0F, -3.0F, settings), new Item.Settings().maxDamage(10));
     public static final Item FLINT_HATCHET_LEATHER_TWINE = registerItem("flint_hatchet_leather_twine", Item::new, new Item.Settings());
     public static final Item LEATHER_HANDLE = registerItem("leather_handle", Item::new, new Item.Settings());
-
-
 
     public static final Item POINTY_STICK = registerItem("pointy_stick", Item::new, new Item.Settings());
     public static final Item BRANCH = registerItem("branch", Item::new, new Item.Settings());
@@ -61,6 +75,14 @@ public class ModItems {
             entries.add(FLINT_KNIFE);
             entries.add(GRASS_FIBER);
             entries.add(KNITTING_GRASS_FIBER);
+            entries.add(OAK_FIREWOOD);
+            entries.add(OAK_BARK);
+            entries.add(BIRCH_FIREWOOD);
+            entries.add(BIRCH_BARK);
+            entries.add(SPRUCE_FIREWOOD);
+            entries.add(SPRUCE_BARK);
+            entries.add(JUNGLE_FIREWOOD);
+            entries.add(JUNGLE_BARK);
         });
     }
 }

@@ -19,20 +19,25 @@ import java.util.function.Function;
 public class ModBlocks {
 
     public static final Block OAK_TRUNK = registerBlock("oak_trunk", TrunkBlock::new, Block.Settings.create()
-                    .strength(2f)
-                    .burnable()
-                    .instrument(NoteBlockInstrument.BASS)
-                    .requiresTool()
-                    .mapColor(MapColor.OAK_TAN)
-                    .sounds(BlockSoundGroup.WOOD));
-
+                    .strength(2f).burnable().instrument(NoteBlockInstrument.BASS).requiresTool().mapColor(MapColor.OAK_TAN).sounds(BlockSoundGroup.WOOD));
     public static final Block OAK_STEM = registerBlock("oak_stem", StemBlock::new, Block.Settings.create()
-                    .strength(2f)
-                    .burnable()
-                    .instrument(NoteBlockInstrument.BASS)
-                    .requiresTool()
-                    .mapColor(MapColor.OAK_TAN)
-                    .sounds(BlockSoundGroup.WOOD));
+            .strength(2f).burnable().instrument(NoteBlockInstrument.BASS).requiresTool().mapColor(MapColor.OAK_TAN).sounds(BlockSoundGroup.WOOD));
+
+    public static final Block BIRCH_TRUNK = registerBlock("birch_trunk", TrunkBlock::new, Block.Settings.create()
+            .strength(2f).burnable().instrument(NoteBlockInstrument.BASS).requiresTool().mapColor(MapColor.WHITE_GRAY).sounds(BlockSoundGroup.WOOD));
+    public static final Block BIRCH_STEM = registerBlock("birch_stem", StemBlock::new, Block.Settings.create()
+            .strength(2f).burnable().instrument(NoteBlockInstrument.BASS).requiresTool().mapColor(MapColor.WHITE_GRAY).sounds(BlockSoundGroup.WOOD));
+
+    public static final Block JUNGLE_TRUNK = registerBlock("jungle_trunk", TrunkBlock::new, Block.Settings.create()
+            .strength(2f).burnable().instrument(NoteBlockInstrument.BASS).requiresTool().mapColor(MapColor.BROWN).sounds(BlockSoundGroup.WOOD));
+    public static final Block JUNGLE_STEM = registerBlock("jungle_stem", StemBlock::new, Block.Settings.create()
+            .strength(2f).burnable().instrument(NoteBlockInstrument.BASS).requiresTool().mapColor(MapColor.BROWN).sounds(BlockSoundGroup.WOOD));
+
+    public static final Block SPRUCE_TRUNK = registerBlock("spruce_trunk", TrunkBlock::new, Block.Settings.create()
+            .strength(2f).burnable().instrument(NoteBlockInstrument.BASS).requiresTool().mapColor(MapColor.SPRUCE_BROWN).sounds(BlockSoundGroup.WOOD));
+    public static final Block SPRUCE_STEM = registerBlock("spruce_stem", StemBlock::new, Block.Settings.create()
+            .strength(2f).burnable().instrument(NoteBlockInstrument.BASS).requiresTool().mapColor(MapColor.SPRUCE_BROWN).sounds(BlockSoundGroup.WOOD));
+
 
 
     private static Block registerBlock(String path, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings) {

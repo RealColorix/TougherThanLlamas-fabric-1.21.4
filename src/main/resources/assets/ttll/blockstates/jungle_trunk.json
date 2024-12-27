@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "axis=y": { "model": "ttll:block/jungle_trunk" },
+    "axis=x": { "model": "ttll:block/jungle_trunk", "x": 90, "y": 90 },
+    "axis=z": { "model": "ttll:block/jungle_trunk", "x": 90 }
+  }
+}

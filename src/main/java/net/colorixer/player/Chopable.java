@@ -67,17 +67,14 @@ public class Chopable implements SimpleSynchronousResourceReloadListener {
         ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new Chopable());
 
         // 2. Register the BEFORE break event (not AFTER!), so we can do an instant replace
-        PlayerBlockBreakEvents.BEFORE.register((world, player, pos, state, blockEntity) -> {
+        PlayerBlockBreakEvents.AFTER.register((world, player, pos, state, blockEntity) -> {
             if (!world.isClient && world instanceof ServerWorld serverWorld) {
                 ItemStack toolStack = player.getMainHandStack();
                 // If we replaced the block ourselves, return false to CANCEL the normal break (no air flicker).
                 boolean replaced = tryReplaceBlockBeforeBreak(serverWorld, pos, state, toolStack, player, blockEntity);
-                if (replaced) {
-                    return false; // we handled it
-                }
+
             }
-            // If we didn’t replace it, let normal break happen (return true).
-            return true;
+
         });
     }
 
@@ -211,7 +208,6 @@ public class Chopable implements SimpleSynchronousResourceReloadListener {
         Block resultBlock = conditions.get(toolId);
         if (resultBlock != null) {
 
-            Block.dropStacks(oldState, world, pos, blockEntity, player, toolStack);
 
             BlockState newState = resultBlock.getDefaultState();
 
