@@ -1,7 +1,7 @@
 {
   "conditions": [
     {
-      "item": "ttll:flint_hatchet_twine",
+      "item": "minecraft:iron_axe",
       "result": "ttll:oak_trunk"
     }
   ]
