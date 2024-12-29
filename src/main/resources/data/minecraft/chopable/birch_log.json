@@ -1,7 +1,7 @@
 {
   "conditions": [
     {
-      "item": "ttll:flint_hatchet_twine",
+      "item": "#ttll:hatches",
       "result": "ttll:birch_trunk"
     }
   ]

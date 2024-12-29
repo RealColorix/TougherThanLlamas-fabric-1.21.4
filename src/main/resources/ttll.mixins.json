@@ -3,7 +3,8 @@
 	"package": "net.colorixer.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
-		"ReducedMiningSpeed"
+		"ReducedMiningSpeed",
+		"LogsRequireTool"
 	],
 	"injectors": {
 		"defaultRequire": 1

@@ -3,10 +3,14 @@
   "item.ttll.branch": "Branch",
   "item.ttll.flint_fragment": "Flint Fragment",
   "item.ttll.sharpend_bone": "Sharpend Bone",
-  "item.ttll.flint_hatchet_string": "Flint Hatchet",
+
+  "item.ttll.flint_hatchet": "Flint Hatchet",
+  "item.ttll.flint_hatchet_leather_grip": "Flint Hatchet",
+  "item.ttll.flint_hatchet_twine_leather_grip": "Flint Hatchet",
   "item.ttll.flint_hatchet_twine": "Flint Hatchet",
-  "item.ttll.flint_hatchet_leather_string": "Flint Hatchet",
-  "item.ttll.flint_hatchet_leather_twine": "Flint Hatchet",
+  "item.ttll.flint_hatchet_string": "Flint Hatchet",
+  "item.ttll.flint_hatchet_string_leather_grip": "Flint Hatchet",
+
   "item.ttll.leather_handle": "Leather Handle",
   "item.ttll.flint_knife": "Flint Knife",
   "item.ttll.grass_fiber": "Grass Fiber",
@@ -22,6 +26,8 @@
   "item.ttll.spruce_bark": "Spruce Bark",
   "item.ttll.jungle_bark": "Jungle Bark",
   "item.ttll.spear": "Spear",
+  "item.ttll.spunned_string": "Spunned String",
+  "item.ttll.string_knitting": "String Knitting",
 
   "item.ttll.knitting_grass_fiber": "Grass Fiber Knitting",
   "item.ttll.knitting_wool_white": "Wool Knitting",

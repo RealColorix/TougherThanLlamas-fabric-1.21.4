@@ -2,7 +2,7 @@
 	"credit": "Made with Blockbench",
 	"textures": {
 		"0": "minecraft:block/stripped_birch_log",
-		"1": "minecraft:block/stripped_oak_birch_top",
+		"1": "minecraft:block/stripped_birch_log_top",
 		"particle": "minecraft:block/stripped_birch_log"
 	},
 	"elements": [

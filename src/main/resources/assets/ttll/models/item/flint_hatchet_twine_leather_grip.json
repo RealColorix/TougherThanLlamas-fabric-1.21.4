@@ -2,7 +2,7 @@
   "parent": "minecraft:item/handheld",
   "textures": {
     "layer0": "ttll:item/flint_hatchet",
-    "layer1": "ttll:item/hatchet_stringing",
-    "layer2": "ttll:item/axe_leather"
+    "layer1": "ttll:item/hatchet_twining",
+    "layer2": "ttll:item/leather_grip"
   }
 }

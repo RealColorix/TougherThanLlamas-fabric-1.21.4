@@ -13,7 +13,8 @@ import java.util.function.Function;
 public class ModItems {
 
 
-    //Treesorts
+    // Tree Sorts --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
     public static final Item OAK_FIREWOOD = registerItem("oak_firewood", Item::new, new Item.Settings());
     public static final Item BIRCH_FIREWOOD = registerItem("birch_firewood", Item::new, new Item.Settings());
     public static final Item JUNGLE_FIREWOOD = registerItem("jungle_firewood", Item::new, new Item.Settings());
@@ -28,11 +29,7 @@ public class ModItems {
 
 
 
-    //AXES
-    public static final Item FLINT_HATCHET_STRING = registerItem("flint_hatchet_string", Item::new, new Item.Settings());
-    public static final Item FLINT_HATCHET_LEATHER_STRING = registerItem("flint_hatchet_leather_string", Item::new, new Item.Settings());
-    public static final Item FLINT_HATCHET_TWINE = registerItem("flint_hatchet_twine",settings -> new AxeItem(TTLLToolMaterial.FLINT, 2.0F, -3.0F, settings), new Item.Settings().maxDamage(10));
-    public static final Item FLINT_HATCHET_LEATHER_TWINE = registerItem("flint_hatchet_leather_twine", Item::new, new Item.Settings());
+
     public static final Item LEATHER_HANDLE = registerItem("leather_handle", Item::new, new Item.Settings());
 
     public static final Item POINTY_STICK = registerItem("pointy_stick", Item::new, new Item.Settings());
@@ -42,24 +39,41 @@ public class ModItems {
     public static final Item TWINE = registerItem("twine", Item::new, new Item.Settings());
     public static final Item SMALL_POINTY_STICKS = registerItem("small_pointy_stick", Item::new, new Item.Settings());
     public static final Item KNITTING_STICKS = registerItem("knitting_sticks", Item::new, new Item.Settings());
-    public static final Item FLINT_KNIFE = registerItem("flint_knife", settings -> new KnifeItem(TTLLToolMaterial.FLINT, 1.5F, -1.0F, settings), new Item.Settings());
     public static final Item GRASS_FIBER = registerItem("grass_fiber", Item::new, new Item.Settings());
+    public static final Item SPUNNED_STRING = registerItem("spunned_string", Item::new, new Item.Settings());
 
-    /** COLORED ITEMS ----------------------------------------------------------------------------------------------------------------------------------------------------***/
+    /// TOOLS --------- FLINT HATCHES   ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------**/
 
-    // WOOL ITEMS ----------------------------------------------------------------------------------------------------------------------------------------------------
+    public static final Item FLINT_HATCHET = registerItem("flint_hatchet",settings -> new AxeItem(TTLLToolMaterial.FLINT_FOR_AXE, 1.8F, -3.1F, settings), new Item.Settings());
+    public static final Item FLINT_HATCHET_LEATHER_GRIP = registerItem("flint_hatchet_leather_grip",settings -> new AxeItem(TTLLToolMaterial.FLINT_LEATHER_GRIP_FOR_AXE, 1.8F, -3.0F, settings), new Item.Settings());
+    public static final Item FLINT_HATCHET_TWINE = registerItem("flint_hatchet_twine",settings -> new AxeItem(TTLLToolMaterial.FLINT_TWINE_FOR_AXE, 2.0F, -3.0F, settings), new Item.Settings());
+    public static final Item FLINT_HATCHET_TWINE_LEATHER_GRIP = registerItem("flint_hatchet_twine_leather_grip",settings -> new AxeItem(TTLLToolMaterial.FLINT_TWINE_LEATHER_GRIP_FOR_AXE, 2.0F, -2.9F, settings), new Item.Settings());
+    public static final Item FLINT_HATCHET_STRING = registerItem("flint_hatchet_string",settings -> new AxeItem(TTLLToolMaterial.FLINT_STRING_FOR_AXE, 2.2F, -2.9F, settings), new Item.Settings());
+    public static final Item FLINT_HATCHET_STRING_LEATHER_GRIP = registerItem("flint_hatchet_string_leather_grip",settings -> new AxeItem(TTLLToolMaterial.FLINT_STRING_LEATHER_GRIP_FOR_AXE, 2.2F, -2.8F, settings), new Item.Settings());
+
+    // KNIVES ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    public static final Item FLINT_KNIFE = registerItem("flint_knife", settings -> new KnifeItem(TTLLToolMaterial.FLINT_STRING_FOR_AXE, 1.5F, -1.0F, settings), new Item.Settings());
+
+    /// COLORED ITEMS ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------***/
+    // WOOL ITEMS
 
     public static final Item WHITE_WOOL = registerItem("white_wool", Item::new, new Item.Settings());
 
-    // CLOTH ITEMS ----------------------------------------------------------------------------------------------------------------------------------------------------
+    // CLOTH ITEMS ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     public static final Item CLOTH_WOOL_WHITE = registerItem("cloth_wool_white", Item::new, new Item.Settings());
 
-    // KNITTING ITEMS ----------------------------------------------------------------------------------------------------------------------------------------------------
+    // KNITTING ITEMS ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     public static final Item KNITTING_GRASS_FIBER = registerItem(
             "knitting_grass_fiber",
             settings -> new KnittingSticksItem(settings, 90, ModItems.TWINE, 1, SoundEvents.BLOCK_GRASS_STEP),
+            new Item.Settings().maxCount(1));
+
+    public static final Item STRING_KNITTING = registerItem(
+            "string_knitting",
+            settings -> new KnittingSticksItem(settings, 270, ModItems.SPUNNED_STRING, 1, SoundEvents.BLOCK_COBWEB_HIT),
             new Item.Settings().maxCount(1));
 
     public static final Item KNITTING_WOOL_WHITE = registerItem(
@@ -68,7 +82,7 @@ public class ModItems {
             new Item.Settings().maxCount(1));
 
 
-    // REGISTRATION ----------------------------------------------------------------------------------------------------------------------------------------------------
+    // REGISTRATION ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
     public static Item registerItem(String path, Function<Item.Settings, Item> factory, Item.Settings settings) {
@@ -85,10 +99,6 @@ public class ModItems {
             entries.add(BRANCH);
             entries.add(FLINT_FRAGMENT);
             entries.add(SHARPEND_BONE);
-            entries.add(FLINT_HATCHET_TWINE);
-            entries.add(FLINT_HATCHET_STRING);
-            entries.add(FLINT_HATCHET_LEATHER_TWINE);
-            entries.add(FLINT_HATCHET_LEATHER_STRING);
             entries.add(LEATHER_HANDLE);
             entries.add(TWINE);
             entries.add(SMALL_POINTY_STICKS);
@@ -107,6 +117,15 @@ public class ModItems {
             entries.add(KNITTING_WOOL_WHITE);
             entries.add(CLOTH_WOOL_WHITE);
             entries.add(WHITE_WOOL);
+            entries.add(FLINT_HATCHET);
+            entries.add(FLINT_HATCHET_LEATHER_GRIP);
+            entries.add(FLINT_HATCHET_TWINE);
+            entries.add(FLINT_HATCHET_TWINE_LEATHER_GRIP);
+            entries.add(FLINT_HATCHET_STRING);
+            entries.add(FLINT_HATCHET_STRING_LEATHER_GRIP);
+            entries.add(SPUNNED_STRING);
+            entries.add(STRING_KNITTING);
+
         });
     }
 }

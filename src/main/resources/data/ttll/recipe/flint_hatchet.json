@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "/": "ttll:pointy_stick",
+    "F": "minecraft:flint"
+  },
+  "pattern": [
+    " F",
+    "/ "
+  ],
+  "result": {
+    "count": 1,
+    "id": "ttll:flint_hatchet"
+  }
+}
