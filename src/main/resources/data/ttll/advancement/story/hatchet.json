@@ -1,0 +1,36 @@
+{
+  "parent": "minecraft:story/root",
+  "criteria": {
+    "get_hatchet": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#ttll:hatches"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.story.hatchet.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "ttll:flint_hatchet"
+    },
+    "title": {
+      "translate": "advancements.story.hatchet.title"
+    },
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "requirements": [
+    [
+      "get_hatchet"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

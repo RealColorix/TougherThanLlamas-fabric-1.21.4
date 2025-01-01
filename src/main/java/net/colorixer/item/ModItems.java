@@ -29,8 +29,12 @@ public class ModItems {
 
 
 
-
+    public static final Item CRUDE_BRUSH = registerItem("crude_brush", BrushItem::new, new Item.Settings().maxCount(1).maxDamage(16));
     public static final Item LEATHER_HANDLE = registerItem("leather_handle", Item::new, new Item.Settings());
+    public static final Item ROCK = registerItem("rock", Item::new, new Item.Settings());
+    public static final Item SHARP_ROCK = registerItem("sharp_rock", Item::new, new Item.Settings());
+    public static final Item CRUDE_AXE = registerItem("crude_axe",settings -> new DraxItem(TTLLToolMaterial.CRUDE, 2F, -3.3F, settings), new Item.Settings());
+
 
     public static final Item POINTY_STICK = registerItem("pointy_stick", Item::new, new Item.Settings());
     public static final Item BRANCH = registerItem("branch", Item::new, new Item.Settings());
@@ -125,6 +129,8 @@ public class ModItems {
             entries.add(FLINT_HATCHET_STRING_LEATHER_GRIP);
             entries.add(SPUNNED_STRING);
             entries.add(STRING_KNITTING);
+            entries.add(CRUDE_BRUSH);
+            entries.add(CRUDE_AXE);
 
         });
     }

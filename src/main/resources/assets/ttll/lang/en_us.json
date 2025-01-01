@@ -33,7 +33,10 @@
   "item.ttll.knitting_wool_white": "Wool Knitting",
   "item.ttll.cloth_wool_white": "Wool Cloth",
   "item.ttll.white_wool": "Knitting Wool",
+  "item.ttll.crude_brush": "Crude Brush",
+  "item.ttll.crude_axe": "Crude Axe",
 
+  "block.ttll.campfire": "Campfire",
   "block.ttll.oak_trunk": "Oak Trunk",
   "block.ttll.oak_stem": "Oak Stem",
   "block.ttll.birch_trunk": "Birch Trunk",
@@ -41,6 +44,14 @@
   "block.ttll.jungle_trunk": "Jungle Trunk",
   "block.ttll.jungle_stem": "Jungle Stem",
   "block.ttll.spruce_trunk": "Spruce Trunk",
-  "block.ttll.spruce_stem": "Spruce Stem"
+  "block.ttll.spruce_stem": "Spruce Stem",
+  "block.ttll.wicker": "Wicker",
 
+  "screen.ttll.achievements": "Achievements",
+
+
+  "advancements.story.hatchet.title": "Chop Away",
+  "advancements.story.hatchet.description": "Tinker Together an Axe",
+  "advancements.story.crude_axe.title": "Getting an Upgrade",
+  "advancements.story.crude_axe.description": "Craft a Crude Pick"
 }
