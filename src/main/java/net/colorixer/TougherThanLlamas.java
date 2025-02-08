@@ -19,7 +19,6 @@ public class TougherThanLlamas implements ModInitializer {
 		ModItems.registerModItems();
 		ModBlocks.registerModBlocks();
 		ItemsThatCanHitAndBreak.register();
-
 		Chopable.initialize();
 
 

@@ -475,6 +475,15 @@
     "minecraft:bamboo_mosaic_stairs",
     "#minecraft:bamboo_blocks",
     "minecraft:chiseled_bookshelf",
-    "minecraft:creaking_heart"
+    "minecraft:creaking_heart",
+
+    "ttll:oak_trunk",
+    "ttll:oak_stem",
+    "ttll:birch_trunk",
+    "ttll:birch_stem",
+    "ttll:jungle_trunk",
+    "ttll:jungle_stem",
+    "ttll:spruce_trunk",
+    "ttll:spruce_stem"
   ]
 }

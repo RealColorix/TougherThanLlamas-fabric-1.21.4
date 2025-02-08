@@ -3,6 +3,10 @@
     {
       "item": "#ttll:hatches",
       "result": "ttll:spruce_trunk"
+    },
+    {
+      "item": "#ttll:crude_draxes",
+      "result": "ttll:spruce_trunk"
     }
   ]
 }

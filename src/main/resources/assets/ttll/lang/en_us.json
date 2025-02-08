@@ -3,6 +3,8 @@
   "item.ttll.branch": "Branch",
   "item.ttll.flint_fragment": "Flint Fragment",
   "item.ttll.sharpend_bone": "Sharpend Bone",
+  "item.ttll.rock": "Rock",
+  "item.ttll.sharp_rock": "Sharp Rock",
 
   "item.ttll.flint_hatchet": "Flint Hatchet",
   "item.ttll.flint_hatchet_leather_grip": "Flint Hatchet",
@@ -10,6 +12,13 @@
   "item.ttll.flint_hatchet_twine": "Flint Hatchet",
   "item.ttll.flint_hatchet_string": "Flint Hatchet",
   "item.ttll.flint_hatchet_string_leather_grip": "Flint Hatchet",
+
+  "item.ttll.crude_drax": "Crude Drax",
+  "item.ttll.crude_drax_twine": "Crude Drax",
+  "item.ttll.crude_drax_string": "Crude Drax",
+  "item.ttll.crude_drax_leather_grip": "Crude Drax",
+  "item.ttll.crude_drax_twine_leather_grip": "Crude Drax",
+  "item.ttll.crude_drax_string_leather_grip": "Crude Drax",
 
   "item.ttll.leather_handle": "Leather Handle",
   "item.ttll.flint_knife": "Flint Knife",
@@ -52,6 +61,6 @@
 
   "advancements.story.hatchet.title": "Chop Away",
   "advancements.story.hatchet.description": "Tinker Together an Axe",
-  "advancements.story.crude_axe.title": "Getting an Upgrade",
-  "advancements.story.crude_axe.description": "Craft a Crude Pick"
+  "advancements.story.crude_drax.title": "Getting an Upgrade",
+  "advancements.story.crude_drax.description": "Craft a Crude Drax"
 }

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/handheld",
   "textures": {
-    "layer0": "ttll:item/crude_axe"
+    "layer0": "ttll:item/sharp_rock"
   }
 }

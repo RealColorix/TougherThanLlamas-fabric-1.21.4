@@ -1,11 +1,11 @@
 {
   "parent": "ttll:story/hatchet",
   "criteria": {
-    "get_crude_axe": {
+    "get_crude_drax": {
       "conditions": {
         "items": [
           {
-            "items": "#ttll:crude_axe"
+            "items": "#ttll:crude_draxes"
           }
         ]
       },
@@ -14,14 +14,14 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.story.crude_axe.description"
+      "translate": "advancements.story.crude_drax.description"
     },
     "icon": {
       "count": 1,
-      "id": "ttll:crude_axe"
+      "id": "ttll:crude_drax"
     },
     "title": {
-      "translate": "advancements.story.crude_axe.title"
+      "translate": "advancements.story.crude_drax.title"
     },
     "show_toast": true,
     "announce_to_chat": true,
@@ -29,7 +29,7 @@
   },
   "requirements": [
     [
-      "get_crude_axe"
+      "get_crude_drax"
     ]
   ],
   "sends_telemetry_event": true

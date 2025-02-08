@@ -3,15 +3,15 @@
   "category": "misc",
   "key": {
     "/": "#ttll:sticks",
-    "S": "ttll:twine",
-    "F": "minecraft:flint"
+    "S": "ttll:sharp_rock",
+    "s": "minecraft:string"
   },
   "pattern": [
-    "SF",
+    "sS",
     "/ "
   ],
   "result": {
     "count": 1,
-    "id": "ttll:flint_hatchet_twine"
+    "id": "ttll:crude_drax_string"
   }
 }

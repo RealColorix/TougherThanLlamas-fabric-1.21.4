@@ -2,16 +2,15 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "/": "#ttll:sticks",
-    "S": "ttll:twine",
-    "F": "minecraft:flint"
+    "/": "ttll:leather_handle",
+    "S": "ttll:sharp_rock"
   },
   "pattern": [
-    "SF",
+    " S",
     "/ "
   ],
   "result": {
     "count": 1,
-    "id": "ttll:flint_hatchet_twine"
+    "id": "ttll:crude_drax_leather_grip"
   }
 }

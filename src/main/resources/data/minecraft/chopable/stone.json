@@ -1,0 +1,8 @@
+{
+  "conditions": [
+    {
+      "item": "#ttll:crude_draxes",
+      "result": "minecraft:cobblestone"
+    }
+  ]
+}

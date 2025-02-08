@@ -33,7 +33,6 @@ public class ModItems {
     public static final Item LEATHER_HANDLE = registerItem("leather_handle", Item::new, new Item.Settings());
     public static final Item ROCK = registerItem("rock", Item::new, new Item.Settings());
     public static final Item SHARP_ROCK = registerItem("sharp_rock", Item::new, new Item.Settings());
-    public static final Item CRUDE_AXE = registerItem("crude_axe",settings -> new DraxItem(TTLLToolMaterial.CRUDE, 2F, -3.3F, settings), new Item.Settings());
 
 
     public static final Item POINTY_STICK = registerItem("pointy_stick", Item::new, new Item.Settings());
@@ -54,6 +53,15 @@ public class ModItems {
     public static final Item FLINT_HATCHET_TWINE_LEATHER_GRIP = registerItem("flint_hatchet_twine_leather_grip",settings -> new AxeItem(TTLLToolMaterial.FLINT_TWINE_LEATHER_GRIP_FOR_AXE, 2.0F, -2.9F, settings), new Item.Settings());
     public static final Item FLINT_HATCHET_STRING = registerItem("flint_hatchet_string",settings -> new AxeItem(TTLLToolMaterial.FLINT_STRING_FOR_AXE, 2.2F, -2.9F, settings), new Item.Settings());
     public static final Item FLINT_HATCHET_STRING_LEATHER_GRIP = registerItem("flint_hatchet_string_leather_grip",settings -> new AxeItem(TTLLToolMaterial.FLINT_STRING_LEATHER_GRIP_FOR_AXE, 2.2F, -2.8F, settings), new Item.Settings());
+
+    // CRUDE DRAXES ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    public static final Item CRUDE_DRAX = registerItem("crude_drax",settings -> new DraxItem(TTLLToolMaterial.CRUDE_FOR_DRAX, 1.5F, -3.1F, settings), new Item.Settings());
+    public static final Item CRUDE_DRAX_LEATHER_GRIP = registerItem("crude_drax_leather_grip",settings -> new DraxItem(TTLLToolMaterial.CRUDE_LEATHER_GRIP_FOR_DRAX, 1.5F, -3.0F, settings), new Item.Settings());
+    public static final Item CRUDE_DRAX_TWINE = registerItem("crude_drax_twine",settings -> new DraxItem(TTLLToolMaterial.CRUDE_TWINE_FOR_DRAX, 1.5F, -3.0F, settings), new Item.Settings());
+    public static final Item CRUDE_DRAX_TWINE_LEATHER_GRIP = registerItem("crude_drax_twine_leather_grip",settings -> new DraxItem(TTLLToolMaterial.CRUDE_TWINE_LEATHER_GRIP_FOR_DRAX, 1.5F, -2.9F, settings), new Item.Settings());
+    public static final Item CRUDE_DRAX_STRING = registerItem("crude_drax_string",settings -> new DraxItem(TTLLToolMaterial.CRUDE_STRING_FOR_DRAX, 1.5F, -2.9F, settings), new Item.Settings());
+    public static final Item CRUDE_DRAX_STRING_LEATHER_GRIP = registerItem("crude_drax_string_leather_grip",settings -> new DraxItem(TTLLToolMaterial.CRUDE_STRING_LEATHER_GRIP_FOR_DRAX, 1.5F, -2.8F, settings), new Item.Settings());
 
     // KNIVES ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -130,7 +138,15 @@ public class ModItems {
             entries.add(SPUNNED_STRING);
             entries.add(STRING_KNITTING);
             entries.add(CRUDE_BRUSH);
-            entries.add(CRUDE_AXE);
+            entries.add(CRUDE_DRAX);
+            entries.add(CRUDE_DRAX_TWINE);
+            entries.add(CRUDE_DRAX_STRING);
+            entries.add(CRUDE_DRAX_LEATHER_GRIP);
+            entries.add(CRUDE_DRAX_TWINE_LEATHER_GRIP);
+            entries.add(CRUDE_DRAX_STRING_LEATHER_GRIP);
+            entries.add(ROCK);
+            entries.add(SHARP_ROCK);
+
 
         });
     }

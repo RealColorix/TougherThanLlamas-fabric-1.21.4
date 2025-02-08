@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "/": "ttll:pointy_stick",
+    "/": "#ttll:sticks",
     "S": "minecraft:string",
     "F": "minecraft:flint"
   },

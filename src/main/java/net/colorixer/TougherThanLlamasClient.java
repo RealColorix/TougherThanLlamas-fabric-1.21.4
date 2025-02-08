@@ -15,10 +15,10 @@ public class TougherThanLlamasClient implements ClientModInitializer {
 
 
 		BlockRenderLayerMap.INSTANCE.putBlock(
-				ModBlocks.CAMPFIRE,
+				ModBlocks.WICKER,
 
 				RenderLayer.getCutout()
-
 		);
+
 	}
 }

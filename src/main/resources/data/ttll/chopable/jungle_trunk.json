@@ -3,6 +3,10 @@
     {
       "item": "#ttll:hatches",
       "result": "ttll:jungle_stem"
+    },
+    {
+      "item": "#ttll:crude_draxes",
+      "result": "ttll:jungle_stem"
     }
   ]
 }
