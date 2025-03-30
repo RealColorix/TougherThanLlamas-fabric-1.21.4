@@ -30,7 +30,7 @@ public class KnifeItem extends Item {
     @Override
     public void postDamageEntity(ItemStack stack, LivingEntity target, LivingEntity attacker) {
 
-        stack.damage(3, attacker, EquipmentSlot.MAINHAND);
+        stack.damage(9, attacker, EquipmentSlot.MAINHAND);
     }
 
     @Override

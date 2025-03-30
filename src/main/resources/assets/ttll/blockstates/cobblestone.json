@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "ttll:block/cobblestone"
+      },
+      {
+        "model": "ttll:block/cobblestone_mirrored"
+      },
+      {
+        "model": "ttll:block/cobblestone",
+        "y": 180
+      },
+      {
+        "model": "ttll:block/cobblestone_mirrored",
+        "y": 180
+      }
+    ]
+  }
+}

@@ -388,6 +388,11 @@
     "minecraft:resin_brick_slab",
     "minecraft:resin_brick_wall",
     "minecraft:resin_brick_stairs",
-    "minecraft:chiseled_resin_bricks"
+    "minecraft:chiseled_resin_bricks",
+
+    "ttll:weathered_stone",
+    "ttll:cobblestone",
+    "ttll:cracked_stone",
+    "ttll:shattered_stone"
   ]
 }

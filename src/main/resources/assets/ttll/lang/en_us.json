@@ -12,6 +12,7 @@
   "item.ttll.flint_hatchet_twine": "Flint Hatchet",
   "item.ttll.flint_hatchet_string": "Flint Hatchet",
   "item.ttll.flint_hatchet_string_leather_grip": "Flint Hatchet",
+  "item.ttll.flint_chisel": "Flint Chisel",
 
   "item.ttll.crude_drax": "Crude Drax",
   "item.ttll.crude_drax_twine": "Crude Drax",
@@ -38,6 +39,10 @@
   "item.ttll.spunned_string": "Spunned String",
   "item.ttll.string_knitting": "String Knitting",
 
+  "item.ttll.dirt_pile": "Dirt Pile",
+  "item.ttll.gravel_pile": "Gravel Pile",
+  "item.ttll.sand_pile": "Sand Pile",
+
   "item.ttll.knitting_grass_fiber": "Grass Fiber Knitting",
   "item.ttll.knitting_wool_white": "Wool Knitting",
   "item.ttll.cloth_wool_white": "Wool Cloth",
@@ -55,6 +60,11 @@
   "block.ttll.spruce_trunk": "Spruce Trunk",
   "block.ttll.spruce_stem": "Spruce Stem",
   "block.ttll.wicker": "Wicker",
+
+  "block.ttll.weathered_stone": "Weathered Stone",
+  "block.ttll.cobblestone": "Cobblestone",
+  "block.ttll.cracked_stone": "Cracked Stone",
+  "block.ttll.shattered_stone": "Shattered Stone",
 
   "screen.ttll.achievements": "Achievements",
 

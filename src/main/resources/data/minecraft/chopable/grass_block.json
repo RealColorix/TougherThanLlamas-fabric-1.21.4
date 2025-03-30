@@ -2,7 +2,8 @@
   "conditions": [
     {
       "item": "minecraft:iron_hoe",
-      "result": "minecraft:dirt"
+      "result": "minecraft:dirt",
+      "doloottable": false
     }
   ]
 }

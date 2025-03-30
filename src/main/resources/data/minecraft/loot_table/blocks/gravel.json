@@ -36,9 +36,9 @@
                   "conditions": [
                     {
                       "chances": [
-                        0.0625,
                         0.125,
                         0.25,
+                        0.375,
                         0.5
                       ],
                       "condition": "minecraft:table_bonus",
@@ -52,8 +52,8 @@
                   "conditions": [
                     {
                       "chances": [
-                        0.125,
                         0.25,
+                        0.375,
                         0.5,
                         1
                       ],

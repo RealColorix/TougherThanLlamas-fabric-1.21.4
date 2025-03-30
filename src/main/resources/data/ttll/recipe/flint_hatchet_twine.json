@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "/": "#ttll:sticks",
+    "/": "minecraft:stick",
     "S": "ttll:twine",
     "F": "minecraft:flint"
   },

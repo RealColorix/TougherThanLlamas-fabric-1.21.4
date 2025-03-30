@@ -28,6 +28,9 @@ public class ModItems {
 
 
 
+    public static final Item DIRT_PILE = registerItem("dirt_pile", Item::new, new Item.Settings());
+    public static final Item GRAVEL_PILE = registerItem("gravel_pile", Item::new, new Item.Settings());
+    public static final Item SAND_PILE = registerItem("sand_pile", Item::new, new Item.Settings());
 
     public static final Item CRUDE_BRUSH = registerItem("crude_brush", BrushItem::new, new Item.Settings().maxCount(1).maxDamage(16));
     public static final Item LEATHER_HANDLE = registerItem("leather_handle", Item::new, new Item.Settings());
@@ -63,9 +66,12 @@ public class ModItems {
     public static final Item CRUDE_DRAX_STRING = registerItem("crude_drax_string",settings -> new DraxItem(TTLLToolMaterial.CRUDE_STRING_FOR_DRAX, 1.5F, -2.9F, settings), new Item.Settings());
     public static final Item CRUDE_DRAX_STRING_LEATHER_GRIP = registerItem("crude_drax_string_leather_grip",settings -> new DraxItem(TTLLToolMaterial.CRUDE_STRING_LEATHER_GRIP_FOR_DRAX, 1.5F, -2.8F, settings), new Item.Settings());
 
-    // KNIVES ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    // INDIVIDUAL ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-    public static final Item FLINT_KNIFE = registerItem("flint_knife", settings -> new KnifeItem(TTLLToolMaterial.FLINT_STRING_FOR_AXE, 1.5F, -1.0F, settings), new Item.Settings());
+    public static final Item FLINT_KNIFE = registerItem("flint_knife", settings -> new KnifeItem(TTLLToolMaterial.FLINT_TWINE_LEATHER_GRIP_FOR_AXE, 1.5F, -1.0F, settings), new Item.Settings());
+
+    public static final Item FLINT_CHISEL = registerItem("flint_chisel",settings -> new PickaxeItem(TTLLToolMaterial.FLINT_FOR_CHISEL, 1, -1.7F, settings), new Item.Settings());
+
 
     /// COLORED ITEMS ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------***/
     // WOOL ITEMS
@@ -109,6 +115,9 @@ public class ModItems {
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(entries -> {
             entries.add(POINTY_STICK);
             entries.add(BRANCH);
+            entries.add(DIRT_PILE);
+            entries.add(GRAVEL_PILE);
+            entries.add(SAND_PILE);
             entries.add(FLINT_FRAGMENT);
             entries.add(SHARPEND_BONE);
             entries.add(LEATHER_HANDLE);
@@ -146,7 +155,7 @@ public class ModItems {
             entries.add(CRUDE_DRAX_STRING_LEATHER_GRIP);
             entries.add(ROCK);
             entries.add(SHARP_ROCK);
-
+            entries.add(FLINT_CHISEL);
 
         });
     }

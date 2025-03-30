@@ -18,6 +18,18 @@ import java.util.function.Function;
 
 public class ModBlocks {
 
+    /** STONE **/
+    public static final Block WEATHERED_STONE = registerBlock("weathered_stone", Block::new, Block.Settings.create()
+            .mapColor(MapColor.STONE_GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1.48F, 5.95F));
+    public static final Block COBBLESTONE = registerBlock("cobblestone", Block::new, Block.Settings.create()
+            .mapColor(MapColor.STONE_GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1.46F, 5.9F));
+    public static final Block CRACKED_STONE = registerBlock("cracked_stone", Block::new, Block.Settings.create()
+            .mapColor(MapColor.STONE_GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1.44F, 5.85F));
+    public static final Block SHATTERED_STONE = registerBlock("shattered_stone", Block::new, Block.Settings.create()
+            .mapColor(MapColor.STONE_GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1.5F, 5.8F));
+
+
+    /** WOOD **/
     public static final Block OAK_TRUNK = registerBlock("oak_trunk", TrunkBlock::new, Block.Settings.create()
                     .strength(2f).burnable().instrument(NoteBlockInstrument.BASS).requiresTool().mapColor(MapColor.OAK_TAN).sounds(BlockSoundGroup.WOOD));
     public static final Block OAK_STEM = registerBlock("oak_stem", StemBlock::new, Block.Settings.create()
@@ -67,10 +79,13 @@ public class ModBlocks {
     public static void registerModBlocks() {
         TougherThanLlamas.LOGGER.info("Registering Mod Blocks for " + TougherThanLlamas.MOD_ID);
 
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.BUILDING_BLOCKS).register(entries -> {
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.NATURAL).register(entries -> {
             entries.add(ModBlocks.OAK_TRUNK);
             entries.add(ModBlocks.OAK_STEM);
-            entries.add(ModBlocks.WICKER);
+            entries.add(ModBlocks.WEATHERED_STONE);
+            entries.add(ModBlocks.COBBLESTONE);
+            entries.add(ModBlocks.CRACKED_STONE);
+            entries.add(ModBlocks.SHATTERED_STONE);
         });
     }
 }

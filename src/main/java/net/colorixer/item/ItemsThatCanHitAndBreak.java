@@ -1,5 +1,6 @@
 package net.colorixer.item;
 
+import net.colorixer.block.ModBlocks;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -23,9 +24,7 @@ public class ItemsThatCanHitAndBreak {
     private static final Random random = new Random();
 
     public static void register() {
-        UseBlockCallback.EVENT.register((player, world, hand, hitResult) -> {
-            return onBlockRightClick(player, world, hand, hitResult);
-        });
+        UseBlockCallback.EVENT.register(ItemsThatCanHitAndBreak::onBlockRightClick);
     }
 
     private static ActionResult onBlockRightClick(PlayerEntity player, World world, Hand hand, BlockHitResult hitResult) {
@@ -135,10 +134,10 @@ public class ItemsThatCanHitAndBreak {
                     return ActionResult.PASS;
                 }
             }else if (heldItemStack.getItem() == ModItems.ROCK) {
-                if (random.nextDouble() <= 0.225) {
+                if (random.nextDouble() <= 0.3) {
                     // Play the flint and steel use sound
-                    world.playSound(null, pos, SoundEvents.BLOCK_STONE_BREAK, SoundCategory.PLAYERS,
-                            1.0F, 0.4F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
+                    world.playSound(null, pos, SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.PLAYERS,
+                            0.5F, 0.2F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
                     heldItemStack.decrement(1);
                     ItemStack stack = new ItemStack(ModItems.SHARP_ROCK, 1);
                     dropItem(world, player, stack);
@@ -193,6 +192,8 @@ public class ItemsThatCanHitAndBreak {
         return block == Blocks.STONE || block == Blocks.GRANITE || block == Blocks.DIORITE ||
                 block == Blocks.ANDESITE || block == Blocks.DEEPSLATE || block == Blocks.TUFF ||
                 block == Blocks.CALCITE || block == Blocks.SMOOTH_BASALT || block == Blocks.BASALT ||
-                block == Blocks.BLACKSTONE || block == Blocks.COBBLESTONE || block == Blocks.COBBLED_DEEPSLATE;
+                block == Blocks.BLACKSTONE || block == Blocks.COBBLESTONE || block == Blocks.COBBLED_DEEPSLATE||
+                block == ModBlocks.WEATHERED_STONE || block == ModBlocks.COBBLESTONE || block == ModBlocks.CRACKED_STONE ||
+                block == ModBlocks.SHATTERED_STONE;
     }
 }

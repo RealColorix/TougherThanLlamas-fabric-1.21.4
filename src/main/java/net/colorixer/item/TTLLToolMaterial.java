@@ -9,6 +9,12 @@ public class TTLLToolMaterial {
 
     /** ALL DIFFERENT TOOL MATERIALS */
 
+
+
+    public static final ToolMaterial FLINT_FOR_CHISEL = new ToolMaterial(
+            BlockTags.INCORRECT_FOR_WOODEN_TOOL, 3,1F,  0, 1, ItemTags.WOODEN_TOOL_MATERIALS);
+
+
     //  FLINT   --------------------------------------------------------------------------------------------------------------------------------------------------------
 
     public static final ToolMaterial FLINT_FOR_AXE = new ToolMaterial(

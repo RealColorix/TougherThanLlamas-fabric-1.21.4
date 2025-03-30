@@ -11,6 +11,8 @@ import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKeys;
@@ -22,6 +24,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.property.Property;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.event.GameEvent;
 import net.minecraft.item.ItemStack;
 import net.minecraft.block.entity.BlockEntity;
@@ -56,13 +59,14 @@ public class Chopable implements SimpleSynchronousResourceReloadListener {
         // Register this class as a resource reload listener to load JSON configurations.
         ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new Chopable());
 
-        // Register the AFTER break event to handle block replacement after the block breaks.
-        PlayerBlockBreakEvents.AFTER.register((world, player, pos, state, blockEntity) -> {
+        // Register the BEFORE break event to handle block replacement before the block breaks.
+        PlayerBlockBreakEvents.BEFORE.register((world, player, pos, state, blockEntity) -> {
             if (!world.isClient && world instanceof ServerWorld serverWorld) {
                 ItemStack toolStack = player.getMainHandStack();
-                // Attempt to replace the block after it breaks.
-                tryReplaceBlockAfterBreak(serverWorld, pos, state, toolStack, player, blockEntity);
+                // Attempt to replace the block before it breaks.
+                return tryReplaceBlockBeforeBreak(serverWorld, pos, state, toolStack, player, blockEntity);
             }
+            return true; // Allow the block to break normally if no replacement is needed.
         });
     }
 
@@ -164,6 +168,21 @@ public class Chopable implements SimpleSynchronousResourceReloadListener {
                             replacementConditions.setDefaultReplacement(resultBlock);
                             System.out.println("Added default replacement: " + resultId + " for block " + fullBlockId);
                         }
+
+                        // Handle blockabovedisables condition.
+                        if (obj.has("blockabovedisables")) {
+                            boolean blockAboveDisables = obj.get("blockabovedisables").getAsBoolean();
+                            replacementConditions.setBlockAboveDisables(blockAboveDisables);
+                            System.out.println("Added blockabovedisables: " + blockAboveDisables + " for block " + fullBlockId);
+                        }
+
+                        // Handle doloottable condition.
+                        if (obj.has("doloottable")) {
+                            boolean doLootTable = obj.get("doloottable").getAsBoolean();
+                            replacementConditions.setDoLootTable(doLootTable);
+                            System.out.println("Added doloottable: " + doLootTable + " for block " + fullBlockId);
+                        }
+
                     }
 
                     // Add to the new map if any conditions are set.
@@ -209,11 +228,11 @@ public class Chopable implements SimpleSynchronousResourceReloadListener {
     }
 
     /* -------------------------------------------------------------------------------------------- */
-    /*  Block Replacement Logic After Break                                                      */
+    /*  Block Replacement Logic Before Break                                                      */
     /* -------------------------------------------------------------------------------------------- */
 
     /**
-     * Attempts to replace the block after it breaks based on the tool used.
+     * Attempts to replace the block before it breaks based on the tool used.
      *
      * @param world       The server world.
      * @param pos         The position of the block.
@@ -221,8 +240,9 @@ public class Chopable implements SimpleSynchronousResourceReloadListener {
      * @param toolStack   The tool used to break the block.
      * @param player      The player who broke the block.
      * @param blockEntity The block entity, if any.
+     * @return True if the block should break normally, false if it should be canceled.
      */
-    private static void tryReplaceBlockAfterBreak(
+    private static boolean tryReplaceBlockBeforeBreak(
             ServerWorld world,
             BlockPos pos,
             BlockState oldState,
@@ -231,11 +251,15 @@ public class Chopable implements SimpleSynchronousResourceReloadListener {
             BlockEntity blockEntity
     ) {
         Block block = oldState.getBlock();
-
-        // Retrieve replacement conditions for the block.
         BlockReplacementConditions conditions = CHOPABLE_MAP.get(block);
+
         if (conditions == null) {
-            return; // No replacement conditions set for this block.
+            return true; // No replacement conditions set for this block; allow normal break.
+        }
+
+        // Check if there's a block above and if blockabovedisables is true.
+        if (conditions.isBlockAboveDisables() && !world.isAir(pos.up())) {
+            return true; // Allow normal break.
         }
 
         // Get the tool's identifier.
@@ -260,7 +284,55 @@ public class Chopable implements SimpleSynchronousResourceReloadListener {
             resultBlock = conditions.getDefaultReplacement();
         }
 
+
+
         if (resultBlock != null) {
+            // Drop the block's loot table if doLootTable is true.
+
+            if (!toolStack.isEmpty() && toolStack.isDamageable() && !player.isCreative()) {
+                toolStack.damage(1, player);
+            }
+
+            if (conditions.shouldDoLootTable()) {
+                // Get positions
+                Vec3d blockCenter = Vec3d.ofCenter(pos);
+                Vec3d playerEyes = player.getEyePos();
+                boolean playerBelow = playerEyes.y < blockCenter.y;
+
+                // Calculate spawn position offset (0.75 blocks toward player)
+                Vec3d direction = playerEyes.subtract(blockCenter).normalize();
+                Vec3d spawnPos = blockCenter.add(direction.multiply(0.75));
+
+                // Calculate velocity - DIFFERENT BEHAVIOR BASED ON POSITION
+                Vec3d velocity;
+                if (playerBelow) {
+                    // Player is below - items should fall down toward player
+                    velocity = new Vec3d(
+                            (world.random.nextDouble() - 0.5) * 0.1,  // Small random horizontal
+                            -0.2,                                    // Force downward
+                            (world.random.nextDouble() - 0.5) * 0.1  // Small random horizontal
+                    );
+                } else {
+                    // Player is above - items should arc up toward player
+                    velocity = direction.multiply(0.25).add(0, 0.15, 0); // Toward player + slight upward
+                }
+
+                // Drop items
+                for (ItemStack stack : Block.getDroppedStacks(oldState, world, pos, blockEntity, player, toolStack)) {
+                    ItemEntity itemEntity = new ItemEntity(
+                            world,
+                            spawnPos.x, spawnPos.y, spawnPos.z,
+                            stack,
+                            velocity.x, velocity.y, velocity.z
+                    );
+
+                    world.spawnEntity(itemEntity);
+                }
+            }
+
+
+
+
             BlockState newState = resultBlock.getDefaultState();
 
             // Transfer relevant properties from the old block to the new block.
@@ -275,7 +347,12 @@ public class Chopable implements SimpleSynchronousResourceReloadListener {
 
             // Emit a game event for the block change.
             world.emitGameEvent(null, GameEvent.BLOCK_CHANGE, pos);
+
+
+            return false; // Cancel the block break event.
         }
+
+        return true; // Allow normal break if no replacement is needed.
     }
 
     /**
@@ -308,6 +385,12 @@ public class Chopable implements SimpleSynchronousResourceReloadListener {
         // Default replacement block (if any).
         private Block defaultReplacement = null;
 
+        // Whether a block above disables replacement.
+        private boolean blockAboveDisables = false;
+
+        // Whether the block should drop its loot table.
+        private boolean doLootTable = true; // Default to true for backward compatibility
+
         /**
          * Adds a specific item and its corresponding replacement block.
          *
@@ -336,6 +419,24 @@ public class Chopable implements SimpleSynchronousResourceReloadListener {
             this.defaultReplacement = defaultReplacement;
         }
 
+        /**
+         * Sets whether a block above disables replacement.
+         *
+         * @param blockAboveDisables Whether a block above disables replacement.
+         */
+        public void setBlockAboveDisables(boolean blockAboveDisables) {
+            this.blockAboveDisables = blockAboveDisables;
+        }
+
+        /**
+         * Sets whether the block should drop its loot table.
+         *
+         * @param doLootTable Whether the block should drop its loot table.
+         */
+        public void setDoLootTable(boolean doLootTable) {
+            this.doLootTable = doLootTable;
+        }
+
         public Map<String, Block> getSpecificItemMap() {
             return specificItemMap;
         }
@@ -346,6 +447,14 @@ public class Chopable implements SimpleSynchronousResourceReloadListener {
 
         public Block getDefaultReplacement() {
             return defaultReplacement;
+        }
+
+        public boolean isBlockAboveDisables() {
+            return blockAboveDisables;
+        }
+
+        public boolean shouldDoLootTable() {
+            return doLootTable;
         }
 
         /**

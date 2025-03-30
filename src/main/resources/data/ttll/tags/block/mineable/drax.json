@@ -484,6 +484,11 @@
     "ttll:jungle_trunk",
     "ttll:jungle_stem",
     "ttll:spruce_trunk",
-    "ttll:spruce_stem"
+    "ttll:spruce_stem",
+
+    "ttll:weathered_stone",
+    "ttll:cobblestone",
+    "ttll:cracked_stone",
+    "ttll:shattered_stone"
   ]
 }

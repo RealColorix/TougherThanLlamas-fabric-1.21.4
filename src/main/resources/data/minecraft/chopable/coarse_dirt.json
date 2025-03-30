@@ -2,7 +2,9 @@
   "conditions": [
     {
       "item": "minecraft:iron_hoe",
-      "result": "minecraft:farmland"
+      "result": "minecraft:farmland",
+      "blockabovedisables": true,
+      "doloottable": false
     }
   ]
 }

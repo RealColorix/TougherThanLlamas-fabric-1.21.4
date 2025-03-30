@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "ttll:block/weathered_stone"
+      },
+      {
+        "model": "ttll:block/weathered_stone_mirrored"
+      },
+      {
+        "model": "ttll:block/weathered_stone",
+        "y": 180
+      },
+      {
+        "model": "ttll:block/weathered_stone_mirrored",
+        "y": 180
+      }
+    ]
+  }
+}

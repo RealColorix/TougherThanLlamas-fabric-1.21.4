@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "ttll:block/cracked_stone"
+      },
+      {
+        "model": "ttll:block/cracked_stone_mirrored"
+      },
+      {
+        "model": "ttll:block/cracked_stone",
+        "y": 180
+      },
+      {
+        "model": "ttll:block/cracked_stone_mirrored",
+        "y": 180
+      }
+    ]
+  }
+}

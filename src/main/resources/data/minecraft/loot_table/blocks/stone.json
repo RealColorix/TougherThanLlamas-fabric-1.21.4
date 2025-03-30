@@ -34,33 +34,52 @@
                 {
                   "condition": "minecraft:match_tool",
                   "predicate": {
-                    "items": "#ttll:crude_draxes"
+                    "items": "#ttll:beginner_stone_mining_tools"
                   }
+                },
+                {
+                  "condition": "minecraft:random_chance",
+                  "chance": 0.1
                 }
               ],
-              "name": "minecraft:gravel"
+              "name": "ttll:rock"
+            },
+            {
+              "type": "minecraft:item",
+              "name": "ttll:gravel_pile",
+              "functions": [],
+              "conditions": [
+                {
+                  "condition": "minecraft:match_tool",
+                  "predicate": {
+                    "items": "#ttll:beginner_stone_mining_tools"
+                  }
+                }
+              ]
             },
             {
               "type": "minecraft:item",
               "name": "ttll:rock",
               "functions": [
                 {
-                  "function": "minecraft:limit_count",
-                  "limit": 8,
+                  "function": "minecraft:set_count",
+                  "count": {
+                    "type": "minecraft:constant",
+                    "value": 8
+                  },
+                  "add": false,
                   "conditions": [
                     {
-                      "condition": "minecraft:inverted",
-                      "term": {
-                        "condition": "minecraft:match_tool",
-                        "predicate": {
-                          "items": "#ttll:crude_draxes"
-                        }
-                      }
-                    },
-                    {
-                      "condition": "minecraft:inverted",
-                      "term": {
-                        "condition": "minecraft:survives_explosion"
+                      "condition": "minecraft:match_tool",
+                      "predicate": {
+                        "items": [
+                          "minecraft:netherite_pickaxe",
+                          "minecraft:diamond_pickaxe",
+                          "minecraft:iron_pickaxe",
+                          "minecraft:stone_pickaxe",
+                          "minecraft:golden_pickaxe",
+                          "minecraft:wooden_pickaxe"
+                        ]
                       }
                     }
                   ]
@@ -73,7 +92,22 @@
               "functions": [],
               "conditions": [
                 {
-                  "condition": "minecraft:survives_explosion"
+                  "condition": "minecraft:random_chance",
+                  "chance": 0.35
+                }
+              ]
+            },
+            {
+              "type": "minecraft:item",
+              "name": "ttll:gravel_pile",
+              "functions": [
+                {
+                  "function": "minecraft:set_count",
+                  "count": {
+                    "min": 1,
+                    "max": 3
+                  },
+                  "add": false
                 }
               ]
             }
