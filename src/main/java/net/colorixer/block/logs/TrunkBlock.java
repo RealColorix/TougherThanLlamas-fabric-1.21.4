@@ -1,4 +1,4 @@
-package net.colorixer.block;
+package net.colorixer.block.logs;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;

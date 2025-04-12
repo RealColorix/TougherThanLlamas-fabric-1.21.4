@@ -1,6 +1,9 @@
 package net.colorixer.block;
 
 import net.colorixer.TougherThanLlamas;
+import net.colorixer.block.brick_furnace.BrickFurnaceBlock;
+import net.colorixer.block.logs.StemBlock;
+import net.colorixer.block.logs.TrunkBlock;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.NoteBlockInstrument;
@@ -15,8 +18,29 @@ import net.minecraft.util.Identifier;
 import java.util.function.Function;
 
 
-
 public class ModBlocks {
+
+
+
+
+    //TILE ENTITES
+
+    public static final Block BRICK_FURNACE = registerBlock("brick_furnace", BrickFurnaceBlock::new, Block.Settings.create()
+            .mapColor(MapColor.DARK_RED).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1.5F, 5.8F)
+            .luminance(state -> state.get(BrickFurnaceBlock.LIT) ? 13 : 0)
+            .nonOpaque()
+    );
+
+
+    //  SLABS
+
+
+
+    public static final Block GRAVEL_SLAB = registerBlock("gravel_slab", FallingSlabBlock::new, Block.Settings.copy(Blocks.GRAVEL));
+    public static final Block SAND_SLAB = registerBlock("sand_slab", FallingSlabBlock::new, Block.Settings.copy(Blocks.SAND));
+    public static final Block LOOSE_DIRT_SLAB = registerBlock("loose_dirt_slab", FallingSlabBlock::new, Block.Settings.copy(Blocks.DIRT));
+
+
 
     /** STONE **/
     public static final Block WEATHERED_STONE = registerBlock("weathered_stone", Block::new, Block.Settings.create()
@@ -29,20 +53,22 @@ public class ModBlocks {
             .mapColor(MapColor.STONE_GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1.5F, 5.8F));
 
 
+
+
     /** WOOD **/
     public static final Block OAK_TRUNK = registerBlock("oak_trunk", TrunkBlock::new, Block.Settings.create()
                     .strength(2f).burnable().instrument(NoteBlockInstrument.BASS).requiresTool().mapColor(MapColor.OAK_TAN).sounds(BlockSoundGroup.WOOD));
-    public static final Block OAK_STEM = registerBlock("oak_stem", StemBlock::new, Block.Settings.create()
+    public static final Block OAK_STEM = registerBlock("oak_stem", net.colorixer.block.logs.StemBlock::new, Block.Settings.create()
             .strength(2f).burnable().instrument(NoteBlockInstrument.BASS).requiresTool().mapColor(MapColor.OAK_TAN).sounds(BlockSoundGroup.WOOD));
 
     public static final Block BIRCH_TRUNK = registerBlock("birch_trunk", TrunkBlock::new, Block.Settings.create()
             .strength(2f).burnable().instrument(NoteBlockInstrument.BASS).requiresTool().mapColor(MapColor.WHITE_GRAY).sounds(BlockSoundGroup.WOOD));
-    public static final Block BIRCH_STEM = registerBlock("birch_stem", StemBlock::new, Block.Settings.create()
+    public static final Block BIRCH_STEM = registerBlock("birch_stem", net.colorixer.block.logs.StemBlock::new, Block.Settings.create()
             .strength(2f).burnable().instrument(NoteBlockInstrument.BASS).requiresTool().mapColor(MapColor.WHITE_GRAY).sounds(BlockSoundGroup.WOOD));
 
     public static final Block JUNGLE_TRUNK = registerBlock("jungle_trunk", TrunkBlock::new, Block.Settings.create()
             .strength(2f).burnable().instrument(NoteBlockInstrument.BASS).requiresTool().mapColor(MapColor.BROWN).sounds(BlockSoundGroup.WOOD));
-    public static final Block JUNGLE_STEM = registerBlock("jungle_stem", StemBlock::new, Block.Settings.create()
+    public static final Block JUNGLE_STEM = registerBlock("jungle_stem", net.colorixer.block.logs.StemBlock::new, Block.Settings.create()
             .strength(2f).burnable().instrument(NoteBlockInstrument.BASS).requiresTool().mapColor(MapColor.BROWN).sounds(BlockSoundGroup.WOOD));
 
     public static final Block SPRUCE_TRUNK = registerBlock("spruce_trunk", TrunkBlock::new, Block.Settings.create()
@@ -86,6 +112,10 @@ public class ModBlocks {
             entries.add(ModBlocks.COBBLESTONE);
             entries.add(ModBlocks.CRACKED_STONE);
             entries.add(ModBlocks.SHATTERED_STONE);
+            entries.add(ModBlocks.GRAVEL_SLAB);
+            entries.add(ModBlocks.SAND_SLAB);
+            entries.add(ModBlocks.LOOSE_DIRT_SLAB);
+            entries.add(ModBlocks.BRICK_FURNACE);
         });
     }
 }

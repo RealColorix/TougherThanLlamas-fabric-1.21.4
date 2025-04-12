@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "/": "#ttll:sticks",
+    "S": "ttll:rock"
+  },
+  "pattern": [
+    " S",
+    "/ "
+  ],
+  "result": {
+    "count": 1,
+    "id": "ttll:stone_shovel"
+  }
+}

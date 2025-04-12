@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "ttll:crude_clay",
+    "ttll:crude_clay"
+  ],
+  "result": {
+    "id": "minecraft:clay_ball",
+    "count": 1
+  }
+}

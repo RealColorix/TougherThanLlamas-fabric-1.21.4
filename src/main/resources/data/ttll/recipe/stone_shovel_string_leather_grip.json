@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "/": "ttll:leather_handle",
+    "S": "ttll:rock",
+    "s": "minecraft:string"
+  },
+  "pattern": [
+    "sS",
+    "/ "
+  ],
+  "result": {
+    "count": 1,
+    "id": "ttll:stone_shovel_string_leather_grip"
+  }
+}

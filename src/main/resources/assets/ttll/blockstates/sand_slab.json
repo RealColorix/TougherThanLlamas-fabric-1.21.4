@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "ttll:block/sand_slab"
+    },
+    "type=top": {
+      "model": "ttll:block/sand_slab_top"
+    },
+    "type=double": {
+      "model": "minecraft:block/sand"
+    }
+  }
+}

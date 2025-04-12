@@ -20,6 +20,11 @@
     "minecraft:mud",
     "minecraft:suspicious_sand",
     "minecraft:suspicious_gravel",
-    "#minecraft:concrete_powder"
+    "#minecraft:concrete_powder",
+
+
+    "ttll:sand_slab",
+    "ttll:gravel_slab",
+    "ttll:loose_dirt_slab"
   ]
 }

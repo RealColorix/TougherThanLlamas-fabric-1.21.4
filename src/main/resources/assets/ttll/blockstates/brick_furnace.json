@@ -1,0 +1,49 @@
+{
+  "variants": {
+    "facing=north,lit=false,used=false": {
+      "model": "ttll:block/brick_furnace"
+    },
+    "facing=north,lit=false,used=true": {
+      "model": "ttll:block/brick_furnace_ash"
+    },
+    "facing=north,lit=true": {
+      "model": "ttll:block/brick_furnace_lit"
+    },
+    "facing=east,lit=false,used=false": {
+      "model": "ttll:block/brick_furnace",
+      "y": 90
+    },
+    "facing=east,lit=false,used=true": {
+      "model": "ttll:block/brick_furnace_ash",
+      "y": 90
+    },
+    "facing=east,lit=true": {
+      "model": "ttll:block/brick_furnace_lit",
+      "y": 90
+    },
+    "facing=south,lit=false,used=false": {
+      "model": "ttll:block/brick_furnace",
+      "y": 180
+    },
+    "facing=south,lit=false,used=true": {
+      "model": "ttll:block/brick_furnace_ash",
+      "y": 180
+    },
+    "facing=south,lit=true": {
+      "model": "ttll:block/brick_furnace_lit",
+      "y": 180
+    },
+    "facing=west,lit=false,used=false": {
+      "model": "ttll:block/brick_furnace",
+      "y": 270
+    },
+    "facing=west,lit=false,used=true": {
+      "model": "ttll:block/brick_furnace_ash",
+      "y": 270
+    },
+    "facing=west,lit=true": {
+      "model": "ttll:block/brick_furnace_lit",
+      "y": 270
+    }
+  }
+}

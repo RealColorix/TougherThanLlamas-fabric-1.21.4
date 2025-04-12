@@ -13,6 +13,31 @@ import java.util.function.Function;
 public class ModItems {
 
 
+
+    //CASTS
+
+    public static final Item PICKAXE_CAST = registerItem("pickaxe_cast", Item::new, new Item.Settings());
+    public static final Item AXE_CAST = registerItem("axe_cast", Item::new, new Item.Settings());
+    public static final Item SWORD_CAST = registerItem("sword_cast", Item::new, new Item.Settings());
+    public static final Item SHOVEL_CAST = registerItem("shovel_cast", Item::new, new Item.Settings());
+    public static final Item HOE_CAST = registerItem("hoe_cast", Item::new, new Item.Settings());
+    public static final Item NUGGET_CAST = registerItem("nugget_cast", Item::new, new Item.Settings());
+
+    public static final Item IRON_PICKAXE_CAST = registerItem("iron_pickaxe_cast", Item::new, new Item.Settings());
+    public static final Item IRON_AXE_CAST = registerItem("iron_axe_cast", Item::new, new Item.Settings());
+    public static final Item IRON_SWORD_CAST = registerItem("iron_sword_cast", Item::new, new Item.Settings());
+    public static final Item IRON_SHOVEL_CAST = registerItem("iron_shovel_cast", Item::new, new Item.Settings());
+    public static final Item IRON_HOE_CAST = registerItem("iron_hoe_cast", Item::new, new Item.Settings());
+    public static final Item IRON_NUGGET_CAST = registerItem("iron_nugget_cast", Item::new, new Item.Settings());
+
+    public static final Item GOLDEN_PICKAXE_CAST = registerItem("golden_pickaxe_cast", Item::new, new Item.Settings());
+    public static final Item GOLDEN_AXE_CAST = registerItem("golden_axe_cast", Item::new, new Item.Settings());
+    public static final Item GOLDEN_SWORD_CAST = registerItem("golden_sword_cast", Item::new, new Item.Settings());
+    public static final Item GOLDEN_SHOVEL_CAST = registerItem("golden_shovel_cast", Item::new, new Item.Settings());
+    public static final Item GOLDEN_HOE_CAST = registerItem("golden_hoe_cast", Item::new, new Item.Settings());
+    public static final Item GOLDEN_NUGGET_CAST = registerItem("golden_nugget_cast", Item::new, new Item.Settings());
+
+
     // Tree Sorts --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     public static final Item OAK_FIREWOOD = registerItem("oak_firewood", Item::new, new Item.Settings());
@@ -31,6 +56,7 @@ public class ModItems {
     public static final Item DIRT_PILE = registerItem("dirt_pile", Item::new, new Item.Settings());
     public static final Item GRAVEL_PILE = registerItem("gravel_pile", Item::new, new Item.Settings());
     public static final Item SAND_PILE = registerItem("sand_pile", Item::new, new Item.Settings());
+    public static final Item CRUDE_CLAY = registerItem("crude_clay", Item::new, new Item.Settings());
 
     public static final Item CRUDE_BRUSH = registerItem("crude_brush", BrushItem::new, new Item.Settings().maxCount(1).maxDamage(16));
     public static final Item LEATHER_HANDLE = registerItem("leather_handle", Item::new, new Item.Settings());
@@ -47,6 +73,14 @@ public class ModItems {
     public static final Item KNITTING_STICKS = registerItem("knitting_sticks", Item::new, new Item.Settings());
     public static final Item GRASS_FIBER = registerItem("grass_fiber", Item::new, new Item.Settings());
     public static final Item SPUNNED_STRING = registerItem("spunned_string", Item::new, new Item.Settings());
+    public static final Item WET_BRICK = registerItem("wet_brick", Item::new, new Item.Settings());
+
+
+    /// ORES -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    public static final Item IRON_DUST = registerItem("iron_dust", Item::new, new Item.Settings());
+    public static final Item GOLDEN_DUST = registerItem("golden_dust", Item::new, new Item.Settings());
+    public static final Item COPPER_DUST = registerItem("copper_dust", Item::new, new Item.Settings());
 
     /// TOOLS --------- FLINT HATCHES   ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------**/
 
@@ -66,12 +100,20 @@ public class ModItems {
     public static final Item CRUDE_DRAX_STRING = registerItem("crude_drax_string",settings -> new DraxItem(TTLLToolMaterial.CRUDE_STRING_FOR_DRAX, 1.5F, -2.9F, settings), new Item.Settings());
     public static final Item CRUDE_DRAX_STRING_LEATHER_GRIP = registerItem("crude_drax_string_leather_grip",settings -> new DraxItem(TTLLToolMaterial.CRUDE_STRING_LEATHER_GRIP_FOR_DRAX, 1.5F, -2.8F, settings), new Item.Settings());
 
+    // CRUDE SHOVELS ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    public static final Item STONE_SHOVEL = registerItem("stone_shovel",settings -> new ShovelItem(TTLLToolMaterial.STONE_FOR_SHOVEL, 1f, -3f, settings), new Item.Settings());
+    public static final Item STONE_SHOVEL_LEATHER_GRIP = registerItem("stone_shovel_leather_grip",settings -> new ShovelItem(TTLLToolMaterial.STONE_LEATHER_GRIP_FOR_SHOVEL, 1f, -3f, settings), new Item.Settings());
+    public static final Item STONE_SHOVEL_TWINE = registerItem("stone_shovel_twine",settings -> new ShovelItem(TTLLToolMaterial.STONE_TWINE_FOR_SHOVEL, 1f, -3f, settings), new Item.Settings());
+    public static final Item STONE_SHOVEL_TWINE_LEATHER_GRIP = registerItem("stone_shovel_twine_leather_grip",settings -> new ShovelItem(TTLLToolMaterial.STONE_TWINE_LEATHER_GRIP_FOR_SHOVEL, 1f, -3f, settings), new Item.Settings());
+    public static final Item STONE_SHOVEL_STRING = registerItem("stone_shovel_string",settings -> new ShovelItem(TTLLToolMaterial.STONE_STRING_FOR_SHOVEL, 1f, -3f, settings), new Item.Settings());
+    public static final Item STONE_SHOVEL_STRING_LEATHER_GRIP = registerItem("stone_shovel_string_leather_grip",settings -> new ShovelItem(TTLLToolMaterial.STONE_STRING_LEATHER_GRIP_FOR_SHOVEL, 1f, -3f, settings), new Item.Settings());
+
     // INDIVIDUAL ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-    public static final Item FLINT_KNIFE = registerItem("flint_knife", settings -> new KnifeItem(TTLLToolMaterial.FLINT_TWINE_LEATHER_GRIP_FOR_AXE, 1.5F, -1.0F, settings), new Item.Settings());
+    public static final Item FLINT_KNIFE = registerItem("flint_knife", settings -> new KnifeItem(TTLLToolMaterial.FLINT_FOR_KNIFE, 1.5F, -1.0F, settings), new Item.Settings());
 
     public static final Item FLINT_CHISEL = registerItem("flint_chisel",settings -> new PickaxeItem(TTLLToolMaterial.FLINT_FOR_CHISEL, 1, -1.7F, settings), new Item.Settings());
-
 
     /// COLORED ITEMS ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------***/
     // WOOL ITEMS
@@ -156,6 +198,36 @@ public class ModItems {
             entries.add(ROCK);
             entries.add(SHARP_ROCK);
             entries.add(FLINT_CHISEL);
+            entries.add(STONE_SHOVEL);
+            entries.add(STONE_SHOVEL_LEATHER_GRIP);
+            entries.add(STONE_SHOVEL_TWINE);
+            entries.add(STONE_SHOVEL_TWINE_LEATHER_GRIP);
+            entries.add(STONE_SHOVEL_STRING);
+            entries.add(STONE_SHOVEL_STRING_LEATHER_GRIP);
+            entries.add(CRUDE_CLAY);
+            entries.add(WET_BRICK);
+            entries.add(SWORD_CAST);
+            entries.add(PICKAXE_CAST);
+            entries.add(AXE_CAST);
+            entries.add(SHOVEL_CAST);
+            entries.add(HOE_CAST);
+            entries.add(NUGGET_CAST);
+            entries.add(IRON_SWORD_CAST);
+            entries.add(IRON_PICKAXE_CAST);
+            entries.add(IRON_AXE_CAST);
+            entries.add(IRON_SHOVEL_CAST);
+            entries.add(IRON_HOE_CAST);
+            entries.add(IRON_NUGGET_CAST);
+            entries.add(GOLDEN_SWORD_CAST);
+            entries.add(GOLDEN_PICKAXE_CAST);
+            entries.add(GOLDEN_AXE_CAST);
+            entries.add(GOLDEN_SHOVEL_CAST);
+            entries.add(GOLDEN_HOE_CAST);
+            entries.add(GOLDEN_NUGGET_CAST);
+            entries.add(IRON_DUST);
+            entries.add(GOLDEN_DUST);
+            entries.add(COPPER_DUST);
+
 
         });
     }

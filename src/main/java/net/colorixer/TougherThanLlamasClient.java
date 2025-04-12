@@ -1,10 +1,15 @@
 package net.colorixer;
 
+import net.colorixer.block.ModBlockEntities;
 import net.colorixer.block.ModBlocks;
+import net.colorixer.block.brick_furnace.BrickFurnaceBlockEntityRenderer;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
+import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.resource.ResourceType;
 
 public class TougherThanLlamasClient implements ClientModInitializer {
 
@@ -14,11 +19,14 @@ public class TougherThanLlamasClient implements ClientModInitializer {
 	public void onInitializeClient() {
 
 
+		BlockEntityRendererRegistry.register(ModBlockEntities.BRICK_FURNACE, BrickFurnaceBlockEntityRenderer::new);
+
+
 		BlockRenderLayerMap.INSTANCE.putBlock(
-				ModBlocks.WICKER,
 
+				ModBlocks.BRICK_FURNACE,
 				RenderLayer.getCutout()
-		);
 
+		);
 	}
 }

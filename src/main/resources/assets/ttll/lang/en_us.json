@@ -1,4 +1,26 @@
 {
+  "item.ttll.sword_cast": "Sword Cast",
+  "item.ttll.pickaxe_cast": "Pickaxe Cast",
+  "item.ttll.axe_cast": "Axe Cast",
+  "item.ttll.shovel_cast": "Shovel Cast",
+  "item.ttll.hoe_cast": "Hoe Cast",
+  "item.ttll.nugget_cast": "Nugget Cast",
+
+  "item.ttll.iron_sword_cast": "Iron Sword Cast",
+  "item.ttll.iron_pickaxe_cast": "Iron Pickaxe Cast",
+  "item.ttll.iron_axe_cast": "Iron Axe Cast",
+  "item.ttll.iron_shovel_cast": "Iron Shovel Cast",
+  "item.ttll.iron_hoe_cast": "Iron Hoe Cast",
+  "item.ttll.iron_nugget_cast": "Iron Nugget Cast",
+
+  "item.ttll.golden_sword_cast": "Golden Sword Cast",
+  "item.ttll.golden_pickaxe_cast": "Golden Pickaxe Cast",
+  "item.ttll.golden_axe_cast": "Golden Axe Cast",
+  "item.ttll.golden_shovel_cast": "Golden shovel Cast",
+  "item.ttll.golden_hoe_cast": "Golden Hoe Cast",
+  "item.ttll.golden_nugget_cast": "Golden Nugget Cast",
+
+
   "item.ttll.pointy_stick": "Pointy Stick",
   "item.ttll.branch": "Branch",
   "item.ttll.flint_fragment": "Flint Fragment",
@@ -21,6 +43,13 @@
   "item.ttll.crude_drax_twine_leather_grip": "Crude Drax",
   "item.ttll.crude_drax_string_leather_grip": "Crude Drax",
 
+  "item.ttll.stone_shovel": "Stone Shovel",
+  "item.ttll.stone_shovel_twine": "Stone Shovel",
+  "item.ttll.stone_shovel_string": "Stone Shovel",
+  "item.ttll.stone_shovel_leather_grip": "Stone Shovel",
+  "item.ttll.stone_shovel_twine_leather_grip": "Stone Shovel",
+  "item.ttll.stone_shovel_string_leather_grip": "Stone Shovel",
+
   "item.ttll.leather_handle": "Leather Handle",
   "item.ttll.flint_knife": "Flint Knife",
   "item.ttll.grass_fiber": "Grass Fiber",
@@ -38,6 +67,12 @@
   "item.ttll.spear": "Spear",
   "item.ttll.spunned_string": "Spunned String",
   "item.ttll.string_knitting": "String Knitting",
+  "item.ttll.wet_brick": "Wet Brick",
+  "item.ttll.crude_clay": "Crude Clay",
+
+  "item.ttll.iron_dust": "Iron Dust",
+  "item.ttll.golden_dust": "Golden Dust",
+  "item.ttll.copper_dust": "Copper Dust",
 
   "item.ttll.dirt_pile": "Dirt Pile",
   "item.ttll.gravel_pile": "Gravel Pile",
@@ -50,6 +85,7 @@
   "item.ttll.crude_brush": "Crude Brush",
   "item.ttll.crude_axe": "Crude Axe",
 
+  "block.ttll.brick_furnace": "Brick Furnace",
   "block.ttll.campfire": "Campfire",
   "block.ttll.oak_trunk": "Oak Trunk",
   "block.ttll.oak_stem": "Oak Stem",
@@ -59,12 +95,16 @@
   "block.ttll.jungle_stem": "Jungle Stem",
   "block.ttll.spruce_trunk": "Spruce Trunk",
   "block.ttll.spruce_stem": "Spruce Stem",
-  "block.ttll.wicker": "Wicker",
+  "block.ttll.crude_clay": "Crude Clay",
 
   "block.ttll.weathered_stone": "Weathered Stone",
   "block.ttll.cobblestone": "Cobblestone",
   "block.ttll.cracked_stone": "Cracked Stone",
   "block.ttll.shattered_stone": "Shattered Stone",
+
+  "block.ttll.gravel_slab": "Gravel Slab",
+  "block.ttll.sand_slab": "Sand Slab",
+  "block.ttll.loose_dirt_slab": "Loose Dirt Slab",
 
   "screen.ttll.achievements": "Achievements",
 
