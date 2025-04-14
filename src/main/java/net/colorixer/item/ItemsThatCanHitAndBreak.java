@@ -151,6 +151,46 @@ public class ItemsThatCanHitAndBreak {
                     player.swingHand(hand, true);
                     return ActionResult.PASS;
                 }
+            }else if (heldItemStack.getItem() == ModItems.IRON_NUGGET_CAST) {
+                    world.playSound(null, pos, SoundEvents.BLOCK_DECORATED_POT_BREAK, SoundCategory.PLAYERS,
+                            1.5F, 0.2F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
+                    heldItemStack.decrement(1);
+                    ItemStack stack = new ItemStack(Items.IRON_NUGGET, 1);
+                    dropItem(world, player, stack);
+                    player.swingHand(hand, true);
+                    return ActionResult.SUCCESS;
+            }else if (heldItemStack.getItem() == ModItems.IRON_INGOT_CAST) {
+                world.playSound(null, pos, SoundEvents.BLOCK_DECORATED_POT_BREAK, SoundCategory.PLAYERS,
+                        1.5F, 0.2F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
+                heldItemStack.decrement(1);
+                ItemStack stack = new ItemStack(Items.IRON_INGOT, 1);
+                dropItem(world, player, stack);
+                player.swingHand(hand, true);
+                return ActionResult.SUCCESS;
+            }else if (heldItemStack.getItem() == ModItems.GOLD_NUGGET_CAST) {
+                world.playSound(null, pos, SoundEvents.BLOCK_DECORATED_POT_BREAK, SoundCategory.PLAYERS,
+                        1.5F, 0.2F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
+                heldItemStack.decrement(1);
+                ItemStack stack = new ItemStack(Items.GOLD_NUGGET, 1);
+                dropItem(world, player, stack);
+                player.swingHand(hand, true);
+                return ActionResult.SUCCESS;
+            }else if (heldItemStack.getItem() == ModItems.GOLD_INGOT_CAST) {
+                world.playSound(null, pos, SoundEvents.BLOCK_DECORATED_POT_BREAK, SoundCategory.PLAYERS,
+                        1.5F, 0.2F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
+                heldItemStack.decrement(1);
+                ItemStack stack = new ItemStack(Items.GOLD_INGOT, 1);
+                dropItem(world, player, stack);
+                player.swingHand(hand, true);
+                return ActionResult.SUCCESS;
+            }else if (heldItemStack.getItem() == ModItems.COPPER_INGOT_CAST) {
+                world.playSound(null, pos, SoundEvents.BLOCK_DECORATED_POT_BREAK, SoundCategory.PLAYERS,
+                        1.5F, 0.2F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
+                heldItemStack.decrement(1);
+                ItemStack stack = new ItemStack(Items.COPPER_INGOT, 1);
+                dropItem(world, player, stack);
+                player.swingHand(hand, true);
+                return ActionResult.SUCCESS;
             }
         }
 
@@ -194,6 +234,6 @@ public class ItemsThatCanHitAndBreak {
                 block == Blocks.CALCITE || block == Blocks.SMOOTH_BASALT || block == Blocks.BASALT ||
                 block == Blocks.BLACKSTONE || block == Blocks.COBBLESTONE || block == Blocks.COBBLED_DEEPSLATE||
                 block == ModBlocks.WEATHERED_STONE || block == ModBlocks.COBBLESTONE || block == ModBlocks.CRACKED_STONE ||
-                block == ModBlocks.SHATTERED_STONE;
+                block == ModBlocks.SHATTERED_STONE|| block == Blocks.BEDROCK;
     }
 }

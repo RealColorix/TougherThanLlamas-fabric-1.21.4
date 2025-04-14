@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "ttll:coal_dust",
+    "ttll:coal_dust",
+    "ttll:tree_sap"
+  ],
+  "result": {
+    "id": "minecraft:charcoal",
+    "count": 1
+  }
+}

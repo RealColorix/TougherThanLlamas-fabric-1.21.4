@@ -2,6 +2,7 @@ package net.colorixer;
 
 import net.colorixer.block.ModBlockEntities;
 import net.colorixer.block.ModBlocks;
+import net.colorixer.block.brick_block.WetBrickBlockEntity;
 import net.colorixer.block.brick_furnace.BrickFurnaceBlockEntityRenderer;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;

@@ -1,7 +1,7 @@
 package net.colorixer.block.brick_furnace;
 
 import net.colorixer.block.ModBlockEntities;
-import net.colorixer.item.ModItems; // Ensure your mod items are imported correctly.
+import net.colorixer.item.ModItems;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.ExperienceOrbEntity;
@@ -23,24 +23,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BrickFurnaceBlockEntity extends BlockEntity {
-    public static final int MAX_BURN_TIME = 9000;
-    public static final int FUEL_VALUE = 1000;
+    public static final int MAX_BURN_TIME = 16200;  // Set to 16200
+    public static final int FUEL_VALUE = 1800;     // Set to 1800
     private int burnTimeRemaining = 0;
-    // This field tracks progress toward the current recipe.
     public int recipeCookTime = 0;
 
     private static final Item[] VALID_FUELS = {Items.COAL, Items.CHARCOAL};
 
-    // Inventory: slot 0 = cast; slots 1–4 = ingredients.
     private final DefaultedList<ItemStack> items = DefaultedList.ofSize(5, ItemStack.EMPTY);
-    // Fuel inventory remains the same.
     private final DefaultedList<ItemStack> fuelItems = DefaultedList.ofSize(9, ItemStack.EMPTY);
 
     public BrickFurnaceBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.BRICK_FURNACE, pos, state);
     }
-
-
 
     public boolean addFuel(ItemStack stack, PlayerEntity player) {
         if (!isValidFuel(stack.getItem())) return false;
@@ -48,7 +43,7 @@ public class BrickFurnaceBlockEntity extends BlockEntity {
         if (!player.isCreative()) {
             stack.decrement(1);
         }
-        burnTimeRemaining += FUEL_VALUE;
+        burnTimeRemaining += FUEL_VALUE; // Add the new fuel value
         for (int i = 0; i < fuelItems.size(); i++) {
             if (fuelItems.get(i).isEmpty()) {
                 fuelItems.set(i, new ItemStack(stack.getItem()));
@@ -75,7 +70,6 @@ public class BrickFurnaceBlockEntity extends BlockEntity {
         this.burnTimeRemaining = burnTime;
         markDirtyAndUpdate();
     }
-
 
     private void markDirtyAndUpdate() {
         this.markDirty();
@@ -150,15 +144,13 @@ public class BrickFurnaceBlockEntity extends BlockEntity {
         }
     }
 
-    // --- Hardcoded Recipe System ---
-    // We define a static inner class to hold recipe data.
     public static class HardcodedRecipe {
         public final Item cast;
         public final Item ingredient;
         public final int ingredientCount;
         public final Item result;
         public final int cookTime;
-        public final int experience; // XP rewarded
+        public final int experience;
 
         public HardcodedRecipe(Item cast, Item ingredient, int ingredientCount, Item result, int cookTime, int experience) {
             this.cast = cast;
@@ -170,7 +162,6 @@ public class BrickFurnaceBlockEntity extends BlockEntity {
         }
 
         public boolean matches(DefaultedList<ItemStack> inventory) {
-            // Assumes slot 0 holds the cast and slots 1–4 contain ingredients.
             if (inventory.get(0).isEmpty() || inventory.get(0).getItem() != cast)
                 return false;
             int total = 0;
@@ -207,14 +198,131 @@ public class BrickFurnaceBlockEntity extends BlockEntity {
     public static final List<HardcodedRecipe> HARDCODED_RECIPES = new ArrayList<>();
 
     static {
+        //MOLDS
+        HARDCODED_RECIPES.add(new HardcodedRecipe(
+                ModItems.INGOT_MOLD,
+                null,
+                0,
+                ModItems.INGOT_CAST,
+                3000,
+                0
+        ));
+        HARDCODED_RECIPES.add(new HardcodedRecipe(
+                ModItems.NUGGET_MOLD,
+                null,
+                0,
+                ModItems.NUGGET_CAST,
+                3000,
+                0
+        ));
+        HARDCODED_RECIPES.add(new HardcodedRecipe(
+                ModItems.SWORD_MOLD,
+                null,
+                0,
+                ModItems.SWORD_CAST,
+                3000,
+                0
+        ));
+        HARDCODED_RECIPES.add(new HardcodedRecipe(
+                ModItems.PICKAXE_MOLD,
+                null,
+                0,
+                ModItems.PICKAXE_CAST,
+                3000,
+                0
+        ));
+        HARDCODED_RECIPES.add(new HardcodedRecipe(
+                ModItems.AXE_MOLD,
+                null,
+                0,
+                ModItems.AXE_CAST,
+                3000,
+                0
+        ));
+        HARDCODED_RECIPES.add(new HardcodedRecipe(
+                ModItems.SHOVEL_MOLD,
+                null,
+                0,
+                ModItems.SHOVEL_CAST,
+                3000,
+                0
+        ));
+        HARDCODED_RECIPES.add(new HardcodedRecipe(
+                ModItems.HOE_MOLD,
+                null,
+                0,
+                ModItems.HOE_CAST,
+                3000,
+                0
+        ));
+        HARDCODED_RECIPES.add(new HardcodedRecipe(
+                ModItems.CHISEL_MOLD,
+                null,
+                0,
+                ModItems.CHISEL_CAST,
+                3000,
+                0
+        ));
+        HARDCODED_RECIPES.add(new HardcodedRecipe(
+                ModItems.BUCKET_MOLD,
+                null,
+                0,
+                ModItems.BUCKET_CAST,
+                3000,
+                0
+        ));
+        HARDCODED_RECIPES.add(new HardcodedRecipe(
+                ModItems.PLATE_MOLD,
+                null,
+                0,
+                ModItems.PLATE_CAST,
+                3000,
+                0
+        ));
+        //IRON ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
         HARDCODED_RECIPES.add(new HardcodedRecipe(
                 ModItems.NUGGET_CAST,
                 ModItems.IRON_DUST,
                 4,
                 ModItems.IRON_NUGGET_CAST,
-                150,
-                3
+                3600,
+                2
+        ));
+        HARDCODED_RECIPES.add(new HardcodedRecipe(
+                ModItems.NUGGET_CAST,
+                Items.RAW_IRON,
+                2,
+                ModItems.IRON_NUGGET_CAST,
+                3600,
+                2
+        ));
+
+        HARDCODED_RECIPES.add(new HardcodedRecipe(
+                ModItems.INGOT_CAST,
+                Items.IRON_NUGGET,
+                4,
+                ModItems.IRON_INGOT_CAST,
+                10800,
+                7
+        ));
+
+        HARDCODED_RECIPES.add(new HardcodedRecipe(
+                ModItems.PLATE_CAST,
+                Items.IRON_INGOT,
+                2,
+                ModItems.IRON_PLATE_CAST,
+                8400,
+                7
+        ));
+
+        HARDCODED_RECIPES.add(new HardcodedRecipe(
+                ModItems.SWORD_CAST,
+                Items.IRON_INGOT,
+                2,
+                ModItems.IRON_SWORD_CAST,
+                7000,
+                9
         ));
 
         HARDCODED_RECIPES.add(new HardcodedRecipe(
@@ -222,19 +330,195 @@ public class BrickFurnaceBlockEntity extends BlockEntity {
                 Items.IRON_INGOT,
                 3,
                 ModItems.IRON_PICKAXE_CAST,
-                200,
+                9000,
+                12
+        ));
+
+        HARDCODED_RECIPES.add(new HardcodedRecipe(
+                ModItems.AXE_CAST,
+                Items.IRON_INGOT,
+                2,
+                ModItems.IRON_AXE_CAST,
+                7000,
+                10
+        ));
+
+        HARDCODED_RECIPES.add(new HardcodedRecipe(
+                ModItems.SHOVEL_CAST,
+                Items.IRON_INGOT,
+                1,
+                ModItems.IRON_SHOVEL_CAST,
+                5000,
+                7
+        ));
+        HARDCODED_RECIPES.add(new HardcodedRecipe(
+                ModItems.SHOVEL_CAST,
+                Items.IRON_NUGGET,
+                4,
+                ModItems.IRON_SHOVEL_CAST,
+                5000,
+                7
+        ));
+
+        HARDCODED_RECIPES.add(new HardcodedRecipe(
+                ModItems.HOE_CAST,
+                Items.IRON_INGOT,
+                1,
+                ModItems.IRON_HOE_CAST,
+                5000,
+                6
+        ));
+        HARDCODED_RECIPES.add(new HardcodedRecipe(
+                ModItems.HOE_CAST,
+                Items.IRON_NUGGET,
+                4,
+                ModItems.IRON_HOE_CAST,
+                5000,
+                6
+        ));
+
+        HARDCODED_RECIPES.add(new HardcodedRecipe(
+                ModItems.CHISEL_CAST,
+                Items.IRON_INGOT,
+                1,
+                ModItems.IRON_CHISEL_CAST,
+                5000,
+                5
+        ));
+        HARDCODED_RECIPES.add(new HardcodedRecipe(
+                ModItems.CHISEL_CAST,
+                Items.IRON_NUGGET,
+                4,
+                ModItems.IRON_CHISEL_CAST,
+                5000,
                 5
         ));
 
+        HARDCODED_RECIPES.add(new HardcodedRecipe(
+                ModItems.BUCKET_CAST,
+                Items.IRON_INGOT,
+                1,
+                ModItems.IRON_BUCKET_CAST,
+                4000,
+                4
+        ));
+        HARDCODED_RECIPES.add(new HardcodedRecipe(
+                ModItems.BUCKET_CAST,
+                Items.IRON_NUGGET,
+                4,
+                ModItems.IRON_BUCKET_CAST,
+                4000,
+                4
+        ));
 
+        //GOLD ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
         HARDCODED_RECIPES.add(new HardcodedRecipe(
                 ModItems.NUGGET_CAST,
-                ModItems.GOLDEN_DUST,
+                ModItems.GOLD_DUST,
                 4,
-                ModItems.GOLDEN_NUGGET_CAST,
-                150,
-                3
+                ModItems.GOLD_NUGGET_CAST,
+                3000,
+                4
+        ));
+        HARDCODED_RECIPES.add(new HardcodedRecipe(
+                ModItems.NUGGET_CAST,
+                Items.RAW_GOLD,
+                2,
+                ModItems.GOLD_NUGGET_CAST,
+                3200,
+                4
+        ));
+
+
+        HARDCODED_RECIPES.add(new HardcodedRecipe(
+                ModItems.INGOT_CAST,
+                Items.GOLD_NUGGET,
+                4,
+                ModItems.GOLD_INGOT_CAST,
+                7200,
+                10
+        ));
+
+        HARDCODED_RECIPES.add(new HardcodedRecipe(
+                ModItems.SWORD_CAST,
+                Items.GOLD_INGOT,
+                2,
+                ModItems.GOLDEN_SWORD_CAST,
+                5500,
+                9
+        ));
+
+        HARDCODED_RECIPES.add(new HardcodedRecipe(
+                ModItems.PICKAXE_CAST,
+                Items.GOLD_INGOT,
+                3,
+                ModItems.GOLDEN_PICKAXE_CAST,
+                7500,
+                12
+        ));
+
+        HARDCODED_RECIPES.add(new HardcodedRecipe(
+                ModItems.AXE_CAST,
+                Items.GOLD_INGOT,
+                2,
+                ModItems.GOLDEN_AXE_CAST,
+                5500,
+                10
+        ));
+
+        HARDCODED_RECIPES.add(new HardcodedRecipe(
+                ModItems.SHOVEL_CAST,
+                Items.GOLD_INGOT,
+                1,
+                ModItems.GOLDEN_SHOVEL_CAST,
+                3500,
+                7
+        ));
+        HARDCODED_RECIPES.add(new HardcodedRecipe(
+                ModItems.SHOVEL_CAST,
+                Items.GOLD_NUGGET,
+                4,
+                ModItems.GOLDEN_SHOVEL_CAST,
+                3500,
+                7
+        ));
+
+        HARDCODED_RECIPES.add(new HardcodedRecipe(
+                ModItems.HOE_CAST,
+                Items.GOLD_INGOT,
+                1,
+                ModItems.GOLDEN_HOE_CAST,
+                3500,
+                6
+        ));
+        HARDCODED_RECIPES.add(new HardcodedRecipe(
+                ModItems.HOE_CAST,
+                Items.GOLD_NUGGET,
+                4,
+                ModItems.GOLDEN_HOE_CAST,
+                3500,
+                6
+        ));
+
+        HARDCODED_RECIPES.add(new HardcodedRecipe(
+                ModItems.PLATE_CAST,
+                Items.GOLD_INGOT,
+                2,
+                ModItems.GOLD_PLATE_CAST,
+                6400,
+                8
+        ));
+
+        // COPPER -------------------------------------------------------------------------
+
+        HARDCODED_RECIPES.add(new HardcodedRecipe(
+                ModItems.PLATE_CAST,
+                Items.COPPER_INGOT,
+                2,
+                ModItems.COPPER_PLATE_CAST,
+                8400,
+                4
         ));
     }
 
@@ -242,7 +526,7 @@ public class BrickFurnaceBlockEntity extends BlockEntity {
         if (world.isClient) {
             if (entity.isBurning() && world.random.nextInt(40) == 0) {
                 world.playSound(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
-                        SoundEvents.BLOCK_FURNACE_FIRE_CRACKLE, SoundCategory.BLOCKS, 2.0f, 1.0f, true);
+                        SoundEvents.BLOCK_FURNACE_FIRE_CRACKLE, SoundCategory.BLOCKS, 4.0f, 1.0f, true);
             }
             return;
         }
@@ -267,22 +551,6 @@ public class BrickFurnaceBlockEntity extends BlockEntity {
             }
         }
 
-        int activeSlots = 0;
-        if (entity.burnTimeRemaining > 0) {
-            activeSlots = Math.min((entity.burnTimeRemaining / FUEL_VALUE) + 1, entity.fuelItems.size());
-        }
-        boolean fuelChanged = false;
-        for (int i = activeSlots; i < entity.fuelItems.size(); i++) {
-            if (!entity.fuelItems.get(i).isEmpty()) {
-                entity.fuelItems.set(i, ItemStack.EMPTY);
-                fuelChanged = true;
-            }
-        }
-        if (stateChanged || fuelChanged) {
-            entity.markDirty();
-            world.updateListeners(pos, state, state, 3);
-        }
-
         boolean foundMatch = false;
 
         for (HardcodedRecipe recipe : HARDCODED_RECIPES) {
@@ -299,17 +567,18 @@ public class BrickFurnaceBlockEntity extends BlockEntity {
                     recipe.consumeIngredients(entity.getInventory());
                     entity.setCastItem(new ItemStack(recipe.result));
 
-                    ExperienceOrbEntity xpOrb = new ExperienceOrbEntity(world,
-                            pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5, recipe.experience);
-                    world.spawnEntity(xpOrb);
+                    // Only spawn an XP orb if the recipe's experience value is greater than zero.
+                    if (recipe.experience > 0) {
+                        ExperienceOrbEntity xpOrb = new ExperienceOrbEntity(world,
+                                pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5, recipe.experience);
+                        world.spawnEntity(xpOrb);
+                    }
 
                     entity.recipeCookTime = 0;
                     entity.markDirty();
                     world.updateListeners(pos, state, state, 3);
+                    break;
                 }
-
-                // Stop after first matched recipe is processed
-                break;
             }
         }
 
@@ -318,7 +587,23 @@ public class BrickFurnaceBlockEntity extends BlockEntity {
             entity.recipeCookTime = Math.max(0, entity.recipeCookTime - 5);
         }
 
-        // --- End Hardcoded Recipe Processing ---
+        int activeSlots = 0;
+        if (entity.burnTimeRemaining > 0) {
+            activeSlots = Math.min((entity.burnTimeRemaining / FUEL_VALUE) + 1, entity.fuelItems.size());
+        }
+        boolean fuelChanged = false;
+        for (int i = activeSlots; i < entity.fuelItems.size(); i++) {
+            if (!entity.fuelItems.get(i).isEmpty()) {
+                entity.fuelItems.set(i, ItemStack.EMPTY);
+                fuelChanged = true;
+            }
+        }
+        if (fuelChanged) {
+            entity.markDirtyAndUpdate();
+        }
+        if (stateChanged) {
+            entity.markDirtyAndUpdate();
+        }
     }
 
     public void dropAllContents() {

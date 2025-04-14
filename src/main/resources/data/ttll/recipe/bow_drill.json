@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "#ttll:sticks",
+    "minecraft:bow"
+  ],
+  "result": {
+    "id": "ttll:bow_drill",
+    "count": 1
+  }
+}

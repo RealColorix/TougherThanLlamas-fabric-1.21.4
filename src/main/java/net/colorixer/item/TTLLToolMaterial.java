@@ -52,15 +52,15 @@ public class TTLLToolMaterial {
     //  STONE   --------------------------------------------------------------------------------------------------------------------------------------------------------
 
     public static final ToolMaterial STONE_FOR_SHOVEL = new ToolMaterial(
-            BlockTags.INCORRECT_FOR_WOODEN_TOOL, 5,1.2F,  0.0F, 1, ItemTags.WOODEN_TOOL_MATERIALS);
+            BlockTags.INCORRECT_FOR_WOODEN_TOOL, 5,1.7F,  0.0F, 1, ItemTags.WOODEN_TOOL_MATERIALS);
     public static final ToolMaterial STONE_TWINE_FOR_SHOVEL = new ToolMaterial(
-            BlockTags.INCORRECT_FOR_WOODEN_TOOL, 27,1.5F,  0.0F, 1, ItemTags.WOODEN_TOOL_MATERIALS);
+            BlockTags.INCORRECT_FOR_WOODEN_TOOL, 27,2F,  0.0F, 1, ItemTags.WOODEN_TOOL_MATERIALS);
     public static final ToolMaterial STONE_STRING_FOR_SHOVEL = new ToolMaterial(
-            BlockTags.INCORRECT_FOR_WOODEN_TOOL, 38,1.52F,  0.0F, 1, ItemTags.WOODEN_TOOL_MATERIALS);
+            BlockTags.INCORRECT_FOR_WOODEN_TOOL, 38,2.2F,  0.0F, 1, ItemTags.WOODEN_TOOL_MATERIALS);
     public static final ToolMaterial STONE_LEATHER_GRIP_FOR_SHOVEL = new ToolMaterial(
-            BlockTags.INCORRECT_FOR_WOODEN_TOOL, 11,1.3F,  0.0F, 1, ItemTags.WOODEN_TOOL_MATERIALS);
+            BlockTags.INCORRECT_FOR_WOODEN_TOOL, 11,1.8F,  0.0F, 1, ItemTags.WOODEN_TOOL_MATERIALS);
     public static final ToolMaterial STONE_TWINE_LEATHER_GRIP_FOR_SHOVEL = new ToolMaterial(
-            BlockTags.INCORRECT_FOR_WOODEN_TOOL, 36,1.65F,  0.0F, 1, ItemTags.WOODEN_TOOL_MATERIALS);
+            BlockTags.INCORRECT_FOR_WOODEN_TOOL, 36,2.15F,  0.0F, 1, ItemTags.WOODEN_TOOL_MATERIALS);
     public static final ToolMaterial STONE_STRING_LEATHER_GRIP_FOR_SHOVEL = new ToolMaterial(
-            BlockTags.INCORRECT_FOR_WOODEN_TOOL, 45,1.7F,  0.0F, 1, ItemTags.WOODEN_TOOL_MATERIALS);
+            BlockTags.INCORRECT_FOR_WOODEN_TOOL, 45,2.3F,  0.0F, 1, ItemTags.WOODEN_TOOL_MATERIALS);
 }

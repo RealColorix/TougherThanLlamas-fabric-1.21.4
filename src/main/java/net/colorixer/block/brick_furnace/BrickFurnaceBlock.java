@@ -2,12 +2,14 @@ package net.colorixer.block.brick_furnace;
 
 import com.mojang.serialization.MapCodec;
 import net.colorixer.block.ModBlockEntities;
+import net.colorixer.block.ModBlocks;
 import net.colorixer.item.ModItems;
 import net.colorixer.util.IdentifierUtil;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
@@ -69,35 +71,31 @@ public class BrickFurnaceBlock extends BlockWithEntity implements Waterloggable 
     }
 
     @Override
-    protected BlockState getStateForNeighborUpdate(
-            BlockState state,
-            WorldView worldView,
-            ScheduledTickView tickView,
-            BlockPos pos,
-            Direction direction,
-            BlockPos neighborPos,
-            BlockState neighborState,
-            Random random
-    ) {
+    protected BlockState getStateForNeighborUpdate(BlockState state, WorldView worldView, ScheduledTickView tickView,
+                                                   BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState,
+                                                   Random random) {
+        // Preserve water logics
         if (state.get(WATERLOGGED) && worldView instanceof World world) {
             tickView.scheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
-
             if (state.get(LIT)) {
-                world.playSound(
-                        null, pos,
-                        SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE,
-                        SoundCategory.BLOCKS,
-                        1.0f, 1.0f
-                );
+                world.playSound(null, pos, SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE,
+                        SoundCategory.BLOCKS, 1.0f, 1.0f);
             }
-
-            // Force apply updated state to world immediately to stop burning
             BlockState newState = state.with(LIT, false).with(USED, false);
             world.setBlockState(pos, newState, Block.NOTIFY_ALL);
-
-            return newState;
+            state = newState;
         }
+        // Check support: if the neighbor update is from below and the block below is not full, break the furnace.
+        if (direction == Direction.DOWN && !this.canPlaceAt(state, worldView, pos)) {
+            if (worldView instanceof World world) {
+                ItemEntity itemEntity = new ItemEntity(world,
+                        pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
+                        new ItemStack(ModBlocks.DRIED_BRICK, 0));
+                world.spawnEntity(itemEntity);
 
+                return net.minecraft.block.Blocks.AIR.getDefaultState();
+            }
+        }
         return super.getStateForNeighborUpdate(state, worldView, tickView, pos, direction, neighborPos, neighborState, random);
     }
 
@@ -134,7 +132,22 @@ public class BrickFurnaceBlock extends BlockWithEntity implements Waterloggable 
 
     @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {
-        return this.getDefaultState().with(FACING, ctx.getHorizontalPlayerFacing().getOpposite());
+        BlockPos pos = ctx.getBlockPos();
+        BlockPos below = pos.down();
+        BlockState belowState = ctx.getWorld().getBlockState(below);
+        if (!belowState.isSideSolidFullSquare(ctx.getWorld(), below, Direction.UP)) {
+            return null;  // Prevent placement if the block beneath is not a full block.
+        }
+        return this.getDefaultState().with(FACING, ctx.getHorizontalPlayerFacing().getOpposite())
+                .with(WATERLOGGED, ctx.getWorld().getFluidState(pos).getFluid() == Fluids.WATER);
+    }
+
+    @Override
+    public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
+        // Only allow placement if the block below is a full solid block.
+        BlockPos below = pos.down();
+        BlockState belowState = world.getBlockState(below);
+        return belowState.isSideSolidFullSquare(world, below, Direction.UP);
     }
 
     @Override
@@ -217,12 +230,30 @@ public class BrickFurnaceBlock extends BlockWithEntity implements Waterloggable 
         }
 
         if (furnace.getCastItem().isEmpty() &&
-                (stack.isOf(ModItems.SWORD_CAST) ||
-                stack.isOf(ModItems.PICKAXE_CAST) ||
-                stack.isOf(ModItems.AXE_CAST) ||
-                stack.isOf(ModItems.SHOVEL_CAST) ||
-                stack.isOf(ModItems.HOE_CAST)||
-                stack.isOf(ModItems.NUGGET_CAST))) {
+                (stack.isOf(ModItems.SWORD_CAST)
+                        || stack.isOf(ModItems.PICKAXE_CAST)
+                        || stack.isOf(ModItems.AXE_CAST)
+                        || stack.isOf(ModItems.SHOVEL_CAST)
+                        || stack.isOf(ModItems.HOE_CAST)
+                        || stack.isOf(ModItems.CHISEL_CAST)
+                        || stack.isOf(ModItems.BUCKET_CAST)
+                        || stack.isOf(ModItems.NUGGET_CAST)
+                        || stack.isOf(ModItems.INGOT_CAST)
+                        || stack.isOf(ModItems.PLATE_CAST)
+
+                        || stack.isOf(ModItems.SWORD_MOLD)
+                        || stack.isOf(ModItems.PICKAXE_MOLD)
+                        || stack.isOf(ModItems.AXE_MOLD)
+                        || stack.isOf(ModItems.SHOVEL_MOLD)
+                        || stack.isOf(ModItems.HOE_MOLD)
+                        || stack.isOf(ModItems.CHISEL_MOLD)
+                        || stack.isOf(ModItems.BUCKET_MOLD)
+                        || stack.isOf(ModItems.NUGGET_MOLD)
+                        || stack.isOf(ModItems.INGOT_MOLD)
+                        || stack.isOf(ModItems.PLATE_MOLD)
+
+
+                )) {
             furnace.setCastItem(new ItemStack(stack.getItem()));
             if (!player.isCreative()) {
                 stack.decrement(1);
@@ -231,12 +262,19 @@ public class BrickFurnaceBlock extends BlockWithEntity implements Waterloggable 
             return ActionResult.SUCCESS;
         }
         if (!furnace.getCastItem().isEmpty() && (
-                        stack.isOf(Items.IRON_INGOT) ||
-                        stack.isOf(Items.IRON_NUGGET) || stack.isOf(ModItems.IRON_DUST)||
-                        stack.isOf(Items.GOLD_INGOT)||
-                        stack.isOf(Items.GOLD_NUGGET)||
-                        stack.isOf(ModItems.GOLDEN_DUST)||
-                        stack.isOf(ModItems.COPPER_DUST)
+
+
+                stack.isOf(Items.IRON_INGOT)
+                        || stack.isOf(Items.IRON_NUGGET)
+                        || stack.isOf(ModItems.IRON_DUST)
+                        || stack.isOf(Items.RAW_IRON)
+                        || stack.isOf(Items.GOLD_INGOT)
+                        || stack.isOf(Items.GOLD_NUGGET)
+                        || stack.isOf(ModItems.GOLD_DUST)
+                        || stack.isOf(Items.RAW_GOLD)
+                        || stack.isOf(Items.RAW_COPPER)
+                        || stack.isOf(ModItems.COPPER_DUST)
+
         )) {
             DefaultedList<ItemStack> inventory = furnace.getInventory();
             if (!inventory.get(1).isEmpty() && stack.getItem() != inventory.get(1).getItem()) {
@@ -290,8 +328,8 @@ public class BrickFurnaceBlock extends BlockWithEntity implements Waterloggable 
             double y = pos.getY() + 1;
             double z = pos.getZ() + 0.5;
 
-            // Adjusting based on the furnace's facing direction
-            Direction facing = state.get(HorizontalFacingBlock.FACING); // or your custom facing property
+            // Adjust based on furnace facing
+            Direction facing = state.get(HorizontalFacingBlock.FACING);
             switch (facing) {
                 case NORTH:
                     z = pos.getZ();
@@ -307,14 +345,37 @@ public class BrickFurnaceBlock extends BlockWithEntity implements Waterloggable 
                     break;
             }
 
-            // Add the LARGE_SMOKE particle at multiple positions across the opening (reduce to 1/7th)
-            for (int i = 0; i < 1; i++) {
-                double offsetX = random.nextDouble() * 0.6 - 0.3; // Random between -0.3 and 0.3
-                double offsetZ = random.nextDouble() * 0.6 - 0.3; // Random between -0.3 and 0.3
-                world.addParticle(ParticleTypes.LARGE_SMOKE, x + offsetX, y, z + offsetZ, 0.0, 0.0, 0.0);
+            // Always spawn one LARGE_SMOKE particle for a general effect
+            double offsetXSmoke = random.nextDouble() * 0.6 - 0.3;
+            double offsetZSmoke = random.nextDouble() * 0.6 - 0.3;
+            world.addParticle(ParticleTypes.LARGE_SMOKE, x + offsetXSmoke, y, z + offsetZSmoke, 0.0, 0.0, 0.0);
+
+            // Every 5 ticks (instead of 20), check if there's a working recipe inside
+            if (world.getTime() % 1 == 0) {
+                BlockEntity be = world.getBlockEntity(pos);
+                if (be instanceof BrickFurnaceBlockEntity furnaceEntity) {
+                    boolean hasWorkingRecipe = false;
+                    for (BrickFurnaceBlockEntity.HardcodedRecipe recipe : BrickFurnaceBlockEntity.HARDCODED_RECIPES) {
+                        if (recipe.matches(furnaceEntity.getInventory())) {
+                            hasWorkingRecipe = true;
+                            break;
+                        }
+                    }
+                    if (hasWorkingRecipe) {
+                        double baseX = pos.getX() + 0.1;
+                        double baseY = pos.getY() + 0.6725;  // Y offset inside the furnace
+                        double baseZ = pos.getZ() + 0.1;
+                        double offsetX = random.nextDouble()*0.8 ;
+                        double offsetZ = random.nextDouble()*0.8 ;
+                        world.addParticle(ParticleTypes.FLAME, baseX + offsetX, baseY, baseZ + offsetZ, 0, 0.001, 0);
+                    }
+                }
             }
         }
     }
+
+
+
 
 
     // === NORTH (original)

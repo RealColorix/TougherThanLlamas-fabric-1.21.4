@@ -4,7 +4,12 @@
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
 		"ReducedMiningSpeed",
-		"LogsRequireTool"
+		"LogsRequireTool",
+		"OresDontNeedToolLevel",
+		"LeavesArePassable",
+		"LeavesSlowYouDown",
+		"LeavesPlacementRestrictor",
+		"AdvancementBackground"
 	],
 	"injectors": {
 		"defaultRequire": 1

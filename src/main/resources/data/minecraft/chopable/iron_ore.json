@@ -1,0 +1,8 @@
+{
+  "conditions": [
+    {
+      "item": "#ttll:beginner_stone_mining_tools",
+      "result": "ttll:excavated_stone"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north,waterlogged=false": { "model": "ttll:block/brick_siding" },
+    "facing=east,waterlogged=false": { "model": "ttll:block/brick_siding", "y": 90 },
+    "facing=south,waterlogged=false": { "model": "ttll:block/brick_siding", "y": 180 },
+    "facing=west,waterlogged=false": { "model": "ttll:block/brick_siding", "y": 270 }
+  }
+}

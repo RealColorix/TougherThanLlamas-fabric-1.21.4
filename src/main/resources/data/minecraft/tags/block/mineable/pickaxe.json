@@ -393,6 +393,9 @@
     "ttll:weathered_stone",
     "ttll:cobblestone",
     "ttll:cracked_stone",
-    "ttll:shattered_stone"
+    "ttll:shattered_stone",
+    "ttll:excavated_stone",
+    "ttll:brick_furnace",
+    "ttll:dried_brick"
   ]
 }

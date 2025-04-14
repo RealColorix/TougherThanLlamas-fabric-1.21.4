@@ -2,14 +2,12 @@
   "values": [
     "minecraft:iron_block",
     "minecraft:raw_iron_block",
-    "minecraft:iron_ore",
     "minecraft:deepslate_iron_ore",
     "minecraft:lapis_block",
     "minecraft:lapis_ore",
     "minecraft:deepslate_lapis_ore",
     "minecraft:copper_block",
     "minecraft:raw_copper_block",
-    "minecraft:copper_ore",
     "minecraft:deepslate_copper_ore",
     "minecraft:cut_copper_slab",
     "minecraft:cut_copper_stairs",
@@ -76,7 +74,8 @@
     "minecraft:waxed_exposed_copper_trapdoor",
     "minecraft:waxed_weathered_copper_trapdoor",
     "minecraft:waxed_oxidized_copper_trapdoor",
-
-    "ttll:shattered_stone"
+    "ttll:excavated_stone",
+    "ttll:shattered_stone",
+    "ttll:brick_furnace"
   ]
 }

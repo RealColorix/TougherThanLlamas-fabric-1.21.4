@@ -31,9 +31,27 @@ public class TougherThanLlamas implements ModInitializer {
 		Chopable.initialize();
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		//TICKING CODE
-
-
 		ServerTickEvents.END_WORLD_TICK.register(world -> {
 			for (var entity : world.iterateEntities()) {
 				if (!(entity instanceof FallingBlockEntity falling)) continue;

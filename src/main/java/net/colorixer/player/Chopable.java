@@ -11,6 +11,7 @@ import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
@@ -21,7 +22,10 @@ import net.minecraft.resource.Resource;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.property.Property;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
@@ -35,6 +39,7 @@ import org.jetbrains.annotations.NotNull;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
+import java.util.function.Consumer;
 
 /**
  * Handles block replacement logic based on specific items, tags, or default conditions.
@@ -289,8 +294,19 @@ public class Chopable implements SimpleSynchronousResourceReloadListener {
         if (resultBlock != null) {
             // Drop the block's loot table if doLootTable is true.
 
+
             if (!toolStack.isEmpty() && toolStack.isDamageable() && !player.isCreative()) {
-                toolStack.damage(1, player);
+                // Damage the tool by 1 point; pass the EquipmentSlot (MAINHAND)
+                toolStack.damage(1, player, EquipmentSlot.MAINHAND);
+
+                // Check if the tool's damage is equal to or exceeds its maximum,
+                // indicating that it should break.
+                if (toolStack.getDamage() >= toolStack.getMaxDamage()) {
+                    // Remove the tool from the player's main hand.
+                    player.setStackInHand(Hand.MAIN_HAND, ItemStack.EMPTY);
+                    // Play the break sound.
+                    world.playSound(null, pos, SoundEvents.ENTITY_ITEM_BREAK, SoundCategory.PLAYERS, 1.0f, 1.0f);
+                }
             }
 
             if (conditions.shouldDoLootTable()) {

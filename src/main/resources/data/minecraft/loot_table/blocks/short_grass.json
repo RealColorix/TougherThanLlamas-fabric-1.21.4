@@ -23,7 +23,7 @@
               "type": "minecraft:item",
               "conditions": [
                 {
-                  "chance": 0.1333,
+                  "chance": 0.07777,
                   "condition": "minecraft:random_chance"
                 },
                 {

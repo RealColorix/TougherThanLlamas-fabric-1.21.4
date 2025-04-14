@@ -4,22 +4,46 @@
   "item.ttll.axe_cast": "Axe Cast",
   "item.ttll.shovel_cast": "Shovel Cast",
   "item.ttll.hoe_cast": "Hoe Cast",
+  "item.ttll.chisel_cast": "Chisel Cast",
+  "item.ttll.bucket_cast": "Bucket Cast",
   "item.ttll.nugget_cast": "Nugget Cast",
+  "item.ttll.ingot_cast": "Ingot Cast",
+  "item.ttll.plate_cast": "Plate Cast",
 
   "item.ttll.iron_sword_cast": "Iron Sword Cast",
   "item.ttll.iron_pickaxe_cast": "Iron Pickaxe Cast",
   "item.ttll.iron_axe_cast": "Iron Axe Cast",
   "item.ttll.iron_shovel_cast": "Iron Shovel Cast",
   "item.ttll.iron_hoe_cast": "Iron Hoe Cast",
+  "item.ttll.iron_chisel_cast": "Iron Chisel Cast",
+  "item.ttll.iron_bucket_cast": "Iron Bucket Cast",
   "item.ttll.iron_nugget_cast": "Iron Nugget Cast",
+  "item.ttll.iron_ingot_cast": "Iron Ingot Cast",
+  "item.ttll.iron_plate_cast": "Iron Plate Cast",
 
   "item.ttll.golden_sword_cast": "Golden Sword Cast",
   "item.ttll.golden_pickaxe_cast": "Golden Pickaxe Cast",
   "item.ttll.golden_axe_cast": "Golden Axe Cast",
   "item.ttll.golden_shovel_cast": "Golden shovel Cast",
   "item.ttll.golden_hoe_cast": "Golden Hoe Cast",
-  "item.ttll.golden_nugget_cast": "Golden Nugget Cast",
+  "item.ttll.gold_nugget_cast": "Gold Nugget Cast",
+  "item.ttll.gold_ingot_cast": "Gold Ingot Cast",
+  "item.ttll.gold_plate_cast": "Gold Plate Cast",
 
+  "item.ttll.copper_ingot_cast": "Copper Ingot Cast",
+  "item.ttll.copper_plate_cast": "Copper Plate Cast",
+
+
+  "item.ttll.sword_mold": "Sword Mold",
+  "item.ttll.pickaxe_mold": "Pickaxe Mold",
+  "item.ttll.axe_mold": "Axe Mold",
+  "item.ttll.shovel_mold": "Shovel Mold",
+  "item.ttll.hoe_mold": "Hoe Mold",
+  "item.ttll.chisel_mold": "Chisel Mold",
+  "item.ttll.bucket_mold": "Bucket Mold",
+  "item.ttll.nugget_mold": "Nugget Mold",
+  "item.ttll.ingot_mold": "Ingot Mold",
+  "item.ttll.plate_mold": "Plate Mold",
 
   "item.ttll.pointy_stick": "Pointy Stick",
   "item.ttll.branch": "Branch",
@@ -27,6 +51,8 @@
   "item.ttll.sharpend_bone": "Sharpend Bone",
   "item.ttll.rock": "Rock",
   "item.ttll.sharp_rock": "Sharp Rock",
+  "item.ttll.fire_plough": "Fire Plough",
+  "item.ttll.bow_drill": "Bow Drill",
 
   "item.ttll.flint_hatchet": "Flint Hatchet",
   "item.ttll.flint_hatchet_leather_grip": "Flint Hatchet",
@@ -69,9 +95,11 @@
   "item.ttll.string_knitting": "String Knitting",
   "item.ttll.wet_brick": "Wet Brick",
   "item.ttll.crude_clay": "Crude Clay",
+  "item.ttll.tree_sap": "Tree Sap",
 
+  "item.ttll.coal_dust": "Coal Dust",
   "item.ttll.iron_dust": "Iron Dust",
-  "item.ttll.golden_dust": "Golden Dust",
+  "item.ttll.gold_dust": "Gold Dust",
   "item.ttll.copper_dust": "Copper Dust",
 
   "item.ttll.dirt_pile": "Dirt Pile",
@@ -85,6 +113,8 @@
   "item.ttll.crude_brush": "Crude Brush",
   "item.ttll.crude_axe": "Crude Axe",
 
+
+  "block.ttll.brick_siding": "Brick Siding",
   "block.ttll.brick_furnace": "Brick Furnace",
   "block.ttll.campfire": "Campfire",
   "block.ttll.oak_trunk": "Oak Trunk",
@@ -101,10 +131,14 @@
   "block.ttll.cobblestone": "Cobblestone",
   "block.ttll.cracked_stone": "Cracked Stone",
   "block.ttll.shattered_stone": "Shattered Stone",
+  "block.ttll.excavated_stone": "Excavated Stone",
 
   "block.ttll.gravel_slab": "Gravel Slab",
   "block.ttll.sand_slab": "Sand Slab",
   "block.ttll.loose_dirt_slab": "Loose Dirt Slab",
+
+  "block.ttll.dried_brick": "Dried Brick",
+  "block.ttll.wet_brick": "Wet Brick",
 
   "screen.ttll.achievements": "Achievements",
 

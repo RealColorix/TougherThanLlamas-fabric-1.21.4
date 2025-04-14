@@ -1,10 +1,11 @@
 {
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
+    "minecraft:clay_ball",
     "minecraft:clay_ball"
   ],
   "result": {
     "id": "ttll:wet_brick",
-    "count": 1
+    "count": 2
   }
 }
