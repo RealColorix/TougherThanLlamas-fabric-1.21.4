@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:story/root",
+  "parent": "ttll:story/root",
   "criteria": {
     "get_hatchet": {
       "conditions": {
@@ -24,7 +24,7 @@
       "translate": "advancements.story.hatchet.title"
     },
     "show_toast": true,
-    "announce_to_chat": true,
+    "announce_to_chat": false,
     "hidden": false
   },
   "requirements": [
@@ -32,5 +32,5 @@
       "get_hatchet"
     ]
   ],
-  "sends_telemetry_event": true
+  "sends_telemetry_event": false
 }

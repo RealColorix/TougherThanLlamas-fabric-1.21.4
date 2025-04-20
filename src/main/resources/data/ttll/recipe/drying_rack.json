@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#-",
+    "//"
+  ],
+  "key": {
+    "/": "ttll:drying_rack_leg",
+    "#": "#ttll:strings",
+    "-": "#ttll:sticks"
+  },
+  "result": {
+    "id": "ttll:drying_rack",
+    "count": 1
+  }
+}

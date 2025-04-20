@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "L": "minecraft:leather",
+    "l": "ttll:leather_cloth",
+    "#": "#ttll:garn"
+  },
+  "pattern": [
+    "ll",
+    "L#"
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:leather_chestplate"
+  }
+}

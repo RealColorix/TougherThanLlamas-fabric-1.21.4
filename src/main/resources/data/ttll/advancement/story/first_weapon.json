@@ -1,0 +1,36 @@
+{
+  "parent": "ttll:story/root",
+  "criteria": {
+    "wooden_club": {
+      "conditions": {
+        "items": [
+          {
+            "items": "ttll:wooden_club"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.story.first_weapon.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "ttll:wooden_club"
+    },
+    "title": {
+      "translate": "advancements.story.first_weapon.title"
+    },
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "requirements": [
+    [
+      "wooden_club"
+    ]
+  ],
+  "sends_telemetry_event": false
+}

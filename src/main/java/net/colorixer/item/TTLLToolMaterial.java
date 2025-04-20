@@ -11,6 +11,19 @@ public class TTLLToolMaterial {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
     public static final ToolMaterial FLINT_FOR_CHISEL = new ToolMaterial(
             BlockTags.INCORRECT_FOR_WOODEN_TOOL, 3,1F,  0, 1, ItemTags.WOODEN_TOOL_MATERIALS);
 
@@ -63,4 +76,20 @@ public class TTLLToolMaterial {
             BlockTags.INCORRECT_FOR_WOODEN_TOOL, 36,2.15F,  0.0F, 1, ItemTags.WOODEN_TOOL_MATERIALS);
     public static final ToolMaterial STONE_STRING_LEATHER_GRIP_FOR_SHOVEL = new ToolMaterial(
             BlockTags.INCORRECT_FOR_WOODEN_TOOL, 45,2.3F,  0.0F, 1, ItemTags.WOODEN_TOOL_MATERIALS);
+
+
+    //  WEAPONS   --------------------------------------------------------------------------------------------------------------------------------------------------------
+                    //Durability Speed Extra-damage Enchantability
+
+    public static final ToolMaterial WOODEN_CLUB = new ToolMaterial(
+            BlockTags.INCORRECT_FOR_WOODEN_TOOL, 13,1F,  0.0F, 1, ItemTags.WOODEN_TOOL_MATERIALS);
+    public static final ToolMaterial ZOMBIE = new ToolMaterial(
+            BlockTags.INCORRECT_FOR_WOODEN_TOOL, 49,1F,  0.0F, 1, ItemTags.WOODEN_TOOL_MATERIALS);
+    public static final ToolMaterial BONE = new ToolMaterial(
+            BlockTags.INCORRECT_FOR_WOODEN_TOOL, 71,1F,  0.0F, 1, ItemTags.WOODEN_TOOL_MATERIALS);
+
+
+
+
+
 }

@@ -9,7 +9,9 @@
 		"LeavesArePassable",
 		"LeavesSlowYouDown",
 		"LeavesPlacementRestrictor",
-		"AdvancementBackground"
+		"AdvancementBackground",
+		"PlayerEntityMixin",
+		"HungerManagerMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

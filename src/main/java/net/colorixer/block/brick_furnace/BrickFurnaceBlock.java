@@ -9,14 +9,12 @@ import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.item.*;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
@@ -117,7 +115,7 @@ public class BrickFurnaceBlock extends BlockWithEntity implements Waterloggable 
     @Nullable
     @SuppressWarnings("unchecked")
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        if (type != ModBlockEntities.BRICK_FURNACE) {
+        if (type != ModBlockEntities.BRICK_FURNACE_BLOCK_ENTITY) {
             return null;
         }
         return (BlockEntityTicker<T>) (world1, pos, state1, blockEntity) ->
@@ -161,6 +159,28 @@ public class BrickFurnaceBlock extends BlockWithEntity implements Waterloggable 
         };
     }
 
+    private boolean isFlexibleIngredient(Item item) {
+        for (BrickFurnaceBlockEntity.CookingRecipe recipe : BrickFurnaceBlockEntity.COOKING_RECIPES) {
+            if ((recipe.ingredient.getCustomIngredient() == item) || (recipe.result.getItem() == item)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+
+    private boolean isCookingRecipeOutput(ItemStack stack) {
+        for (BrickFurnaceBlockEntity.CookingRecipe recipe : BrickFurnaceBlockEntity.COOKING_RECIPES) {
+            if (ItemStack.areEqual(recipe.result, stack)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         ItemStack stack = player.getMainHandStack();
@@ -168,15 +188,32 @@ public class BrickFurnaceBlock extends BlockWithEntity implements Waterloggable 
         if (!(blockEntity instanceof BrickFurnaceBlockEntity furnace)) {
             return ActionResult.PASS;
         }
+
+
         if (stack.isOf(Items.FLINT_AND_STEEL) && furnace.getBurnTime() > 0 &&
                 !state.get(BrickFurnaceBlock.LIT) && !state.get(BrickFurnaceBlock.WATERLOGGED)) {
-            world.setBlockState(pos, state.with(BrickFurnaceBlock.LIT, true));
-            player.swingHand(Hand.MAIN_HAND);
-            world.playSound(null, pos, SoundEvents.ITEM_FIRECHARGE_USE, SoundCategory.BLOCKS, 0.5f, 1.2f);
+
+            if (world.getRandom().nextFloat() < 0.25f) {
+                world.setBlockState(pos, state.with(BrickFurnaceBlock.LIT, true));
+                world.playSound(null, pos, SoundEvents.ITEM_FIRECHARGE_USE, SoundCategory.BLOCKS, 0.5f, 1.2f);
+
+            }
             world.playSound(null, pos, SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.BLOCKS, 0.5f, 1.2f);
+
+            stack.damage(1, player, EquipmentSlot.MAINHAND);
+
+            // Check if the tool's damage is equal to or exceeds its maximum,
+            // indicating that it should break.
+            if (stack.getDamage() >= stack.getMaxDamage()) {
+                // Remove the tool from the player's main hand.
+                player.setStackInHand(Hand.MAIN_HAND, ItemStack.EMPTY);
+                // Play the break sound.
+                world.playSound(null, pos, SoundEvents.ENTITY_ITEM_BREAK, SoundCategory.PLAYERS, 1.0f, 1.0f);
+            }
+
+            player.swingHand(Hand.MAIN_HAND);
             return ActionResult.SUCCESS;
         }
-
 
         if (stack.isIn(SHOVEL_TAG) && furnace.isBurning()) {
             world.setBlockState(pos, state.with(BrickFurnaceBlock.LIT, false).with(BrickFurnaceBlock.USED, true));
@@ -187,7 +224,21 @@ public class BrickFurnaceBlock extends BlockWithEntity implements Waterloggable 
         if (stack.isEmpty()) {
             DefaultedList<ItemStack> inventory = furnace.getInventory();
 
-            // Try to pick up input materials first (slots 1+)
+            // FIRST: Check each ingredient slot (slots 4 to 1) for a cooked item from a CookingRecipe.
+            for (int i = inventory.size() - 1; i >= 1; i--) {
+                ItemStack current = inventory.get(i);
+                if (!current.isEmpty() && isCookingRecipeOutput(current)) {
+                    ItemStack removed = current.copy();
+                    inventory.set(i, ItemStack.EMPTY);
+                    if (!player.getInventory().insertStack(removed)) {
+                        player.dropItem(removed, false);
+                    }
+                    world.playSound(null, pos, SoundEvents.ENTITY_ITEM_FRAME_REMOVE_ITEM, SoundCategory.BLOCKS, 1f, 1f);
+                    return ActionResult.SUCCESS;
+                }
+            }
+
+            // SECOND: If no cooked ingredient is found, fall back to the original behavior:
             for (int i = inventory.size() - 1; i >= 1; i--) {
                 if (!inventory.get(i).isEmpty()) {
                     ItemStack removed = inventory.get(i).copy();
@@ -200,7 +251,7 @@ public class BrickFurnaceBlock extends BlockWithEntity implements Waterloggable 
                 }
             }
 
-            // Then try to pick up the cast item
+            // Then try to pick up the cast item if no ingredient was picked up.
             if (!furnace.getCastItem().isEmpty()) {
                 ItemStack removed = furnace.getCastItem().copy();
                 furnace.setCastItem(ItemStack.EMPTY);
@@ -211,7 +262,7 @@ public class BrickFurnaceBlock extends BlockWithEntity implements Waterloggable 
                 return ActionResult.SUCCESS;
             }
 
-            // If furnace is not lit AND everything else has been picked up, allow taking remaining fuel
+            // Finally, if the furnace is not lit and everything else has been picked up, allow taking remaining fuel.
             if (!state.get(LIT)) {
                 ItemStack fuelStack = inventory.getFirst();
                 if (!fuelStack.isEmpty()) {
@@ -221,7 +272,7 @@ public class BrickFurnaceBlock extends BlockWithEntity implements Waterloggable 
                     if (!player.getInventory().insertStack(removed)) {
                         player.dropItem(removed, false);
                     }
-                    // Deduct the burn time
+                    // Deduct the burn time.
                     furnace.setBurnTime(0);
                     world.playSound(null, pos, SoundEvents.ENTITY_ITEM_FRAME_REMOVE_ITEM, SoundCategory.BLOCKS, 1f, 0.8f);
                     return ActionResult.SUCCESS;
@@ -229,31 +280,9 @@ public class BrickFurnaceBlock extends BlockWithEntity implements Waterloggable 
             }
         }
 
-        if (furnace.getCastItem().isEmpty() &&
-                (stack.isOf(ModItems.SWORD_CAST)
-                        || stack.isOf(ModItems.PICKAXE_CAST)
-                        || stack.isOf(ModItems.AXE_CAST)
-                        || stack.isOf(ModItems.SHOVEL_CAST)
-                        || stack.isOf(ModItems.HOE_CAST)
-                        || stack.isOf(ModItems.CHISEL_CAST)
-                        || stack.isOf(ModItems.BUCKET_CAST)
-                        || stack.isOf(ModItems.NUGGET_CAST)
-                        || stack.isOf(ModItems.INGOT_CAST)
-                        || stack.isOf(ModItems.PLATE_CAST)
 
-                        || stack.isOf(ModItems.SWORD_MOLD)
-                        || stack.isOf(ModItems.PICKAXE_MOLD)
-                        || stack.isOf(ModItems.AXE_MOLD)
-                        || stack.isOf(ModItems.SHOVEL_MOLD)
-                        || stack.isOf(ModItems.HOE_MOLD)
-                        || stack.isOf(ModItems.CHISEL_MOLD)
-                        || stack.isOf(ModItems.BUCKET_MOLD)
-                        || stack.isOf(ModItems.NUGGET_MOLD)
-                        || stack.isOf(ModItems.INGOT_MOLD)
-                        || stack.isOf(ModItems.PLATE_MOLD)
+        if (furnace.getCastItem().isEmpty() && BrickFurnaceBlockEntity.isValidCast(stack.getItem())) {
 
-
-                )) {
             furnace.setCastItem(new ItemStack(stack.getItem()));
             if (!player.isCreative()) {
                 stack.decrement(1);
@@ -261,25 +290,17 @@ public class BrickFurnaceBlock extends BlockWithEntity implements Waterloggable 
             world.playSound(null, pos, SoundEvents.ENTITY_ITEM_FRAME_ADD_ITEM, SoundCategory.BLOCKS, 1f, 1f);
             return ActionResult.SUCCESS;
         }
-        if (!furnace.getCastItem().isEmpty() && (
+        if (!furnace.getCastItem().isEmpty() &&
+                BrickFurnaceBlockEntity.isValidIngredient(stack, furnace.getCastItem())) {
 
-
-                stack.isOf(Items.IRON_INGOT)
-                        || stack.isOf(Items.IRON_NUGGET)
-                        || stack.isOf(ModItems.IRON_DUST)
-                        || stack.isOf(Items.RAW_IRON)
-                        || stack.isOf(Items.GOLD_INGOT)
-                        || stack.isOf(Items.GOLD_NUGGET)
-                        || stack.isOf(ModItems.GOLD_DUST)
-                        || stack.isOf(Items.RAW_GOLD)
-                        || stack.isOf(Items.RAW_COPPER)
-                        || stack.isOf(ModItems.COPPER_DUST)
-
-        )) {
             DefaultedList<ItemStack> inventory = furnace.getInventory();
-            if (!inventory.get(1).isEmpty() && stack.getItem() != inventory.get(1).getItem()) {
+            // If slot 1 already has an ingredient, enforce matching only if it is not a flexible ingredient.
+            if (!inventory.get(1).isEmpty() &&
+                    !isFlexibleIngredient(inventory.get(1).getItem()) &&
+                    stack.getItem() != inventory.get(1).getItem()) {
                 return ActionResult.PASS;
             }
+
             for (int i = 1; i < inventory.size(); i++) {
                 if (inventory.get(i).isEmpty()) {
                     inventory.set(i, new ItemStack(stack.getItem()));

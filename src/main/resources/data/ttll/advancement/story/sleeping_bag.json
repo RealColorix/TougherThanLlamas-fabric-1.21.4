@@ -1,0 +1,36 @@
+{
+  "parent": "ttll:story/clothiest",
+  "criteria": {
+    "sleeping_bag": {
+      "conditions": {
+        "items": [
+          {
+            "items": "ttll:cloth_wool_white"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.story.sleeping_bag.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "minecraft:white_bed"
+    },
+    "title": {
+      "translate": "advancements.story.sleeping_bag.title"
+    },
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "requirements": [
+    [
+      "sleeping_bag"
+    ]
+  ],
+  "sends_telemetry_event": false
+}

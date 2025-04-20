@@ -1,0 +1,16 @@
+{
+  "values": [
+    "minecraft:diamond_axe",
+    "minecraft:stone_axe",
+    "minecraft:golden_axe",
+    "minecraft:netherite_axe",
+    "minecraft:wooden_axe",
+    "minecraft:iron_axe",
+    "ttll:flint_hatchet",
+    "ttll:flint_hatchet_leather_grip",
+    "ttll:flint_hatchet_twine",
+    "ttll:flint_hatchet_twine_leather_grip",
+    "ttll:flint_hatchet_string",
+    "ttll:flint_hatchet_string_leather_grip"
+  ]
+}

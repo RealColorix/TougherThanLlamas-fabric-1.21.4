@@ -1,0 +1,36 @@
+{
+  "parent": "ttll:story/hatchet",
+  "criteria": {
+    "campfire_cooking": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:campfire"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.story.campfire_cooking.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "minecraft:campfire"
+    },
+    "title": {
+      "translate": "advancements.story.campfire_cooking.title"
+    },
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "requirements": [
+    [
+      "campfire_cooking"
+    ]
+  ],
+  "sends_telemetry_event": false
+}

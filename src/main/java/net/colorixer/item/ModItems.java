@@ -26,10 +26,8 @@ public class ModItems {
     public static final Item PLATE_MOLD = registerItem("plate_mold", MoldItem::new, new Item.Settings().maxCount(4));
     public static final Item BUCKET_MOLD = registerItem("bucket_mold", MoldItem::new, new Item.Settings().maxCount(4));
     public static final Item CHISEL_MOLD = registerItem("chisel_mold", MoldItem::new, new Item.Settings().maxCount(4));
-
-
+    public static final Item FLAT_MOLD = registerItem("flat_mold", MoldItem::new, new Item.Settings().maxCount(4));
     //CASTS
-
     public static final Item PICKAXE_CAST = registerItem("pickaxe_cast", Item::new, new Item.Settings());
     public static final Item AXE_CAST = registerItem("axe_cast", Item::new, new Item.Settings());
     public static final Item SWORD_CAST = registerItem("sword_cast", Item::new, new Item.Settings());
@@ -40,6 +38,7 @@ public class ModItems {
     public static final Item PLATE_CAST = registerItem("plate_cast", Item::new, new Item.Settings());
     public static final Item BUCKET_CAST = registerItem("bucket_cast", Item::new, new Item.Settings());
     public static final Item CHISEL_CAST = registerItem("chisel_cast", Item::new, new Item.Settings());
+    public static final Item FLAT_CAST = registerItem("flat_cast", Item::new, new Item.Settings());
 
     public static final Item IRON_PICKAXE_CAST = registerItem("iron_pickaxe_cast", Item::new, new Item.Settings());
     public static final Item IRON_AXE_CAST = registerItem("iron_axe_cast", Item::new, new Item.Settings());
@@ -76,8 +75,10 @@ public class ModItems {
     public static final Item JUNGLE_BARK = registerItem("jungle_bark", Item::new, new Item.Settings());
     public static final Item SPRUCE_BARK = registerItem("spruce_bark", Item::new, new Item.Settings());
 
+    public static final Item TALLOW = registerItem("tallow", Item::new, new Item.Settings());
     public static final Item TREE_SAP = registerItem("tree_sap", Item::new, new Item.Settings());
-
+    public static final Item SAW_DUST = registerItem("saw_dust", Item::new, new Item.Settings());
+    public static final Item RAW_LEATHER = registerItem("raw_leather", Item::new, new Item.Settings());
 
     public static final Item DIRT_PILE = registerItem("dirt_pile", Item::new, new Item.Settings());
     public static final Item GRAVEL_PILE = registerItem("gravel_pile", Item::new, new Item.Settings());
@@ -99,6 +100,13 @@ public class ModItems {
     public static final Item KNITTING_STICKS = registerItem("knitting_sticks", Item::new, new Item.Settings());
     public static final Item GRASS_FIBER = registerItem("grass_fiber", Item::new, new Item.Settings());
     public static final Item SPUNNED_STRING = registerItem("spunned_string", Item::new, new Item.Settings());
+    public static final Item MYSTERIOUS_GLAND = registerItem("mysterious_gland", Item::new, new Item.Settings());
+
+    /// LEATHER ARMOR
+
+    public static final Item LEATHER_CLOTH = registerItem("leather_cloth", Item::new, new Item.Settings());
+    public static final Item LEATHER_BOOT = registerItem("leather_boot", Item::new, new Item.Settings());
+    public static final Item DRYING_RACK_LEG = registerItem("drying_rack_leg", Item::new, new Item.Settings());
 
     /// ORES -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -110,12 +118,12 @@ public class ModItems {
 
     /// TOOLS --------- FLINT HATCHES   ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------**/
 
-    public static final Item FLINT_HATCHET = registerItem("flint_hatchet",settings -> new AxeItem(TTLLToolMaterial.FLINT_FOR_AXE, 1.8F, -3.1F, settings), new Item.Settings());
-    public static final Item FLINT_HATCHET_LEATHER_GRIP = registerItem("flint_hatchet_leather_grip",settings -> new AxeItem(TTLLToolMaterial.FLINT_LEATHER_GRIP_FOR_AXE, 1.8F, -3.0F, settings), new Item.Settings());
-    public static final Item FLINT_HATCHET_TWINE = registerItem("flint_hatchet_twine",settings -> new AxeItem(TTLLToolMaterial.FLINT_TWINE_FOR_AXE, 2.0F, -3.0F, settings), new Item.Settings());
-    public static final Item FLINT_HATCHET_TWINE_LEATHER_GRIP = registerItem("flint_hatchet_twine_leather_grip",settings -> new AxeItem(TTLLToolMaterial.FLINT_TWINE_LEATHER_GRIP_FOR_AXE, 2.0F, -2.9F, settings), new Item.Settings());
-    public static final Item FLINT_HATCHET_STRING = registerItem("flint_hatchet_string",settings -> new AxeItem(TTLLToolMaterial.FLINT_STRING_FOR_AXE, 2.2F, -2.9F, settings), new Item.Settings());
-    public static final Item FLINT_HATCHET_STRING_LEATHER_GRIP = registerItem("flint_hatchet_string_leather_grip",settings -> new AxeItem(TTLLToolMaterial.FLINT_STRING_LEATHER_GRIP_FOR_AXE, 2.2F, -2.8F, settings), new Item.Settings());
+    public static final Item FLINT_HATCHET = registerItem("flint_hatchet",settings -> new FlintAxeItem(TTLLToolMaterial.FLINT_FOR_AXE, 1.8F, -3.1F, settings), new Item.Settings());
+    public static final Item FLINT_HATCHET_LEATHER_GRIP = registerItem("flint_hatchet_leather_grip",settings -> new FlintAxeItem(TTLLToolMaterial.FLINT_LEATHER_GRIP_FOR_AXE, 1.8F, -3.0F, settings), new Item.Settings());
+    public static final Item FLINT_HATCHET_TWINE = registerItem("flint_hatchet_twine",settings -> new FlintAxeItem(TTLLToolMaterial.FLINT_TWINE_FOR_AXE, 2.0F, -3.0F, settings), new Item.Settings());
+    public static final Item FLINT_HATCHET_TWINE_LEATHER_GRIP = registerItem("flint_hatchet_twine_leather_grip",settings -> new FlintAxeItem(TTLLToolMaterial.FLINT_TWINE_LEATHER_GRIP_FOR_AXE, 2.0F, -2.9F, settings), new Item.Settings());
+    public static final Item FLINT_HATCHET_STRING = registerItem("flint_hatchet_string",settings -> new FlintAxeItem(TTLLToolMaterial.FLINT_STRING_FOR_AXE, 2.2F, -2.9F, settings), new Item.Settings());
+    public static final Item FLINT_HATCHET_STRING_LEATHER_GRIP = registerItem("flint_hatchet_string_leather_grip",settings -> new FlintAxeItem(TTLLToolMaterial.FLINT_STRING_LEATHER_GRIP_FOR_AXE, 2.2F, -2.8F, settings), new Item.Settings());
 
     // CRUDE DRAXES ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -138,10 +146,19 @@ public class ModItems {
     // INDIVIDUAL ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     public static final Item FLINT_KNIFE = registerItem("flint_knife", settings -> new KnifeItem(TTLLToolMaterial.FLINT_FOR_KNIFE, 1.5F, -1.0F, settings), new Item.Settings());
-
     public static final Item FLINT_CHISEL = registerItem("flint_chisel",settings -> new PickaxeItem(TTLLToolMaterial.FLINT_FOR_CHISEL, 1, -1.7F, settings), new Item.Settings());
 
+    public static final Item WOODEN_CLUB = registerItem("wooden_club",settings -> new SwordItem(TTLLToolMaterial.WOODEN_CLUB, 2f, -2.4F, settings), new Item.Settings());
+    public static final Item ZOMBIE_ARM = registerItem("zombie_arm",settings -> new SwordItem(TTLLToolMaterial.ZOMBIE, 4f, -3.2F, settings), new Item.Settings());
+    public static final Item BONE_CLUB = registerItem("bone_club",settings -> new SwordItem(TTLLToolMaterial.BONE, 5f, -3.4F, settings), new Item.Settings());
+
+
     /// COLORED ITEMS ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------***/
+    //GARN ITEMS
+
+    public static final Item WHITE_GARN = registerItem("white_garn", Item::new, new Item.Settings());
+
+
     // WOOL ITEMS
 
     public static final Item WHITE_WOOL = registerItem("white_wool", Item::new, new Item.Settings());
@@ -153,15 +170,15 @@ public class ModItems {
 
     // FIRESTARTER ITEMS ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-    public static final Item FIRE_PLOUGH = registerItem("fire_plough", settings -> new FireStarterItem(settings, 0.00666), new Item.Settings().maxCount(1).maxDamage(200));
-    public static final Item BOW_DRILL = registerItem("bow_drill", settings -> new FireStarterItem(settings, 0.01), new Item.Settings().maxCount(1).maxDamage(500));
+    public static final Item FIRE_PLOUGH = registerItem("fire_plough", settings -> new FireStarterItem(settings, 0.01333), new Item.Settings().maxCount(1).maxDamage(200));
+    public static final Item BOW_DRILL = registerItem("bow_drill", settings -> new FireStarterItem(settings, 0.025), new Item.Settings().maxCount(1).maxDamage(500));
 
 
     // KNITTING ITEMS ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     public static final Item KNITTING_GRASS_FIBER = registerItem(
             "knitting_grass_fiber",
-            settings -> new KnittingSticksItem(settings, 90, ModItems.TWINE, 1, SoundEvents.BLOCK_GRASS_STEP),
+            settings -> new KnittingSticksItem(settings, 150, ModItems.TWINE, 1, SoundEvents.BLOCK_GRASS_STEP),
             new Item.Settings().maxCount(1));
 
     public static final Item STRING_KNITTING = registerItem(
@@ -172,6 +189,10 @@ public class ModItems {
     public static final Item KNITTING_WOOL_WHITE = registerItem(
             "knitting_wool_white",
             settings -> new KnittingSticksItem(settings, 540, ModItems.CLOTH_WOOL_WHITE, 1,SoundEvents.BLOCK_WOOL_STEP),
+            new Item.Settings().maxCount(1));
+    public static final Item KNITTING_GARN_WHITE = registerItem(
+            "knitting_garn_white",
+            settings -> new KnittingSticksItem(settings, 270, ModItems.WHITE_GARN, 1,SoundEvents.BLOCK_WOOL_STEP),
             new Item.Settings().maxCount(1));
 
 
@@ -211,8 +232,10 @@ public class ModItems {
             entries.add(JUNGLE_FIREWOOD);
             entries.add(JUNGLE_BARK);
             entries.add(KNITTING_WOOL_WHITE);
+            entries.add(KNITTING_GARN_WHITE);
             entries.add(CLOTH_WOOL_WHITE);
             entries.add(WHITE_WOOL);
+            entries.add(WHITE_GARN);
             entries.add(FLINT_HATCHET);
             entries.add(FLINT_HATCHET_LEATHER_GRIP);
             entries.add(FLINT_HATCHET_TWINE);
@@ -230,6 +253,8 @@ public class ModItems {
             entries.add(CRUDE_DRAX_STRING_LEATHER_GRIP);
             entries.add(ROCK);
             entries.add(SHARP_ROCK);
+            entries.add(LEATHER_CLOTH);
+            entries.add(LEATHER_BOOT);
             entries.add(FLINT_CHISEL);
             entries.add(STONE_SHOVEL);
             entries.add(STONE_SHOVEL_LEATHER_GRIP);
@@ -248,6 +273,7 @@ public class ModItems {
             entries.add(NUGGET_CAST);
             entries.add(INGOT_CAST);
             entries.add(PLATE_CAST);
+            entries.add(FLAT_CAST);
             entries.add(IRON_SWORD_CAST);
             entries.add(IRON_PICKAXE_CAST);
             entries.add(IRON_AXE_CAST);
@@ -281,11 +307,23 @@ public class ModItems {
             entries.add(NUGGET_MOLD);
             entries.add(INGOT_MOLD);
             entries.add(PLATE_MOLD);
+            entries.add(FLAT_MOLD);
             entries.add(TREE_SAP);
+            entries.add(TALLOW);
             entries.add(COAL_DUST);
             entries.add(FIRE_PLOUGH);
             entries.add(BOW_DRILL);
+            entries.add(SAW_DUST);
+            entries.add(MYSTERIOUS_GLAND);
+            entries.add(RAW_LEATHER);
+            entries.add(DRYING_RACK_LEG);
+        });
 
+
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register(entries -> {
+            entries.add(WOODEN_CLUB);
+            entries.add(ZOMBIE_ARM);
+            entries.add(BONE_CLUB);
         });
     }
 }

@@ -21,7 +21,7 @@ public class BrickFurnaceBlockEntityRenderer implements BlockEntityRenderer<Bric
 
     private static final Vec3d CAST_POSITION = new Vec3d(8f / 16f, 8.5f / 16f, 8f / 16f);
 
-    private static final Vec3d[] INGREDIENT_POSITIONS = new Vec3d[] {
+    public static final Vec3d[] INGREDIENT_POSITIONS = new Vec3d[] {
             new Vec3d(4.5f/16f, 9.2f/16f, 4.5f/16f),
             new Vec3d(11.5f/16f, 9.2f/16f, 4.5f/16f),
             new Vec3d(11.5f/16f, 9.2f/16f, 11.5f/16f),

@@ -1,0 +1,36 @@
+{
+  "parent": "ttll:story/crude_drax",
+  "criteria": {
+    "get_brick_furnace": {
+      "conditions": {
+        "items": [
+          {
+            "items": "ttll:brick_furnace"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.story.brick_furnace.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "ttll:brick_furnace"
+    },
+    "title": {
+      "translate": "advancements.story.brick_furnace.title"
+    },
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "requirements": [
+    [
+      "get_brick_furnace"
+    ]
+  ],
+  "sends_telemetry_event": false
+}

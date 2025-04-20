@@ -3,10 +3,10 @@
   "ingredients": [
     "ttll:coal_dust",
     "ttll:coal_dust",
-    "ttll:tree_sap"
+    "#ttll:binders"
   ],
   "result": {
-    "id": "minecraft:charcoal",
+    "id": "minecraft:coal",
     "count": 1
   }
 }

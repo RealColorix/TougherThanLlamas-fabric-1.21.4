@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "s": "#ttll:sticks"
+    "s": "minecraft:stick"
   },
   "pattern": [
     "ss"

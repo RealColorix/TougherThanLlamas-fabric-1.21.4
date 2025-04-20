@@ -1,7 +1,9 @@
 package net.colorixer.block.brick_furnace;
 
 import net.colorixer.block.ModBlockEntities;
+import net.colorixer.block.ModBlocks;
 import net.colorixer.item.ModItems;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.ExperienceOrbEntity;
@@ -12,6 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
+import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -24,7 +27,7 @@ import java.util.List;
 
 public class BrickFurnaceBlockEntity extends BlockEntity {
     public static final int MAX_BURN_TIME = 16200;  // Set to 16200
-    public static final int FUEL_VALUE = 1800;     // Set to 1800
+    public static final int FUEL_VALUE = 1800;        // Set to 1800
     private int burnTimeRemaining = 0;
     public int recipeCookTime = 0;
 
@@ -33,8 +36,11 @@ public class BrickFurnaceBlockEntity extends BlockEntity {
     private final DefaultedList<ItemStack> items = DefaultedList.ofSize(5, ItemStack.EMPTY);
     private final DefaultedList<ItemStack> fuelItems = DefaultedList.ofSize(9, ItemStack.EMPTY);
 
+    // Tracking cooking progress for each ingredient slot; slot 0 is reserved for the cast.
+    private final int[] cookingProgress = new int[5];
+
     public BrickFurnaceBlockEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.BRICK_FURNACE, pos, state);
+        super(ModBlockEntities.BRICK_FURNACE_BLOCK_ENTITY, pos, state);
     }
 
     public boolean addFuel(ItemStack stack, PlayerEntity player) {
@@ -112,6 +118,10 @@ public class BrickFurnaceBlockEntity extends BlockEntity {
         Inventories.writeNbt(fuelNbt, fuelItems, true, registries);
         nbt.put("FuelItems", fuelNbt);
         nbt.putInt("RecipeCookTime", recipeCookTime);
+        // Save individual cooking progress values for slots 1 to 4.
+        for (int i = 1; i < cookingProgress.length; i++) {
+            nbt.putInt("CookingProgress_" + i, cookingProgress[i]);
+        }
         return nbt;
     }
 
@@ -124,6 +134,9 @@ public class BrickFurnaceBlockEntity extends BlockEntity {
         Inventories.writeNbt(fuelNbt, fuelItems, true, registries);
         nbt.put("FuelItems", fuelNbt);
         nbt.putInt("RecipeCookTime", recipeCookTime);
+        for (int i = 1; i < cookingProgress.length; i++) {
+            nbt.putInt("CookingProgress_" + i, cookingProgress[i]);
+        }
     }
 
     @Override
@@ -138,12 +151,16 @@ public class BrickFurnaceBlockEntity extends BlockEntity {
             Inventories.readNbt(fuelNbt, fuelItems, registries);
         }
         recipeCookTime = nbt.getInt("RecipeCookTime");
+        for (int i = 1; i < cookingProgress.length; i++) {
+            cookingProgress[i] = nbt.getInt("CookingProgress_" + i);
+        }
         if (world != null) {
             BlockState state = world.getBlockState(pos);
             world.updateListeners(pos, state, state, 3);
         }
     }
 
+    // --- Hardcoded Recipe (existing) ---
     public static class HardcodedRecipe {
         public final Item cast;
         public final Item ingredient;
@@ -195,10 +212,42 @@ public class BrickFurnaceBlockEntity extends BlockEntity {
         }
     }
 
+
+    public static boolean isValidCast(Item item) {
+        for (HardcodedRecipe recipe : HARDCODED_RECIPES) {
+            if (recipe.cast == item) return true;
+        }
+        for (CookingRecipe recipe : COOKING_RECIPES) {
+            if (recipe.requiredCast == item) return true;
+        }
+        return false;
+    }
+
+    public static boolean isValidIngredient(ItemStack ingredient, ItemStack cast) {
+        // Ensure the cast matches the recipe
+        for (HardcodedRecipe recipe : HARDCODED_RECIPES) {
+            if (recipe.cast == cast.getItem() && ingredient.getItem() == recipe.ingredient) return true;
+        }
+        for (CookingRecipe recipe : COOKING_RECIPES) {
+            if (recipe.requiredCast == cast.getItem() && recipe.ingredient.test(ingredient)) return true;
+        }
+        return false;
+    }
+
+
+
     public static final List<HardcodedRecipe> HARDCODED_RECIPES = new ArrayList<>();
 
     static {
-        //MOLDS
+        // MOLDS
+        HARDCODED_RECIPES.add(new HardcodedRecipe(
+                ModItems.FLAT_MOLD,
+                null,
+                0,
+                ModItems.FLAT_CAST,
+                3000,
+                0
+        ));
         HARDCODED_RECIPES.add(new HardcodedRecipe(
                 ModItems.INGOT_MOLD,
                 null,
@@ -279,14 +328,13 @@ public class BrickFurnaceBlockEntity extends BlockEntity {
                 3000,
                 0
         ));
-        //IRON ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
+        // IRON recipes
         HARDCODED_RECIPES.add(new HardcodedRecipe(
                 ModItems.NUGGET_CAST,
                 ModItems.IRON_DUST,
                 4,
                 ModItems.IRON_NUGGET_CAST,
-                3600,
+                3500,
                 2
         ));
         HARDCODED_RECIPES.add(new HardcodedRecipe(
@@ -294,28 +342,25 @@ public class BrickFurnaceBlockEntity extends BlockEntity {
                 Items.RAW_IRON,
                 2,
                 ModItems.IRON_NUGGET_CAST,
-                3600,
+                3500,
                 2
         ));
-
         HARDCODED_RECIPES.add(new HardcodedRecipe(
                 ModItems.INGOT_CAST,
                 Items.IRON_NUGGET,
                 4,
                 ModItems.IRON_INGOT_CAST,
-                10800,
+                10700,
                 7
         ));
-
         HARDCODED_RECIPES.add(new HardcodedRecipe(
                 ModItems.PLATE_CAST,
                 Items.IRON_INGOT,
                 2,
                 ModItems.IRON_PLATE_CAST,
-                8400,
+                8300,
                 7
         ));
-
         HARDCODED_RECIPES.add(new HardcodedRecipe(
                 ModItems.SWORD_CAST,
                 Items.IRON_INGOT,
@@ -324,16 +369,14 @@ public class BrickFurnaceBlockEntity extends BlockEntity {
                 7000,
                 9
         ));
-
         HARDCODED_RECIPES.add(new HardcodedRecipe(
                 ModItems.PICKAXE_CAST,
                 Items.IRON_INGOT,
                 3,
                 ModItems.IRON_PICKAXE_CAST,
-                9000,
+                8900,
                 12
         ));
-
         HARDCODED_RECIPES.add(new HardcodedRecipe(
                 ModItems.AXE_CAST,
                 Items.IRON_INGOT,
@@ -342,7 +385,6 @@ public class BrickFurnaceBlockEntity extends BlockEntity {
                 7000,
                 10
         ));
-
         HARDCODED_RECIPES.add(new HardcodedRecipe(
                 ModItems.SHOVEL_CAST,
                 Items.IRON_INGOT,
@@ -359,7 +401,6 @@ public class BrickFurnaceBlockEntity extends BlockEntity {
                 5000,
                 7
         ));
-
         HARDCODED_RECIPES.add(new HardcodedRecipe(
                 ModItems.HOE_CAST,
                 Items.IRON_INGOT,
@@ -376,7 +417,6 @@ public class BrickFurnaceBlockEntity extends BlockEntity {
                 5000,
                 6
         ));
-
         HARDCODED_RECIPES.add(new HardcodedRecipe(
                 ModItems.CHISEL_CAST,
                 Items.IRON_INGOT,
@@ -393,7 +433,6 @@ public class BrickFurnaceBlockEntity extends BlockEntity {
                 5000,
                 5
         ));
-
         HARDCODED_RECIPES.add(new HardcodedRecipe(
                 ModItems.BUCKET_CAST,
                 Items.IRON_INGOT,
@@ -410,9 +449,7 @@ public class BrickFurnaceBlockEntity extends BlockEntity {
                 4000,
                 4
         ));
-
-        //GOLD ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
+        // GOLD recipes
         HARDCODED_RECIPES.add(new HardcodedRecipe(
                 ModItems.NUGGET_CAST,
                 ModItems.GOLD_DUST,
@@ -429,17 +466,14 @@ public class BrickFurnaceBlockEntity extends BlockEntity {
                 3200,
                 4
         ));
-
-
         HARDCODED_RECIPES.add(new HardcodedRecipe(
                 ModItems.INGOT_CAST,
                 Items.GOLD_NUGGET,
                 4,
                 ModItems.GOLD_INGOT_CAST,
-                7200,
+                7100,
                 10
         ));
-
         HARDCODED_RECIPES.add(new HardcodedRecipe(
                 ModItems.SWORD_CAST,
                 Items.GOLD_INGOT,
@@ -448,7 +482,6 @@ public class BrickFurnaceBlockEntity extends BlockEntity {
                 5500,
                 9
         ));
-
         HARDCODED_RECIPES.add(new HardcodedRecipe(
                 ModItems.PICKAXE_CAST,
                 Items.GOLD_INGOT,
@@ -457,7 +490,6 @@ public class BrickFurnaceBlockEntity extends BlockEntity {
                 7500,
                 12
         ));
-
         HARDCODED_RECIPES.add(new HardcodedRecipe(
                 ModItems.AXE_CAST,
                 Items.GOLD_INGOT,
@@ -466,7 +498,6 @@ public class BrickFurnaceBlockEntity extends BlockEntity {
                 5500,
                 10
         ));
-
         HARDCODED_RECIPES.add(new HardcodedRecipe(
                 ModItems.SHOVEL_CAST,
                 Items.GOLD_INGOT,
@@ -483,7 +514,6 @@ public class BrickFurnaceBlockEntity extends BlockEntity {
                 3500,
                 7
         ));
-
         HARDCODED_RECIPES.add(new HardcodedRecipe(
                 ModItems.HOE_CAST,
                 Items.GOLD_INGOT,
@@ -500,7 +530,6 @@ public class BrickFurnaceBlockEntity extends BlockEntity {
                 3500,
                 6
         ));
-
         HARDCODED_RECIPES.add(new HardcodedRecipe(
                 ModItems.PLATE_CAST,
                 Items.GOLD_INGOT,
@@ -509,9 +538,7 @@ public class BrickFurnaceBlockEntity extends BlockEntity {
                 6400,
                 8
         ));
-
-        // COPPER -------------------------------------------------------------------------
-
+        // COPPER recipe
         HARDCODED_RECIPES.add(new HardcodedRecipe(
                 ModItems.PLATE_CAST,
                 Items.COPPER_INGOT,
@@ -520,6 +547,58 @@ public class BrickFurnaceBlockEntity extends BlockEntity {
                 8400,
                 4
         ));
+    }
+
+    // --- New Cooking Recipe (per-slot) with cast requirement ---
+    public static class CookingRecipe {
+        public final Item requiredCast;
+        public final Ingredient ingredient;  // Changed from Item to Ingredient
+        public final ItemStack result;       // Changed from Item to ItemStack
+        public final int cookTime;
+        public final int experience;
+
+        public CookingRecipe(Item requiredCast, Item ingredient, Item result, int cookTime, int experience) {
+            this(requiredCast, Ingredient.ofItems(ingredient), new ItemStack(result), cookTime, experience);
+        }
+
+        public CookingRecipe(Item requiredCast, Block ingredient, Item result, int cookTime, int experience) {
+            this(requiredCast, Ingredient.ofItems(ingredient.asItem()), new ItemStack(result), cookTime, experience);
+        }
+
+        public CookingRecipe(Item requiredCast, Block ingredient, Block result, int cookTime, int experience) {
+            this(requiredCast, Ingredient.ofItems(ingredient.asItem()), new ItemStack(result.asItem()), cookTime, experience);
+        }
+
+        private CookingRecipe(Item requiredCast, Ingredient ingredient, ItemStack result, int cookTime, int experience) {
+            this.requiredCast = requiredCast;
+            this.ingredient = ingredient;
+            this.result = result;
+            this.cookTime = cookTime;
+            this.experience = experience;
+        }
+
+        public boolean matches(ItemStack castStack, ItemStack ingredientStack) {
+            return !castStack.isEmpty() && castStack.getItem() == requiredCast &&
+                    ingredient.test(ingredientStack);
+        }
+    }
+
+
+
+
+    public static final List<CookingRecipe> COOKING_RECIPES = new ArrayList<>();
+
+    static {
+
+        COOKING_RECIPES.add(new CookingRecipe(ModItems.FLAT_CAST, ModItems.BIRCH_FIREWOOD, Items.CHARCOAL, 1500, 0));
+        COOKING_RECIPES.add(new CookingRecipe(ModItems.FLAT_CAST, ModItems.OAK_FIREWOOD, Items.CHARCOAL, 1500, 0));
+        COOKING_RECIPES.add(new CookingRecipe(ModItems.FLAT_CAST, ModItems.SPRUCE_FIREWOOD, Items.CHARCOAL, 1500, 0));
+        COOKING_RECIPES.add(new CookingRecipe(ModItems.FLAT_CAST, ModItems.JUNGLE_FIREWOOD, Items.CHARCOAL, 1500, 0));
+        COOKING_RECIPES.add(new CookingRecipe(ModItems.FLAT_CAST, Items.BEEF, Items.COOKED_BEEF, 1500, 1));
+        COOKING_RECIPES.add(new CookingRecipe(ModItems.FLAT_CAST, Items.CHICKEN, Items.COOKED_CHICKEN, 1500, 1));
+        COOKING_RECIPES.add(new CookingRecipe(ModItems.FLAT_CAST, Items.MUTTON, Items.COOKED_MUTTON, 1500, 1));
+        COOKING_RECIPES.add(new CookingRecipe(ModItems.FLAT_CAST, ModBlocks.WET_BRICK, ModBlocks.DRIED_BRICK, 4500, 0));
+
     }
 
     public static void tick(World world, BlockPos pos, BlockState state, BrickFurnaceBlockEntity entity) {
@@ -553,6 +632,7 @@ public class BrickFurnaceBlockEntity extends BlockEntity {
 
         boolean foundMatch = false;
 
+        // Process hardcoded recipes first
         for (HardcodedRecipe recipe : HARDCODED_RECIPES) {
             if (recipe.matches(entity.getInventory())) {
                 foundMatch = true;
@@ -567,7 +647,6 @@ public class BrickFurnaceBlockEntity extends BlockEntity {
                     recipe.consumeIngredients(entity.getInventory());
                     entity.setCastItem(new ItemStack(recipe.result));
 
-                    // Only spawn an XP orb if the recipe's experience value is greater than zero.
                     if (recipe.experience > 0) {
                         ExperienceOrbEntity xpOrb = new ExperienceOrbEntity(world,
                                 pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5, recipe.experience);
@@ -582,11 +661,12 @@ public class BrickFurnaceBlockEntity extends BlockEntity {
             }
         }
 
-// If no recipe matched, slowly reduce the timer
+        // If no hardcoded recipe matched, decrease the global timer.
         if (!foundMatch) {
             entity.recipeCookTime = Math.max(0, entity.recipeCookTime - 5);
         }
 
+        // Process fuel inventory (unchanged)
         int activeSlots = 0;
         if (entity.burnTimeRemaining > 0) {
             activeSlots = Math.min((entity.burnTimeRemaining / FUEL_VALUE) + 1, entity.fuelItems.size());
@@ -603,6 +683,42 @@ public class BrickFurnaceBlockEntity extends BlockEntity {
         }
         if (stateChanged) {
             entity.markDirtyAndUpdate();
+        }
+
+        // Process cooking recipes on each ingredient slot (slots 1 to 4)
+        // Now the recipe will only apply if the cast in slot 0 matches the recipe requirement.
+        // Process cooking recipes on each ingredient slot (slots 1 to 4)
+        ItemStack castStack = entity.getCastItem();
+        for (int slot = 1; slot < entity.items.size(); slot++) {
+            ItemStack stack = entity.items.get(slot);
+            if (!stack.isEmpty()) {
+                for (CookingRecipe cRecipe : COOKING_RECIPES) {
+                    if (cRecipe.matches(castStack, stack)) {
+                        if (entity.isBurning()) {
+                            entity.cookingProgress[slot]++;
+                        } else {
+                            entity.cookingProgress[slot] = Math.max(0, entity.cookingProgress[slot] - 1);
+                        }
+                        if (entity.cookingProgress[slot] >= cRecipe.cookTime) {
+                            // Create new stack preserving count and NBT
+                            ItemStack resultStack = cRecipe.result.copy();
+                            resultStack.setCount(stack.getCount());
+                            entity.items.set(slot, resultStack);
+
+                            if (cRecipe.experience > 0) {
+                                ExperienceOrbEntity xpOrb = new ExperienceOrbEntity(world,
+                                        pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5, cRecipe.experience);
+                                world.spawnEntity(xpOrb);
+                            }
+
+                            entity.cookingProgress[slot] = 0;
+                            entity.markDirty();
+                            world.updateListeners(pos, state, state, 3);
+                        }
+                        break;
+                    }
+                }
+            }
         }
     }
 

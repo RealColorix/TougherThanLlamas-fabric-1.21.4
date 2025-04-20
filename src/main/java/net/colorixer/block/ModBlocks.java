@@ -4,6 +4,7 @@ import net.colorixer.TougherThanLlamas;
 import net.colorixer.block.brick_block.DriedBrickBlock;
 import net.colorixer.block.brick_block.WetBrickBlock;
 import net.colorixer.block.brick_furnace.BrickFurnaceBlock;
+import net.colorixer.block.drying_rack.DryingRackBlock;
 import net.colorixer.block.logs.StemBlock;
 import net.colorixer.block.logs.TrunkBlock;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
@@ -24,6 +25,8 @@ public class ModBlocks {
 
 
 
+    public static final Block DRYING_RACK = registerBlock("drying_rack", DryingRackBlock::new, Block.Settings.create()
+            .mapColor(MapColor.TERRACOTTA_BROWN).strength(0.05F, 0F).sounds(BlockSoundGroup.WOOD));
 
 
 
@@ -133,6 +136,7 @@ public class ModBlocks {
             entries.add(ModBlocks.DRIED_BRICK);
             entries.add(ModBlocks.WET_BRICK);
             entries.add(ModBlocks.BRICK_SIDING);
+            entries.add(ModBlocks.DRYING_RACK);
         });
     }
 }

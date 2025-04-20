@@ -1,5 +1,5 @@
 {
-  "parent": "ttll:story/hatchet",
+  "parent": "ttll:story/root",
   "criteria": {
     "get_crude_drax": {
       "conditions": {
@@ -24,7 +24,7 @@
       "translate": "advancements.story.crude_drax.title"
     },
     "show_toast": true,
-    "announce_to_chat": true,
+    "announce_to_chat": false,
     "hidden": false
   },
   "requirements": [
@@ -32,5 +32,5 @@
       "get_crude_drax"
     ]
   ],
-  "sends_telemetry_event": true
+  "sends_telemetry_event": false
 }

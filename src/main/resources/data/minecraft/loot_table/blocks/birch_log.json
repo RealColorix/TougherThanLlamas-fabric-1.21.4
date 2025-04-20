@@ -40,6 +40,22 @@
         }
       ],
       "rolls": 1
+    },
+    {
+      "bonus_rolls": 0,
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.33
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "ttll:tree_sap"
+        }
+      ],
+      "rolls": 1
     }
   ],
   "random_sequence": "minecraft:blocks/birch_log"

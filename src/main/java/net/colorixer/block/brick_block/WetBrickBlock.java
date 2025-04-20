@@ -2,15 +2,23 @@ package net.colorixer.block.brick_block;
 
 import com.mojang.serialization.MapCodec;
 import net.colorixer.block.ModBlockEntities;
+import net.colorixer.block.ModBlocks;
+import net.colorixer.block.drying_rack.DryingRackBlockEntity;
+import net.colorixer.item.ModItems;
 import net.colorixer.util.IdentifierUtil;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.particle.DustParticleEffect;
+import net.minecraft.item.Items;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
@@ -35,6 +43,30 @@ public class WetBrickBlock extends BlockWithEntity {
                 .with(FACING, Direction.NORTH));
     }
 
+    @Override
+    public void onEntityCollision(BlockState state, World world,
+                                  BlockPos pos, Entity entity) {
+
+        /* ignore everything that isn’t a mob / player */
+        if (world.isClient || !(entity instanceof LivingEntity)) return;
+
+        /* 1 ─ sound */
+        world.playSound(null, pos,
+                SoundEvents.BLOCK_MUD_HIT, SoundCategory.BLOCKS,
+                0.4F, 1.0F);
+
+
+        /* 3 ─ extra loot */
+        ItemEntity branches = new ItemEntity(
+                world, pos.getX()+.5, pos.getY()+.5, pos.getZ()+.5,
+                new ItemStack(ModBlocks.WET_BRICK, 1));
+        branches.setPickupDelay(20);
+        world.spawnEntity(branches);
+
+
+        /* 4 ─ remove block (drops already handled) */
+        world.breakBlock(pos, false);
+    }
     @Override
     protected MapCodec<? extends BlockWithEntity> getCodec() {
         return null;

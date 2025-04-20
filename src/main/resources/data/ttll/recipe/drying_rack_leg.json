@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "//"
+  ],
+  "key": {
+    "/": "ttll:branch"
+  },
+  "result": {
+    "id": "ttll:drying_rack_leg",
+    "count": 1
+  }
+}

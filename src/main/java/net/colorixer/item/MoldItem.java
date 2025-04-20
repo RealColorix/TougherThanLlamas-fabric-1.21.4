@@ -54,6 +54,8 @@ public class MoldItem extends Item {
                 }else if (stack.getItem() == ModItems.BUCKET_MOLD) {
                     newItem = ModItems.PLATE_MOLD;
                 }else if (stack.getItem() == ModItems.PLATE_MOLD) {
+                    newItem = ModItems.FLAT_MOLD;
+                }else if (stack.getItem() == ModItems.FLAT_MOLD) {
                     newItem = ModItems.NUGGET_MOLD;
                 }
 

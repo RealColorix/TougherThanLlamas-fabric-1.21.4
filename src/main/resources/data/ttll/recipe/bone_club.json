@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "b": "minecraft:bone",
+    "s": "minecraft:string",
+    "S": "minecraft:skeleton_skull"
+  },
+  "pattern": [
+    "sS",
+    "b "
+  ],
+  "result": {
+    "count": 1,
+    "id": "ttll:bone_club"
+  }
+}

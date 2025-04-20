@@ -234,6 +234,20 @@ public class ItemsThatCanHitAndBreak {
                 block == Blocks.CALCITE || block == Blocks.SMOOTH_BASALT || block == Blocks.BASALT ||
                 block == Blocks.BLACKSTONE || block == Blocks.COBBLESTONE || block == Blocks.COBBLED_DEEPSLATE||
                 block == ModBlocks.WEATHERED_STONE || block == ModBlocks.COBBLESTONE || block == ModBlocks.CRACKED_STONE ||
-                block == ModBlocks.SHATTERED_STONE|| block == Blocks.BEDROCK;
+                block == ModBlocks.SHATTERED_STONE|| block == ModBlocks.EXCAVATED_STONE||block == Blocks.BEDROCK
+                ||block == Blocks.COAL_ORE||block == Blocks.DEEPSLATE_COAL_ORE
+                ||block == Blocks.IRON_ORE||block == Blocks.DEEPSLATE_IRON_ORE
+                ||block == Blocks.COPPER_ORE||block == Blocks.DEEPSLATE_COPPER_ORE
+                ||block == Blocks.GOLD_ORE||block == Blocks.DEEPSLATE_GOLD_ORE
+                ||block == Blocks.LAPIS_ORE||block == Blocks.DEEPSLATE_LAPIS_ORE
+                ||block == Blocks.REDSTONE_ORE||block == Blocks.DEEPSLATE_REDSTONE_ORE
+                ||block == Blocks.EMERALD_ORE||block == Blocks.DEEPSLATE_EMERALD_ORE
+                ||block == Blocks.DIAMOND_ORE||block == Blocks.DEEPSLATE_DIAMOND_ORE
+                ||block == Blocks.RAW_IRON_BLOCK||block == Blocks.RAW_COPPER_BLOCK
+                ||block == Blocks.RAW_GOLD_BLOCK||block == Blocks.IRON_BLOCK
+                ||block == Blocks.COPPER_BLOCK||block == Blocks.GOLD_BLOCK
+                ||block == Blocks.ANCIENT_DEBRIS||block == Blocks.DIAMOND_BLOCK
+                ||block == Blocks.EMERALD_BLOCK||block == Blocks.NETHERITE_BLOCK
+                ||block == Blocks.LAPIS_BLOCK||block == Blocks.REDSTONE_BLOCK;
     }
 }

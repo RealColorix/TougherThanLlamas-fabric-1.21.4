@@ -1,10 +1,6 @@
 {
   "conditions": [
     {
-      "item": "#ttll:hatches",
-      "result": "ttll:oak_trunk"
-    },
-    {
       "item": "#ttll:crude_draxes",
       "result": "ttll:oak_trunk"
     }

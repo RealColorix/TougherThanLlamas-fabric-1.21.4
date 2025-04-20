@@ -8,7 +8,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "ttll:birch_bark",
+          "name": "ttll:saw_dust",
           "conditions": [
             {
               "condition": "minecraft:match_tool",
