@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "ttll:branch",
+    "ttll:sharp_rock"
+  ],
+  "result": {
+    "id": "ttll:handle_carving",
+    "count": 1
+  }
+}

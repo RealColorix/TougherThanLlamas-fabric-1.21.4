@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:item/handheld",
-  "textures": {
-    "layer0": "ttll:item/crude_drax",
-    "layer1": "ttll:item/crude_stringing",
-    "layer2": "ttll:item/crude_drax_grip"
-  }
-}

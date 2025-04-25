@@ -42,7 +42,7 @@ import java.util.*;
 import java.util.function.Consumer;
 
 /**
- * Handles block replacement logic based on specific items, tags, or default conditions.
+ * Handles block replacement logic based on specific items.java, tags, or default conditions.
  */
 public class Chopable implements SimpleSynchronousResourceReloadListener {
 
@@ -322,18 +322,18 @@ public class Chopable implements SimpleSynchronousResourceReloadListener {
                 // Calculate velocity - DIFFERENT BEHAVIOR BASED ON POSITION
                 Vec3d velocity;
                 if (playerBelow) {
-                    // Player is below - items should fall down toward player
+                    // Player is below - items.java should fall down toward player
                     velocity = new Vec3d(
                             (world.random.nextDouble() - 0.5) * 0.1,  // Small random horizontal
                             -0.2,                                    // Force downward
                             (world.random.nextDouble() - 0.5) * 0.1  // Small random horizontal
                     );
                 } else {
-                    // Player is above - items should arc up toward player
+                    // Player is above - items.java should arc up toward player
                     velocity = direction.multiply(0.25).add(0, 0.15, 0); // Toward player + slight upward
                 }
 
-                // Drop items
+                // Drop items.java
                 for (ItemStack stack : Block.getDroppedStacks(oldState, world, pos, blockEntity, player, toolStack)) {
                     ItemEntity itemEntity = new ItemEntity(
                             world,

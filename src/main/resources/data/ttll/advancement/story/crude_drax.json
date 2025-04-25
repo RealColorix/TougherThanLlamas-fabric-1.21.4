@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "#ttll:crude_draxes"
+            "items": "ttll:sharp_rock"
           }
         ]
       },
@@ -18,7 +18,7 @@
     },
     "icon": {
       "count": 1,
-      "id": "ttll:crude_drax"
+      "id": "ttll:sharp_rock"
     },
     "title": {
       "translate": "advancements.story.crude_drax.title"

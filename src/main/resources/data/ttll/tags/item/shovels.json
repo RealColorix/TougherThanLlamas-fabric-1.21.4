@@ -1,11 +1,6 @@
 {
   "values": [
     "ttll:stone_shovel",
-    "ttll:stone_shovel_leather_grip",
-    "ttll:stone_shovel_twine",
-    "ttll:stone_shovel_twine_leather_grip",
-    "ttll:stone_shovel_string",
-    "ttll:stone_shovel_string_leather_grip",
     "minecraft:wooden_shovel",
     "minecraft:stone_shovel",
     "minecraft:iron_shovel",

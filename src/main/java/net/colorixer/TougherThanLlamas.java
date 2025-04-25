@@ -3,13 +3,11 @@ package net.colorixer;
 import net.colorixer.block.FallingSlabBlock;
 import net.colorixer.block.ModBlockEntities;
 import net.colorixer.block.ModBlocks;
-import net.colorixer.block.drying_rack.DryingRackBlockEntityRenderer;
 import net.colorixer.item.ItemsThatCanHitAndBreak;
 import net.colorixer.item.ModItems;
 import net.colorixer.player.Chopable;
 import net.fabricmc.api.ModInitializer;
 
-import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
@@ -17,32 +15,18 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.enums.SlabType;
 import net.minecraft.entity.FallingBlockEntity;
-import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.GameRules;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.lang.ref.Reference;
-import java.util.Optional;
-
 public class TougherThanLlamas implements ModInitializer {
 	public static final String MOD_ID = "ttll";
 
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-
 
 
 
@@ -54,7 +38,10 @@ public class TougherThanLlamas implements ModInitializer {
 		ItemsThatCanHitAndBreak.register();
 		Chopable.initialize();
 
-		//ON JOIN RULES
+
+
+
+
 
 
 
@@ -69,9 +56,12 @@ public class TougherThanLlamas implements ModInitializer {
 			EntityAttributeInstance reach =
 					player.getAttributeInstance(EntityAttributes.BLOCK_INTERACTION_RANGE);
 			if (reach != null) {
-				reach.setBaseValue(3.0D);   // 2‑block reach
+				reach.setBaseValue(2.9D);
 			}
 		});
+
+
+
 
 
 

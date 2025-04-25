@@ -1,8 +1,9 @@
 {
   "conditions": [
     {
-      "item": "minecraft:iron_hoe",
-      "result": "minecraft:coarse_dirt",
+      "item": "ttll:stone_hoe",
+      "result": "minecraft:farmland",
+      "blockabovedisables": true,
       "doloottable": false
     }
   ]

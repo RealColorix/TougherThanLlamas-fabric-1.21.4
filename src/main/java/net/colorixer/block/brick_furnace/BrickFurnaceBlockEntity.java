@@ -724,13 +724,13 @@ public class BrickFurnaceBlockEntity extends BlockEntity {
 
     public void dropAllContents() {
         if (world != null && !world.isClient) {
-            // Drop items from main inventory (cast + ingredients)
+            // Drop items.java from main inventory (cast + ingredients)
             for (ItemStack stack : new ArrayList<>(items)) {
                 if (!stack.isEmpty()) {
                     world.spawnEntity(new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, stack.copy()));
                 }
             }
-            // Drop items from fuel inventory
+            // Drop items.java from fuel inventory
             for (ItemStack stack : new ArrayList<>(fuelItems)) {
                 if (!stack.isEmpty()) {
                     world.spawnEntity(new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, stack.copy()));

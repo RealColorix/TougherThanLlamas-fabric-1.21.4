@@ -2,7 +2,7 @@
   "conditions": [
 
     {
-      "item": "#ttll:crude_draxes",
+      "item": "ttll:sharp_rock",
       "result": "ttll:spruce_trunk"
     }
   ]

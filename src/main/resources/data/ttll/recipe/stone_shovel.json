@@ -2,11 +2,12 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "/": "#ttll:sticks",
+    "b": "#ttll:binding_strings",
+    "/": "ttll:handle",
     "S": "ttll:rock"
   },
   "pattern": [
-    " S",
+    "bS",
     "/ "
   ],
   "result": {

@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "b": "minecraft:bone",
-    "s": "minecraft:string",
+    "s": "#ttll:binding_strings",
     "S": "minecraft:skeleton_skull"
   },
   "pattern": [

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "#ttll:uncooked_meats",
+    "#ttll:uncooked_meats",
+    "ttll:flint"
+  ],
+  "result": {
+    "id": "ttll:flint_sinew_chopping",
+    "count": 1
+  }
+}

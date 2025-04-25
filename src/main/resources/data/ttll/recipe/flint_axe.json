@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "b": "#ttll:binding_strings",
+    "/": "ttll:handle",
+    "F": "ttll:flint"
+  },
+  "pattern": [
+    "bF",
+    "/ "
+  ],
+  "result": {
+    "count": 1,
+    "id": "ttll:flint_axe"
+  }
+}

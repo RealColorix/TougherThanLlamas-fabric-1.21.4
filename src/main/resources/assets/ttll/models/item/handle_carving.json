@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "ttll:item/branch",
+    "layer1": "ttll:item/rock_using"
+  }
+}

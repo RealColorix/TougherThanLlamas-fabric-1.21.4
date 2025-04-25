@@ -1,11 +1,5 @@
 {
   "values": [
-    "ttll:crude_drax",
-    "ttll:crude_drax_twine",
-    "ttll:crude_drax_string",
-    "ttll:crude_drax_leather_grip",
-    "ttll:crude_drax_twine_leather_grip",
-    "ttll:crude_drax_string_leather_grip",
-    "ttll:flint_chisel"
+    "ttll:sharp_rock"
   ]
 }

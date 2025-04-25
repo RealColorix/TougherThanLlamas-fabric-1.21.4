@@ -34,7 +34,7 @@
                 {
                   "condition": "minecraft:match_tool",
                   "predicate": {
-                    "items": "#ttll:beginner_stone_mining_tools"
+                    "items": "ttll:sharp_rock"
                   }
                 },
                 {
@@ -52,7 +52,7 @@
                 {
                   "condition": "minecraft:match_tool",
                   "predicate": {
-                    "items": "#ttll:beginner_stone_mining_tools"
+                    "items": "ttll:sharp_rock"
                   }
                 }
               ]

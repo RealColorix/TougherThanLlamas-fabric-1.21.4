@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "#ttll:hatches"
+            "items": "ttll:flint_axe"
           }
         ]
       },
@@ -18,7 +18,7 @@
     },
     "icon": {
       "count": 1,
-      "id": "ttll:flint_hatchet"
+      "id": "ttll:flint_axe"
     },
     "title": {
       "translate": "advancements.story.hatchet.title"

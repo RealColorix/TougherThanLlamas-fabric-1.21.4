@@ -7,9 +7,6 @@ import net.minecraft.block.entity.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.pathing.PathNodeType;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
@@ -118,8 +115,6 @@ public class DryingRackBlock extends BlockWithEntity {
         /* 4 ─ remove block (drops already handled) */
         world.breakBlock(pos, false);
     }
-
-
 
 
     @Override

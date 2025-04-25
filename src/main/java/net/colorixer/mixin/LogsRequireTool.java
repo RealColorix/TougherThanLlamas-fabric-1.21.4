@@ -23,5 +23,6 @@ public abstract class LogsRequireTool {
                 .requiresTool() // Added requiresTool()
                 .sounds(sounds)
                 .burnable();
+
     }
 }

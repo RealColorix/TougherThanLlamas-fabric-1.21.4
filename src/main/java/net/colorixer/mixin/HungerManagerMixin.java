@@ -19,7 +19,7 @@ public abstract class HungerManagerMixin {
             constant    = @Constant(intValue = 10)
     )
     private int hardmod$slowSaturated(int original) {
-        return original * 20;   // 10 × 20  = 200
+        return original * 30;   // 10 × 30  = 300
     }
 
     /* Food‑only case: 80 → 400 */
@@ -28,6 +28,6 @@ public abstract class HungerManagerMixin {
             constant    = @Constant(intValue = 80)
     )
     private int hardmod$slowHungry(int original) {
-        return original * 5;    // 80 × 5 = 400
+        return original * 8;    // 80 × 5 = 400
     }
 }

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "b": "#ttll:binding_strings",
+    "/": "ttll:handle",
+    "S": "ttll:sharp_rock"
+  },
+  "pattern": [
+    "bS",
+    "/ "
+  ],
+  "result": {
+    "count": 1,
+    "id": "ttll:stone_hoe"
+  }
+}

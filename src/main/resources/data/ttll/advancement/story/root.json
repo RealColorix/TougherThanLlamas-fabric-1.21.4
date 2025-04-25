@@ -5,7 +5,7 @@
     }
   },
   "display": {
-    "announce_to_chat": true,
+    "announce_to_chat": false,
     "background": "ttll:textures/gui/advancements/backgrounds/stone_age_background.png",
     "description": {
       "translate": "advancements.story.root.description"

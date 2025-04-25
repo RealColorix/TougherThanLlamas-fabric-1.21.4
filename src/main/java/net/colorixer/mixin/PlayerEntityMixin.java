@@ -20,6 +20,6 @@ public abstract class PlayerEntityMixin {
             DefaultAttributeContainer.Builder original) {
 
         return original
-                .add(EntityAttributes.MAX_HEALTH,             10.0D);
+                .add(EntityAttributes.MAX_HEALTH,10.0D);
     }
 }
