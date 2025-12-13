@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "b": "#ttll:binding_strings",
-    "/": "ttll:handle",
+    "/": "minecraft:stick",
     "F": "ttll:flint"
   },
   "pattern": [

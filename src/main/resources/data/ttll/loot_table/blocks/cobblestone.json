@@ -30,29 +30,13 @@
             },
             {
               "type": "minecraft:item",
-              "conditions": [
-                {
-                  "condition": "minecraft:match_tool",
-                  "predicate": {
-                    "item": "ttll:sharp_rock"
-                  }
-                },
-                {
-                  "condition": "minecraft:random_chance",
-                  "chance": 0.1
-                }
-              ],
-              "name": "ttll:rock"
-            },
-            {
-              "type": "minecraft:item",
               "name": "ttll:gravel_pile",
               "functions": [],
               "conditions": [
                 {
                   "condition": "minecraft:match_tool",
                   "predicate": {
-                    "item": "ttll:sharp_rock"
+                    "item":  "#ttll:beginner_stone_mining_tools"
                   }
                 }
               ]

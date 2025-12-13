@@ -1,0 +1,10 @@
+{
+  "conditions": [
+    {
+      "item": "ttll:flint_knife",
+      "result": "ttll:cobweb_full",
+      "blockabovedisables": false,
+      "doloottable": false
+    }
+  ]
+}

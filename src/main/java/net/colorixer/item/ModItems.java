@@ -98,6 +98,7 @@ public class ModItems {
 
 
     // ---------- TOOLS & COMBAT ----------- FROM FIRST --> LAST THROUGH LINEAR PROGRESSION ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    public static final Item FLINT_KNIFE = registerItem("flint_knife",settings -> new KnifeItem(TTLLToolMaterial.STONE, 1, -2.5F, settings), new Item.Settings());
     public static final Item FLINT = registerItem("flint",settings -> new DraxItem(TTLLToolMaterial.FLINT, 0.5f, -3.3F, settings), new Item.Settings());
     public static final Item SHARP_ROCK = registerItem("sharp_rock",settings -> new DraxItem(TTLLToolMaterial.SHARP_ROCK, 0.5f, -3.3F, settings), new Item.Settings());
     public static final Item FLINT_AXE = registerItem("flint_axe",settings -> new FlintAxeItem(TTLLToolMaterial.STONE, 1f, -3f, settings), new Item.Settings());
@@ -118,8 +119,8 @@ public class ModItems {
     public static final Item CRUDE_BRUSH = registerItem("crude_brush", BrushItem::new, new Item.Settings().maxCount(1).maxDamage(16));
     public static final Item TWINE = registerItem("twine", Item::new, new Item.Settings());
     public static final Item SINEW = registerItem("sinew", Item::new, new Item.Settings());
-    public static final Item SINEW_CHOPPING = registerItem("sinew_chopping", settings -> new KnittingSticksItem(settings, 360, ModItems.SINEW, 1,  ModItems.SHARP_ROCK,SoundEvents.BLOCK_COBWEB_HIT), new Item.Settings().maxCount(1));
-    public static final Item FLINT_SINEW_CHOPPING = registerItem("flint_sinew_chopping", settings -> new KnittingSticksItem(settings, 360, ModItems.SINEW, 1,  ModItems.FLINT,SoundEvents.BLOCK_COBWEB_HIT), new Item.Settings().maxCount(1));
+    public static final Item SINEW_CHOPPING = registerItem("sinew_chopping", settings -> new KnittingSticksItem(settings, 720, ModItems.SINEW, 1,  ModItems.SHARP_ROCK,SoundEvents.BLOCK_COBWEB_HIT), new Item.Settings().maxCount(1));
+    public static final Item FLINT_SINEW_CHOPPING = registerItem("flint_sinew_chopping", settings -> new KnittingSticksItem(settings, 720, ModItems.SINEW, 1,  ModItems.FLINT,SoundEvents.BLOCK_COBWEB_HIT), new Item.Settings().maxCount(1));
     public static final Item SPUNNED_STRING = registerItem("spunned_string", Item::new, new Item.Settings());
 
     // ---------- ANY WOOL RELATED ITEMS ---------- SORTED IN COLOR PER COLOR ----------
@@ -127,8 +128,8 @@ public class ModItems {
     public static final Item WHITE_WOOL = registerItem("white_wool", Item::new, new Item.Settings());
     public static final Item WHITE_GARN = registerItem("white_garn", Item::new, new Item.Settings());
     public static final Item CLOTH_WOOL_WHITE = registerItem("cloth_wool_white", Item::new, new Item.Settings());
-    public static final Item KNITTING_WOOL_WHITE = registerItem("knitting_wool_white", settings -> new KnittingSticksItem(settings, 540, ModItems.CLOTH_WOOL_WHITE, 1, ModItems.KNITTING_STICKS,SoundEvents.BLOCK_WOOL_STEP), new Item.Settings().maxCount(1));
-    public static final Item KNITTING_GARN_WHITE = registerItem("knitting_garn_white", settings -> new KnittingSticksItem(settings, 270, ModItems.WHITE_GARN, 1, ModItems.KNITTING_STICKS,SoundEvents.BLOCK_WOOL_STEP), new Item.Settings().maxCount(1));
+    public static final Item KNITTING_WOOL_WHITE = registerItem("knitting_wool_white", settings -> new KnittingSticksItem(settings, 720, ModItems.CLOTH_WOOL_WHITE, 1, ModItems.KNITTING_STICKS,SoundEvents.BLOCK_WOOL_STEP), new Item.Settings().maxCount(1));
+    public static final Item KNITTING_GARN_WHITE = registerItem("knitting_garn_white", settings -> new KnittingSticksItem(settings, 360, ModItems.WHITE_GARN, 1, ModItems.KNITTING_STICKS,SoundEvents.BLOCK_WOOL_STEP), new Item.Settings().maxCount(1));
 
     // ---------- ANY OTHER KNITTING ITEM
     public static final Item KNITTING_GRASS_FIBER = registerItem("knitting_grass_fiber", settings -> new KnittingSticksItem(settings, 150, ModItems.TWINE, 1,  ModItems.KNITTING_STICKS,SoundEvents.BLOCK_GRASS_STEP), new Item.Settings().maxCount(1));
@@ -252,6 +253,7 @@ public class ModItems {
         });
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(entries -> {
+            entries.add(FLINT_KNIFE);
             entries.add(FLINT_AXE);
             entries.add(STONE_SHOVEL);
             entries.add(STONE_HOE);

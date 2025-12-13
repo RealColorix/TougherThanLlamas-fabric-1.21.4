@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#F",
+    "/ "
+  ],
+  "key": {
+    "#": "ttll:grass_fiber",
+    "F": "ttll:flint_fragment",
+    "/": "#ttll:sticks"
+  },
+  "result": {
+    "count": 1,
+    "id": "ttll:flint_knife"
+  }
+}

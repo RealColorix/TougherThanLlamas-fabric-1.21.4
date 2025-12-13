@@ -34,7 +34,7 @@
                 {
                   "condition": "minecraft:match_tool",
                   "predicate": {
-                    "item": "ttll:sharp_rock"
+                    "item":  "#ttll:beginner_stone_mining_tools"
                   }
                 },
                 {
@@ -43,19 +43,6 @@
                 }
               ],
               "name": "ttll:rock"
-            },
-            {
-              "type": "minecraft:item",
-              "name": "ttll:gravel_pile",
-              "functions": [],
-              "conditions": [
-                {
-                  "condition": "minecraft:match_tool",
-                  "predicate": {
-                    "item": "ttll:sharp_rock"
-                  }
-                }
-              ]
             },
             {
               "type": "minecraft:item",

@@ -20,6 +20,7 @@ public abstract class PlayerEntityMixin {
             DefaultAttributeContainer.Builder original) {
 
         return original
-                .add(EntityAttributes.MAX_HEALTH,10.0D);
+                .add(EntityAttributes.SAFE_FALL_DISTANCE,3.0D)
+                .add(EntityAttributes.FALL_DAMAGE_MULTIPLIER,2.0D);
     }
 }

@@ -1,11 +1,7 @@
 {
   "conditions": [
     {
-      "item": "ttll:sharp_rock",
-      "result": "ttll:cobblestone"
-    },
-    {
-      "item": "ttll:flint",
+      "item": "#ttll:beginner_stone_mining_tools",
       "result": "ttll:cobblestone"
     }
   ]

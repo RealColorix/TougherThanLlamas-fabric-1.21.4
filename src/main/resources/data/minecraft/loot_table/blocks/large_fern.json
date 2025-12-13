@@ -54,13 +54,13 @@
                   "condition": "minecraft:survives_explosion"
                 },
                 {
-                  "chance": 0.0166,
+                  "chance": 0.0078125,
                   "condition": "minecraft:random_chance"
                 },
                 {
                   "condition": "minecraft:match_tool",
                   "predicate": {
-                    "items": "ttll:flint_knife"
+                    "items": "ttll:flint"
                   }
                 }
               ],
@@ -124,13 +124,13 @@
                   "condition": "minecraft:survives_explosion"
                 },
                 {
-                  "chance": 0.0166,
+                  "chance": 0.0078125,
                   "condition": "minecraft:random_chance"
                 },
                 {
                   "condition": "minecraft:match_tool",
                   "predicate": {
-                    "items": "ttll:flint_knife"
+                    "items": "ttll:flint"
                   }
                 }
               ],

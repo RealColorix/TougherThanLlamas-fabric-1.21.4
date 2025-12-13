@@ -61,7 +61,25 @@ public class ItemsThatCanHitAndBreak {
                     player.swingHand(hand, true);
                     return ActionResult.PASS;
                 }
-            } else if (heldItemStack.getItem() == Items.STICK) {
+            } else if (heldItemStack.getItem() == Items.FLINT) {
+                if (random.nextDouble() <= 0.333){
+                    // Play the flint and steel use sound
+                    world.playSound(null, pos, SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.PLAYERS,
+                            1.0F, 0.4F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
+                    heldItemStack.decrement(1);
+                    ItemStack stack = new ItemStack(ModItems.FLINT, 1);
+                    dropItem(world, player, stack);
+                    player.swingHand(hand, true);
+                    player.getItemCooldownManager().set(heldItemStack, 20);
+                    return ActionResult.SUCCESS;
+                }  else {
+                    world.playSound(null, pos, SoundEvents.BLOCK_STONE_HIT, SoundCategory.BLOCKS,
+                            1F, 0.4F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
+                    player.getItemCooldownManager().set(heldItemStack, 20);
+                    player.swingHand(hand, true);
+                    return ActionResult.PASS;
+                }
+            }else if (heldItemStack.getItem() == Items.STICK) {
                 if (random.nextDouble() <= 0.333){
                     // Play the flint and steel use sound
                     world.playSound(null, pos, SoundEvents.BLOCK_BAMBOO_WOOD_BREAK, SoundCategory.PLAYERS,

@@ -79,21 +79,21 @@
                   }
                 }
               ],
-              "name": "ttll:gravel_pile",
+              "name": "ttll:gravel_slab",
               "functions": [
                 {
                   "function": "minecraft:set_count",
-                  "count": 8
+                  "count": 2
                 }
               ]
             },
             {
               "type": "minecraft:item",
-              "name": "ttll:gravel_pile",
+              "name": "ttll:gravel_slab",
               "functions": [
                 {
                   "function": "minecraft:set_count",
-                  "count": 4
+                  "count": 1
                 }
               ]
             }

@@ -25,6 +25,20 @@ public class ModBlocks {
 
 
 
+    public static final Block COBWEB_FUll = registerBlock(
+            "cobweb_full",
+            CobwebBlock::new,
+            AbstractBlock.Settings.create()
+                    .mapColor(MapColor.WHITE_GRAY)
+                    .sounds(BlockSoundGroup.COBWEB)
+                    .solid()
+                    .noCollision()
+                    .requiresTool()
+                    .strength(4.0F)
+                    .pistonBehavior(PistonBehavior.DESTROY)
+                    .nonOpaque()
+    );
+
     public static final Block DRYING_RACK = registerBlock("drying_rack", DryingRackBlock::new, Block.Settings.create()
             .mapColor(MapColor.TERRACOTTA_BROWN).strength(0.05F, 0F).sounds(BlockSoundGroup.WOOD));
 
@@ -137,6 +151,8 @@ public class ModBlocks {
             entries.add(ModBlocks.WET_BRICK);
             entries.add(ModBlocks.BRICK_SIDING);
             entries.add(ModBlocks.DRYING_RACK);
+
+            entries.add(ModBlocks.COBWEB_FUll);
         });
     }
 }

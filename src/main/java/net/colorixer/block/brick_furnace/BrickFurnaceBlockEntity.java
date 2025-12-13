@@ -595,6 +595,10 @@ public class BrickFurnaceBlockEntity extends BlockEntity {
         COOKING_RECIPES.add(new CookingRecipe(ModItems.FLAT_CAST, ModItems.SPRUCE_FIREWOOD, Items.CHARCOAL, 1500, 0));
         COOKING_RECIPES.add(new CookingRecipe(ModItems.FLAT_CAST, ModItems.JUNGLE_FIREWOOD, Items.CHARCOAL, 1500, 0));
         COOKING_RECIPES.add(new CookingRecipe(ModItems.FLAT_CAST, Items.BEEF, Items.COOKED_BEEF, 1500, 1));
+        COOKING_RECIPES.add(new CookingRecipe(ModItems.FLAT_CAST, Items.PORKCHOP, Items.COOKED_PORKCHOP, 1500, 1));
+        COOKING_RECIPES.add(new CookingRecipe(ModItems.FLAT_CAST, Items.SALMON, Items.COOKED_SALMON, 1500, 1));
+        COOKING_RECIPES.add(new CookingRecipe(ModItems.FLAT_CAST, Items.COD, Items.COOKED_COD, 1500, 1));
+        COOKING_RECIPES.add(new CookingRecipe(ModItems.FLAT_CAST, Items.RABBIT, Items.COOKED_RABBIT, 1500, 1));
         COOKING_RECIPES.add(new CookingRecipe(ModItems.FLAT_CAST, Items.CHICKEN, Items.COOKED_CHICKEN, 1500, 1));
         COOKING_RECIPES.add(new CookingRecipe(ModItems.FLAT_CAST, Items.MUTTON, Items.COOKED_MUTTON, 1500, 1));
         COOKING_RECIPES.add(new CookingRecipe(ModItems.FLAT_CAST, ModBlocks.WET_BRICK, ModBlocks.DRIED_BRICK, 4500, 0));

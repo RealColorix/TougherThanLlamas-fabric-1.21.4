@@ -77,6 +77,7 @@
   "item.ttll.handle_carving": "Handle Carving",
 
   "item.ttll.flint": "Flint",
+  "item.ttll.flint_knife": "Flint Knife",
   "item.ttll.sharp_rock": "Sharp Rock",
   "item.ttll.flint_axe": "Flint Axe",
   "item.ttll.stone_shovel": "Stone Shovel",
@@ -125,9 +126,9 @@
   "block.ttll.cracked_stone": "Cracked Stone",
   "block.ttll.shattered_stone": "Shattered Stone",
   "block.ttll.excavated_stone": "Excavated Stone",
-  "block.ttll.gravel_slab": "Gravel Slab",
-  "block.ttll.sand_slab": "Sand Slab",
-  "block.ttll.loose_dirt_slab": "Loose Dirt Slab",
+  "block.ttll.gravel_slab": "Gravel Pile",
+  "block.ttll.sand_slab": "Sand Pile",
+  "block.ttll.loose_dirt_slab": "Loose Dirt Pile",
   "block.ttll.dried_brick": "Dried Brick",
   "block.ttll.wet_brick": "Wet Brick",
 

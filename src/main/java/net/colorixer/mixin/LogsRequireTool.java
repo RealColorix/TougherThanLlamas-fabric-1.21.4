@@ -14,6 +14,11 @@ import org.spongepowered.asm.mixin.Overwrite;
 @Mixin(Blocks.class)
 public abstract class LogsRequireTool {
 
+    /**
+     * @author <yourname>
+     * @reason Fix logs requiring tools without breaking vanilla logic.
+     */
+
     @Overwrite
     public static AbstractBlock.Settings createLogSettings(MapColor topMapColor, MapColor sideMapColor, BlockSoundGroup sounds) {
         return AbstractBlock.Settings.create()

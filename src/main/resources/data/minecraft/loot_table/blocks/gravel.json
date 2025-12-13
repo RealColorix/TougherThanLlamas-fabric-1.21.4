@@ -32,7 +32,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "ttll:flint",
+          "name": "minecraft:flint",
           "weight": 20,
           "conditions": [
             {
@@ -82,7 +82,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "ttll:gravel_pile",
+          "name": "ttll:gravel_slab",
           "weight": 80,
           "conditions": [
             {
@@ -113,11 +113,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "ttll:gravel_pile",
+          "name": "ttll:gravel_slab",
           "functions": [
             {
               "function": "minecraft:set_count",
-              "count": 7,
+              "count": 1,
               "add": false
             }
           ],

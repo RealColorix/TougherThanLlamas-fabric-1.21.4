@@ -17,6 +17,8 @@ import net.minecraft.block.enums.SlabType;
 import net.minecraft.entity.FallingBlockEntity;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.GameRules;
@@ -50,17 +52,28 @@ public class TougherThanLlamas implements ModInitializer {
 			ServerLifecycleEvents.SERVER_STARTED.register(server -> server.getOverworld().getGameRules().get(GameRules.UNIVERSAL_ANGER).set(true, server));
 
 
+
+
 		ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
 			ServerPlayerEntity player = handler.getPlayer();
 
-			EntityAttributeInstance reach =
-					player.getAttributeInstance(EntityAttributes.BLOCK_INTERACTION_RANGE);
-			if (reach != null) {
-				reach.setBaseValue(2.9D);
+			// Har spelaren redan en tom karta någonstans i inventory?
+			boolean hasMap = player.getInventory().main.stream()
+					.anyMatch(stack -> stack.isOf(Items.MAP));
+
+			// Om inte → ge en tom karta
+			if (!hasMap) {
+				ItemStack map = new ItemStack(Items.MAP);
+
+				if (!player.getInventory().insertStack(map)) {
+					player.dropItem(map, false);
+				}
 			}
+
+			// Öka block-reach
+			EntityAttributeInstance reach = player.getAttributeInstance(EntityAttributes.BLOCK_INTERACTION_RANGE);
+			if (reach != null) reach.setBaseValue(4.5D);
 		});
-
-
 
 
 
