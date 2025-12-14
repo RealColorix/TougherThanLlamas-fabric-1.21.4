@@ -3,6 +3,7 @@ package net.colorixer;
 import net.colorixer.block.FallingSlabBlock;
 import net.colorixer.block.ModBlockEntities;
 import net.colorixer.block.ModBlocks;
+import net.colorixer.entity.ModEntities;
 import net.colorixer.item.ItemsThatCanHitAndBreak;
 import net.colorixer.item.ModItems;
 import net.colorixer.player.Chopable;
@@ -34,6 +35,7 @@ public class TougherThanLlamas implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		ModEntities.register();
 		ModItems.registerModItems();
 		ModBlocks.registerModBlocks();
 		ModBlockEntities.register();

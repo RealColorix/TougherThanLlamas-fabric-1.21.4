@@ -2,37 +2,33 @@
   "type": "minecraft:entity",
   "pools": [
     {
-      "bonus_rolls": 0.0,
+      "rolls": 1,
+      "bonus_rolls": 0,
+      "conditions": [
+        {
+          "condition": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "nbt": "{HasShotCobweb:0b}"
+          }
+        }
+      ],
       "entries": [
         {
           "type": "minecraft:item",
+          "name": "minecraft:string",
           "functions": [
             {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 1.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            },
-            {
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 1.0,
-                "min": 0.0
-              },
-              "enchantment": "minecraft:looting",
-              "function": "minecraft:enchanted_count_increase"
+              "function": "minecraft:set_count",
+              "count": 1
             }
-          ],
-          "name": "minecraft:string"
+          ]
         }
-      ],
-      "rolls": 1.0
+      ]
     },
     {
-      "bonus_rolls": 0.0,
+      "rolls": 1,
+      "bonus_rolls": 0,
       "conditions": [
         {
           "condition": "minecraft:killed_by_player"
@@ -41,33 +37,33 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "name": "minecraft:spider_eye",
           "functions": [
             {
-              "add": false,
+              "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "max": 1.0,
-                "min": -2.0
+                "min": -2,
+                "max": 1
               },
-              "function": "minecraft:set_count"
+              "add": false
             },
             {
+              "function": "minecraft:enchanted_count_increase",
+              "enchantment": "minecraft:looting",
               "count": {
                 "type": "minecraft:uniform",
-                "max": 1.0,
-                "min": 0.0
-              },
-              "enchantment": "minecraft:looting",
-              "function": "minecraft:enchanted_count_increase"
+                "min": 0,
+                "max": 1
+              }
             }
-          ],
-          "name": "minecraft:spider_eye"
+          ]
         }
-      ],
-      "rolls": 1.0
+      ]
     },
     {
-      "bonus_rolls": 0.0,
+      "rolls": 1,
+      "bonus_rolls": 0,
       "conditions": [
         {
           "condition": "minecraft:killed_by_player"
@@ -76,30 +72,29 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "name": "ttll:mysterious_gland",
           "functions": [
             {
-              "add": false,
+              "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "max": 1.0,
-                "min": -18.0
+                "min": -18,
+                "max": 1
               },
-              "function": "minecraft:set_count"
+              "add": false
             },
             {
+              "function": "minecraft:enchanted_count_increase",
+              "enchantment": "minecraft:looting",
               "count": {
                 "type": "minecraft:uniform",
-                "max": 1.0,
-                "min": -8.0
-              },
-              "enchantment": "minecraft:looting",
-              "function": "minecraft:enchanted_count_increase"
+                "min": -8,
+                "max": 1
+              }
             }
-          ],
-          "name": "ttll:mysterious_gland"
+          ]
         }
-      ],
-      "rolls": 1.0
+      ]
     }
   ],
   "random_sequence": "minecraft:entities/spider"

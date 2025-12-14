@@ -5,12 +5,16 @@ import net.colorixer.block.ModBlocks;
 import net.colorixer.block.brick_block.WetBrickBlockEntity;
 import net.colorixer.block.brick_furnace.BrickFurnaceBlockEntityRenderer;
 import net.colorixer.block.drying_rack.DryingRackBlockEntityRenderer;
+import net.colorixer.entity.ModEntities;
+import net.colorixer.entity.client.SimpleThrownItemRenderer;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.entity.SnowGolemEntityRenderer;
 import net.minecraft.resource.ResourceType;
 
 public class TougherThanLlamasClient implements ClientModInitializer {
@@ -19,6 +23,9 @@ public class TougherThanLlamasClient implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
+
+
+		EntityRendererRegistry.register(ModEntities.COBWEB_PROJECTILE, SimpleThrownItemRenderer::new);
 
 
 		BlockEntityRendererRegistry.register(ModBlockEntities.DRYING_RACK_BLOCK_ENTITY, DryingRackBlockEntityRenderer::new);

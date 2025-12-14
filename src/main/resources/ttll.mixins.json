@@ -13,7 +13,11 @@
 		"PlayerEntityMixin",
 		"HungerManagerMixin",
 		"BlockBreakDropMixin",
-		"ServerPlayerInteractionManagerAccessor"
+		"ServerPlayerInteractionManagerAccessor",
+
+		"MobEntityAccessor",
+		"EntityMixin",
+		"SpiderMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
