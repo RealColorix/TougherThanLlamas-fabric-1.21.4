@@ -5,9 +5,12 @@ import net.colorixer.entity.ModEntities;
 import net.colorixer.entity.projectile.CobwebProjectileEntity;
 import net.colorixer.util.GoalSelectorUtilForSpiderMixin;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.goal.ActiveTargetGoal;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.entity.mob.SpiderEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -23,16 +26,28 @@ public abstract class SpiderMixin {
     @Unique
     private int ttll$seeingTicks = 0;
 
-    /* ---------------- MELEE AI ---------------- */
+    /* ---------------- AI ---------------- */
 
     @Inject(method = "initGoals", at = @At("TAIL"))
-    private void ttll$addMeleeGoal(CallbackInfo ci) {
+    private void ttll$addGoals(CallbackInfo ci) {
         SpiderEntity spider = (SpiderEntity)(Object)this;
 
+        /* ---- ALWAYS TARGET PLAYERS (DAY + NIGHT) ---- */
+        GoalSelectorUtilForSpiderMixin.addTargetGoal(
+                spider,
+                1, // hög prio, samma som hostile mobs
+                new ActiveTargetGoal<>(
+                        spider,
+                        PlayerEntity.class,
+                        true
+                )
+        );
+
+        /* ---- MELEE ATTACK ---- */
         GoalSelectorUtilForSpiderMixin.addGoal(
                 spider,
                 2,
-                new MeleeAttackGoal(spider, 1.2D, true)
+                new MeleeAttackGoal(spider, 1.1D, true)
         );
     }
 
@@ -65,18 +80,17 @@ public abstract class SpiderMixin {
 
         boolean shouldShoot = false;
 
-        // First second: ~33% chance
+        // First second
         if (ttll$seeingTicks <= 20) {
             shouldShoot = serverWorld.random.nextInt(30) == 0;
         }
-        // After that: 1/25 chance per second
+        // After that
         else if (ttll$seeingTicks % 20 == 0) {
             shouldShoot = serverWorld.random.nextInt(30) == 0;
         }
 
         if (!shouldShoot) return;
 
-        // Mark as used (THIS is the persisted flag)
         accessor.ttll$setHasShotCobweb(true);
 
         /* -------- FIRE PROJECTILE -------- */
@@ -96,7 +110,28 @@ public abstract class SpiderMixin {
         );
 
         projectile.setVelocity(dx, dy, dz, 1.6F, 0.0F);
-
         serverWorld.spawnEntity(projectile);
+
+        serverWorld.playSound(
+                null,
+                spider.getX(),
+                spider.getY(),
+                spider.getZ(),
+                SoundEvents.ENTITY_SPIDER_HURT,
+                net.minecraft.sound.SoundCategory.HOSTILE,
+                1.0F,
+                0.9F + serverWorld.random.nextFloat() * 0.2F
+        );
+
+        serverWorld.playSound(
+                null,
+                spider.getX(),
+                spider.getY(),
+                spider.getZ(),
+                SoundEvents.BLOCK_COBWEB_BREAK,
+                net.minecraft.sound.SoundCategory.HOSTILE,
+                1.0F,
+                0.9F + serverWorld.random.nextFloat() * 0.2F
+        );
     }
 }

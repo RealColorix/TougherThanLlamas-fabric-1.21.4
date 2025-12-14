@@ -10,4 +10,7 @@ public interface MobEntityAccessor {
 
     @Accessor("goalSelector")
     GoalSelector ttll$getGoalSelector();
+
+    @Accessor("targetSelector")
+    GoalSelector ttll$getTargetSelector();
 }

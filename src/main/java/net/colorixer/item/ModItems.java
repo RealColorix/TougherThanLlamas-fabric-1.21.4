@@ -94,7 +94,6 @@ public class ModItems {
     public static final Item BOW_DRILL = registerItem("bow_drill", settings -> new FireStarterItem(settings, 0.025), new Item.Settings().maxCount(1).maxDamage(500));
     public static final Item POINTY_STICK = registerItem("pointy_stick", Item::new, new Item.Settings());
     public static final Item BRANCH = registerItem("branch", Item::new, new Item.Settings());
-    public static final Item HANDLE = registerItem("handle", Item::new, new Item.Settings());
 
 
     // ---------- TOOLS & COMBAT ----------- FROM FIRST --> LAST THROUGH LINEAR PROGRESSION ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -113,6 +112,7 @@ public class ModItems {
     public static final Item RAW_LEATHER = registerItem("raw_leather", Item::new, new Item.Settings());
     public static final Item LEATHER_CLOTH = registerItem("leather_cloth", Item::new, new Item.Settings());
     public static final Item MYSTERIOUS_GLAND = registerItem("mysterious_gland", Item::new, new Item.Settings());
+    public static final Item TANGLED_WEB = registerItem("tangled_web", Item::new, new Item.Settings());
 
     // ---------- MISCELLANEOUS ----------
     public static final Item LEATHER_BOOT = registerItem("leather_boot", Item::new, new Item.Settings());
@@ -134,7 +134,7 @@ public class ModItems {
     // ---------- ANY OTHER KNITTING ITEM
     public static final Item KNITTING_GRASS_FIBER = registerItem("knitting_grass_fiber", settings -> new KnittingSticksItem(settings, 150, ModItems.TWINE, 1,  ModItems.KNITTING_STICKS,SoundEvents.BLOCK_GRASS_STEP), new Item.Settings().maxCount(1));
     public static final Item STRING_KNITTING = registerItem("string_knitting", settings -> new KnittingSticksItem(settings, 270, ModItems.SPUNNED_STRING, 1,  ModItems.KNITTING_STICKS,SoundEvents.BLOCK_COBWEB_HIT), new Item.Settings().maxCount(1));
-    public static final Item HANDLE_CARVING = registerItem("handle_carving", settings -> new KnittingSticksItem(settings, 45, ModItems.HANDLE, 1,  ModItems.SHARP_ROCK,SoundEvents.BLOCK_WOOD_HIT), new Item.Settings().maxCount(1));
+    public static final Item WEB_UNTANGLING = registerItem("web_untangling", settings -> new KnittingSticksItem(settings, 180, Items.STRING, 1,  ModItems.FLINT,SoundEvents.BLOCK_COBWEB_HIT), new Item.Settings().maxCount(1));
 
 
 
@@ -239,9 +239,8 @@ public class ModItems {
             entries.add(DRYING_RACK_LEG);
             entries.add(SINEW_CHOPPING);
             entries.add(FLINT_SINEW_CHOPPING);
-            entries.add(HANDLE);
-            entries.add(HANDLE_CARVING);
-
+            entries.add(TANGLED_WEB);
+            entries.add(WEB_UNTANGLING);
             entries.add(FLINT);
         });
 

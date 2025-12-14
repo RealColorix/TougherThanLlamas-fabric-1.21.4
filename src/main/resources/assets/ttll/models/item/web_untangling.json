@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "ttll:item/web_untangling",
+    "layer1": "ttll:item/flint_using"
+  }
+}

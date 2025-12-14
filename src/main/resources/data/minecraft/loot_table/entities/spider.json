@@ -16,7 +16,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:string",
+          "name": "ttll:tangled_web",
           "functions": [
             {
               "function": "minecraft:set_count",

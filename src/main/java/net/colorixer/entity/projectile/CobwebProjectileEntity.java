@@ -1,13 +1,14 @@
 package net.colorixer.entity.projectile;
 
+import net.colorixer.item.ModItems;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.thrown.SnowballEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
@@ -21,6 +22,22 @@ public class CobwebProjectileEntity extends SnowballEntity {
     public CobwebProjectileEntity(EntityType<? extends SnowballEntity> type, World world) {
         super(type, world);
     }
+
+
+    @Override
+    protected void onEntityHit(EntityHitResult hitResult) {
+        super.onEntityHit(hitResult);
+
+        Entity hit = hitResult.getEntity();
+
+        // Only mobs have AI & aggro
+        if (hit instanceof net.minecraft.entity.mob.MobEntity mob) {
+            // Prevent friendly-fire aggro
+            mob.setAttacker(null);
+            mob.setTarget(null);
+        }
+    }
+
 
     /* ---------------- COLLISION ---------------- */
 
@@ -43,7 +60,6 @@ public class CobwebProjectileEntity extends SnowballEntity {
         /* ---- ENTITY HIT: PLACE AT ENTITY FEET ---- */
         if (hitResult instanceof EntityHitResult ehr) {
             Entity entity = ehr.getEntity();
-
             if (entity instanceof LivingEntity living) {
                 placePos = living.getBlockPos();
             }
@@ -54,11 +70,18 @@ public class CobwebProjectileEntity extends SnowballEntity {
             placePos = bhr.getBlockPos().offset(bhr.getSide());
         }
 
+        boolean placed = false;
+
         if (placePos != null) {
             BlockPos grounded = findGroundedPos(serverWorld, placePos);
             if (grounded != null) {
-                placeCobwebReplacing(serverWorld, grounded);
+                placed = placeCobwebReplacing(serverWorld, grounded);
             }
+        }
+
+        // ❗ FALLBACK: DROP ITEM IF NO COBWEB WAS PLACED
+        if (!placed) {
+            dropTangledWeb(serverWorld);
         }
 
         this.discard();
@@ -68,17 +91,17 @@ public class CobwebProjectileEntity extends SnowballEntity {
 
     @Override
     public ItemStack getStack() {
-        return new ItemStack(Items.COBWEB);
+        return new ItemStack(ModItems.TANGLED_WEB);
     }
 
     /* ---------------- PLACE LOGIC ---------------- */
 
-    private void placeCobwebReplacing(ServerWorld world, BlockPos pos) {
+    private boolean placeCobwebReplacing(ServerWorld world, BlockPos pos) {
         BlockState state = world.getBlockState(pos);
 
-        // Only replace air or replaceable blocks (grass, flowers, snow, etc)
+        // Only replace air or replaceable blocks
         if (!state.isAir() && !state.isReplaceable()) {
-            return;
+            return false;
         }
 
         // Break existing replaceable block properly (drops items)
@@ -87,6 +110,20 @@ public class CobwebProjectileEntity extends SnowballEntity {
         }
 
         world.setBlockState(pos, Blocks.COBWEB.getDefaultState());
+        return true;
+    }
+
+    /* ---------------- DROP FALLBACK ---------------- */
+
+    private void dropTangledWeb(ServerWorld world) {
+        ItemEntity item = new ItemEntity(
+                world,
+                this.getX(),
+                this.getY(),
+                this.getZ(),
+                new ItemStack(ModItems.TANGLED_WEB)
+        );
+        world.spawnEntity(item);
     }
 
     /* ---------------- GROUND SNAP ---------------- */

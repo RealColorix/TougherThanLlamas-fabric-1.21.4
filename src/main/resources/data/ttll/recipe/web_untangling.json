@@ -1,11 +1,11 @@
 {
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
-    "ttll:branch",
-    "ttll:sharp_rock"
+    "ttll:tangled_web",
+    "ttll:flint"
   ],
   "result": {
-    "id": "ttll:handle_carving",
+    "id": "ttll:web_untangling",
     "count": 1
   }
 }
