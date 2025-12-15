@@ -1,11 +1,11 @@
 {
-  "parent": "ttll:story/",
+  "parent": "ttll:story/acquire_string_or_sinew",
   "criteria": {
-    "knitt": {
+    "craft_stone_hoe": {
       "conditions": {
         "items": [
           {
-            "items": "ttll:cloth_wool_white"
+            "items": "ttll:stone_hoe"
           }
         ]
       },
@@ -14,14 +14,14 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.story.clothiest.description"
+      "translate": "advancements.story.craft_stone_hoe.description"
     },
     "icon": {
       "count": 1,
-      "id": "ttll:cloth_wool_white"
+      "id": "ttll:stone_hoe"
     },
     "title": {
-      "translate": "advancements.story.clothiest.title"
+      "translate": "advancements.story.craft_stone_hoe.title"
     },
     "show_toast": true,
     "announce_to_chat": false,
@@ -29,7 +29,7 @@
   },
   "requirements": [
     [
-      "knitt"
+      "craft_stone_hoe"
     ]
   ],
   "sends_telemetry_event": false

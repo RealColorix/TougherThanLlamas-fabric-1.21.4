@@ -1,5 +1,5 @@
 {
-  "parent": "ttll:story/crude_drax",
+  "parent": "ttll:story/make_wet_bricks",
   "criteria": {
     "get_brick_furnace": {
       "conditions": {
@@ -14,17 +14,20 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.story.brick_furnace.description"
+      "translate": "advancements.story.brick_furnace.description",
+      "color": "white"
     },
     "icon": {
       "count": 1,
       "id": "ttll:brick_furnace"
     },
     "title": {
-      "translate": "advancements.story.brick_furnace.title"
+      "translate": "advancements.story.brick_furnace.title",
+      "color": "yellow"
     },
+    "frame": "goal",
     "show_toast": true,
-    "announce_to_chat": false,
+    "announce_to_chat": true,
     "hidden": false
   },
   "requirements": [

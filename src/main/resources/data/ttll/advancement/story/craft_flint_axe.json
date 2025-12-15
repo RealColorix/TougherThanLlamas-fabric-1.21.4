@@ -1,11 +1,11 @@
 {
-  "parent": "ttll:story/",
+  "parent": "ttll:story/acquire_string_or_sinew",
   "criteria": {
-    "knitt": {
+    "craft_flint_axe": {
       "conditions": {
         "items": [
           {
-            "items": "ttll:cloth_wool_white"
+            "items": "ttll:flint_axe"
           }
         ]
       },
@@ -14,14 +14,14 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.story.clothiest.description"
+      "translate": "advancements.story.craft_flint_axe.description"
     },
     "icon": {
       "count": 1,
-      "id": "ttll:cloth_wool_white"
+      "id": "ttll:flint_axe"
     },
     "title": {
-      "translate": "advancements.story.clothiest.title"
+      "translate": "advancements.story.craft_flint_axe.title"
     },
     "show_toast": true,
     "announce_to_chat": false,
@@ -29,7 +29,7 @@
   },
   "requirements": [
     [
-      "knitt"
+      "craft_flint_axe"
     ]
   ],
   "sends_telemetry_event": false

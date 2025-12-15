@@ -1,11 +1,11 @@
 {
-  "parent": "ttll:story/",
+  "parent": "ttll:story/craft_stone_hoe",
   "criteria": {
-    "knitt": {
+    "harvest_wheat": {
       "conditions": {
         "items": [
           {
-            "items": "ttll:cloth_wool_white"
+            "items": "minecraft:wheat"
           }
         ]
       },
@@ -14,14 +14,14 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.story.clothiest.description"
+      "translate": "advancements.story.harvest_wheat.description"
     },
     "icon": {
       "count": 1,
-      "id": "ttll:cloth_wool_white"
+      "id": "minecraft:wheat"
     },
     "title": {
-      "translate": "advancements.story.clothiest.title"
+      "translate": "advancements.story.harvest_wheat.title"
     },
     "show_toast": true,
     "announce_to_chat": false,
@@ -29,7 +29,7 @@
   },
   "requirements": [
     [
-      "knitt"
+      "harvest_wheat"
     ]
   ],
   "sends_telemetry_event": false

@@ -1,12 +1,12 @@
 {
-  "parent": "ttll:story/sharp_rock",
+  "parent": "ttll:story/craft_flint_axe",
   "criteria": {
-    "campfire_cooking": {
+    "wood": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "items": "minecraft:campfire"
+            "items": "#minecraft:logs"
           }
         ]
       }
@@ -14,20 +14,19 @@
   },
   "requirements": [
     [
-      "campfire_cooking"
+      "wood"
     ]
   ],
   "display": {
     "icon": {
-      "id": "minecraft:campfire",
-      "count": 1,
-      "nbt": "{BlockStateTag:{lit:\"false\"}}"
+      "id": "minecraft:oak_log",
+      "count": 1
     },
     "title": {
-      "translate": "advancements.story.campfire_cooking.title"
+      "translate": "advancements.story.wood.title"
     },
     "description": {
-      "translate": "advancements.story.campfire_cooking.description"
+      "translate": "advancements.story.wood.description"
     },
     "show_toast": true,
     "announce_to_chat": false,

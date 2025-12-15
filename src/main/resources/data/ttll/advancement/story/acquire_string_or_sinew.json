@@ -1,12 +1,12 @@
 {
-  "parent": "ttll:story/sharp_rock",
+  "parent": "ttll:story/craft_flint_knife",
   "criteria": {
-    "campfire_cooking": {
+    "acquire_strings": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "items": "minecraft:campfire"
+            "items": "#ttll:binding_strings"
           }
         ]
       }
@@ -14,20 +14,19 @@
   },
   "requirements": [
     [
-      "campfire_cooking"
+      "acquire_strings"
     ]
   ],
   "display": {
     "icon": {
-      "id": "minecraft:campfire",
-      "count": 1,
-      "nbt": "{BlockStateTag:{lit:\"false\"}}"
+      "id": "minecraft:string",
+      "count": 1
     },
     "title": {
-      "translate": "advancements.story.campfire_cooking.title"
+      "translate": "advancements.story.acquire_string_or_sinew.title"
     },
     "description": {
-      "translate": "advancements.story.campfire_cooking.description"
+      "translate": "advancements.story.acquire_string_or_sinew.description"
     },
     "show_toast": true,
     "announce_to_chat": false,

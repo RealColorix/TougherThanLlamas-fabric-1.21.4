@@ -1,5 +1,6 @@
 package net.colorixer.mixin;
 
+import net.colorixer.block.ModBlocks;
 import net.colorixer.item.ModItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -55,6 +56,12 @@ public abstract class ReducedMiningSpeed {
                     return;
                 }
             }
+        }
+
+        if (heldItem.getItem() == ModItems.FLINT_KNIFE &&
+                (blockState.isOf(Blocks.COBWEB) || blockState.isOf(ModBlocks.COBWEB_FUll))) {
+            cir.setReturnValue(originalSpeed * 0.04f);
+            return;
         }
 
         if (heldItem.getItem() == ModItems.SHARP_ROCK &&

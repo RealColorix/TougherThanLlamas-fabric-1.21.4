@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(SpiderEntity.class)
-public abstract class SpiderMixin {
+public abstract class SpiderShootsWeb {
 
     /* ---------------- INTERNAL STATE ---------------- */
 
@@ -82,11 +82,11 @@ public abstract class SpiderMixin {
 
         // First second
         if (ttll$seeingTicks <= 20) {
-            shouldShoot = serverWorld.random.nextInt(30) == 0;
+            shouldShoot = serverWorld.random.nextInt(50) == 0;
         }
         // After that
         else if (ttll$seeingTicks % 20 == 0) {
-            shouldShoot = serverWorld.random.nextInt(30) == 0;
+            shouldShoot = serverWorld.random.nextInt(25) == 0;
         }
 
         if (!shouldShoot) return;

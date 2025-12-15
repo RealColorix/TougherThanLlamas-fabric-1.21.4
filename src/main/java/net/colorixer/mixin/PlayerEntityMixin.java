@@ -9,18 +9,20 @@ import org.spongepowered.asm.mixin.injection.At;
 
 /**
  * Players start each life with:
- *   • 5 hearts   (max‑health 10.0)
- *   • 2‑block reach (instead of vanilla 4.5)
+ *   • modified fall behavior
  */
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin {
 
-    @ModifyReturnValue(method = "createPlayerAttributes", at = @At("RETURN"))
+    @ModifyReturnValue(
+            method = "createPlayerAttributes",
+            at = @At("RETURN")
+    )
     private static DefaultAttributeContainer.Builder hardmod$defaults(
             DefaultAttributeContainer.Builder original) {
 
         return original
-                .add(EntityAttributes.SAFE_FALL_DISTANCE,3.0D)
-                .add(EntityAttributes.FALL_DAMAGE_MULTIPLIER,2.0D);
+                .add(EntityAttributes.SAFE_FALL_DISTANCE, 3.0D)
+                .add(EntityAttributes.FALL_DAMAGE_MULTIPLIER, 1.5D);
     }
 }

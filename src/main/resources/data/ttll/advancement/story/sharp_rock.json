@@ -1,11 +1,11 @@
 {
-  "parent": "ttll:story/",
+  "parent": "ttll:story/acquire_flint",
   "criteria": {
-    "knitt": {
+    "sharp_rock": {
       "conditions": {
         "items": [
           {
-            "items": "ttll:cloth_wool_white"
+            "items": "ttll:sharp_rock"
           }
         ]
       },
@@ -14,14 +14,14 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.story.clothiest.description"
+      "translate": "advancements.story.sharp_rock.description"
     },
     "icon": {
       "count": 1,
-      "id": "ttll:cloth_wool_white"
+      "id": "ttll:sharp_rock"
     },
     "title": {
-      "translate": "advancements.story.clothiest.title"
+      "translate": "advancements.story.sharp_rock.title"
     },
     "show_toast": true,
     "announce_to_chat": false,
@@ -29,7 +29,7 @@
   },
   "requirements": [
     [
-      "knitt"
+      "sharp_rock"
     ]
   ],
   "sends_telemetry_event": false

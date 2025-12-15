@@ -1,7 +1,7 @@
 {
   "conditions": [
     {
-      "item": "ttll:flint_knife",
+      "item": "",
       "result": "ttll:cobweb_full",
       "blockabovedisables": false,
       "doloottable": false

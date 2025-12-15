@@ -11,13 +11,15 @@
 		"LeavesPlacementRestrictor",
 		"AdvancementBackground",
 		"PlayerEntityMixin",
-		"HungerManagerMixin",
+		"HungerHeatManager",
 		"BlockBreakDropMixin",
 		"ServerPlayerInteractionManagerAccessor",
-
+		"ResetSaturation",
 		"MobEntityAccessor",
 		"EntityMixin",
-		"SpiderMixin"
+		"SpiderShootsWeb",
+		"FoodNutrition",
+		"FoodEffect"
 	],
 	"injectors": {
 		"defaultRequire": 1

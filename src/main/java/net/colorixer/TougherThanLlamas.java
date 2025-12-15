@@ -7,6 +7,7 @@ import net.colorixer.entity.ModEntities;
 import net.colorixer.item.ItemsThatCanHitAndBreak;
 import net.colorixer.item.ModItems;
 import net.colorixer.player.Chopable;
+import net.colorixer.recipe.ModRecipeSerializers;
 import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
@@ -41,6 +42,7 @@ public class TougherThanLlamas implements ModInitializer {
 		ModBlockEntities.register();
 		ItemsThatCanHitAndBreak.register();
 		Chopable.initialize();
+		ModRecipeSerializers.register();
 
 
 

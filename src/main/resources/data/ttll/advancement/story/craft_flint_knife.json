@@ -1,11 +1,11 @@
 {
-  "parent": "ttll:story/",
+  "parent": "ttll:story/sharp_rock",
   "criteria": {
-    "knitt": {
+    "craft_flint_knife": {
       "conditions": {
         "items": [
           {
-            "items": "ttll:cloth_wool_white"
+            "items": "ttll:flint_knife"
           }
         ]
       },
@@ -14,14 +14,14 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.story.clothiest.description"
+      "translate": "advancements.story.craft_flint_knife.description"
     },
     "icon": {
       "count": 1,
-      "id": "ttll:cloth_wool_white"
+      "id": "ttll:flint_knife"
     },
     "title": {
-      "translate": "advancements.story.clothiest.title"
+      "translate": "advancements.story.craft_flint_knife.title"
     },
     "show_toast": true,
     "announce_to_chat": false,
@@ -29,7 +29,7 @@
   },
   "requirements": [
     [
-      "knitt"
+      "craft_flint_knife"
     ]
   ],
   "sends_telemetry_event": false

@@ -3,6 +3,7 @@ package net.colorixer.entity.projectile;
 import net.colorixer.item.ModItems;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.SnowBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
@@ -99,6 +100,19 @@ public class CobwebProjectileEntity extends SnowballEntity {
     private boolean placeCobwebReplacing(ServerWorld world, BlockPos pos) {
         BlockState state = world.getBlockState(pos);
 
+        if (state.isOf(Blocks.SNOW)) {
+            int layers = state.get(SnowBlock.LAYERS);
+
+            // Only allow thin snow (≤ 3 layers)
+            if (layers > 3) {
+                return false;
+            }
+
+            // Break thin snow properly
+            world.breakBlock(pos, true);
+            world.setBlockState(pos, Blocks.COBWEB.getDefaultState());
+            return true;
+        }
         // Only replace air or replaceable blocks
         if (!state.isAir() && !state.isReplaceable()) {
             return false;

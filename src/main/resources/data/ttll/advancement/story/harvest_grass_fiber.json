@@ -1,11 +1,11 @@
 {
-  "parent": "ttll:story/root",
+  "parent": "ttll:story/acquire_flint",
   "criteria": {
-    "get_hatchet": {
+    "harvest_grass_fiber": {
       "conditions": {
         "items": [
           {
-            "items": "ttll:flint_axe"
+            "items": "ttll:grass_fiber"
           }
         ]
       },
@@ -14,14 +14,14 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.story.hatchet.description"
+      "translate": "advancements.story.harvest_grass_fiber.description"
     },
     "icon": {
       "count": 1,
-      "id": "ttll:flint_axe"
+      "id": "ttll:grass_fiber"
     },
     "title": {
-      "translate": "advancements.story.hatchet.title"
+      "translate": "advancements.story.harvest_grass_fiber.title"
     },
     "show_toast": true,
     "announce_to_chat": false,
@@ -29,7 +29,7 @@
   },
   "requirements": [
     [
-      "get_hatchet"
+      "harvest_grass_fiber"
     ]
   ],
   "sends_telemetry_event": false
