@@ -79,7 +79,7 @@
                   }
                 }
               ],
-              "name": "ttll:dirt_slab",
+              "name": "ttll:loose_dirt_slab",
               "functions": [
                 {
                   "function": "minecraft:set_count",
@@ -89,7 +89,7 @@
             },
             {
               "type": "minecraft:item",
-              "name": "ttll:dirt_slab",
+              "name": "ttll:loose_dirt_slab",
               "functions": [
                 {
                   "function": "minecraft:set_count",

@@ -17,8 +17,12 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.intprovider.ConstantIntProvider;
+import net.minecraft.util.math.intprovider.UniformIntProvider;
 
 import java.util.function.Function;
+
+import static net.minecraft.block.Blocks.createLightLevelFromLitBlockState;
 
 
 public class ModBlocks {
@@ -71,16 +75,21 @@ public class ModBlocks {
 
 
     /** STONE **/
+
+    public static final Block BEDSTONE = registerBlock("bedstone", Block::new, Block.Settings.create()
+            .mapColor(MapColor.BLACK).strength(6.0F, 6F).sounds(BlockSoundGroup.STONE).requiresTool());
+
+
     public static final Block WEATHERED_STONE = registerBlock("weathered_stone", Block::new, Block.Settings.create()
-            .mapColor(MapColor.STONE_GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1.48F, 5.95F));
+            .mapColor(MapColor.STONE_GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1.48F, 5.95F).sounds(BlockSoundGroup.STONE));
     public static final Block COBBLESTONE = registerBlock("cobblestone", Block::new, Block.Settings.create()
-            .mapColor(MapColor.STONE_GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1.46F, 5.9F));
+            .mapColor(MapColor.STONE_GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1.46F, 5.9F).sounds(BlockSoundGroup.STONE));
     public static final Block CRACKED_STONE = registerBlock("cracked_stone", Block::new, Block.Settings.create()
-            .mapColor(MapColor.STONE_GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1.44F, 5.85F));
+            .mapColor(MapColor.STONE_GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1.44F, 5.85F).sounds(BlockSoundGroup.STONE));
     public static final Block SHATTERED_STONE = registerBlock("shattered_stone", Block::new, Block.Settings.create()
-            .mapColor(MapColor.STONE_GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1.5F, 5.8F));
+            .mapColor(MapColor.STONE_GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1.5F, 5.8F).sounds(BlockSoundGroup.STONE));
     public static final Block EXCAVATED_STONE = registerBlock("excavated_stone", Block::new, Block.Settings.create()
-            .mapColor(MapColor.STONE_GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1.5F, 5.8F));
+            .mapColor(MapColor.STONE_GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1.5F, 5.8F).sounds(BlockSoundGroup.STONE));
 
 
 
@@ -119,6 +128,51 @@ public class ModBlocks {
                     .pistonBehavior(PistonBehavior.DESTROY)
                     .nonOpaque()
     );
+    public static final Block RAW_MYTHRIL = registerBlock("raw_mythril", Block::new, Block.Settings.create()
+            .mapColor(MapColor.LICHEN_GREEN).instrument(NoteBlockInstrument.BASEDRUM).sounds(BlockSoundGroup.STONE).requiresTool().strength(15F, 200F));
+
+    public static final Block BEDSTONE_DIAMOND_ORE = registerBlock("bedstone_diamond_ore",
+                    settings -> new ExperienceDroppingBlock(
+                            UniformIntProvider.create(3, 7), settings
+                    ), Block.Settings.create().hardness(6.0f).resistance(4.0f).instrument(NoteBlockInstrument.BASS).requiresTool().mapColor(MapColor.DEEPSLATE_GRAY).sounds(BlockSoundGroup.STONE));
+    public static final Block BEDSTONE_COAL_ORE = registerBlock("bedstone_coal_ore",
+            settings -> new ExperienceDroppingBlock(
+                    UniformIntProvider.create(0, 2), settings
+            ), Block.Settings.create().hardness(6.0f).resistance(4.0f).instrument(NoteBlockInstrument.BASS).requiresTool().mapColor(MapColor.DEEPSLATE_GRAY).sounds(BlockSoundGroup.STONE));
+    public static final Block BEDSTONE_LAPIS_ORE = registerBlock("bedstone_lapis_ore",
+            settings -> new ExperienceDroppingBlock(
+                    UniformIntProvider.create(2, 5), settings
+            ), Block.Settings.create().hardness(6.0f).resistance(4.0f).instrument(NoteBlockInstrument.BASS).requiresTool().mapColor(MapColor.DEEPSLATE_GRAY).sounds(BlockSoundGroup.STONE));
+    public static final Block BEDSTONE_EMERALD_ORE = registerBlock("bedstone_emerald_ore",
+            settings -> new ExperienceDroppingBlock(
+                    UniformIntProvider.create(3, 7), settings
+            ), Block.Settings.create().hardness(6.0f).resistance(4.0f).instrument(NoteBlockInstrument.BASS).requiresTool().mapColor(MapColor.DEEPSLATE_GRAY).sounds(BlockSoundGroup.STONE));
+
+    public static final Block BEDSTONE_REDSTONE_ORE = registerBlock(
+            "bedstone_redstone_ore",
+            RedstoneOreBlock::new,
+            Block.Settings.create()
+                    .hardness(6.0F)
+                    .resistance(4.0F)
+                    .instrument(NoteBlockInstrument.BASS)
+                    .requiresTool()
+                    .mapColor(MapColor.DEEPSLATE_GRAY)
+                    .sounds(BlockSoundGroup.STONE)
+                    .ticksRandomly()
+                    .luminance(createLightLevelFromLitBlockState(9))
+    );
+    public static final Block BEDSTONE_IRON_ORE = registerBlock("bedstone_iron_ore",
+            settings -> new ExperienceDroppingBlock(
+                    ConstantIntProvider.create(0), settings
+            ), Block.Settings.create().hardness(6.0f).resistance(4.0f).instrument(NoteBlockInstrument.BASS).requiresTool().mapColor(MapColor.DEEPSLATE_GRAY).sounds(BlockSoundGroup.STONE));
+    public static final Block BEDSTONE_GOLD_ORE = registerBlock("bedstone_gold_ore",
+            settings -> new ExperienceDroppingBlock(
+                    ConstantIntProvider.create(0), settings
+            ), Block.Settings.create().hardness(6.0f).resistance(4.0f).instrument(NoteBlockInstrument.BASS).requiresTool().mapColor(MapColor.DEEPSLATE_GRAY).sounds(BlockSoundGroup.STONE));
+    public static final Block BEDSTONE_COPPER_ORE = registerBlock("bedstone_copper_ore",
+            settings -> new ExperienceDroppingBlock(
+                    ConstantIntProvider.create(0), settings
+            ), Block.Settings.create().hardness(6.0f).resistance(4.0f).instrument(NoteBlockInstrument.BASS).requiresTool().mapColor(MapColor.DEEPSLATE_GRAY).sounds(BlockSoundGroup.STONE));
 
 
 
@@ -143,6 +197,7 @@ public class ModBlocks {
             entries.add(ModBlocks.CRACKED_STONE);
             entries.add(ModBlocks.SHATTERED_STONE);
             entries.add(ModBlocks.EXCAVATED_STONE);
+            entries.add(ModBlocks.BEDSTONE);
             entries.add(ModBlocks.GRAVEL_SLAB);
             entries.add(ModBlocks.SAND_SLAB);
             entries.add(ModBlocks.LOOSE_DIRT_SLAB);
@@ -153,6 +208,17 @@ public class ModBlocks {
             entries.add(ModBlocks.DRYING_RACK);
 
             entries.add(ModBlocks.COBWEB_FUll);
+
+            entries.add(ModBlocks.RAW_MYTHRIL);
+            entries.add(ModBlocks.BEDSTONE_DIAMOND_ORE);
+            entries.add(ModBlocks.BEDSTONE_EMERALD_ORE);
+            entries.add(ModBlocks.BEDSTONE_REDSTONE_ORE);
+            entries.add(ModBlocks.BEDSTONE_LAPIS_ORE);
+            entries.add(ModBlocks.BEDSTONE_GOLD_ORE);
+            entries.add(ModBlocks.BEDSTONE_IRON_ORE);
+            entries.add(ModBlocks.BEDSTONE_COPPER_ORE);
+            entries.add(ModBlocks.BEDSTONE_COAL_ORE);
+
         });
     }
 }

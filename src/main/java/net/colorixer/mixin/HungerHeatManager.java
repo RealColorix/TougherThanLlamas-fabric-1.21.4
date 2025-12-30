@@ -100,8 +100,8 @@ public abstract class HungerHeatManager {
     /*   PASSIVE BIOME DRAIN     */
     /* ========================= */
 
-    private static final float MIN_EXHAUSTION = 0.0017f;
-    private static final float MAX_EXHAUSTION = 0.0022f;
+    private static final float MIN_EXHAUSTION = 0.0013f;
+    private static final float MAX_EXHAUSTION = 0.0017f;
     private static final float IDEAL_TEMP = 0.8f;
     private static final float EXTREME_TEMP_DISTANCE = 0.8f;
 

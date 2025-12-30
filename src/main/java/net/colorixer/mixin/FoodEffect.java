@@ -33,37 +33,69 @@ public abstract class FoodEffect {
         ItemStack stack = (ItemStack)(Object)this;
         Random random = user.getRandom();
 
-        /* =========================
-         * RAW BEEF — infection risk
-         * ========================= */
+
         if (stack.isOf(Items.BEEF)) {
-            if (random.nextFloat() < 0.25F) {
+            if (random.nextFloat() < 0.222F) {
                 user.addStatusEffect(new StatusEffectInstance(
                         StatusEffects.HUNGER,
-                        1200, 1
+                        2400, 0
                 ));
             }
         }
 
-        if (stack.isOf(Items.PORKCHOP)) {
-            if (random.nextFloat() < 0.25F) {
+        else if (stack.isOf(Items.PORKCHOP)) {
+            if (random.nextFloat() < 0.222F) {
                 user.addStatusEffect(new StatusEffectInstance(
                         StatusEffects.HUNGER,
-                        1200, 1
-                ));
-            } else if (random.nextFloat() < 0.2F) {
-                user.addStatusEffect(new StatusEffectInstance(
-                        StatusEffects.HUNGER,
-                        1200, 2
+                        2400, 0
                 ));
             }
         }
 
-        if (stack.isOf(Items.MUTTON)) {
-            if (random.nextFloat() < 0.25F) {
+        else if (stack.isOf(Items.CHICKEN)) {
+            if (random.nextFloat() < 0.222F) {
                 user.addStatusEffect(new StatusEffectInstance(
                         StatusEffects.HUNGER,
-                        1200, 1
+                        2400, 0
+                ));
+                user.addStatusEffect(new StatusEffectInstance(
+                        StatusEffects.POISON,
+                        60, 0
+                ));
+            }
+        }
+
+        else if (stack.isOf(Items.COD)) {
+            if (random.nextFloat() < 0.222F) {
+                user.addStatusEffect(new StatusEffectInstance(
+                        StatusEffects.HUNGER,
+                        2400, 0
+                ));
+                user.addStatusEffect(new StatusEffectInstance(
+                        StatusEffects.POISON,
+                        60, 0
+                ));
+            }
+        }
+
+        else if (stack.isOf(Items.SALMON)) {
+            if (random.nextFloat() < 0.222F) {
+                user.addStatusEffect(new StatusEffectInstance(
+                        StatusEffects.HUNGER,
+                        2400, 0
+                ));
+                user.addStatusEffect(new StatusEffectInstance(
+                        StatusEffects.POISON,
+                        60, 0
+                ));
+            }
+        }
+
+        else if (stack.isOf(Items.MUTTON)) {
+            if (random.nextFloat() < 0.222F) {
+                user.addStatusEffect(new StatusEffectInstance(
+                        StatusEffects.HUNGER,
+                        2400, 0
                 ));
             }
         }
@@ -71,34 +103,60 @@ public abstract class FoodEffect {
         /* =========================
          * SWEET BERRIES — mild poison
          * ========================= */
-        if (stack.isOf(Items.SWEET_BERRIES)) {
-            if (random.nextFloat() < 0.25F) {
+        else if (stack.isOf(Items.SWEET_BERRIES)) {
+            if (random.nextFloat() < 0.222F) {
                 user.addStatusEffect(new StatusEffectInstance(
                         StatusEffects.POISON,
-                        300, // 15 seconds
+                        400, // 20 seconds
+                        0
+                ));
+                user.addStatusEffect(new StatusEffectInstance(
+                        StatusEffects.NAUSEA,
+                        400, // 20 seconds
+                        0
+                ));
+                user.addStatusEffect(new StatusEffectInstance(
+                        StatusEffects.BLINDNESS,
+                        400, // 5 seconds
                         0
                 ));
             }
         }
 
-        if (stack.isOf(Items.GLOW_BERRIES)) {
-            if (random.nextFloat() < 0.25F) {
+        else if (stack.isOf(Items.GLOW_BERRIES)) {
+            if (random.nextFloat() < 0.222F) {
                 user.addStatusEffect(new StatusEffectInstance(
                         StatusEffects.WITHER,
-                        300, // 15 seconds
+                        400, // 20 seconds
+                        0
+                ));
+                user.addStatusEffect(new StatusEffectInstance(
+                        StatusEffects.MINING_FATIGUE,
+                        1200, // 1 minute
+                        0
+                ));
+                user.addStatusEffect(new StatusEffectInstance(
+                        StatusEffects.WEAKNESS,
+                        2400, // 2 minutes
+                        0
+                ));
+                user.addStatusEffect(new StatusEffectInstance(
+                        StatusEffects.SLOWNESS,
+                        2400, // 2 minutes
                         0
                 ));
             }
         }
-        /* =========================
-         * ROTTEN FLESH — guaranteed sickness
-         * ========================= */
-        if (stack.isOf(Items.ROTTEN_FLESH)) {
+
+        else if (stack.isOf(Items.ROTTEN_FLESH)) {
             user.addStatusEffect(new StatusEffectInstance(
                     StatusEffects.HUNGER,
-                    600, // 30 seconds
-                    1
+                    1200, // 30 seconds
+                    2
             ));
         }
+
+
+
     }
 }

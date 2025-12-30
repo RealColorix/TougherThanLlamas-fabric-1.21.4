@@ -56,6 +56,7 @@
   "item.ttll.iron_dust": "Iron Dust",
   "item.ttll.gold_dust": "Gold Dust",
   "item.ttll.copper_dust": "Copper Dust",
+  "item.ttll.pink_diamond": "Pink Diamond",
 
   "item.ttll.oak_firewood": "Oak Firewood",
   "item.ttll.birch_firewood": "Birch Firewood",
@@ -85,6 +86,10 @@
   "item.ttll.wooden_club": "Wooden Club",
   "item.ttll.zombie_arm": "Zombie Arm",
   "item.ttll.bone_club": "Bone Club",
+
+  "item.ttll.scroll_of_echoes": "Scroll of Echoes",
+  "item.ttll.scroll_of_oculus": "Scroll of Oculus",
+  "item.ttll.scroll_of_arcane": "Scroll of Arcane",
 
   "item.ttll.tallow": "Tallow",
   "item.ttll.raw_leather": "Raw Leather",
@@ -131,6 +136,17 @@
   "block.ttll.loose_dirt_slab": "Loose Dirt Pile",
   "block.ttll.dried_brick": "Dried Brick",
   "block.ttll.wet_brick": "Wet Brick",
+  "block.ttll.bedstone": "Bedstone",
+  "block.ttll.raw_mythril": "Raw Mythril",
+  "block.ttll.bedstone_diamond_ore": "Bedstone Diamond Ore",
+  "block.ttll.bedstone_emerald_ore": "Bedstone Emerald Ore",
+  "block.ttll.bedstone_redstone_ore": "Bedstone Redstone Ore",
+  "block.ttll.bedstone_lapis_ore": "Bedstone Lapis Ore",
+  "block.ttll.bedstone_iron_ore": "Bedstone Iron Ore",
+  "block.ttll.bedstone_gold_ore": "Bedstone Gold Ore",
+  "block.ttll.bedstone_copper_ore": "Bedstone Copper Ore",
+  "block.ttll.bedstone_coal_ore": "Bedstone Coal Ore",
+
 
 
         "advancements.story.acquire_flint.title": "Acquire Flint!",

@@ -4,6 +4,15 @@
     "minecraft:crying_obsidian",
     "minecraft:netherite_block",
     "minecraft:respawn_anchor",
-    "minecraft:ancient_debris"
+    "minecraft:ancient_debris",
+    "ttll:bedstone",
+    "ttll:bedstone_diamond_ore",
+    "ttll:bedstone_emerald_ore",
+    "ttll:bedstone_redstone_ore",
+    "ttll:bedstone_lapis_ore",
+    "ttll:bedstone_gold_ore",
+    "ttll:bedstone_iron_ore",
+    "ttll:bedstone_copper_ore",
+    "ttll:bedstone_coal_ore"
   ]
 }

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "ttll:block/raw_mythril_top",
+    "side": "ttll:block/raw_mythril_side"
+  }
+}

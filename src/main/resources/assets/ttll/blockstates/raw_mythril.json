@@ -1,0 +1,9 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "ttll:block/raw_mythril"
+      }
+    ]
+  }
+}

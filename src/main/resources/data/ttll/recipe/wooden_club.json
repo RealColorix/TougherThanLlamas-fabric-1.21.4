@@ -5,8 +5,8 @@
     "s": "minecraft:stick"
   },
   "pattern": [
-    " s",
-    "s "
+    "s",
+    "s"
   ],
   "result": {
     "count": 1,

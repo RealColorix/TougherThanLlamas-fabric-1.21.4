@@ -9,6 +9,7 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Rarity;
 
 import java.util.function.Function;
 
@@ -76,6 +77,14 @@ public class ModItems {
     public static final Item IRON_DUST = registerItem("iron_dust", Item::new, new Item.Settings());
     public static final Item GOLD_DUST = registerItem("gold_dust", Item::new, new Item.Settings());
     public static final Item COPPER_DUST = registerItem("copper_dust", Item::new, new Item.Settings());
+    public static final Item PINK_DIAMOND = registerItem("pink_diamond", Item::new, new Item.Settings());
+
+    //----------- SCROLLS ----------
+
+    public static final Item SCROLL_OF_ECHOES = registerItem("scroll_of_echoes", Item::new, new Item.Settings().rarity(Rarity.RARE).maxCount(1));
+    public static final Item SCROLL_OF_OCULUS = registerItem("scroll_of_oculus", Item::new, new Item.Settings().rarity(Rarity.RARE).maxCount(1));
+    public static final Item SCROLL_OF_ARCANE = registerItem("scroll_of_arcane", Item::new, new Item.Settings().rarity(Rarity.RARE).maxCount(1));
+
 
     // ---------- WOOD ----------
     public static final Item OAK_FIREWOOD = registerItem("oak_firewood", Item::new, new Item.Settings());
@@ -242,6 +251,10 @@ public class ModItems {
             entries.add(TANGLED_WEB);
             entries.add(WEB_UNTANGLING);
             entries.add(FLINT);
+            entries.add(PINK_DIAMOND);
+            entries.add(SCROLL_OF_ARCANE);
+            entries.add(SCROLL_OF_ECHOES);
+            entries.add(SCROLL_OF_OCULUS);
         });
 
 

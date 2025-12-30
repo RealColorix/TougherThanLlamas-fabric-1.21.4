@@ -4,11 +4,12 @@
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
 		"ReducedMiningSpeed",
-		"LogsRequireTool",
+		"BlocksMixin",
+		"BlockAccessor",
 		"OresDontNeedToolLevel",
 		"LeavesArePassable",
 		"LeavesSlowYouDown",
-		"LeavesPlacementRestrictor",
+		"PlacementRestrictor",
 		"AdvancementBackground",
 		"PlayerEntityMixin",
 		"HungerHeatManager",
@@ -19,7 +20,10 @@
 		"EntityMixin",
 		"SpiderShootsWeb",
 		"FoodNutrition",
-		"FoodEffect"
+		"FoodEffect",
+		"AttackThroughNonSolids",
+		"LeavesPathPassable",
+		"LeavesEntityFallState"
 	],
 	"injectors": {
 		"defaultRequire": 1
