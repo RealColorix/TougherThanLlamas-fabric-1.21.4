@@ -1,9 +1,9 @@
 package net.colorixer.item.items;
 
-import net.colorixer.block.brick_furnace.BrickFurnaceBlock;
-import net.colorixer.block.brick_furnace.BrickFurnaceBlockEntity;
+import net.colorixer.block.furnace.FurnaceBlock;
+import net.colorixer.block.furnace.FurnaceBlockEntity;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -28,48 +28,31 @@ public class FireStarterItem extends Item {
         World world = context.getWorld();
         BlockPos pos = context.getBlockPos();
         BlockState state = world.getBlockState(pos);
+        PlayerEntity player = context.getPlayer();
 
-        // Check if the block is a Brick Furnace and not already lit.
-        if (state.getBlock() instanceof BrickFurnaceBlock && !state.get(BrickFurnaceBlock.LIT)) {
-            // Retrieve the furnace block entity.
-            BlockEntity be = world.getBlockEntity(pos);
-            if (!(be instanceof BrickFurnaceBlockEntity)) {
-                return ActionResult.PASS;
-            }
-            BrickFurnaceBlockEntity furnace = (BrickFurnaceBlockEntity) be;
+        // Check if it's the furnace and it's not lit
+        if (state.getBlock() instanceof FurnaceBlock && !state.get(FurnaceBlock.LIT)) {
+            if (world.getBlockEntity(pos) instanceof FurnaceBlockEntity furnace) {
 
-            // Check if the furnace has fuel (at least one non-empty fuel slot).
-            boolean hasFuel = false;
-            for (ItemStack fuelStack : furnace.getFuelInventory()) {
-                if (!fuelStack.isEmpty()) {
-                    hasFuel = true;
-                    break;
-                }
-            }
-            // If no fuel is present, do not proceed with lighting.
-            if (!hasFuel) {
-                return ActionResult.PASS;
-            }
+                // Only try if there's fuel
+                if (furnace.getFuel() > 0) {
+                    if (!world.isClient) {
+                        // Ignition logic (Chance based)
+                        if (world.random.nextDouble() < this.chance) {
+                            furnace.ignite();
+                            world.playSound(null, pos, SoundEvents.ITEM_FIRECHARGE_USE, SoundCategory.BLOCKS, 0.5f, 1.0f);
+                        } else {
+                            world.playSound(null, pos, SoundEvents.BLOCK_WOOD_BREAK, SoundCategory.BLOCKS, 0.2f, 1.5f);
+                        }
 
-            // Attempt to light the furnace based on the chance.
-            if (world.random.nextDouble() < this.chance) {
-                // Light the furnace.
-                world.setBlockState(pos, state.with(BrickFurnaceBlock.LIT, true));
-                // Play the fire starting sound.
-                world.playSound(null, pos, SoundEvents.ITEM_FIRECHARGE_USE, SoundCategory.BLOCKS, 1.0f, 1.0f);
-            }else {
-                world.playSound(null, context.getBlockPos(), SoundEvents.BLOCK_WOOD_FALL, SoundCategory.PLAYERS, 1.0f, 1.0f);
-
-            }
-
-            // Damage the item.
-            PlayerEntity player = context.getPlayer();
-            if (player != null) {
-                ItemStack toolStack = context.getStack();
-                toolStack.damage(1, player);
-                if (toolStack.getDamage() >= toolStack.getMaxDamage() - 1) {
-                    player.setStackInHand(Hand.MAIN_HAND, ItemStack.EMPTY);
-                    world.playSound(null, context.getBlockPos(), SoundEvents.ENTITY_ITEM_BREAK, SoundCategory.PLAYERS, 1.0f, 1.0f);
+                        // Damage the item
+                        if (player != null) {
+                            context.getStack().damage(1, player,
+                                    context.getHand() == Hand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND);
+                        }
+                    }
+                    // Return SUCCESS to ensure the swing animation plays
+                    return ActionResult.SUCCESS;
                 }
             }
         }

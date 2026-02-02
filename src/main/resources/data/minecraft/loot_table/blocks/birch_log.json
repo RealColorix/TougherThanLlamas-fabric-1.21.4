@@ -24,7 +24,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "ttll:birch_bark",
+          "name": "minecraft:birch_log",
           "functions": [],
           "conditions": [
             {

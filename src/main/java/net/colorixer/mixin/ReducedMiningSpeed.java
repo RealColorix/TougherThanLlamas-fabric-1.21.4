@@ -2,6 +2,7 @@ package net.colorixer.mixin;
 
 import net.colorixer.block.ModBlocks;
 import net.colorixer.item.ModItems;
+import net.colorixer.util.IdentifierUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -9,7 +10,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.registry.tag.TagKey;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -20,6 +23,12 @@ import java.util.List;
 @Mixin(PlayerEntity.class)
 public abstract class ReducedMiningSpeed {
 
+
+    private static final TagKey<Item> BEGINNER_MINING_TOOLS = TagKey.of(
+            RegistryKeys.ITEM,
+            IdentifierUtil.createIdentifier("ttll", "beginner_stone_mining_tools")
+    );
+
     @Inject(method = "getBlockBreakingSpeed", at = @At("RETURN"), cancellable = true)
     private void modifyMiningSpeed(BlockState blockState, CallbackInfoReturnable<Float> cir) {
         Float originalSpeed = cir.getReturnValue();
@@ -29,30 +38,74 @@ public abstract class ReducedMiningSpeed {
         ItemStack heldItem = player.getMainHandStack();
         Item tool = heldItem.getItem();
 
+        float baseSpeedMod = 0.4f;
+
+        /* ============================= */
+        /* HEALTH & HUNGER PENALTY     */
+        /* ============================= */
+        float health = player.getHealth();
+        int hunger = player.getHungerManager().getFoodLevel();
+        float penaltyMultiplier = 1.0f;
+
+        // Health Tiers: 15, 10, 5
+        if (health <= 15.0f) penaltyMultiplier *= 0.9f;
+        if (health <= 10.0f) penaltyMultiplier *= 0.8f;
+        if (health <= 5.0f)  penaltyMultiplier *= 0.7f;
+        if (health <= 2.0f)  penaltyMultiplier *= 0.5f;
+
+        // Hunger Tiers: 15, 10, 5
+        if (hunger <= 15) penaltyMultiplier *= 0.9f;
+        if (hunger <= 10) penaltyMultiplier *= 0.9f;
+        if (hunger <= 5)  penaltyMultiplier *= 0.9f;
+        if (hunger <= 2)  penaltyMultiplier *= 0.5f;
+        // Combine the base 0.4 with the calculated penalties
+        float finalSpeedMod = baseSpeedMod * penaltyMultiplier;
         /* ============================= */
         /*   SPECIAL TOOL RULES          */
         /* ============================= */
 
-        if (tool == ModItems.FLINT_KNIFE &&
-                (blockState.isOf(Blocks.COBWEB) || blockState.isOf(ModBlocks.COBWEB_FUll))) {
-            cir.setReturnValue(originalSpeed * 0.04f);
+        /* ============================= */
+        /* SPECIAL TOOL RULES          */
+        /* ============================= */
+
+        // Now checks for any tool in the beginner tag when mining logs
+        if (heldItem.isIn(BEGINNER_MINING_TOOLS) && blockState.isOf(Blocks.IRON_ORE) || blockState.isOf(Blocks.COPPER_ORE)) {
+            cir.setReturnValue(originalSpeed * finalSpeedMod);
             return;
         }
-        if (tool == ModItems.WOODEN_CLUB || tool == ModItems.ZOMBIE_ARM &&
-                (blockState.isOf(Blocks.COBWEB) || blockState.isOf(ModBlocks.COBWEB_FUll))) {
-            cir.setReturnValue(originalSpeed * -1f);
+
+        if (heldItem.isOf(ModItems.IRON_CHISEL))
+         {
+             if(blockState.isOf(Blocks.IRON_ORE)
+                     || blockState.isOf(Blocks.COPPER_ORE)
+                     || blockState.isOf(Blocks.GOLD_ORE)
+                     || blockState.isOf(Blocks.LAPIS_ORE)
+                     || blockState.isOf(Blocks.REDSTONE_ORE)
+                     || blockState.isOf(Blocks.EMERALD_ORE)
+                     || blockState.isOf(Blocks.DIAMOND_ORE)
+                     || blockState.isOf(Blocks.DEEPSLATE_IRON_ORE)
+                     || blockState.isOf(Blocks.DEEPSLATE_COPPER_ORE)
+                     || blockState.isOf(Blocks.DEEPSLATE_GOLD_ORE)
+                     || blockState.isOf(Blocks.DEEPSLATE_LAPIS_ORE)
+                     || blockState.isOf(Blocks.DEEPSLATE_REDSTONE_ORE)
+                     || blockState.isOf(Blocks.DEEPSLATE_EMERALD_ORE)
+                     || blockState.isOf(Blocks.DEEPSLATE_DIAMOND_ORE)){
+             cir.setReturnValue(originalSpeed * finalSpeedMod);
             return;
-        }
+        }else if (blockState.isOf(ModBlocks.BIRCH_BOTTOM_LOG)||blockState.isOf(ModBlocks.OAK_BOTTOM_LOG)||blockState.isOf(ModBlocks.BIRCH_BOTTOM_LOG_CHISELED)||blockState.isOf(ModBlocks.OAK_BOTTOM_LOG_CHISELED))
+             {
+                 cir.setReturnValue(originalSpeed * finalSpeedMod * 0.5f);
+                 return;
+             }
+         }
+
 
         if (tool == ModItems.SHARP_ROCK && blockState.isIn(BlockTags.LOGS)) {
-            cir.setReturnValue(originalSpeed * 0.5f);
+            cir.setReturnValue(originalSpeed * finalSpeedMod * 2f);
             return;
         }
 
-        if (tool == ModItems.SHARP_ROCK && blockState.isOf(Blocks.IRON_ORE)) {
-            cir.setReturnValue(originalSpeed * 0.1F);
-            return;
-        }
+
         /* ============================= */
         /*   TIER ENFORCEMENT (FIX)      */
         /* ============================= */
@@ -78,7 +131,7 @@ public abstract class ReducedMiningSpeed {
         /*   GLOBAL SLOWDOWN             */
         /* ============================= */
 
-        cir.setReturnValue(originalSpeed * 0.25f);
+        cir.setReturnValue(originalSpeed * finalSpeedMod);
     }
 
     /* ============================= */
@@ -86,6 +139,8 @@ public abstract class ReducedMiningSpeed {
     /* ============================= */
 
     private boolean toolMeetsTierRequirement(Item tool, BlockState state) {
+
+
 
         // Diamond-required blocks
         if (state.isIn(BlockTags.NEEDS_DIAMOND_TOOL)) {

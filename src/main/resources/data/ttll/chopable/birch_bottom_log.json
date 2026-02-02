@@ -1,0 +1,8 @@
+{
+  "conditions": [
+    {
+      "item": "ttll:iron_chisel",
+      "result": "ttll:birch_bottom_log_chiseled"
+    }
+  ]
+}

@@ -24,7 +24,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "ttll:oak_bark",
+          "name": "minecraft:oak_log",
           "functions": [],
           "conditions": [
             {

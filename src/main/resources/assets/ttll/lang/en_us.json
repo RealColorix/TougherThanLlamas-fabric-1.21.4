@@ -1,62 +1,21 @@
 
 {
-  "item.ttll.pickaxe_mold": "Pickaxe Mold",
-  "item.ttll.axe_mold": "Axe Mold",
-  "item.ttll.sword_mold": "Sword Mold",
-  "item.ttll.shovel_mold": "Shovel Mold",
-  "item.ttll.hoe_mold": "Hoe Mold",
-  "item.ttll.nugget_mold": "Nugget Mold",
-  "item.ttll.ingot_mold": "Ingot Mold",
-  "item.ttll.plate_mold": "Plate Mold",
-  "item.ttll.bucket_mold": "Bucket Mold",
-  "item.ttll.chisel_mold": "Chisel Mold",
-  "item.ttll.flat_mold": "Flat Mold",
-  "item.ttll.pickaxe_cast": "Pickaxe Cast",
-  "item.ttll.axe_cast": "Axe Cast",
-  "item.ttll.sword_cast": "Sword Cast",
-  "item.ttll.shovel_cast": "Shovel Cast",
-  "item.ttll.hoe_cast": "Hoe Cast",
-  "item.ttll.nugget_cast": "Nugget Cast",
-  "item.ttll.ingot_cast": "Ingot Cast",
-  "item.ttll.plate_cast": "Plate Cast",
-  "item.ttll.bucket_cast": "Bucket Cast",
-  "item.ttll.chisel_cast": "Chisel Cast",
-  "item.ttll.flat_cast": "Flat Cast",
-  "item.ttll.iron_pickaxe_cast": "Iron Pickaxe Cast",
-  "item.ttll.iron_axe_cast": "Iron Axe Cast",
-  "item.ttll.iron_sword_cast": "Iron Sword Cast",
-  "item.ttll.iron_shovel_cast": "Iron Shovel Cast",
-  "item.ttll.iron_hoe_cast": "Iron Hoe Cast",
-  "item.ttll.iron_nugget_cast": "Iron Nugget Cast",
-  "item.ttll.iron_ingot_cast": "Iron Ingot Cast",
-  "item.ttll.iron_plate_cast": "Iron Plate Cast",
-  "item.ttll.iron_bucket_cast": "Iron Bucket Cast",
-  "item.ttll.iron_chisel_cast": "Iron Chisel Cast",
-  "item.ttll.golden_pickaxe_cast": "Golden Pickaxe Cast",
-  "item.ttll.golden_axe_cast": "Golden Axe Cast",
-  "item.ttll.golden_sword_cast": "Golden Sword Cast",
-  "item.ttll.golden_shovel_cast": "Golden shovel Cast",
-  "item.ttll.golden_hoe_cast": "Golden Hoe Cast",
-  "item.ttll.gold_nugget_cast": "Gold Nugget Cast",
-  "item.ttll.gold_ingot_cast": "Gold Ingot Cast",
-  "item.ttll.gold_plate_cast": "Gold Plate Cast",
-  "item.ttll.copper_ingot_cast": "Copper Ingot Cast",
-  "item.ttll.copper_plate_cast": "Copper Plate Cast",
+
 
   "item.ttll.dirt_pile": "Dirt Pile",
   "item.ttll.gravel_pile": "Gravel Pile",
   "item.ttll.sand_pile": "Sand Pile",
   "item.ttll.crude_clay": "Crude Clay",
 
+  "item.ttll.chipped_rock": "Chipped Rock",
   "item.ttll.rock": "Rock",
   "item.ttll.flint_fragment": "Flint Fragment",
-  "item.ttll.grass_fiber": "Grass Fiber",
+
 
   "item.ttll.coal_dust": "Coal Dust",
   "item.ttll.iron_dust": "Iron Dust",
   "item.ttll.gold_dust": "Gold Dust",
   "item.ttll.copper_dust": "Copper Dust",
-  "item.ttll.pink_diamond": "Pink Diamond",
 
   "item.ttll.oak_firewood": "Oak Firewood",
   "item.ttll.birch_firewood": "Birch Firewood",
@@ -76,7 +35,7 @@
   "item.ttll.branch": "Branch",
   "item.ttll.tangled_web": "Tangled Web",
   "item.ttll.web_untangling": "Web Untangling",
-
+  "item.ttll.iron_chisel": "Iron Chisel",
   "item.ttll.flint": "Flint",
   "item.ttll.flint_knife": "Flint Knife",
   "item.ttll.sharp_rock": "Sharp Rock",
@@ -104,13 +63,11 @@
   "item.ttll.spunned_string": "Spunned String",
 
   "item.ttll.white_wool": "White Knitting Wool",
-  "item.ttll.white_garn": "White Garn",
   "item.ttll.cloth_wool_white": "Wool Cloth",
   "item.ttll.knitting_wool_white": "Wool Knitting",
-  "item.ttll.knitting_garn_white": "Garn Knitting",
 
-  "item.ttll.knitting_grass_fiber": "Grass Fiber Knitting",
   "item.ttll.string_knitting": "String Knitting",
+
 
 
   "block.ttll.drying_rack": "Drying Rack",
@@ -146,8 +103,15 @@
   "block.ttll.bedstone_gold_ore": "Bedstone Gold Ore",
   "block.ttll.bedstone_copper_ore": "Bedstone Copper Ore",
   "block.ttll.bedstone_coal_ore": "Bedstone Coal Ore",
-
-
+  "block.ttll.furnace": "Furnace",
+  "block.ttll.loose_cobblestone": "Loose Cobblestone",
+  "block.ttll.loose_cobblestone_slab": "Loose Cobblestone Slab",
+  "block.ttll.oak_bottom_log": "Oak Log Stem",
+  "block.ttll.Birch_bottom_log": "Birch Log Stem",
+  "block.ttll.oak_bottom_log_chiseled": "Chiseled Oak Log Stem",
+  "block.ttll.birch_bottom_log_chiseled": "Chiseled Birch Log Stem",
+  "block.ttll.oak_bottom_log_crafting_table": "Oak Crafting Table",
+  "block.ttll.birch_bottom_log_crafting_table": "Birch Crafting Table",
 
         "advancements.story.acquire_flint.title": "Acquire Flint!",
   "advancements.story.acquire_flint.description": "Mine Gravel",

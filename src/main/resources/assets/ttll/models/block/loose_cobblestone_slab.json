@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "ttll:block/loose_cobblestone",
+    "top": "ttll:block/loose_cobblestone",
+    "side": "ttll:block/loose_cobblestone"
+  }
+}

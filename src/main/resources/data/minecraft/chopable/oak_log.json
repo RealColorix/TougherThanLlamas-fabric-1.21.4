@@ -1,8 +1,16 @@
 {
   "conditions": [
     {
-      "item": "ttll:sharp_rock",
-      "result": "ttll:oak_trunk"
+      "item": "#ttll:beginner_stone_mining_tools",
+      "result": "ttll:oak_trunk",
+      "doloottable": false,
+      "drop_item": "ttll:oak_bark"
+    },
+    {
+      "item": "ttll:iron_chisel",
+      "result": "ttll:oak_trunk",
+      "doloottable": false,
+      "drop_item": "ttll:oak_bark"
     }
   ]
 }

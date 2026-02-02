@@ -24,7 +24,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "ttll:jungle_bark",
+          "name": "minecraft:jungle_log",
           "functions": [],
           "conditions": [
             {

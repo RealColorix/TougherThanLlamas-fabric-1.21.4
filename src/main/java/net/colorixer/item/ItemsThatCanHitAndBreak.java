@@ -44,7 +44,7 @@ public class ItemsThatCanHitAndBreak {
         // Check if the block is stone or similar
         if (isValidBlock(targetBlock)) {
             if (heldItemStack.getItem() == ModItems.FLINT) {
-                if (random.nextDouble() <= 0.333){
+                if (random.nextDouble() <= 1){
                     // Play the flint and steel use sound
                     world.playSound(null, pos, SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.PLAYERS,
                             1.0F, 0.4F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
@@ -62,7 +62,7 @@ public class ItemsThatCanHitAndBreak {
                     return ActionResult.PASS;
                 }
             } else if (heldItemStack.getItem() == Items.FLINT) {
-                if (random.nextDouble() <= 0.333){
+                if (random.nextDouble() <= 1){
                     // Play the flint and steel use sound
                     world.playSound(null, pos, SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.PLAYERS,
                             1.0F, 0.4F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
@@ -80,7 +80,7 @@ public class ItemsThatCanHitAndBreak {
                     return ActionResult.PASS;
                 }
             }else if (heldItemStack.getItem() == Items.STICK) {
-                if (random.nextDouble() <= 0.333){
+                if (random.nextDouble() <= 1){
                     // Play the flint and steel use sound
                     world.playSound(null, pos, SoundEvents.BLOCK_BAMBOO_WOOD_BREAK, SoundCategory.PLAYERS,
                             1.0F, 0.4F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
@@ -98,7 +98,7 @@ public class ItemsThatCanHitAndBreak {
                     return ActionResult.PASS;
                 }
             }else if (heldItemStack.getItem() == ModItems.BRANCH) {
-                if (random.nextDouble() <= 0.333){
+                if (random.nextDouble() <= 1){
                     // Play the flint and steel use sound
                     world.playSound(null, pos, SoundEvents.BLOCK_BAMBOO_WOOD_BREAK, SoundCategory.PLAYERS,
                             1.0F, 0.4F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
@@ -116,7 +116,7 @@ public class ItemsThatCanHitAndBreak {
                     return ActionResult.PASS;
                 }
             }else if (heldItemStack.getItem() == ModItems.ROCK) {
-                if (random.nextDouble() <= 0.333) {
+                if (random.nextDouble() <= 1) {
                     // Play the flint and steel use sound
                     world.playSound(null, pos, SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.PLAYERS,
                             0.5F, 0.2F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
@@ -133,46 +133,6 @@ public class ItemsThatCanHitAndBreak {
                     player.swingHand(hand, true);
                     return ActionResult.PASS;
                 }
-            }else if (heldItemStack.getItem() == ModItems.IRON_NUGGET_CAST) {
-                    world.playSound(null, pos, SoundEvents.BLOCK_DECORATED_POT_BREAK, SoundCategory.PLAYERS,
-                            1.5F, 0.2F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
-                    heldItemStack.decrement(1);
-                    ItemStack stack = new ItemStack(Items.IRON_NUGGET, 1);
-                    dropItem(world, player, stack);
-                    player.swingHand(hand, true);
-                    return ActionResult.SUCCESS;
-            }else if (heldItemStack.getItem() == ModItems.IRON_INGOT_CAST) {
-                world.playSound(null, pos, SoundEvents.BLOCK_DECORATED_POT_BREAK, SoundCategory.PLAYERS,
-                        1.5F, 0.2F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
-                heldItemStack.decrement(1);
-                ItemStack stack = new ItemStack(Items.IRON_INGOT, 1);
-                dropItem(world, player, stack);
-                player.swingHand(hand, true);
-                return ActionResult.SUCCESS;
-            }else if (heldItemStack.getItem() == ModItems.GOLD_NUGGET_CAST) {
-                world.playSound(null, pos, SoundEvents.BLOCK_DECORATED_POT_BREAK, SoundCategory.PLAYERS,
-                        1.5F, 0.2F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
-                heldItemStack.decrement(1);
-                ItemStack stack = new ItemStack(Items.GOLD_NUGGET, 1);
-                dropItem(world, player, stack);
-                player.swingHand(hand, true);
-                return ActionResult.SUCCESS;
-            }else if (heldItemStack.getItem() == ModItems.GOLD_INGOT_CAST) {
-                world.playSound(null, pos, SoundEvents.BLOCK_DECORATED_POT_BREAK, SoundCategory.PLAYERS,
-                        1.5F, 0.2F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
-                heldItemStack.decrement(1);
-                ItemStack stack = new ItemStack(Items.GOLD_INGOT, 1);
-                dropItem(world, player, stack);
-                player.swingHand(hand, true);
-                return ActionResult.SUCCESS;
-            }else if (heldItemStack.getItem() == ModItems.COPPER_INGOT_CAST) {
-                world.playSound(null, pos, SoundEvents.BLOCK_DECORATED_POT_BREAK, SoundCategory.PLAYERS,
-                        1.5F, 0.2F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
-                heldItemStack.decrement(1);
-                ItemStack stack = new ItemStack(Items.COPPER_INGOT, 1);
-                dropItem(world, player, stack);
-                player.swingHand(hand, true);
-                return ActionResult.SUCCESS;
             }
         }
 

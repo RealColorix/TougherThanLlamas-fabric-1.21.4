@@ -1,18 +1,10 @@
 {
   "values": [
-    "minecraft:obsidian",
-    "minecraft:crying_obsidian",
-    "minecraft:netherite_block",
-    "minecraft:respawn_anchor",
-    "minecraft:ancient_debris",
-    "ttll:bedstone",
-    "ttll:bedstone_diamond_ore",
-    "ttll:bedstone_emerald_ore",
-    "ttll:bedstone_redstone_ore",
-    "ttll:bedstone_lapis_ore",
-    "ttll:bedstone_gold_ore",
-    "ttll:bedstone_iron_ore",
-    "ttll:bedstone_copper_ore",
-    "ttll:bedstone_coal_ore"
+    "ttll:oak_bottom_log",
+    "ttll:birch_bottom_log",
+    "ttll:oak_bottom_log_chiseled",
+    "ttll:birch_bottom_log_chiseled",
+    "ttll:oak_bottom_log_crafting_table",
+    "ttll:birch_bottom_log_crafting_table"
   ]
 }

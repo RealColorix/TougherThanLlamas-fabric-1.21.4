@@ -16,8 +16,10 @@ public class TTLLToolMaterial {
     public static final ToolMaterial SHARP_ROCK = new ToolMaterial(
             BlockTags.INCORRECT_FOR_WOODEN_TOOL, 8,1F,  0F, 1, ItemTags.WOODEN_TOOL_MATERIALS);
 
+    public static final ToolMaterial STONE_AXE = new ToolMaterial(
+            BlockTags.INCORRECT_FOR_WOODEN_TOOL, 64,4F,  0F, 1, ItemTags.WOODEN_TOOL_MATERIALS);
     public static final ToolMaterial STONE = new ToolMaterial(
-            BlockTags.INCORRECT_FOR_WOODEN_TOOL, 50,2F,  0F, 1, ItemTags.WOODEN_TOOL_MATERIALS);
+            BlockTags.INCORRECT_FOR_WOODEN_TOOL, 64,1.5F,  0F, 1, ItemTags.WOODEN_TOOL_MATERIALS);
 
 
 

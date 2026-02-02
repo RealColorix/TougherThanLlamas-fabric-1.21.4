@@ -24,7 +24,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "ttll:spruce_bark",
+          "name": "minecraft:spruce_log",
           "functions": [],
           "conditions": [
             {

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "ttll:block/loose_cobblestone_slab"
+    },
+    "type=top": {
+      "model": "ttll:block/loose_cobblestone_slab_top"
+    },
+    "type=double": {
+      "model": "ttll:block/loose_cobblestone"
+    }
+  }
+}

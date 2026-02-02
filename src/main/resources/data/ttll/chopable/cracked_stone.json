@@ -2,7 +2,15 @@
   "conditions": [
     {
       "item": "#ttll:beginner_stone_mining_tools",
-      "result": "ttll:shattered_stone"
+      "result": "ttll:shattered_stone",
+      "doloottable": false,
+      "drop_item": "ttll:rock"
+    },
+    {
+      "item": "ttll:iron_chisel",
+      "result": "ttll:shattered_stone",
+      "doloottable": false,
+      "drop_item": "ttll:chipped_rock"
     }
   ]
 }

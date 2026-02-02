@@ -2,13 +2,11 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "b": "minecraft:bone",
-    "s": "#ttll:binding_strings",
-    "S": "minecraft:skeleton_skull"
+    "b": "minecraft:bone"
   },
   "pattern": [
-    "sS",
-    "b "
+    "b",
+    "b"
   ],
   "result": {
     "count": 1,

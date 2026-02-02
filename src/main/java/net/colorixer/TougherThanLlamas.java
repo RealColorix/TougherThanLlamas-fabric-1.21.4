@@ -8,25 +8,17 @@ import net.colorixer.item.ItemsThatCanHitAndBreak;
 import net.colorixer.item.ModItems;
 import net.colorixer.player.Chopable;
 import net.colorixer.recipe.ModRecipeSerializers;
-import net.colorixer.util.IdentifierUtil;
-import net.colorixer.worldgen.ModWorldGen;
 import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.minecraft.block.*;
-import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.block.enums.SlabType;
 import net.minecraft.entity.FallingBlockEntity;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.GameRules;
 import org.slf4j.Logger;
@@ -48,7 +40,6 @@ public class TougherThanLlamas implements ModInitializer {
 		ItemsThatCanHitAndBreak.register();
 		Chopable.initialize();
 		ModRecipeSerializers.register();
-		ModWorldGen.init();
 
 
 

@@ -1,10 +1,11 @@
 package net.colorixer.block;
 
+import com.mojang.serialization.MapCodec;
 import net.colorixer.TougherThanLlamas;
 import net.colorixer.block.brick_block.DriedBrickBlock;
 import net.colorixer.block.brick_block.WetBrickBlock;
-import net.colorixer.block.brick_furnace.BrickFurnaceBlock;
 import net.colorixer.block.drying_rack.DryingRackBlock;
+import net.colorixer.block.furnace.FurnaceBlock;
 import net.colorixer.block.logs.StemBlock;
 import net.colorixer.block.logs.TrunkBlock;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
@@ -50,23 +51,37 @@ public class ModBlocks {
 
     public static final Block DRIED_BRICK = registerBlock("dried_brick", DriedBrickBlock::new, Block.Settings.create()
             .mapColor(MapColor.DULL_PINK).strength(0.2F, 0.5F).sounds(BlockSoundGroup.STONE));
-    public static final Block BRICK_SIDING = registerBlock("brick_siding", BrickBlockSiding::new, Block.Settings.create()
-            .mapColor(MapColor.DULL_PINK).strength(1.0F, 4.0F).sounds(BlockSoundGroup.STONE).requiresTool());
     public static final Block WET_BRICK = registerBlock("wet_brick", WetBrickBlock::new, Block.Settings.copy(Blocks.CLAY));
 
+    public static final Block FURNACE = registerBlock("furnace", FurnaceBlock::new, Block.Settings.create()
+            .mapColor(MapColor.STONE_GRAY)
+            .instrument(NoteBlockInstrument.BASEDRUM)
+            .requiresTool()
+            .strength(1.5F, 10)
+            .sounds(BlockSoundGroup.STONE)
+            // This checks the LIT property: if true, light level 7; if false, 0.
+                    .luminance(state -> {
+                        if (state.get(FurnaceBlock.LIT)) {
+                            return state.get(FurnaceBlock.LOW_FUEL) ? 7 : 14;
+                        }
+                        return 0;
+                    }));
 
-    //TILE ENTITES
 
-    public static final Block BRICK_FURNACE = registerBlock("brick_furnace", BrickFurnaceBlock::new, Block.Settings.create()
-            .mapColor(MapColor.DARK_RED).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1.5F, 5.8F)
-            .luminance(state -> state.get(BrickFurnaceBlock.LIT) ? 13 : 0)
-            .nonOpaque()
-    );
 
 
     //  SLABS
+    public static final Block LOOSE_COBBLESTONE = registerBlock("loose_cobblestone",
+            ModFallingBlock::new,
+            Block.Settings.create()
+                    .mapColor(MapColor.STONE_GRAY)
+                    .instrument(NoteBlockInstrument.BASEDRUM)
+                    .requiresTool()
+                    .strength(1.5F, 4)
+                    .sounds(BlockSoundGroup.STONE)
+    );
 
-
+    public static final Block LOOSE_COBBLESTONE_SLAB = registerBlock("loose_cobblestone_slab", FallingSlabBlock::new, Block.Settings.copy(ModBlocks.LOOSE_COBBLESTONE));
 
     public static final Block GRAVEL_SLAB = registerBlock("gravel_slab", FallingSlabBlock::new, Block.Settings.copy(Blocks.GRAVEL));
     public static final Block SAND_SLAB = registerBlock("sand_slab", FallingSlabBlock::new, Block.Settings.copy(Blocks.SAND));
@@ -80,16 +95,32 @@ public class ModBlocks {
             .mapColor(MapColor.BLACK).strength(6.0F, 6F).sounds(BlockSoundGroup.STONE).requiresTool());
 
 
+//WOODS
+
+    public static final Block OAK_BOTTOM_LOG = registerBlock("oak_bottom_log", PillarBlock::new, Block.Settings.copy(Blocks.OAK_LOG)
+           .requiresTool().strength(2F, 6F));
+    public static final Block BIRCH_BOTTOM_LOG = registerBlock("birch_bottom_log", PillarBlock::new, Block.Settings.copy(Blocks.BIRCH_LOG)
+            .requiresTool().strength(2F, 6F));
+    public static final Block OAK_BOTTOM_LOG_CHISELED = registerBlock("oak_bottom_log_chiseled", PillarBlock::new, Block.Settings.copy(Blocks.OAK_LOG)
+            .requiresTool().strength(2F, 6F));
+    public static final Block BIRCH_BOTTOM_LOG_CHISELED = registerBlock("birch_bottom_log_chiseled", PillarBlock::new, Block.Settings.copy(Blocks.BIRCH_LOG)
+            .requiresTool().strength(2F, 6F));
+    public static final Block OAK_BOTTOM_LOG_CRAFTING_TABLE = registerBlock("oak_bottom_log_crafting_table", LogCraftingTableBlock::new, Block.Settings.copy(Blocks.OAK_LOG)
+            .requiresTool().strength(2F, 6F));
+    public static final Block BIRCH_BOTTOM_LOG_CRAFTING_TABLE = registerBlock("birch_bottom_log_crafting_table", LogCraftingTableBlock::new, Block.Settings.copy(Blocks.BIRCH_LOG)
+            .requiresTool().strength(2F, 6F));
+
+
     public static final Block WEATHERED_STONE = registerBlock("weathered_stone", Block::new, Block.Settings.create()
-            .mapColor(MapColor.STONE_GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1.48F, 5.95F).sounds(BlockSoundGroup.STONE));
+            .mapColor(MapColor.STONE_GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1.5F, 6F).sounds(BlockSoundGroup.STONE));
     public static final Block COBBLESTONE = registerBlock("cobblestone", Block::new, Block.Settings.create()
-            .mapColor(MapColor.STONE_GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1.46F, 5.9F).sounds(BlockSoundGroup.STONE));
+            .mapColor(MapColor.STONE_GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1.5F, 6F).sounds(BlockSoundGroup.STONE));
     public static final Block CRACKED_STONE = registerBlock("cracked_stone", Block::new, Block.Settings.create()
-            .mapColor(MapColor.STONE_GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1.44F, 5.85F).sounds(BlockSoundGroup.STONE));
+            .mapColor(MapColor.STONE_GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1.5F, 6F).sounds(BlockSoundGroup.STONE));
     public static final Block SHATTERED_STONE = registerBlock("shattered_stone", Block::new, Block.Settings.create()
-            .mapColor(MapColor.STONE_GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1.5F, 5.8F).sounds(BlockSoundGroup.STONE));
+            .mapColor(MapColor.STONE_GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1.5F, 6F).sounds(BlockSoundGroup.STONE));
     public static final Block EXCAVATED_STONE = registerBlock("excavated_stone", Block::new, Block.Settings.create()
-            .mapColor(MapColor.STONE_GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1.5F, 5.8F).sounds(BlockSoundGroup.STONE));
+            .mapColor(MapColor.STONE_GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1.5F, 6F).sounds(BlockSoundGroup.STONE));
 
 
 
@@ -128,8 +159,6 @@ public class ModBlocks {
                     .pistonBehavior(PistonBehavior.DESTROY)
                     .nonOpaque()
     );
-    public static final Block RAW_MYTHRIL = registerBlock("raw_mythril", Block::new, Block.Settings.create()
-            .mapColor(MapColor.LICHEN_GREEN).instrument(NoteBlockInstrument.BASEDRUM).sounds(BlockSoundGroup.STONE).requiresTool().strength(15F, 200F));
 
     public static final Block BEDSTONE_DIAMOND_ORE = registerBlock("bedstone_diamond_ore",
                     settings -> new ExperienceDroppingBlock(
@@ -192,6 +221,12 @@ public class ModBlocks {
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.NATURAL).register(entries -> {
             entries.add(ModBlocks.OAK_TRUNK);
             entries.add(ModBlocks.OAK_STEM);
+            entries.add(ModBlocks.OAK_BOTTOM_LOG);
+            entries.add(ModBlocks.OAK_BOTTOM_LOG_CHISELED);
+            entries.add(ModBlocks.OAK_BOTTOM_LOG_CRAFTING_TABLE);
+            entries.add(ModBlocks.BIRCH_BOTTOM_LOG);
+            entries.add(ModBlocks.BIRCH_BOTTOM_LOG_CHISELED);
+            entries.add(ModBlocks.BIRCH_BOTTOM_LOG_CRAFTING_TABLE);
             entries.add(ModBlocks.WEATHERED_STONE);
             entries.add(ModBlocks.COBBLESTONE);
             entries.add(ModBlocks.CRACKED_STONE);
@@ -201,15 +236,14 @@ public class ModBlocks {
             entries.add(ModBlocks.GRAVEL_SLAB);
             entries.add(ModBlocks.SAND_SLAB);
             entries.add(ModBlocks.LOOSE_DIRT_SLAB);
-            entries.add(ModBlocks.BRICK_FURNACE);
             entries.add(ModBlocks.DRIED_BRICK);
             entries.add(ModBlocks.WET_BRICK);
-            entries.add(ModBlocks.BRICK_SIDING);
             entries.add(ModBlocks.DRYING_RACK);
-
+            entries.add(ModBlocks.FURNACE);
             entries.add(ModBlocks.COBWEB_FUll);
+            entries.add(ModBlocks.LOOSE_COBBLESTONE);
 
-            entries.add(ModBlocks.RAW_MYTHRIL);
+            entries.add(ModBlocks.LOOSE_COBBLESTONE_SLAB);
             entries.add(ModBlocks.BEDSTONE_DIAMOND_ORE);
             entries.add(ModBlocks.BEDSTONE_EMERALD_ORE);
             entries.add(ModBlocks.BEDSTONE_REDSTONE_ORE);

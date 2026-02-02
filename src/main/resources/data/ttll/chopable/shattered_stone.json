@@ -1,0 +1,16 @@
+{
+  "conditions": [
+    {
+      "item": "#ttll:beginner_stone_mining_tools",
+      "result": "ttll:excavated_stone",
+      "doloottable": false,
+      "drop_item": "ttll:gravel_pile"
+    },
+    {
+      "item": "ttll:iron_chisel",
+      "result": "ttll:excavated_stone",
+      "doloottable": false,
+      "drop_item": "ttll:chipped_rock"
+    }
+  ]
+}

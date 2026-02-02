@@ -1,8 +1,16 @@
 {
   "conditions": [
     {
-      "item": "ttll:sharp_rock",
-      "result": "ttll:excavated_stone"
+      "item": "#ttll:beginner_stone_mining_tools",
+      "result": "ttll:cracked_stone",
+      "doloottable": false,
+      "drop_item": "ttll:coal_dust"
+    },
+    {
+      "item": "ttll:iron_chisel",
+      "result": "ttll:cracked_stone",
+      "doloottable": false,
+      "drop_item": "minecraft:coal"
     }
   ]
 }

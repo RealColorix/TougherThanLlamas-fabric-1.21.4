@@ -23,7 +23,14 @@
 		"FoodEffect",
 		"AttackThroughNonSolids",
 		"LeavesPathPassable",
-		"LeavesEntityFallState"
+		"LeavesEntityFallState",
+		"CaveDarkness",
+		"CraftingSoundMixin",
+		"StraightTrunkPlacerMixin",
+		"LargeOakTrunkPlacerMixin",
+		"PlayerCombatModifiers",
+		"ZombieModifier",
+		"MobModifier"
 	],
 	"injectors": {
 		"defaultRequire": 1

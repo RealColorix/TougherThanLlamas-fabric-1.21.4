@@ -17,14 +17,24 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class HungerHeatManager {
 
     /* ========================= */
-    /*   SHADOWED MEMBERS        */
+    /* SHADOWED MEMBERS        */
     /* ========================= */
 
     @Shadow public abstract int getFoodLevel();
     @Shadow public abstract void addExhaustion(float exhaustion);
+    @Shadow private float saturationLevel; // Added for the change
 
     /* ========================= */
-    /*   REGEN TIMING            */
+    /* INITIALIZATION          */
+    /* ========================= */
+
+    @Inject(method = "<init>", at = @At("RETURN"))
+    private void ttll$resetStartingSaturation(CallbackInfo ci) {
+        this.saturationLevel = 0.0f;
+    }
+
+    /* ========================= */
+    /* REGEN TIMING            */
     /* ========================= */
 
     @ModifyConstant(
@@ -32,7 +42,7 @@ public abstract class HungerHeatManager {
             constant = @Constant(intValue = 10)
     )
     private int hardmod$slowSaturated(int original) {
-        return original * 30; // 15 sec healing
+        return original * 20; // 10 sec healing
     }
 
     @ModifyConstant(
@@ -40,11 +50,11 @@ public abstract class HungerHeatManager {
             constant = @Constant(intValue = 80)
     )
     private int hardmod$slowHungry(int original) {
-        return original * 8; // 32 sec healing
+        return original * 5; // 20 sec healing
     }
 
     /* ========================= */
-    /*   REGEN THRESHOLD         */
+    /* REGEN THRESHOLD         */
     /* ========================= */
 
     @ModifyConstant(
@@ -56,7 +66,7 @@ public abstract class HungerHeatManager {
     }
 
     /* ========================= */
-    /*   REGEN COST / AMOUNT     */
+    /* REGEN COST / AMOUNT     */
     /* ========================= */
 
     @ModifyConstant(
@@ -64,7 +74,7 @@ public abstract class HungerHeatManager {
             constant = @Constant(floatValue = 6.0F)
     )
     private float ttll$foodRegenExhaustion(float original) {
-        return 4.0F;
+        return 0.5F;
     }
 
     @ModifyConstant(
@@ -76,7 +86,7 @@ public abstract class HungerHeatManager {
     }
 
     /* ========================= */
-    /*   CONDITIONAL HEALING     */
+    /* CONDITIONAL HEALING     */
     /* ========================= */
 
     /**
@@ -97,7 +107,7 @@ public abstract class HungerHeatManager {
     }
 
     /* ========================= */
-    /*   PASSIVE BIOME DRAIN     */
+    /* PASSIVE BIOME DRAIN     */
     /* ========================= */
 
     private static final float MIN_EXHAUSTION = 0.0013f;

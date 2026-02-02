@@ -2,8 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     "ttll:coal_dust",
-    "ttll:coal_dust",
-    "#ttll:binders"
+    "ttll:coal_dust"
   ],
   "result": {
     "id": "minecraft:coal",

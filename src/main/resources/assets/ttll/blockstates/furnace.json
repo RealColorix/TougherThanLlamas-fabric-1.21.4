@@ -1,0 +1,23 @@
+{
+  "variants": {
+    "facing=north,lit=false,low_fuel=false": { "model": "ttll:block/furnace" },
+    "facing=east,lit=false,low_fuel=false":  { "model": "ttll:block/furnace", "y": 90 },
+    "facing=south,lit=false,low_fuel=false": { "model": "ttll:block/furnace", "y": 180 },
+    "facing=west,lit=false,low_fuel=false":  { "model": "ttll:block/furnace", "y": 270 },
+
+    "facing=north,lit=false,low_fuel=true":  { "model": "ttll:block/furnace" },
+    "facing=east,lit=false,low_fuel=true":   { "model": "ttll:block/furnace", "y": 90 },
+    "facing=south,lit=false,low_fuel=true":  { "model": "ttll:block/furnace", "y": 180 },
+    "facing=west,lit=false,low_fuel=true":   { "model": "ttll:block/furnace", "y": 270 },
+
+    "facing=north,lit=true,low_fuel=false":  { "model": "ttll:block/furnace_on" },
+    "facing=east,lit=true,low_fuel=false":   { "model": "ttll:block/furnace_on", "y": 90 },
+    "facing=south,lit=true,low_fuel=false":  { "model": "ttll:block/furnace_on", "y": 180 },
+    "facing=west,lit=true,low_fuel=false":   { "model": "ttll:block/furnace_on", "y": 270 },
+
+    "facing=north,lit=true,low_fuel=true":   { "model": "ttll:block/furnace_on_low" },
+    "facing=east,lit=true,low_fuel=true":    { "model": "ttll:block/furnace_on_low", "y": 90 },
+    "facing=south,lit=true,low_fuel=true":   { "model": "ttll:block/furnace_on_low", "y": 180 },
+    "facing=west,lit=true,low_fuel=true":    { "model": "ttll:block/furnace_on_low", "y": 270 }
+  }
+}

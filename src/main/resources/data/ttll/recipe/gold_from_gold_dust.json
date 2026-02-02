@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "ttll:gold_dust",
+    "ttll:gold_dust"
+  ],
+  "result": {
+    "id": "minecraft:gold_iron",
+    "count": 1
+  }
+}

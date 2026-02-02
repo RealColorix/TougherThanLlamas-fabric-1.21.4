@@ -1,5 +1,7 @@
 package net.colorixer.mixin;
 
+import net.colorixer.block.ModBlocks;
+import net.colorixer.item.ModItems;
 import net.colorixer.util.IdentifierUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -25,12 +27,27 @@ public class OresDontNeedToolLevel {
     private void allowBeginnerToolsToMine(BlockState state, CallbackInfoReturnable<Boolean> cir) {
         ItemStack stack = (ItemStack) (Object) this;
 
-        boolean isBeginnerTool = stack.isIn(BEGINNER_MINING_TOOLS);
-        Block block = state.getBlock();
-        boolean isTargetOre = block == Blocks.IRON_ORE || block == Blocks.COPPER_ORE;
+        if (stack.isIn(BEGINNER_MINING_TOOLS)) {
+            Block block = state.getBlock();
 
-        if (isBeginnerTool && isTargetOre) {
-            cir.setReturnValue(true);
+            // 1. ALLOW LIST (The only things wood-tier can "cheat" on)
+            if (block == Blocks.IRON_ORE || block == Blocks.DEEPSLATE_IRON_ORE ||
+                    block == Blocks.COPPER_ORE || block == Blocks.DEEPSLATE_COPPER_ORE) {
+                cir.setReturnValue(true);
+
+            }
+        } else if (stack.isOf(ModItems.IRON_CHISEL)) {
+            Block block = state.getBlock();
+
+            // 1. ALLOW LIST (The only things wood-tier can "cheat" on)
+            if (block == Blocks.IRON_ORE || block == Blocks.DEEPSLATE_IRON_ORE ||
+                    block == Blocks.COPPER_ORE || block == Blocks.DEEPSLATE_COPPER_ORE||
+                    block == Blocks.GOLD_ORE || block == Blocks.DEEPSLATE_GOLD_ORE ||
+                    block == ModBlocks.BIRCH_BOTTOM_LOG_CHISELED || block == ModBlocks.OAK_BOTTOM_LOG_CHISELED||
+                    block == ModBlocks.BIRCH_BOTTOM_LOG || block == ModBlocks.OAK_BOTTOM_LOG) {
+                cir.setReturnValue(true);
+
+            }
         }
     }
 }

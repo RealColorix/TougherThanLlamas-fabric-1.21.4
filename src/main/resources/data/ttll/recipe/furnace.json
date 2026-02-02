@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": "ttll:loose_cobblestone_slab"
+  },
+  "result": {
+    "id": "ttll:furnace",
+    "count": 1
+  }
+}
