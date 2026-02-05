@@ -1,0 +1,33 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "particle": "minecraft:block/grass_block_top",
+    "dirt": "ttll:block/loose_dirt",
+    "top": "minecraft:block/grass_block_top",
+    "overlay": "minecraft:block/grass_block_side_overlay"
+  },
+  "elements": [
+    {
+      "from": [0, 8, 0],
+      "to": [16, 16, 16],
+      "faces": {
+        "up": { "texture": "#top", "tintindex": 0, "cullface": "up" },
+        "down": { "texture": "#dirt" },
+        "north": { "texture": "#dirt", "cullface": "north" },
+        "south": { "texture": "#dirt", "cullface": "south" },
+        "west": { "texture": "#dirt", "cullface": "west" },
+        "east": { "texture": "#dirt", "cullface": "east" }
+      }
+    },
+    {
+      "from": [0, 8, 0],
+      "to": [16, 16, 16],
+      "faces": {
+        "north": { "texture": "#overlay", "tintindex": 0, "cullface": "north" },
+        "south": { "texture": "#overlay", "tintindex": 0, "cullface": "south" },
+        "west": { "texture": "#overlay", "tintindex": 0, "cullface": "west" },
+        "east": { "texture": "#overlay", "tintindex": 0, "cullface": "east" }
+      }
+    }
+  ]
+}

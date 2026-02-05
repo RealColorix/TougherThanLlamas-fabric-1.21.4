@@ -1,6 +1,8 @@
 package net.colorixer.mixin;
 
 import net.colorixer.entity.zombie.ZombieBreakTorchesGoal;
+import net.colorixer.entity.zombie.ZombieEatsAnimalsGoal;
+import net.colorixer.entity.zombie.ZombieKillsAnimalsGoal;
 import net.colorixer.item.ModItems;
 import net.colorixer.util.GoalSelectorUtilForZombie;
 import net.minecraft.entity.EquipmentSlot;
@@ -65,6 +67,8 @@ public abstract class ZombieModifier {
 
         // Using your Util to add the breaking goal
         GoalSelectorUtilForZombie.addGoal(zombie, 3, new ZombieBreakTorchesGoal(zombie));
+        GoalSelectorUtilForZombie.addGoal(zombie, 4, new ZombieKillsAnimalsGoal(zombie, 1.0));
+        GoalSelectorUtilForZombie.addGoal(zombie, 5, new ZombieEatsAnimalsGoal(zombie, 1.0));
     }
 
 
@@ -72,8 +76,8 @@ public abstract class ZombieModifier {
     private void ttll$extraZombieGear(net.minecraft.util.math.random.Random random, net.minecraft.world.LocalDifficulty localDifficulty, CallbackInfo ci) {
         ZombieEntity zombie = (ZombieEntity) (Object) this;
 
-        // 25% of zombies get 'Special' gear logic
-        if (random.nextFloat() < 0.20F) {
+        // 20% of zombies get 'Special' gear logic
+        if (random.nextFloat() < 0.10F) {
             float gearTypeRoll = random.nextFloat();
             ItemStack stack;
 
@@ -105,33 +109,42 @@ public abstract class ZombieModifier {
     private void ttll$forceQualityDrops(ServerWorld world, DamageSource source, boolean causedByPlayer, CallbackInfo ci) {
         ZombieEntity zombie = (ZombieEntity) (Object) this;
 
+        // Check if the death was caused by fire or magic (daylight/fire/lava)
+        boolean burntToDeath = source.isIn(net.minecraft.registry.tag.DamageTypeTags.IS_FIRE);
+
         for (EquipmentSlot slot : EquipmentSlot.values()) {
             ItemStack stack = zombie.getEquippedStack(slot);
             if (!stack.isEmpty()) {
-                // If it is Iron, Diamond, or Netherite, it drops
-                if (isIronOrBetter(stack)) {
-                    if (stack.isDamageable()) {
+
+                // Only drop animal loot if NOT burnt to death
+                if (isIronOrBetter(stack) || (!burntToDeath && isAnimalDrop(stack))) {
+                    if (stack.isDamageable() && isIronOrBetter(stack)) {
                         applyExponentialDamage(stack, zombie);
                     }
                     zombie.dropStack(world, stack);
                 }
-                // We clear the slot so the Stone gear "disappears" on death
                 zombie.equipStack(slot, ItemStack.EMPTY);
             }
         }
-        ci.cancel(); // Stop vanilla drop logic
+        ci.cancel();
+    }
+
+    // New helper to identify the "Animal Loot"
+    private boolean isAnimalDrop(ItemStack stack) {
+        Item item = stack.getItem();
+        // Check for common animal drops so they don't get deleted on death
+        return item == Items.BEEF || item == Items.COOKED_BEEF ||
+                item == Items.PORKCHOP || item == Items.COOKED_PORKCHOP ||
+                item == Items.MUTTON || item == Items.COOKED_MUTTON ||
+                item == Items.LEATHER || item == Items.WHITE_WOOL;
     }
 
     private boolean isIronOrBetter(ItemStack stack) {
         Item item = stack.getItem();
-
-        // Check if it's a Tool (Shovel/Hoe/Pick), a Sword, or Armor
         if (item instanceof MiningToolItem || item instanceof SwordItem) {
             String name = item.toString();
-            // Return true only if it's NOT stone, wood, gold, or leather
-            return !name.contains("stone") &&
-                    !name.contains("wooden") &&
-                    !name.contains("gold");
+            return name.contains("iron_shovel") ||
+                    name.contains("iron_sword");
         }
         return false;
     }

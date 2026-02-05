@@ -6,9 +6,12 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.MathHelper;
@@ -16,6 +19,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(PlayerEntity.class)
@@ -134,6 +138,30 @@ public abstract class PlayerEntityMixin {
         // This ensures the slowness applies to your momentum while jumping/falling
         if (!player.isOnGround() && !player.getAbilities().flying) {
             player.setVelocity(player.getVelocity().multiply(totalMultiplier, 1.0, totalMultiplier));
+        }
+    }
+
+    @Inject(method = "tick", at = @At("TAIL"))
+    private void ttll$applyCriticalHealthEffects(CallbackInfo ci) {
+        PlayerEntity player = (PlayerEntity) (Object) this;
+
+        // Only run on the server side to avoid ghost effects,
+        // and skip for creative/spectator
+        if (player.getWorld().isClient || player.isCreative() || player.isSpectator()) return;
+
+        // 2 points = 1 Heart
+        if (player.getHealth() < 2.1f && player.isAlive()) {
+            // We apply for 21 ticks (1 second + 1 tick buffer)
+            // with amplifier 0, ambient = true, and showParticles = false
+            player.addStatusEffect(new StatusEffectInstance(
+                    StatusEffects.BLINDNESS, 39, 0, true, false, false));
+            player.addStatusEffect(new StatusEffectInstance(
+                    StatusEffects.DARKNESS, 99, 0, true, false, false));
+
+            // Optional: Add a heartbeat sound every second
+            if (player.getWorld().getTime() % 20 == 0) {
+                player.playSound(SoundEvents.ENTITY_PLAYER_BREATH, 1.0f, 1.0f);
+            }
         }
     }
 }

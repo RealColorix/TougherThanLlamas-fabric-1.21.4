@@ -9,25 +9,49 @@ import net.colorixer.entity.client.SimpleThrownItemRenderer;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.text.Text;
+import net.minecraft.world.biome.GrassColors;
 
 public class TougherThanLlamasClient implements ClientModInitializer {
 
 	private static KeyBinding achievementScreenKey;
 
-	private static String currentStatus = "";
+	private static String currentHealthStatus = "";
+	private static int healthColor = 0xFFFFFF; // Default White
 
+	private static String currentHungerStatus = "";
+	private static int hungerColor = 0xFFFFFF; // Default White
 
 	@Override
 
 
 	public void onInitializeClient() {
+
+
+
+
+
+// For the Block
+		ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> {
+			// This 'tintIndex' matches the 'tintindex' in your JSON file.
+			if (tintIndex == 0) {
+				if (world != null && pos != null) {
+					return BiomeColors.getGrassColor(world, pos);
+				}
+				return GrassColors.getDefaultColor();
+			}
+			// Returning -1 means "Don't tint this texture, use the original file colors"
+			return -1;
+		}, ModBlocks.GRASS_SLAB);
+
 
 
 		EntityRendererRegistry.register(ModEntities.COBWEB_PROJECTILE, SimpleThrownItemRenderer::new);
@@ -37,6 +61,7 @@ public class TougherThanLlamasClient implements ClientModInitializer {
 		BlockEntityRendererRegistry.register(ModBlockEntities.DRYING_RACK_BLOCK_ENTITY, DryingRackBlockEntityRenderer::new);
 
 
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.GRASS_SLAB, RenderLayer.getCutoutMipped());
 		BlockRenderLayerMap.INSTANCE.putBlock(
 				ModBlocks.FURNACE,
 				RenderLayer.getCutout()
@@ -53,52 +78,59 @@ public class TougherThanLlamasClient implements ClientModInitializer {
 				float health = client.player.getHealth();
 				int hunger = client.player.getHungerManager().getFoodLevel();
 
-				String healthStatus = "";
-				String hungerStatus = "";
-
-				// Updated Health Tiers
-				if (health <= 5.0f) { healthStatus = "Crippled"; }
-				else if (health <= 10.0f) { healthStatus = "Hurt"; }
-				else if (health <= 15.0f) { healthStatus = "Bruised"; }
-
-				// Updated Hunger Tiers
-				if (hunger <= 5) { hungerStatus = "Starving"; }
-				else if (hunger <= 10) { hungerStatus = "Emaciated"; }
-				else if (hunger <= 15) { hungerStatus = "Hungry"; }
-
-				if (!healthStatus.isEmpty() && !hungerStatus.isEmpty()) {
-					currentStatus = healthStatus + " & " + hungerStatus;
-				} else if (!healthStatus.isEmpty()) {
-					currentStatus = healthStatus;
-				} else if (!hungerStatus.isEmpty()) {
-					currentStatus = hungerStatus;
+				// Health Tiers & Colors
+				if (health < 2.1f) {
+					currentHealthStatus = "Dying";
+					healthColor = 0xFF5555; // Red
+				} else if (health < 4.1f) {
+					currentHealthStatus = "Crippled";
+					healthColor = 0xFFAA00; // Orange
+				} else if (health < 8.1f) {
+					currentHealthStatus = "Injured";
+					healthColor = 0xFFFF55; // Yellow
+				} else if (health < 12.1f) {
+					currentHealthStatus = "Hurt";
+					healthColor = 0xFFFFFF; // White
 				} else {
-					currentStatus = "";
+					currentHealthStatus = "";
+				}
+
+				// Hunger Tiers & Colors
+				if (hunger < 2.1f) {
+					currentHungerStatus = "Starving";
+					hungerColor = 0xFF5555; // Red
+				} else if (hunger < 4.1f) {
+					currentHungerStatus = "Emaciated";
+					hungerColor = 0xFFAA00; // Orange
+				} else if (hunger < 8.1f) {
+					currentHungerStatus = "Famished";
+					hungerColor = 0xFFFF55; // Yellow
+				} else if (hunger < 12.1f) {
+					currentHungerStatus = "Hungry";
+					hungerColor = 0xFFFFFF; // White
+				} else {
+					currentHungerStatus = "";
 				}
 			}
 
-			// 2. Dynamic Rendering (Every Frame)
-			if (!currentStatus.isEmpty()) {
-				int x = client.getWindow().getScaledWidth() / 2 + 10;
+			// 2. Dynamic Rendering
+			int screenWidth = client.getWindow().getScaledWidth();
+			int screenHeight = client.getWindow().getScaledHeight();
+			int centerX = screenWidth / 2;
 
-				// BASE POSITION: Above hunger bar
-				int y = client.getWindow().getScaledHeight() - 49;
+			// Render Health Status (Above HP Bar - Left Aligned)
+			if (!currentHealthStatus.isEmpty()) {
+				int x = centerX - 91;
+				int y = screenHeight - 49 - (client.player.getArmor() > 0 ? 10 : 0);
+				drawContext.drawTextWithShadow(client.textRenderer, currentHealthStatus, x, y, healthColor);
+			}
 
-				// BUMP LOGIC:
-				// If player is underwater (air < 300) OR riding a horse/vehicle
-				boolean isUnderwater = client.player.getAir() < 300;
-				boolean isRiding = client.player.getVehicle() != null;
-
-				if (isUnderwater || isRiding) {
-					y -= 10; // Shift up by 10 pixels to clear the air/mount bar
-				}
-
-				drawContext.drawTextWithShadow(
-						client.textRenderer,
-						Text.of(currentStatus),
-						x, y,
-						0xFFFFFF
-				);
+			// Render Hunger Status (Above Hunger Bar - Right Aligned)
+			if (!currentHungerStatus.isEmpty()) {
+				int textWidth = client.textRenderer.getWidth(currentHungerStatus);
+				int x = (centerX + 91) - textWidth;
+				int y = screenHeight - 49 - (client.player.getAir() < 300 || client.player.getVehicle() != null ? 10 : 0);
+				drawContext.drawTextWithShadow(client.textRenderer, currentHungerStatus, x, y, hungerColor);
 			}
 		});
 	}

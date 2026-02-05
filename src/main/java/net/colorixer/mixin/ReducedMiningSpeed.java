@@ -48,16 +48,16 @@ public abstract class ReducedMiningSpeed {
         float penaltyMultiplier = 1.0f;
 
         // Health Tiers: 15, 10, 5
-        if (health <= 15.0f) penaltyMultiplier *= 0.9f;
-        if (health <= 10.0f) penaltyMultiplier *= 0.8f;
-        if (health <= 5.0f)  penaltyMultiplier *= 0.7f;
-        if (health <= 2.0f)  penaltyMultiplier *= 0.5f;
+        if (health <= 12.1) penaltyMultiplier *= 0.875f;
+        if (health <= 8.1) penaltyMultiplier *= 0.75f;
+        if (health <= 4.1)  penaltyMultiplier *= 0.625f;
+        if (health <= 2.1)  penaltyMultiplier *= 0.5f;
 
         // Hunger Tiers: 15, 10, 5
-        if (hunger <= 15) penaltyMultiplier *= 0.9f;
-        if (hunger <= 10) penaltyMultiplier *= 0.9f;
-        if (hunger <= 5)  penaltyMultiplier *= 0.9f;
-        if (hunger <= 2)  penaltyMultiplier *= 0.5f;
+        if (hunger <= 12.1) penaltyMultiplier *= 0.9f;
+        if (hunger <= 8.1) penaltyMultiplier *= 0.8f;
+        if (hunger <= 4.1)  penaltyMultiplier *= 0.7f;
+        if (hunger <= 2.1)  penaltyMultiplier *= 0.6f;
         // Combine the base 0.4 with the calculated penalties
         float finalSpeedMod = baseSpeedMod * penaltyMultiplier;
         /* ============================= */
@@ -101,7 +101,7 @@ public abstract class ReducedMiningSpeed {
 
 
         if (tool == ModItems.SHARP_ROCK && blockState.isIn(BlockTags.LOGS)) {
-            cir.setReturnValue(originalSpeed * finalSpeedMod * 2f);
+            cir.setReturnValue(originalSpeed * finalSpeedMod * 4f);
             return;
         }
 

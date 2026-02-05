@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_torch",
+  "textures": {
+    "torch": "ttll:block/burning_crude_torch_low"
+  }
+}

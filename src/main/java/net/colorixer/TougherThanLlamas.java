@@ -3,6 +3,7 @@ package net.colorixer;
 import net.colorixer.block.FallingSlabBlock;
 import net.colorixer.block.ModBlockEntities;
 import net.colorixer.block.ModBlocks;
+import net.colorixer.component.ModDataComponentTypes;
 import net.colorixer.entity.ModEntities;
 import net.colorixer.item.ItemsThatCanHitAndBreak;
 import net.colorixer.item.ModItems;
@@ -40,12 +41,13 @@ public class TougherThanLlamas implements ModInitializer {
 		ItemsThatCanHitAndBreak.register();
 		Chopable.initialize();
 		ModRecipeSerializers.register();
-
+		ModDataComponentTypes.registerDataComponentTypes();
 
 
 		// 	ServerLifecycleEvents.SERVER_STARTED.register(server -> server.getOverworld().getGameRules().get(GameRules.NATURAL_REGENERATION).set(false, server));
 			ServerLifecycleEvents.SERVER_STARTED.register(server -> server.getOverworld().getGameRules().get(GameRules.DO_PATROL_SPAWNING).set(false, server));
 			ServerLifecycleEvents.SERVER_STARTED.register(server -> server.getOverworld().getGameRules().get(GameRules.UNIVERSAL_ANGER).set(true, server));
+			ServerLifecycleEvents.SERVER_STARTED.register(server -> server.getOverworld().getGameRules().get(GameRules.DO_TRADER_SPAWNING).set(false, server));
 
 
 
@@ -98,11 +100,14 @@ public class TougherThanLlamas implements ModInitializer {
 
 				boolean isSand = fallingBlock == net.minecraft.block.Blocks.SAND;
 				boolean isGravel = fallingBlock == net.minecraft.block.Blocks.GRAVEL;
+				boolean isLooseCobblestone = fallingBlock == ModBlocks.LOOSE_COBBLESTONE;
 
 				boolean isSandOnSandSlab = isSand && blockAt.getBlock() == ModBlocks.SAND_SLAB && blockAt.get(FallingSlabBlock.TYPE) == SlabType.BOTTOM;
 				boolean isGravelOnGravelSlab = isGravel && blockAt.getBlock() == ModBlocks.GRAVEL_SLAB && blockAt.get(FallingSlabBlock.TYPE) == SlabType.BOTTOM;
+				boolean isCobblestoneOnCobblestoneSlab = isLooseCobblestone && blockAt.getBlock() == ModBlocks.LOOSE_COBBLESTONE_SLAB && blockAt.get(FallingSlabBlock.TYPE) == SlabType.BOTTOM;
 
-				if (isSandOnSandSlab || isGravelOnGravelSlab) {
+
+				if (isSandOnSandSlab || isGravelOnGravelSlab||isCobblestoneOnCobblestoneSlab) {
 					// ✅ Upgrade the slab to double
 					world.setBlockState(pos, blockAt.with(FallingSlabBlock.TYPE, SlabType.DOUBLE), Block.NOTIFY_ALL);
 

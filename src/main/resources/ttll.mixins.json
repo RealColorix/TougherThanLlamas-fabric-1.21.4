@@ -30,7 +30,26 @@
 		"LargeOakTrunkPlacerMixin",
 		"PlayerCombatModifiers",
 		"ZombieModifier",
-		"MobModifier"
+		"MobModifier",
+		"CowModifier",
+		"CowEntityModifier",
+		"PlayerAction",
+		"PlayerBlockScare",
+		"BlockPlaceScareMixin",
+		"SpreadableBlockMixin",
+		"DirtIntoLooseVariant",
+		"StartAtMidnight",
+		"GracePeriodSpawnMixin",
+		"SwimmingMixin",
+		"CantPlaceInAir",
+		"StructureTemplateMixin",
+		"StructureBlockInfoAccessor",
+		"MineshaftTorchMixin",
+		"DisableF3Mixin",
+		"MoonPhaseLightMapper",
+		"GameOptionsMixin",
+		"InGameHudMixin"
+
 	],
 	"injectors": {
 		"defaultRequire": 1

@@ -1,11 +1,12 @@
 {
   "credit": "Made with Blockbench",
   "textures": {
+
     "1": "minecraft:block/furnace_side",
     "2": "minecraft:block/furnace_top",
     "3": "ttll:block/furnace_top_dark",
     "6": "ttll:block/furnace_front",
-    "particle": "ttll:block/furnace_front"
+    "particle": "minecraft:block/furnace_top"
   },
   "elements": [
     {

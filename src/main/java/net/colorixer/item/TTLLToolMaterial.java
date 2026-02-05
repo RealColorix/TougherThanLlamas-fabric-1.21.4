@@ -29,11 +29,9 @@ public class TTLLToolMaterial {
                     //Durability Speed Extra-damage Enchantability
 
     public static final ToolMaterial WOODEN_CLUB = new ToolMaterial(
-            BlockTags.INCORRECT_FOR_WOODEN_TOOL, 13,1F,  0.0F, 1, ItemTags.WOODEN_TOOL_MATERIALS);
-    public static final ToolMaterial ZOMBIE = new ToolMaterial(
-            BlockTags.INCORRECT_FOR_WOODEN_TOOL, 32,1F,  0.0F, 1, ItemTags.WOODEN_TOOL_MATERIALS);
+            BlockTags.INCORRECT_FOR_WOODEN_TOOL, 10,1F,  0.0F, 1, ItemTags.WOODEN_TOOL_MATERIALS);
     public static final ToolMaterial BONE = new ToolMaterial(
-            BlockTags.INCORRECT_FOR_WOODEN_TOOL, 71,1F,  0.0F, 1, ItemTags.WOODEN_TOOL_MATERIALS);
+            BlockTags.INCORRECT_FOR_WOODEN_TOOL, 30,1F,  0.0F, 1, ItemTags.WOODEN_TOOL_MATERIALS);
 
 
 

@@ -5,7 +5,7 @@
     "2": "minecraft:block/furnace_top",
     "3": "ttll:block/furnace_top_dark",
     "6": "ttll:block/furnace_front_on_full",
-    "particle": "ttll:block/furnace_front_full"
+    "particle": "minecraft:block/furnace_top"
   },
   "elements": [
     {

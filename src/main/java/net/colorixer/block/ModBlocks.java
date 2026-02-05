@@ -8,10 +8,15 @@ import net.colorixer.block.drying_rack.DryingRackBlock;
 import net.colorixer.block.furnace.FurnaceBlock;
 import net.colorixer.block.logs.StemBlock;
 import net.colorixer.block.logs.TrunkBlock;
+import net.colorixer.block.torch.BurningCrudeTorchBlock;
+import net.colorixer.block.torch.BurningCrudeTorchItem;
+import net.colorixer.block.torch.CrudeTorchBlock;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.block.piston.PistonBehavior;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
 import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKey;
@@ -21,12 +26,25 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 
+import java.util.function.BiFunction;
 import java.util.function.Function;
 
 import static net.minecraft.block.Blocks.createLightLevelFromLitBlockState;
 
 
 public class ModBlocks {
+
+    public static final Block BURNING_CRUDE_TORCH = registerBlockItem("burning_crude_torch",
+            BurningCrudeTorchBlock::new,
+            Block.Settings.copy(Blocks.TORCH)
+                    .breakInstantly()
+                    .luminance(state -> state.get(BurningCrudeTorchBlock.LOW_FUEL) ? 10 : 14),
+            // This is the custom Item logic!
+            (block, settings) -> new BurningCrudeTorchItem(block, settings)
+    );
+
+    public static final Block CRUDE_TORCH = registerBlock("crude_torch", CrudeTorchBlock::new, Block.Settings.create()
+            .noCollision().breakInstantly().sounds(BlockSoundGroup.WOOD).pistonBehavior(PistonBehavior.DESTROY));
 
 
 
@@ -88,6 +106,7 @@ public class ModBlocks {
     public static final Block LOOSE_DIRT_SLAB = registerBlock("loose_dirt_slab", FallingSlabBlock::new, Block.Settings.copy(Blocks.DIRT));
 
 
+    public static final Block GRASS_SLAB = registerBlock("grass_slab", FallingGrassSlabBlock::new, Block.Settings.copy(Blocks.GRASS_BLOCK));
 
     /** STONE **/
 
@@ -215,6 +234,24 @@ public class ModBlocks {
         return block;
     }
 
+    private static Block registerBlockItem(String path,
+                                           Function<AbstractBlock.Settings, Block> factory,
+                                           AbstractBlock.Settings settings,
+                                           BiFunction<Block, Item.Settings, Item> itemFactory) {
+
+        final Identifier identifier = Identifier.of("ttll", path);
+        final RegistryKey<Block> registryKey = RegistryKey.of(RegistryKeys.BLOCK, identifier);
+        final RegistryKey<Item> itemKey = RegistryKey.of(RegistryKeys.ITEM, identifier);
+
+        // 1. Register the Block
+        final Block block = Blocks.register(registryKey, factory, settings);
+
+        // 2. Register the Item using the lambda you passed: (block, settings) -> new BurningCrudeTorchItem(...)
+        Items.register(itemKey, (itemSettings) -> itemFactory.apply(block, itemSettings));
+
+        return block;
+    }
+
     public static void registerModBlocks() {
         TougherThanLlamas.LOGGER.info("Registering Mod Blocks for " + TougherThanLlamas.MOD_ID);
 
@@ -242,7 +279,9 @@ public class ModBlocks {
             entries.add(ModBlocks.FURNACE);
             entries.add(ModBlocks.COBWEB_FUll);
             entries.add(ModBlocks.LOOSE_COBBLESTONE);
-
+            entries.add(ModBlocks.BURNING_CRUDE_TORCH);
+            entries.add(ModBlocks.CRUDE_TORCH);
+            entries.add(ModBlocks.GRASS_SLAB);
             entries.add(ModBlocks.LOOSE_COBBLESTONE_SLAB);
             entries.add(ModBlocks.BEDSTONE_DIAMOND_ORE);
             entries.add(ModBlocks.BEDSTONE_EMERALD_ORE);

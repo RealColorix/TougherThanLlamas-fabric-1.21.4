@@ -13,6 +13,8 @@
     "ttll:bedstone_redstone_ore",
     "ttll:bedstone_iron_ore",
     "ttll:bedstone_gold_ore",
-    "ttll:bedstone_copper_ore"
+    "ttll:bedstone_copper_ore",
+    "ttll:loose_cobblestone_slab",
+    "ttll:loose_cobblestone"
   ]
 }

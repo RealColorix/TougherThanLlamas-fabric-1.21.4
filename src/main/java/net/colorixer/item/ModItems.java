@@ -72,8 +72,8 @@ public class ModItems {
     public static final Item STONE_SHOVEL = registerItem("stone_shovel",settings -> new ShovelItem(TTLLToolMaterial.STONE, 1f, -3f, settings), new Item.Settings());
     public static final Item STONE_HOE = registerItem("stone_hoe",settings -> new HoeItem(TTLLToolMaterial.STONE, 1f, -3f, settings), new Item.Settings());
     public static final Item IRON_CHISEL = registerItem("iron_chisel",settings -> new DraxItem(TTLLToolMaterial.STONE, 1f, -3f, settings), new Item.Settings());
-    public static final Item WOODEN_CLUB = registerItem("wooden_club",settings -> new SwordItem(TTLLToolMaterial.WOODEN_CLUB, 1.5f, -2.4F, settings), new Item.Settings());
-    public static final Item BONE_CLUB = registerItem("bone_club",settings -> new SwordItem(TTLLToolMaterial.BONE, 5f, -3.4F, settings), new Item.Settings());
+    public static final Item WOODEN_CLUB = registerItem("wooden_club",settings -> new SwordItem(TTLLToolMaterial.WOODEN_CLUB, 2f, -2.4F, settings), new Item.Settings());
+    public static final Item BONE_CLUB = registerItem("bone_club",settings -> new SwordItem(TTLLToolMaterial.BONE, 4f, -3.0F, settings), new Item.Settings());
 
     // ---------- MOB DROPS ---------- NATURAL --> ANGRY ----------
     public static final Item TALLOW = registerItem("tallow", Item::new, new Item.Settings());

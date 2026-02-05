@@ -106,12 +106,19 @@
   "block.ttll.furnace": "Furnace",
   "block.ttll.loose_cobblestone": "Loose Cobblestone",
   "block.ttll.loose_cobblestone_slab": "Loose Cobblestone Slab",
+  "block.ttll.grass_slab": "Grassy Dirt Pile",
   "block.ttll.oak_bottom_log": "Oak Log Stem",
   "block.ttll.Birch_bottom_log": "Birch Log Stem",
   "block.ttll.oak_bottom_log_chiseled": "Chiseled Oak Log Stem",
   "block.ttll.birch_bottom_log_chiseled": "Chiseled Birch Log Stem",
   "block.ttll.oak_bottom_log_crafting_table": "Oak Crafting Table",
   "block.ttll.birch_bottom_log_crafting_table": "Birch Crafting Table",
+
+  "item.ttll.burning_crude_torch": "Burning Crude Torch",
+  "block.ttll.crude_torch": "Crude Torch",
+
+
+  "options.gamma.normal": "Hardcore Darkness",
 
         "advancements.story.acquire_flint.title": "Acquire Flint!",
   "advancements.story.acquire_flint.description": "Mine Gravel",

@@ -38,42 +38,42 @@ public class ToolDamageCraftingRecipeFactory {
                         new ToolDamageRule(
                                 ModItems.OAK_FIREWOOD,
                                 ModItems.FLINT_AXE,
-                                new ItemStack(Items.STICK, 4)
+                                new ItemStack(Items.STICK, 2)
                         ),
                         new ToolDamageRule(
                                 ModItems.BIRCH_FIREWOOD,
                                 ModItems.FLINT_AXE,
-                                new ItemStack(Items.STICK, 4)
+                                new ItemStack(Items.STICK, 2)
                         ),
                         new ToolDamageRule(
                                 ModItems.SPRUCE_FIREWOOD,
                                 ModItems.FLINT_AXE,
-                                new ItemStack(Items.STICK, 4)
+                                new ItemStack(Items.STICK, 2)
                         ),
                         new ToolDamageRule(
                                 ModItems.JUNGLE_FIREWOOD,
                                 ModItems.FLINT_AXE,
-                                new ItemStack(Items.STICK, 4)
+                                new ItemStack(Items.STICK, 2)
                         ),
                         new ToolDamageRule(
                                 ModItems.OAK_FIREWOOD,
                                 ModItems.SHARP_ROCK,
-                                new ItemStack(Items.STICK, 2)
+                                new ItemStack(Items.STICK, 1)
                         ),
                         new ToolDamageRule(
                                 ModItems.BIRCH_FIREWOOD,
                                 ModItems.SHARP_ROCK,
-                                new ItemStack(Items.STICK, 2)
+                                new ItemStack(Items.STICK, 1)
                         ),
                         new ToolDamageRule(
                                 ModItems.SPRUCE_FIREWOOD,
                                 ModItems.SHARP_ROCK,
-                                new ItemStack(Items.STICK, 2)
+                                new ItemStack(Items.STICK, 1)
                         ),
                         new ToolDamageRule(
                                 ModItems.JUNGLE_FIREWOOD,
                                 ModItems.SHARP_ROCK,
-                                new ItemStack(Items.STICK, 2)
+                                new ItemStack(Items.STICK, 1)
                         )
 
 

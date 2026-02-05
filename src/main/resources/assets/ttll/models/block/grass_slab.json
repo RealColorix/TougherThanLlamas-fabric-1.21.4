@@ -1,0 +1,33 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "particle": "minecraft:block/grass_block_top",
+    "dirt": "ttll:block/loose_dirt",
+    "top": "minecraft:block/grass_block_top",
+    "overlay": "ttll:block/grass_block_side_overlay"
+  },
+  "elements": [
+    {
+      "from": [0, 0, 0],
+      "to": [16, 8, 16],
+      "faces": {
+        "up": { "texture": "#top", "tintindex": 0 },
+        "down": { "texture": "#dirt", "cullface": "down" },
+        "north": { "texture": "#dirt", "cullface": "north" },
+        "south": { "texture": "#dirt", "cullface": "south" },
+        "west": { "texture": "#dirt", "cullface": "west" },
+        "east": { "texture": "#dirt", "cullface": "east" }
+      }
+    },
+    {
+      "from": [0, 0, 0],
+      "to": [16, 8, 16],
+      "faces": {
+        "north": { "texture": "#overlay", "tintindex": 0, "cullface": "north", "uv": [0, 8, 16, 16] },
+        "south": { "texture": "#overlay", "tintindex": 0, "cullface": "south", "uv": [0, 8, 16, 16] },
+        "west": { "texture": "#overlay", "tintindex": 0, "cullface": "west", "uv": [0, 8, 16, 16] },
+        "east": { "texture": "#overlay", "tintindex": 0, "cullface": "east", "uv": [0, 8, 16, 16] }
+      }
+    }
+  ]
+}

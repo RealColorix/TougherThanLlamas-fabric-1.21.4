@@ -30,9 +30,8 @@ public abstract class MobModifier {
         Item item = stack.getItem();
         if (item instanceof MiningToolItem || item instanceof SwordItem) {
             String name = item.toString();
-            return !name.contains("stone") &&
-                    !name.contains("wooden") &&
-                    !name.contains("gold");
+            return name.contains("iron_sword")||
+                    name.contains("iron_shovel");
         }
         return false;
     }

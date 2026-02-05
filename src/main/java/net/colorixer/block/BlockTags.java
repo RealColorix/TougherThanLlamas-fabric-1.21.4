@@ -9,6 +9,7 @@ import net.minecraft.util.Identifier;
 public final class BlockTags {
 
     public static final TagKey<Block> DRAX_MINEABLE = of("mineable/drax");
+    public static final TagKey<Block> GLASS = of("glass");
 
     private BlockTags() {}
 

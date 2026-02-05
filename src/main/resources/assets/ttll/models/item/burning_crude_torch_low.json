@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "ttll:block/burning_crude_torch_low"
+  }
+}

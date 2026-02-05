@@ -102,7 +102,6 @@ public class FurnaceBlock extends FallingBlock implements BlockEntityProvider {
 
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        // Always handle the success on client to prevent hand jitter
         if (world.isClient) return ActionResult.SUCCESS;
 
         if (world.getBlockEntity(pos) instanceof FurnaceBlockEntity furnace) {
@@ -110,33 +109,70 @@ public class FurnaceBlock extends FallingBlock implements BlockEntityProvider {
             Direction facing = state.get(FACING);
             Direction hitSide = hit.getSide();
 
-            // 1. If clicking the back, allow default block placement (PASS)
             if (hitSide == facing.getOpposite()) return ActionResult.PASS;
 
-            // 2. LIGHT CHECK
-            if (stackInHand.isOf(net.minecraft.item.Items.FLINT_AND_STEEL) ||
-                    stackInHand.getItem() instanceof net.colorixer.item.items.FireStarterItem) {
-                if (furnace.getFuel() > 0 && !state.get(LIT)) {
-                    return ActionResult.PASS; // Let the item handle ignition
-                }
-                return ActionResult.CONSUME; // Fuel is empty? Don't place fire on top.
-            }
-
-            // 3. Zone Calculation
+            // --- ZONE CALCULATION ---
             double hitX = hit.getPos().x - pos.getX();
             double hitY = hit.getPos().y - pos.getY();
             double hitZ = hit.getPos().z - pos.getZ();
 
             boolean withinHoleWidth = (facing.getAxis() == Direction.Axis.Z) ? (hitX > 0.1 && hitX < 0.9) : (hitZ > 0.1 && hitZ < 0.9);
             boolean lookingInHole = withinHoleWidth && hitY > 0.1 && hitY < 0.9;
+            boolean inBottomHole = lookingInHole && hitY < 0.5;
 
-            // --- CRUCIAL CHANGE ---
-            // If the player is holding a log and clicking the front/sides/top,
-            // we CONSUME the action so they don't accidentally place the log block.
+            // --- 1. LIGHTING CRUDE TORCH FROM LIT FURNACE (NEW) ---
+            if (inBottomHole && state.get(LIT) && stackInHand.isOf(net.colorixer.block.ModBlocks.CRUDE_TORCH.asItem())) {
+                ItemStack burningTorch = new ItemStack(net.colorixer.block.ModBlocks.BURNING_CRUDE_TORCH);
+
+                if (stackInHand.getCount() == 1) {
+                    player.setStackInHand(Hand.MAIN_HAND, burningTorch);
+                } else {
+                    stackInHand.decrement(1);
+                    if (!player.getInventory().insertStack(burningTorch)) {
+                        player.dropItem(burningTorch, false);
+                    }
+                }
+
+                world.playSound(null, pos, net.minecraft.sound.SoundEvents.ITEM_FIRECHARGE_USE, net.minecraft.sound.SoundCategory.BLOCKS, 0.5f, 1.2f);
+                return ActionResult.SUCCESS;
+            }
+
+            // --- 2. LIGHT CHECK (Igniting the Furnace) ---
+            if (inBottomHole && furnace.getFuel() > 0 && !state.get(LIT)) {
+
+                // A. BURNING CRUDE TORCH (100% Success)
+                if (stackInHand.isOf(net.colorixer.block.ModBlocks.BURNING_CRUDE_TORCH.asItem())) {
+                    furnace.ignite();
+                    world.playSound(null, pos, net.minecraft.sound.SoundEvents.ITEM_FIRECHARGE_USE, net.minecraft.sound.SoundCategory.BLOCKS, 0.5f, 1.2f);
+                    return ActionResult.SUCCESS;
+                }
+
+                // B. FLINT AND STEEL (1/5 Success + 10 Tick Cooldown)
+                if (stackInHand.isOf(net.minecraft.item.Items.FLINT_AND_STEEL)) {
+                    player.getItemCooldownManager().set(stackInHand, 10);
+
+                    if (world.random.nextInt(5) == 0) {
+                        furnace.ignite();
+                        world.playSound(null, pos, net.minecraft.sound.SoundEvents.ITEM_FIRECHARGE_USE, net.minecraft.sound.SoundCategory.BLOCKS, 0.5f, 1.0f);
+                    } else {
+                        world.playSound(null, pos, net.minecraft.sound.SoundEvents.ITEM_FLINTANDSTEEL_USE, net.minecraft.sound.SoundCategory.BLOCKS, 0.5f, 1.5f);
+                    }
+
+                    if (!player.getAbilities().creativeMode) {
+                        stackInHand.damage(1, player, net.minecraft.entity.EquipmentSlot.MAINHAND);
+                    }
+                    return ActionResult.SUCCESS;
+                }
+
+                // C. FIRE STARTER (Let the item handle its own chance/logic)
+                if (stackInHand.getItem() instanceof net.colorixer.item.items.FireStarterItem) {
+                    return ActionResult.PASS;
+                }
+            }
+
+            // --- 3. FUEL LOGIC (Logs) ---
             if (stackInHand.isIn(net.minecraft.registry.tag.ItemTags.LOGS)) {
-
-                // Only proceed with fuel logic if they are actually aiming at the hole
-                if (lookingInHole && hitY < 0.5) {
+                if (inBottomHole) {
                     if (furnace.getFuel() < 3000) {
                         furnace.addFuel(13000);
                         if (!player.getAbilities().creativeMode) stackInHand.decrement(1);
@@ -144,12 +180,10 @@ public class FurnaceBlock extends FallingBlock implements BlockEntityProvider {
                         return ActionResult.SUCCESS;
                     }
                 }
-                // If they clicked the furnace with a log but NOT in the hole,
-                // we return SUCCESS to stop the log from being placed in the world.
                 return ActionResult.SUCCESS;
             }
 
-            // 4. INVENTORY ZONE (Top half of hole)
+            // --- 4. INVENTORY ZONE (Top half of hole) ---
             if (lookingInHole && hitY >= 0.5) {
                 boolean hadItem = !furnace.getInventory().isEmpty();
                 if (furnace.onRightClick(player, Hand.MAIN_HAND)) {
@@ -163,8 +197,6 @@ public class FurnaceBlock extends FallingBlock implements BlockEntityProvider {
             }
         }
 
-        // Final fallback: If clicking the front/sides with anything else,
-        // consume the action so no blocks get placed against the face.
         return ActionResult.CONSUME;
     }
 

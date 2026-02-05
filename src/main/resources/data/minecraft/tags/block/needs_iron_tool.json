@@ -1,5 +1,7 @@
 {
   "values": [
-    "ttll:excavated_stone"
+    "ttll:excavated_stone",
+    "ttll:loose_cobblestone_slab",
+    "ttll:loose_cobblestone"
   ]
 }

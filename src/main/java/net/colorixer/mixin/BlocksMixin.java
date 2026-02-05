@@ -20,7 +20,8 @@ public abstract class BlocksMixin {
     public static Block DEEPSLATE;
 
     /**
-     * Log overwrite stays unchanged.
+     * @author Colorixer
+     * @reason Adjusting log strength and settings for specific mod balance.
      */
     @Overwrite
     public static AbstractBlock.Settings createLogSettings(MapColor topMapColor, MapColor sideMapColor, BlockSoundGroup sounds) {
