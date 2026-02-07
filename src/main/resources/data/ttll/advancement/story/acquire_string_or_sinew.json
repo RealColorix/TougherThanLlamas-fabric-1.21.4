@@ -1,5 +1,5 @@
 {
-  "parent": "ttll:story/craft_flint_knife",
+  "parent": "ttll:story/root",
   "criteria": {
     "acquire_strings": {
       "trigger": "minecraft:inventory_changed",

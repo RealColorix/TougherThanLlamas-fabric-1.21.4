@@ -1,0 +1,36 @@
+{
+  "parent": "ttll:story/destroy_leaves",
+  "criteria": {
+    "acquire_branch": {
+      "conditions": {
+        "items": [
+          {
+            "items": "ttll:branch"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.story.acquire_branch.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "ttll:branch"
+    },
+    "title": {
+      "translate": "advancements.story.acquire_branch.title"
+    },
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "requirements": [
+    [
+      "acquire_branch"
+    ]
+  ],
+  "sends_telemetry_event": false
+}

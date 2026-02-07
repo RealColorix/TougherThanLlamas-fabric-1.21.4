@@ -1,0 +1,36 @@
+{
+  "parent": "ttll:story/acquire_stick",
+  "criteria": {
+    "criterion": {
+      "conditions": {
+        "items": [
+          {
+            "items": "ttll:wooden_club"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.story.acquire_wooden_club.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "ttll:wooden_club"
+    },
+    "title": {
+      "translate": "advancements.story.acquire_wooden_club.title"
+    },
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "requirements": [
+    [
+      "criterion"
+    ]
+  ],
+  "sends_telemetry_event": false
+}

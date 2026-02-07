@@ -1,5 +1,5 @@
 {
-  "parent": "ttll:story/clothiest",
+  "parent": "ttll:story/root",
   "criteria": {
     "clothes": {
       "conditions": {

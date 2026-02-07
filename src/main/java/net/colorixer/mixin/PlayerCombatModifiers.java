@@ -1,22 +1,31 @@
 package net.colorixer.mixin;
 
 import net.colorixer.item.ModItems;
+import net.colorixer.sounds.ModSounds;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @Mixin(LivingEntity.class)
 public abstract class PlayerCombatModifiers {
+
+    // Target the simple version that exists in your LivingEntity snippet
+    @Shadow public abstract void playSound(SoundEvent sound);
 
     @Unique
     private static final Map<Item, Double> KNOCKBACK_MULTIPLIERS = new HashMap<>();
@@ -41,15 +50,8 @@ public abstract class PlayerCombatModifiers {
     private double calculateStatsMultiplier(PlayerEntity player) {
         float healthRatio = player.getHealth() / player.getMaxHealth();
         float hungerRatio = player.getHungerManager().getFoodLevel() / 20.0f;
-
-        float healthMultiplier = (healthRatio > 0.25f)
-                ? 0.8f + (healthRatio - 0.25f) * (0.2f / 0.75f)
-                : 0.1f + 0.7f * (healthRatio / 0.25f) * (healthRatio / 0.25f);
-
-        float hungerMultiplier = (hungerRatio > 0.25f)
-                ? 0.8f + (hungerRatio - 0.25f) * (0.2f / 0.75f)
-                : 0.1f + 0.7f * (hungerRatio / 0.25f) * (hungerRatio / 0.25f);
-
+        float healthMultiplier = (healthRatio > 0.25f) ? 0.8f + (healthRatio - 0.25f) * (0.2f / 0.75f) : 0.1f + 0.7f * (healthRatio / 0.25f) * (healthRatio / 0.25f);
+        float hungerMultiplier = (hungerRatio > 0.25f) ? 0.8f + (hungerRatio - 0.25f) * (0.2f / 0.75f) : 0.1f + 0.7f * (hungerRatio / 0.25f) * (hungerRatio / 0.25f);
         return (double) (healthMultiplier * hungerMultiplier);
     }
 
@@ -58,39 +60,41 @@ public abstract class PlayerCombatModifiers {
         initializeMap();
         LivingEntity target = (LivingEntity) (Object) this;
         Entity attacker = target.getAttacker();
-
         if (attacker instanceof PlayerEntity player) {
             double statsMultiplier = calculateStatsMultiplier(player);
             Item heldItem = player.getMainHandStack().getItem();
             double itemMultiplier = KNOCKBACK_MULTIPLIERS.getOrDefault(heldItem, 0.0);
-
             return strength * itemMultiplier * statsMultiplier;
         }
         return strength;
     }
 
-    // Fixed the signature for 1.21.4 (Added ServerWorld world)
     @ModifyVariable(method = "damage", at = @At("HEAD"), argsOnly = true)
     private float ttll$applyDamagePenalty(float amount, ServerWorld world, DamageSource source) {
         Entity attacker = source.getAttacker();
-
         if (attacker instanceof PlayerEntity player) {
             ItemStack stack = player.getMainHandStack();
             Item item = stack.getItem();
 
-            // --- 1. TOOL CHECK PENALTY ---
-            if (!(item instanceof SwordItem || item instanceof MiningToolItem)) {
-                amount -= 0.5f;
+            if (!(item instanceof SwordItem || item instanceof MiningToolItem || item instanceof TridentItem || item instanceof MaceItem)) {
+                if (player.getWorld().random.nextFloat() < 0.5f) {
+                    return 0.0f;
+                } else {
+                    amount -= 0.5f;
+                }
             }
-
             if (amount < 0.0f) amount = 0.0f;
-
-            // --- 2. STATS PENALTY ---
-            double statsMultiplier = calculateStatsMultiplier(player);
-
-            return (float) (amount * statsMultiplier);
+            return (float) (amount * calculateStatsMultiplier(player));
         }
-
         return amount;
+    }
+
+    @Inject(method = "playHurtSound", at = @At("HEAD"), cancellable = true)
+    private void ttll$swapHandSound(DamageSource source, CallbackInfo ci) {
+        if (source.getAttacker() instanceof PlayerEntity player && player.getMainHandStack().isEmpty()) {
+            // Calling the shadowed method that is defined in LivingEntity.java
+            this.playSound(ModSounds.CLASSIC_HURT);
+            ci.cancel();
+        }
     }
 }

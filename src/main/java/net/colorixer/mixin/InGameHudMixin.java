@@ -11,9 +11,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(InGameHud.class)
 public abstract class InGameHudMixin {
 
-    @Inject(method = "renderVignette", at = @At("HEAD"), cancellable = true)
+    // Target "renderVignetteOverlay" to match your base code Line 193
+    // Descriptor must match: (Lnet/minecraft/client/gui/DrawContext;Lnet/minecraft/entity/Entity;)V
+    @Inject(
+            method = "renderVignetteOverlay",
+            at = @At("HEAD"),
+            cancellable = true
+    )
     private void removeVignette(DrawContext context, Entity entity, CallbackInfo ci) {
-        // This stops the method before it can draw anything
+        // Cancel the method immediately
         ci.cancel();
     }
 }

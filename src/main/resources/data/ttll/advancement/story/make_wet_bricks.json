@@ -1,5 +1,5 @@
 {
-  "parent": "ttll:story/craft_stone_shovel",
+  "parent": "ttll:story/root",
   "criteria": {
     "make_wet_brick": {
       "conditions": {

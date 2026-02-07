@@ -1,5 +1,5 @@
 {
-  "parent": "ttll:story/clothes",
+  "parent": "ttll:story/acquire_leather",
   "criteria": {
     "leather_armor": {
       "conditions": {
@@ -25,7 +25,7 @@
     "description": {
       "translate": "advancements.story.leather_armor.description"
     },
-    "frame": "task",
+    "frame": "goal",
     "icon": {
       "count": 1,
       "id": "minecraft:leather_chestplate"

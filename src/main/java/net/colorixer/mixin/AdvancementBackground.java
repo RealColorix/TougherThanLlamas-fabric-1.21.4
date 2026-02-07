@@ -6,140 +6,70 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Constant;
+import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
 @Mixin(AdvancementTab.class)
 public abstract class AdvancementBackground {
 
-    private static final int SCALE = 16; // your scale factor
-    private static final int BASE = 16;  // vanilla tile size
+    private static final int BASE = 64;
+    private static final int TILE_SIZE = BASE * 16;
+    private static final int PADDING = 64;
 
-    // Shadow the origin fields so we can access them.
-    @Shadow
-    private double originX;
-    @Shadow
-    private double originY;
+    @Shadow private double originX;
+    @Shadow private double originY;
 
-    /**
-     * Modify the X coordinate for drawing the background.
-     *
-     * Vanilla calculates:
-     *   x = (floor(originX) mod 16) + 16 * m
-     *
-     * We instead want to use the continuous (non-floored) value of originX/SCALE:
-     *   x = ( ( (originX / SCALE) mod 16 ) + 16 * m ) * SCALE
-     */
-    @ModifyArg(
-            method = "render",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/client/gui/DrawContext;drawTexture(Ljava/util/function/Function;Lnet/minecraft/util/Identifier;IIFFIIII)V",
-                    ordinal = 0
-            ),
-            index = 2
-    )
+    @ModifyArg(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawTexture(Ljava/util/function/Function;Lnet/minecraft/util/Identifier;IIFFIIII)V", ordinal = 0), index = 2)
     private int modifyX(int original) {
-        // Determine the discrete grid index (m) from vanilla’s original calculation.
-        int vanillaOrigin = MathHelper.floor(this.originX);
-        int vanillaOffset = vanillaOrigin % BASE;
-        if (vanillaOffset < 0) {
-            vanillaOffset += BASE;
-        }
-        int m = (original - vanillaOffset) / BASE;
+        // We calculate exactly which 'tile index' this is without using vanilla's rounded offsets.
+        // This is the only way to ensure the background doesn't trail the widgets by one frame.
+        int m = Math.round((float)original / (float)BASE);
 
-        // Use a continuous offset instead of flooring the scaled origin.
-        double continuousOffset = (this.originX / SCALE) % BASE;
-        if (continuousOffset < 0) {
-            continuousOffset += BASE;
-        }
-        // Multiply the continuous offset and discrete grid index by SCALE.
-        return (int) ((continuousOffset + BASE * m) * SCALE);
+        double slide = this.originX % (double)TILE_SIZE;
+        if (slide < 0) slide += TILE_SIZE;
+
+        // Final position uses the raw double originX to stay frame-perfect.
+        return (int) (m * TILE_SIZE + slide) - PADDING - ((BASE/16)* TILE_SIZE);
     }
 
-    /**
-     * Modify the Y coordinate for drawing the background.
-     *
-     * Vanilla calculates:
-     *   y = (floor(originY) mod 16) + 16 * n
-     *
-     * We use the continuous value of originY/SCALE:
-     *   y = ( ( (originY / SCALE) mod 16 ) + 16 * n ) * SCALE
-     */
-    @ModifyArg(
-            method = "render",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/client/gui/DrawContext;drawTexture(Ljava/util/function/Function;Lnet/minecraft/util/Identifier;IIFFIIII)V",
-                    ordinal = 0
-            ),
-            index = 3
-    )
+    @ModifyArg(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawTexture(Ljava/util/function/Function;Lnet/minecraft/util/Identifier;IIFFIIII)V", ordinal = 0), index = 3)
     private int modifyY(int original) {
-        // Determine the discrete grid index (n) from vanilla’s original calculation.
-        int vanillaOriginY = MathHelper.floor(this.originY);
-        int vanillaOffsetY = vanillaOriginY % BASE;
-        if (vanillaOffsetY < 0) {
-            vanillaOffsetY += BASE;
-        }
-        int n = (original - vanillaOffsetY) / BASE;
+        int n = Math.round((float)original / (float)BASE);
 
-        // Use the continuous (fractional) offset.
-        double continuousOffset = (this.originY / SCALE) % BASE;
-        if (continuousOffset < 0) {
-            continuousOffset += BASE;
-        }
-        return (int) ((continuousOffset + BASE * n) * SCALE);
+        double slideY = this.originY % (double)TILE_SIZE;
+        if (slideY < 0) slideY += TILE_SIZE;
+
+        return (int) (n * TILE_SIZE + slideY) - PADDING - ((BASE/16)* TILE_SIZE);
     }
 
-    // The following remain unchanged so that the texture is drawn at the correct dimensions.
-    @ModifyArg(
-            method = "render",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/client/gui/DrawContext;drawTexture(Ljava/util/function/Function;Lnet/minecraft/util/Identifier;IIFFIIII)V",
-                    ordinal = 0
-            ),
-            index = 6
-    )
-    private int modifyWidth(int original) {
-        return BASE * SCALE;
-    }
+    // --- Over-scrolling Logic ---
+    @ModifyArg(method = "move", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/MathHelper;clamp(DDD)D"), index = 1)
+    private double expandScrollMin(double min) { return min - PADDING; }
 
-    @ModifyArg(
-            method = "render",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/client/gui/DrawContext;drawTexture(Ljava/util/function/Function;Lnet/minecraft/util/Identifier;IIFFIIII)V",
-                    ordinal = 0
-            ),
-            index = 7
-    )
-    private int modifyHeight(int original) {
-        return BASE * SCALE;
-    }
+    @ModifyArg(method = "move", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/MathHelper;clamp(DDD)D"), index = 2)
+    private double expandScrollMax(double max) { return max + PADDING; }
 
-    @ModifyArg(
-            method = "render",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/client/gui/DrawContext;drawTexture(Ljava/util/function/Function;Lnet/minecraft/util/Identifier;IIFFIIII)V",
-                    ordinal = 0
-            ),
-            index = 8
-    )
-    private int modifyTexWidth(int original) {
-        return BASE * SCALE;
-    }
+    // --- HD Texture Scaling (Stays the same) ---
+    @ModifyArg(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawTexture(Ljava/util/function/Function;Lnet/minecraft/util/Identifier;IIFFIIII)V", ordinal = 0), index = 6)
+    private int modifyWidth(int original) { return TILE_SIZE; }
+    @ModifyArg(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawTexture(Ljava/util/function/Function;Lnet/minecraft/util/Identifier;IIFFIIII)V", ordinal = 0), index = 7)
+    private int modifyHeight(int original) { return TILE_SIZE; }
+    @ModifyArg(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawTexture(Ljava/util/function/Function;Lnet/minecraft/util/Identifier;IIFFIIII)V", ordinal = 0), index = 8)
+    private int modifyTexWidth(int original) { return TILE_SIZE; }
+    @ModifyArg(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawTexture(Ljava/util/function/Function;Lnet/minecraft/util/Identifier;IIFFIIII)V", ordinal = 0), index = 9)
+    private int modifyTexHeight(int original) { return TILE_SIZE; }
 
-    @ModifyArg(
-            method = "render",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/client/gui/DrawContext;drawTexture(Ljava/util/function/Function;Lnet/minecraft/util/Identifier;IIFFIIII)V",
-                    ordinal = 0
-            ),
-            index = 9
-    )
-    private int modifyTexHeight(int original) {
-        return BASE * SCALE;
-    }
+    // --- Window Bounds (486x253) ---
+    @ModifyConstant(method = {"render", "drawWidgetTooltip", "move"}, constant = @Constant(intValue = 234))
+    private int expandWidth(int original) { return 486; }
+    @ModifyConstant(method = {"render", "drawWidgetTooltip", "move"}, constant = @Constant(intValue = 113))
+    private int expandHeight(int original) { return 253; }
+    @ModifyConstant(method = "render", constant = @Constant(intValue = 15))
+    private int expandLoopWidth(int original) { return 31; }
+    @ModifyConstant(method = "render", constant = @Constant(intValue = 8))
+    private int expandLoopHeight(int original) { return 17; }
+    @ModifyConstant(method = "render", constant = @Constant(intValue = 117))
+    private int centerTreeX(int original) { return 243; }
+    @ModifyConstant(method = "render", constant = @Constant(intValue = 56))
+    private int centerTreeY(int original) { return 126; }
 }

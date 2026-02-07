@@ -1,0 +1,34 @@
+{
+  "display": {
+    "icon": {
+      "id": "minecraft:oak_log"
+    },
+    "title": {
+      "translate": "advancements.story.destroy_wood.title"
+    },
+    "description": {
+      "translate": "advancements.story.destroy_wood.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "parent": "ttll:story/sharp_rock",
+  "criteria": {
+    "advancement_requirement": {
+      "trigger": "ttll:destroy_block",
+      "conditions": {
+        "block": {
+          "blocks": "#minecraft:logs"
+        }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "advancement_requirement"
+    ]
+  ],
+  "sends_telemetry_event": false
+}

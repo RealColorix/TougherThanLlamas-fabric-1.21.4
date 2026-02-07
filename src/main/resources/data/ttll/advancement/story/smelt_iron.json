@@ -1,5 +1,5 @@
 {
-  "parent": "ttll:story/brick_furnace",
+  "parent": "ttll:story/root",
   "criteria": {
     "iron": {
       "conditions": {

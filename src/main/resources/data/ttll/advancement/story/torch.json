@@ -1,5 +1,5 @@
 {
-  "parent": "ttll:story/crude_drax",
+  "parent": "ttll:story/root",
   "criteria": {
     "light_a_torch": {
       "conditions": {

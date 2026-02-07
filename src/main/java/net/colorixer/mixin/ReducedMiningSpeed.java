@@ -74,6 +74,11 @@ public abstract class ReducedMiningSpeed {
             return;
         }
 
+        if (heldItem.isOf(ModItems.WOODEN_CLUB) || heldItem.isOf(ModItems.BONE_CLUB)&& blockState.isOf(Blocks.COBWEB)) {
+            cir.setReturnValue(-1f);
+            return;
+        }
+
         if (heldItem.isOf(ModItems.IRON_CHISEL))
          {
              if(blockState.isOf(Blocks.IRON_ORE)

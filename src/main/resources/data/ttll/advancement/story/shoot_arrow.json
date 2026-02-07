@@ -1,5 +1,5 @@
 {
-  "parent": "ttll:story/kill_a_mob",
+  "parent": "ttll:story/root",
   "criteria": {
     "shot_arrow": {
       "conditions": {

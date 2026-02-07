@@ -1,5 +1,5 @@
 {
-  "parent": "ttll:story/",
+  "parent": "ttll:story/root",
   "criteria": {
     "wooden_club": {
       "conditions": {

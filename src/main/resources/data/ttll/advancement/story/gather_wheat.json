@@ -1,5 +1,5 @@
 {
-  "parent": "ttll:story/craft_stone_hoe",
+  "parent": "ttll:story/root",
   "criteria": {
     "harvest_wheat": {
       "conditions": {

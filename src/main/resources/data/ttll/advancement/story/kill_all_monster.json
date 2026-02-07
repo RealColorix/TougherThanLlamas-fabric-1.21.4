@@ -1,5 +1,5 @@
 {
-  "parent": "ttll:story/first_weapon",
+  "parent": "ttll:story/kill_a_monster",
   "criteria": {
     "minecraft:blaze": {
       "conditions": {
@@ -522,60 +522,132 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.adventure.kill_a_mob.description"
+      "translate": "advancements.story.kill_all_monster.description"
     },
+    "frame": "challenge",
     "icon": {
       "count": 1,
-      "id": "ttll:zombie_arm"
+      "id": "minecraft:diamond_sword"
     },
     "title": {
-      "translate": "advancements.adventure.kill_a_mob.title"
-    },
-
-    "show_toast": true,
-    "announce_to_chat": false,
-    "hidden": false
+      "translate": "advancements.story.kill_all_monster.title"
+    }
   },
   "requirements": [
     [
-      "minecraft:blaze",
-      "minecraft:bogged",
-      "minecraft:breeze",
-      "minecraft:cave_spider",
-      "minecraft:creaking",
-      "minecraft:creeper",
-      "minecraft:drowned",
-      "minecraft:elder_guardian",
-      "minecraft:ender_dragon",
-      "minecraft:enderman",
-      "minecraft:endermite",
-      "minecraft:evoker",
-      "minecraft:ghast",
-      "minecraft:guardian",
-      "minecraft:hoglin",
-      "minecraft:husk",
-      "minecraft:magma_cube",
-      "minecraft:phantom",
-      "minecraft:piglin",
-      "minecraft:piglin_brute",
-      "minecraft:pillager",
-      "minecraft:ravager",
-      "minecraft:shulker",
-      "minecraft:silverfish",
-      "minecraft:skeleton",
-      "minecraft:slime",
-      "minecraft:spider",
-      "minecraft:stray",
-      "minecraft:vex",
-      "minecraft:vindicator",
-      "minecraft:witch",
-      "minecraft:wither_skeleton",
-      "minecraft:wither",
-      "minecraft:zoglin",
-      "minecraft:zombie_villager",
-      "minecraft:zombie",
+      "minecraft:blaze"
+    ],
+    [
+      "minecraft:bogged"
+    ],
+    [
+      "minecraft:breeze"
+    ],
+    [
+      "minecraft:cave_spider"
+    ],
+    [
+      "minecraft:creaking"
+    ],
+    [
+      "minecraft:creeper"
+    ],
+    [
+      "minecraft:drowned"
+    ],
+    [
+      "minecraft:elder_guardian"
+    ],
+    [
+      "minecraft:ender_dragon"
+    ],
+    [
+      "minecraft:enderman"
+    ],
+    [
+      "minecraft:endermite"
+    ],
+    [
+      "minecraft:evoker"
+    ],
+    [
+      "minecraft:ghast"
+    ],
+    [
+      "minecraft:guardian"
+    ],
+    [
+      "minecraft:hoglin"
+    ],
+    [
+      "minecraft:husk"
+    ],
+    [
+      "minecraft:magma_cube"
+    ],
+    [
+      "minecraft:phantom"
+    ],
+    [
+      "minecraft:piglin"
+    ],
+    [
+      "minecraft:piglin_brute"
+    ],
+    [
+      "minecraft:pillager"
+    ],
+    [
+      "minecraft:ravager"
+    ],
+    [
+      "minecraft:shulker"
+    ],
+    [
+      "minecraft:silverfish"
+    ],
+    [
+      "minecraft:skeleton"
+    ],
+    [
+      "minecraft:slime"
+    ],
+    [
+      "minecraft:spider"
+    ],
+    [
+      "minecraft:stray"
+    ],
+    [
+      "minecraft:vex"
+    ],
+    [
+      "minecraft:vindicator"
+    ],
+    [
+      "minecraft:witch"
+    ],
+    [
+      "minecraft:wither_skeleton"
+    ],
+    [
+      "minecraft:wither"
+    ],
+    [
+      "minecraft:zoglin"
+    ],
+    [
+      "minecraft:zombie_villager"
+    ],
+    [
+      "minecraft:zombie"
+    ],
+    [
       "minecraft:zombified_piglin"
     ]
   ],
-  "sends_telemetry_event": false
+  "rewards": {
+    "experience": 100
+  },
+  "sends_telemetry_event": true
 }

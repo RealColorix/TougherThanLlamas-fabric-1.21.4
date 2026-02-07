@@ -1,0 +1,36 @@
+{
+  "parent": "ttll:story/vicinity_gravel",
+  "criteria": {
+    "acquire_crude_flint": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:flint"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.story.acquire_crude_flint.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "minecraft:flint"
+    },
+    "title": {
+      "translate": "advancements.story.acquire_crude_flint.title"
+    },
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "requirements": [
+    [
+      "acquire_crude_flint"
+    ]
+  ],
+  "sends_telemetry_event": false
+}

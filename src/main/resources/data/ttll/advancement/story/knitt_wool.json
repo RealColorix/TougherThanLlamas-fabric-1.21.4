@@ -1,0 +1,36 @@
+{
+  "parent": "ttll:story/kill_an_animal",
+  "criteria": {
+    "criterion": {
+      "conditions": {
+        "items": [
+          {
+            "items": "ttll:knitting_wool_white"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.story.knitt_wool.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "ttll:knitting_wool_white"
+    },
+    "title": {
+      "translate": "advancements.story.knitt_wool.title"
+    },
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "requirements": [
+    [
+      "criterion"
+    ]
+  ],
+  "sends_telemetry_event": false
+}

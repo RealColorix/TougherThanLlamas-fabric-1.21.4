@@ -74,12 +74,15 @@ public class TougherThanLlamasClient implements ClientModInitializer {
 			}
 
 			// 1. Logic Update (Every Second)
-			if (client.world.getTime() % 20 == 0) {
+			if (client.world.getTime() != 0) {
 				float health = client.player.getHealth();
 				int hunger = client.player.getHungerManager().getFoodLevel();
 
-				// Health Tiers & Colors
-				if (health < 2.1f) {
+
+				if (health <= 0f) {
+					currentHealthStatus = "Dead";
+					healthColor = 0xAA0000; // Dark Red
+				} else if (health < 2.1f) {
 					currentHealthStatus = "Dying";
 					healthColor = 0xFF5555; // Red
 				} else if (health < 4.1f) {
@@ -112,8 +115,7 @@ public class TougherThanLlamasClient implements ClientModInitializer {
 					currentHungerStatus = "";
 				}
 			}
-
-			// 2. Dynamic Rendering
+// 2. Dynamic Rendering
 			int screenWidth = client.getWindow().getScaledWidth();
 			int screenHeight = client.getWindow().getScaledHeight();
 			int centerX = screenWidth / 2;
@@ -121,7 +123,10 @@ public class TougherThanLlamasClient implements ClientModInitializer {
 			// Render Health Status (Above HP Bar - Left Aligned)
 			if (!currentHealthStatus.isEmpty()) {
 				int x = centerX - 91;
-				int y = screenHeight - 49 - (client.player.getArmor() > 0 ? 10 : 0);
+				// Offset upward if player has Armor OR Absorption hearts (which create a second row)
+				boolean hasExtraRow = client.player.getArmor() > 0 || client.player.getAbsorptionAmount() > 0;
+				int y = screenHeight - 49 - (hasExtraRow ? 10 : 0);
+
 				drawContext.drawTextWithShadow(client.textRenderer, currentHealthStatus, x, y, healthColor);
 			}
 
@@ -129,7 +134,10 @@ public class TougherThanLlamasClient implements ClientModInitializer {
 			if (!currentHungerStatus.isEmpty()) {
 				int textWidth = client.textRenderer.getWidth(currentHungerStatus);
 				int x = (centerX + 91) - textWidth;
-				int y = screenHeight - 49 - (client.player.getAir() < 300 || client.player.getVehicle() != null ? 10 : 0);
+				// Offset upward if player is underwater (bubbles) or riding an entity (mount health)
+				boolean hasRightExtraRow = client.player.getAir() < client.player.getMaxAir() || client.player.getVehicle() != null;
+				int y = screenHeight - 49 - (hasRightExtraRow ? 10 : 0);
+
 				drawContext.drawTextWithShadow(client.textRenderer, currentHungerStatus, x, y, hungerColor);
 			}
 		});

@@ -1,5 +1,5 @@
 {
-  "parent": "ttll:story/root",
+  "parent": "ttll:story/vicinity_stone",
   "criteria": {
     "acquire_flint": {
       "conditions": {

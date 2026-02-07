@@ -1,5 +1,5 @@
 {
-  "parent": "ttll:story/acquire_string_or_sinew",
+  "parent": "ttll:story/root",
   "criteria": {
     "craft_stone_shovel": {
       "conditions": {

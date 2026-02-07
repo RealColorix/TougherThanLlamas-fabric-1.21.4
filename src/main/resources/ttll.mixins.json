@@ -48,7 +48,15 @@
 		"DisableF3Mixin",
 		"MoonPhaseLightMapper",
 		"GameOptionsMixin",
-		"InGameHudMixin"
+		"InGameHudMixin",
+		"BreakBlockForAdvancement",
+		"AdvancementWidgetMixin",
+		"AdvancementDisplaysMixin",
+		"AdvancementObtainedStatusMixin",
+		"ClientAdvancementManagerAccessor",
+		"SeedFinderMixin",
+		"MultiNoiseBiomeSourceMixin",
+		"AdvancementsScreenMixin"
 
 	],
 	"injectors": {

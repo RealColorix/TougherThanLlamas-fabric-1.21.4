@@ -1,0 +1,8 @@
+{
+  "classic_hurt": {
+    "category": "player",
+    "sounds": [
+      "ttll:classic_hurt"
+    ]
+  }
+}
