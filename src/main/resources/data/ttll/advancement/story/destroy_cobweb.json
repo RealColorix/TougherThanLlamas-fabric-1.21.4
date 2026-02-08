@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "id": "minecraft:cobweb"
+      "id": "minecraft:string"
     },
     "title": {
       "translate": "advancements.story.destroy_cobweb.title"
@@ -16,6 +16,16 @@
   },
   "parent": "ttll:story/sharp_rock",
   "criteria": {
+    "criterion": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:string"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "advancement_requirement": {
       "trigger": "ttll:destroy_block",
       "conditions": {
@@ -27,7 +37,8 @@
   },
   "requirements": [
     [
-      "advancement_requirement"
+      "advancement_requirement",
+      "criterion"
     ]
   ],
   "sends_telemetry_event": false

@@ -1,11 +1,11 @@
 {
   "parent": "ttll:story/acquire_flint",
   "criteria": {
-    "harvest_grass_fiber": {
+    "criterion": {
       "conditions": {
         "items": [
           {
-            "items": "ttll:grass_fiber"
+            "items": "ttll:sinew"
           }
         ]
       },
@@ -14,14 +14,14 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.story.harvest_grass_fiber.description"
+      "translate": "advancements.story.acquire_sinew.description"
     },
     "icon": {
       "count": 1,
-      "id": "ttll:grass_fiber"
+      "id": "ttll:sinew"
     },
     "title": {
-      "translate": "advancements.story.harvest_grass_fiber.title"
+      "translate": "advancements.story.acquire_sinew.title"
     },
     "show_toast": true,
     "announce_to_chat": false,
@@ -29,7 +29,7 @@
   },
   "requirements": [
     [
-      "harvest_grass_fiber"
+      "criterion"
     ]
   ],
   "sends_telemetry_event": false

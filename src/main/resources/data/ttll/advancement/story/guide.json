@@ -1,0 +1,32 @@
+{
+  "parent": "ttll:story/root",
+  "criteria": {
+    "spawn": {
+      "trigger": "minecraft:tick"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+     "description": {
+      "translate": "advancements.story.guide.description"
+    },
+    "icon": {
+      "id": "minecraft:knowledge_book",
+      "components": {
+        "minecraft:custom_model_data": {
+          "floats": [101.0]
+        }
+      }
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.story.guide.title"
+    }
+  },
+  "requirements": [
+    [
+      "spawn"
+    ]
+  ],
+  "sends_telemetry_event": false
+}

@@ -1,11 +1,11 @@
 {
-  "parent": "ttll:story/root",
+  "parent": "ttll:story/mine_iron_ore",
   "criteria": {
-    "wooden_club": {
+    "iron_nugget": {
       "conditions": {
         "items": [
           {
-            "items": "ttll:wooden_club"
+            "items": "minecraft:iron_nugget"
           }
         ]
       },
@@ -14,14 +14,14 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.story.first_weapon.description"
+      "translate": "advancements.story.iron_nugget.description"
     },
     "icon": {
       "count": 1,
-      "id": "ttll:wooden_club"
+      "id": "minecraft:iron_nugget"
     },
     "title": {
-      "translate": "advancements.story.first_weapon.title"
+      "translate": "advancements.story.iron_nugget.title"
     },
     "show_toast": true,
     "announce_to_chat": false,
@@ -29,7 +29,7 @@
   },
   "requirements": [
     [
-      "wooden_club"
+      "iron_nugget"
     ]
   ],
   "sends_telemetry_event": false

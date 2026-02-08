@@ -4,17 +4,15 @@ import net.minecraft.client.gui.screen.advancement.AdvancementTab;
 import net.minecraft.util.math.MathHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Constant;
-import org.spongepowered.asm.mixin.injection.ModifyConstant;
+import org.spongepowered.asm.mixin.injection.*;
 
 @Mixin(AdvancementTab.class)
 public abstract class AdvancementBackground {
 
     private static final int BASE = 64;
     private static final int TILE_SIZE = BASE * 16;
-    private static final int PADDING = 64;
+    private static final int Y_PADDING = 113;
+    private static final int X_PADDING = 221;
 
     @Shadow private double originX;
     @Shadow private double originY;
@@ -29,7 +27,7 @@ public abstract class AdvancementBackground {
         if (slide < 0) slide += TILE_SIZE;
 
         // Final position uses the raw double originX to stay frame-perfect.
-        return (int) (m * TILE_SIZE + slide) - PADDING - ((BASE/16)* TILE_SIZE);
+        return (int) (m * TILE_SIZE + slide) - X_PADDING -16 - ((BASE/16)* TILE_SIZE);
     }
 
     @ModifyArg(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawTexture(Ljava/util/function/Function;Lnet/minecraft/util/Identifier;IIFFIIII)V", ordinal = 0), index = 3)
@@ -39,15 +37,40 @@ public abstract class AdvancementBackground {
         double slideY = this.originY % (double)TILE_SIZE;
         if (slideY < 0) slideY += TILE_SIZE;
 
-        return (int) (n * TILE_SIZE + slideY) - PADDING - ((BASE/16)* TILE_SIZE);
+        return (int) (n * TILE_SIZE + slideY) - Y_PADDING-16 - ((BASE/16)* TILE_SIZE);
     }
 
     // --- Over-scrolling Logic ---
-    @ModifyArg(method = "move", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/MathHelper;clamp(DDD)D"), index = 1)
-    private double expandScrollMin(double min) { return min - PADDING; }
+    @Shadow private int maxPanX;
+    @Shadow private int maxPanY;
+    @Shadow private int minPanX;
+    @Shadow private int minPanY;
+    // X-Axis (Ordinal 0)
+    @ModifyArg(method = "move", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/MathHelper;clamp(DDD)D", ordinal = 0), index = 1)
+    private double expandScrollMinX(double min) {
+        // We ignore the 'min' argument (which is broken by the 1000 constant)
+        // We calculate the stop point: -(TreeWidth - ScreenWidth) - Padding
+        // ScreenWidth is 486
+        return (double)(-(this.maxPanX - 486)) - X_PADDING;
+    }
 
-    @ModifyArg(method = "move", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/MathHelper;clamp(DDD)D"), index = 2)
-    private double expandScrollMax(double max) { return max + PADDING; }
+    @ModifyArg(method = "move", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/MathHelper;clamp(DDD)D", ordinal = 0), index = 2)
+    private double expandScrollMaxX(double max) {
+        // Stops precisely X_PADDING away from the leftmost advancement
+        return (double)(-this.minPanX) + X_PADDING;
+    }
+
+    // Y-Axis (Ordinal 1)
+    @ModifyArg(method = "move", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/MathHelper;clamp(DDD)D", ordinal = 1), index = 1)
+    private double expandScrollMinY(double min) {
+        // ScreenHeight is 253
+        return (double)(-(this.maxPanY - 253)) - Y_PADDING;
+    }
+
+    @ModifyArg(method = "move", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/MathHelper;clamp(DDD)D", ordinal = 1), index = 2)
+    private double expandScrollMaxY(double max) {
+        return (double)(-this.minPanY) + Y_PADDING;
+    }
 
     // --- HD Texture Scaling (Stays the same) ---
     @ModifyArg(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawTexture(Ljava/util/function/Function;Lnet/minecraft/util/Identifier;IIFFIIII)V", ordinal = 0), index = 6)
@@ -60,10 +83,29 @@ public abstract class AdvancementBackground {
     private int modifyTexHeight(int original) { return TILE_SIZE; }
 
     // --- Window Bounds (486x253) ---
-    @ModifyConstant(method = {"render", "drawWidgetTooltip", "move"}, constant = @Constant(intValue = 234))
+    // --- Fix: Force the 'if' checks to pass by faking the window size ---
+
+    // --- Window Bounds Expansion ---
+    // This expands the window for rendering and tooltips to 486x253
+    @ModifyConstant(method = {"render", "drawWidgetTooltip"}, constant = @Constant(intValue = 234))
     private int expandWidth(int original) { return 486; }
-    @ModifyConstant(method = {"render", "drawWidgetTooltip", "move"}, constant = @Constant(intValue = 113))
+
+    @ModifyConstant(method = {"render", "drawWidgetTooltip"}, constant = @Constant(intValue = 113))
     private int expandHeight(int original) { return 253; }
+
+    // Target ONLY the move method constants
+    @ModifyConstant(method = "move", constant = @Constant(intValue = 234))
+    private int windowWidthForClamp(int original) {
+        return 0; // This stops the 'Right' scroll at the tree edge
+    }
+
+    @ModifyConstant(method = "move", constant = @Constant(intValue = 113))
+    private int windowHeightForClamp(int original) {
+        return 0; // This stops the 'Down' scroll at the tree edge
+    }
+
+
+
     @ModifyConstant(method = "render", constant = @Constant(intValue = 15))
     private int expandLoopWidth(int original) { return 31; }
     @ModifyConstant(method = "render", constant = @Constant(intValue = 8))

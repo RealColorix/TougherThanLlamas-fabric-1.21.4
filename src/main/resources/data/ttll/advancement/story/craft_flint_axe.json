@@ -1,5 +1,5 @@
 {
-  "parent": "ttll:story/root",
+  "parent": "ttll:story/destroy_cobweb",
   "criteria": {
     "craft_flint_axe": {
       "conditions": {

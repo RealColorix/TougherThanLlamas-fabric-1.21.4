@@ -1,0 +1,16 @@
+{
+  "criteria": {
+    "cow": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": { "entity": { "type": "minecraft:cow" } }
+    },
+    "horse": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": { "entity": { "type": "minecraft:horse" } }
+    }
+  },
+  "requirements": [
+    ["cow", "horse"]
+  ],
+  "sends_telemetry_event": false
+}

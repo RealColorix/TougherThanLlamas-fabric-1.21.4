@@ -82,16 +82,16 @@ public class TougherThanLlamasClient implements ClientModInitializer {
 				if (health <= 0f) {
 					currentHealthStatus = "Dead";
 					healthColor = 0xAA0000; // Dark Red
-				} else if (health < 2.1f) {
+				} else if (health < 2.01f) {
 					currentHealthStatus = "Dying";
 					healthColor = 0xFF5555; // Red
-				} else if (health < 4.1f) {
+				} else if (health < 4.01f) {
 					currentHealthStatus = "Crippled";
 					healthColor = 0xFFAA00; // Orange
-				} else if (health < 8.1f) {
+				} else if (health < 8.01f) {
 					currentHealthStatus = "Injured";
 					healthColor = 0xFFFF55; // Yellow
-				} else if (health < 12.1f) {
+				} else if (health < 12.01f) {
 					currentHealthStatus = "Hurt";
 					healthColor = 0xFFFFFF; // White
 				} else {
@@ -99,16 +99,16 @@ public class TougherThanLlamasClient implements ClientModInitializer {
 				}
 
 				// Hunger Tiers & Colors
-				if (hunger < 2.1f) {
+				if (hunger < 2.01f) {
 					currentHungerStatus = "Starving";
 					hungerColor = 0xFF5555; // Red
-				} else if (hunger < 4.1f) {
+				} else if (hunger < 4.01f) {
 					currentHungerStatus = "Emaciated";
 					hungerColor = 0xFFAA00; // Orange
-				} else if (hunger < 8.1f) {
+				} else if (hunger < 8.01f) {
 					currentHungerStatus = "Famished";
 					hungerColor = 0xFFFF55; // Yellow
-				} else if (hunger < 12.1f) {
+				} else if (hunger < 12.01f) {
 					currentHungerStatus = "Hungry";
 					hungerColor = 0xFFFFFF; // White
 				} else {

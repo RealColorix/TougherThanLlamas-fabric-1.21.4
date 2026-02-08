@@ -1,0 +1,52 @@
+{
+  "display": {
+    "icon": {
+      "id": "minecraft:iron_ore"
+    },
+    "title": {
+      "translate": "advancements.story.mine_iron_ore.title"
+    },
+    "description": {
+      "translate": "advancements.story.mine_iron_ore.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "parent": "ttll:story/sharp_rock",
+  "criteria": {
+    "advancement_requirement": {
+      "trigger": "ttll:destroy_block",
+      "conditions": {
+        "block": {
+          "blocks": "minecraft:iron_ore"
+        }
+      }
+    },
+    "advancement_requirement_extra_1": {
+      "trigger": "ttll:destroy_block",
+      "conditions": {
+        "block": {
+          "blocks": "minecraft:deepslate_iron_ore"
+        }
+      }
+    },
+    "advancement_requirement_extra_2": {
+      "trigger": "ttll:destroy_block",
+      "conditions": {
+        "block": {
+          "blocks": "ttll:bedstone_iron_ore"
+        }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "advancement_requirement",
+      "advancement_requirement_extra_1",
+      "advancement_requirement_extra_2"
+    ]
+  ],
+  "sends_telemetry_event": false
+}

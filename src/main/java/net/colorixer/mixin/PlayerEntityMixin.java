@@ -1,16 +1,20 @@
 package net.colorixer.mixin;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
+import net.colorixer.sounds.ModSounds;
 import net.colorixer.util.IdentifierUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
@@ -150,11 +154,11 @@ public abstract class PlayerEntityMixin {
         if (player.getWorld().isClient || player.isCreative() || player.isSpectator()) return;
 
         // 2 points = 1 Heart
-        if (player.getHealth() < 2.1f && player.isAlive()) {
+        if (player.getHealth() < 2.01f && player.isAlive()) {
             // We apply for 21 ticks (1 second + 1 tick buffer)
             // with amplifier 0, ambient = true, and showParticles = false
             player.addStatusEffect(new StatusEffectInstance(
-                    StatusEffects.BLINDNESS, 39, 0, true, false, false));
+                    StatusEffects.BLINDNESS, 99, 0, true, false, false));
             player.addStatusEffect(new StatusEffectInstance(
                     StatusEffects.DARKNESS, 99, 0, true, false, false));
 
@@ -164,4 +168,5 @@ public abstract class PlayerEntityMixin {
             }
         }
     }
+
 }

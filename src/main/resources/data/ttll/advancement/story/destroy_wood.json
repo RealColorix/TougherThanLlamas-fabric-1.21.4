@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "id": "minecraft:oak_log"
+      "id": "ttll:oak_firewood"
     },
     "title": {
       "translate": "advancements.story.destroy_wood.title"

@@ -1,27 +1,7 @@
 {
-  "parent": "ttll:story/destroy_wood",
-  "criteria": {
-    "campfire_cooking": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "items": "minecraft:campfire"
-          }
-        ]
-      }
-    }
-  },
-  "requirements": [
-    [
-      "campfire_cooking"
-    ]
-  ],
   "display": {
     "icon": {
-      "id": "minecraft:campfire",
-      "count": 1,
-      "nbt": "{BlockStateTag:{lit:\"false\"}}"
+      "id": "minecraft:campfire"
     },
     "title": {
       "translate": "advancements.story.campfire_cooking.title"
@@ -29,9 +9,24 @@
     "description": {
       "translate": "advancements.story.campfire_cooking.description"
     },
+    "frame": "task",
     "show_toast": true,
     "announce_to_chat": false,
     "hidden": false
+  },
+  "parent": "ttll:story/destroy_wood",
+  "criteria": {
+    "advancement_requirement": {
+      "trigger": "ttll:in_vicinity",
+      "conditions": {
+        "block": {
+          "blocks": "minecraft:campfire",
+          "state": {
+            "lit": "true"
+          }
+        }
+      }
+    }
   },
   "sends_telemetry_event": false
 }

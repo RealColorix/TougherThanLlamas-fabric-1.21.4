@@ -41,7 +41,7 @@
 		"StartAtMidnight",
 		"GracePeriodSpawnMixin",
 		"SwimmingMixin",
-		"CantPlaceInAir",
+		"CantPlaceSpecificConditions",
 		"StructureTemplateMixin",
 		"StructureBlockInfoAccessor",
 		"MineshaftTorchMixin",
@@ -56,7 +56,11 @@
 		"ClientAdvancementManagerAccessor",
 		"SeedFinderMixin",
 		"MultiNoiseBiomeSourceMixin",
-		"AdvancementsScreenMixin"
+		"AdvancementsScreenMixin",
+		"AdvancementPositionerMixin",
+		"AdvancementWidgetAccessor",
+		"AdvancementPositionerChange",
+		"AdvancementPositionerAccessor"
 
 	],
 	"injectors": {

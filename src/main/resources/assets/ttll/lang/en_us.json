@@ -121,108 +121,107 @@
   "options.gamma.normal": "Hardcore Darkness",
   "mixins.seedfinder.title": "Searching For Seeds",
 
-  "advancements.story.destroy_leaves.title": "Destroy Leaves",
-  "advancements.story.destroy_leaves.description": "",
 
-  "advancements.story.acquire_branch.title": "Get a Branch",
-  "advancements.story.acquire_branch.description": "",
+  "advancements.story.knitt_wool.need_description":     "§cPoint Taken Needed",
+  "advancements.story.iron_nugget.need_description":     "§cFurnace Required",
+  "advancements.story.leather_armor.need_description":  "§cMonster Hunter\nNeeded",
+  "advancements.story.acquire_sinew.need_description":  "§cTendon Heavy Meat\nNeeded",
+  "advancements.story.unknown.need_description": "§c??? Needed",
 
-  "advancements.story.acquire_stick.title": "Get a Stick",
-  "advancements.story.acquire_stick.description": "",
 
-  "advancements.story.acquire_wooden_club.title": "Craft a Wooden Club",
-  "advancements.story.acquire_wooden_club.description": "",
+  "advancements.story.guide.title": "Guide",
+  "advancements.story.guide.description": "§aIn Progress\n§cOther Advancement Needed\n§8Content not yet Known",
 
-  "advancements.story.acquire_pointy_stick.title": "Sharpen Sticks & Branches",
-  "advancements.story.acquire_pointy_stick.description": "",
+  "advancements.story.destroy_leaves.title": "Leaf It Alone",
+  "advancements.story.destroy_leaves.description": "Destroy Leaves",
 
-  "advancements.story.vicinity_gravel.title": "Find Gravel",
-  "advancements.story.vicinity_gravel.description": "",
+  "advancements.story.acquire_sinew.title": "Tough Ties",
+  "advancements.story.acquire_sinew.description": "Harvest Sinew From Animal Tendons",
 
-  "advancements.story.vicinity_stone.title": "Find Stone",
-  "advancements.story.vicinity_stone.description": "",
+  "advancements.story.acquire_branch.title": "Branching Out",
+  "advancements.story.acquire_branch.description": "Get a Branch",
 
-  "advancements.story.acquire_crude_flint.title": "Acquire Crude Flint",
-  "advancements.story.acquire_crude_flint.description": "",
+  "advancements.story.acquire_stick.title": "Sticky Situation",
+  "advancements.story.acquire_stick.description": "Get a Stick",
 
-  "advancements.story.acquire_flint.title": "Sharpen Flint",
-  "advancements.story.acquire_flint.description": "",
+  "advancements.story.acquire_wooden_club.title": "Unga Bunga",
+  "advancements.story.acquire_wooden_club.description": "Craft a Wooden Club",
 
-  "advancements.story.acquire_rock.title": "Mine Stone & Weathered Stone",
-  "advancements.story.acquire_rock.description": "",
+  "advancements.story.acquire_pointy_stick.title": "Point Taken",
+  "advancements.story.acquire_pointy_stick.description": "Sharpen Sticks & Branches",
 
-  "advancements.story.sharp_rock.title": "Sharpen Rock",
-  "advancements.story.sharp_rock.description": "",
+  "advancements.story.vicinity_gravel.title": "Gravel Pit",
+  "advancements.story.vicinity_gravel.description": "Find Gravel",
 
-  "advancements.story.destroy_cobweb.title": "Mine Cobweb",
-  "advancements.story.destroy_cobweb.description": "",
+  "advancements.story.vicinity_stone.title": "Rolling Stones",
+  "advancements.story.vicinity_stone.description": "Find Stone",
 
-  "advancements.story.destroy_wood.title": "Chip Wood",
-  "advancements.story.destroy_wood.description": "",
+  "advancements.story.acquire_crude_flint.title": "Rough Around the Edges",
+  "advancements.story.acquire_crude_flint.description": "Acquire Crude Flint",
+
+  "advancements.story.acquire_flint.title": "Cutting Edge",
+  "advancements.story.acquire_flint.description": "Sharpen Flint",
+
+  "advancements.story.acquire_rock.title": "Nerf Miner",
+  "advancements.story.acquire_rock.description": "Mine Stone & Weathered Stone",
+
+  "advancements.story.sharp_rock.title": "Natural Selection",
+  "advancements.story.sharp_rock.description": "Sharpen Rock",
+
+  "advancements.story.destroy_cobweb.title": "Web Designer",
+  "advancements.story.destroy_cobweb.description": "Acquire String From Cobweb",
+
+  "advancements.story.destroy_wood.title": "Chipper",
+  "advancements.story.destroy_wood.description": "Chip Wood",
 
   "advancements.story.kill_a_monster.title": "Monster Hunter",
-  "advancements.story.kill_a_monster.description": "",
+  "advancements.story.kill_a_monster.description": "Kill a Hostile Mob",
 
   "advancements.story.kill_all_monster.title": "Monsters Hunted",
-  "advancements.story.kill_all_monster.description": "",
+  "advancements.story.kill_all_monster.description": "Kill all Hostile Mobs",
 
   "advancements.story.kill_an_animal.title": "Animal Hunter",
-  "advancements.story.kill_an_animal.description": "",
+  "advancements.story.kill_an_animal.description": "Slaughter an Animal",
 
-  "advancements.story.knitt_wool.title": "Craft Wool Knitting",
-  "advancements.story.knitt_wool.description": "",
+  "advancements.story.knitt_wool.title": "Close-Knit",
+  "advancements.story.knitt_wool.description": "Craft Wool Knitting",
 
-  "advancements.story.acquire_raw_leather.title": "Acquire Raw Leather",
-  "advancements.story.acquire_raw_leather.description": "",
+  "advancements.story.acquire_raw_leather.title": "Skinning the Game",
+  "advancements.story.acquire_raw_leather.description": "Acquire Raw Leather",
 
-  "advancements.story.drying_rack.title": "Set Down a Drying Rack",
-  "advancements.story.drying_rack.description": "",
+  "advancements.story.drying_rack.title": "Hang Tight",
+  "advancements.story.drying_rack.description": "Set Down a Drying Rack",
 
-  "advancements.story.acquire_leather.title": "Dry Leather",
-  "advancements.story.acquire_leather.description": "",
+  "advancements.story.acquire_leather.title": "Tough as Nails",
+  "advancements.story.acquire_leather.description": "Get Leather",
 
+  "advancements.story.eat_food.title": "Calorie Intake",
+  "advancements.story.eat_food.description": "Eat Food to Survive",
 
+  "advancements.story.campfire_cooking.title": "Local Barbeque",
+  "advancements.story.campfire_cooking.description": "Light a Campfire",
 
-  "advancements.story.harvest_grass_fiber.title": "Harvest Grass Fiber",
-  "advancements.story.harvest_grass_fiber.description": "Cut using Flint",
+  "advancements.story.craft_flint_axe.title": "Time for an Upgrade",
+  "advancements.story.craft_flint_axe.description": "Craft a Flint Axe",
 
-        "advancements.story.campfire_cooking.title": "Make a Campfire",
-  "advancements.story.campfire_cooking.description": "Cooking Outdoors is Hard",
-
-        "advancements.story.craft_flint_knife.title": "Flint Dagger",
-  "advancements.story.craft_flint_knife.description": "Needs smaller Flint",
-
-        "advancements.story.acquire_string_or_sinew.title": "Acquire a type of Twine",
-  "advancements.story.acquire_string_or_sinew.description": "Flint Knife cuts Cobweb",
-
-        "advancements.story.craft_flint_axe.title": "Flint Axe",
-  "advancements.story.craft_flint_axe.description": "Time for an Upgrade",
-
-        "advancements.story.craft_stone_shovel.title": "Stone Shovel",
+  "advancements.story.craft_stone_shovel.title": "Stone Shovel",
   "advancements.story.craft_stone_shovel.description": "Mine Clay",
 
-        "advancements.story.craft_stone_hoe.title": "Stone Hoe",
-  "advancements.story.craft_stone_hoe.description": "Petrified by Medusa",
+  "advancements.story.craft_stone_hoe.title": "Petrified by Medusa",
+  "advancements.story.craft_stone_hoe.description": "Craft a Stone Hoe",
 
-        "advancements.story.wood.title": "Wood",
+  "advancements.story.wood.title": "Root of the Problem",
   "advancements.story.wood.description": "Chop Logs with your Axe",
-        "advancements.story.harvest_wheat.title": "Harvest Wheat",
-  "advancements.story.harvest_wheat.description": "Seeds are gathered when Plowing Grass",
-        "advancements.story.make_wet_brick.title": "Bricklayer",
-  "advancements.story.make_wet_brick.description": "Placed Under the Sun",
 
-        "advancements.story.brick_furnace.title": "Fire in the Hole",
-  "advancements.story.brick_furnace.description": "Craft a Brick Furnace",
-        "advancements.story.clothiest.title": "Clothiest",
-  "advancements.story.clothiest.description": "Knit a Cloth From Wool",
-        "advancements.story.sleeping_bag.title": "Cozy Slumber",
-  "advancements.story.sleeping_bag.description": "Pass Time In a Sleeping Bag",
-        "advancements.story.leather_armor.title": "Tough Fights",
+  "advancements.story.leather_armor.title": "Tough Fights",
   "advancements.story.leather_armor.description": "Craft a Full Set of Leather Armor",
-        "advancements.story.clothes.title": "Flash It In Style",
-  "advancements.story.clothes.description": "Wear Every Type of Garment To Preserve Heat",
-        "advancements.story.torch.title": "Let There Be Light",
-  "advancements.story.torch.description": "Light a Torch On Fire",
-        "advancements.story.first_weapon.title": "Attack!",
-  "advancements.story.first_weapon.description": "Fight Back Against the Mobs"
+
+  "advancements.story.mine_iron_ore.title": "Beyond The Scraps",
+  "advancements.story.mine_iron_ore.description": "Chip Yourself Your First Iron",
+
+  "advancements.story.furnace.title": "Fire Up",
+  "advancements.story.furnace.description": "Craft and Place a Furnace",
+
+  "advancements.story.iron_nugget.title": "Acquire Smallware",
+  "advancements.story.iron_nugget.description": "Smelt and Acquire Iron Nuggets"
 }
