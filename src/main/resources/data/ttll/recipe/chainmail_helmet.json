@@ -2,16 +2,14 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "#": "minecraft:stick",
-    "X": "#minecraft:iron_tool_materials"
+    "X": "minecraft:chain"
   },
   "pattern": [
-    "X ",
-    "X#",
-    " #"
+    "XXX",
+    "X X"
   ],
   "result": {
     "count": 1,
-    "id": "minecraft:iron_axe"
+    "id": "minecraft:chainmail_helmet"
   }
 }

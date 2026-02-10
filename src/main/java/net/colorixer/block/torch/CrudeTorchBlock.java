@@ -4,6 +4,7 @@ import net.colorixer.block.ModBlocks;
 import net.colorixer.item.items.FireStarterItem;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.ItemEntity;
@@ -60,19 +61,7 @@ public class CrudeTorchBlock extends Block {
         return super.onBreak(world, pos, state, player);
     }
 
-    // REMOVED onStateReplaced entirely to stop the transformation drop bug.
-    private void handleTorchIgnition(PlayerEntity player, ItemStack stackInHand) {
-        ItemStack burningTorch = new ItemStack(ModBlocks.BURNING_CRUDE_TORCH);
 
-        if (stackInHand.getCount() == 1) {
-            player.setStackInHand(Hand.MAIN_HAND, burningTorch);
-        } else {
-            stackInHand.decrement(1);
-            if (!player.getInventory().insertStack(burningTorch)) {
-                player.dropItem(burningTorch, false);
-            }
-        }
-    }
 
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
@@ -135,17 +124,53 @@ public class CrudeTorchBlock extends Block {
     @Nullable
     @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {
+        World world = ctx.getWorld();
+        BlockPos pos = ctx.getBlockPos();
+        PlayerEntity player = ctx.getPlayer();
+
+        // 1. FORCED INTERCEPTION: Manual Line-of-Sight Scan
+        // Since fire has no hitbox (thanks to Mixins), we must manually check
+        // every block the player is looking through to find invisible fire.
+        if (player != null) {
+            // Raycast out to 5 blocks
+            var hit = player.raycast(5.0, 0.0f, true);
+
+            // Use a BlockIterator or a simple step-through to find fire/lava in the path
+            // We check the 'pos' (where we want to place) and the block we are looking 'at'
+            BlockPos hitPos = new BlockPos((int)hit.getPos().x, (int)hit.getPos().y, (int)hit.getPos().z);
+
+            if (isIgniter(world.getBlockState(hitPos)) || isIgniter(world.getBlockState(pos))) {
+                return null; // Stop the block from placing!
+            }
+        }
+
+        // 2. Existing check: Do not place directly inside Lava or Fire
+        BlockState existingState = world.getBlockState(pos);
+        net.minecraft.fluid.FluidState fluidState = world.getFluidState(pos);
+
+        if (isIgniter(existingState) || !fluidState.isEmpty()) {
+            return null;
+        }
+
+        // --- Standard Placement Logic ---
         if (ctx.getSide() == Direction.UP) {
             BlockState floorState = this.getDefaultState().with(FACING, Direction.UP);
-            if (floorState.canPlaceAt(ctx.getWorld(), ctx.getBlockPos())) return floorState;
+            if (floorState.canPlaceAt(world, pos)) return floorState;
         }
+
         for (Direction direction : ctx.getPlacementDirections()) {
             if (direction.getAxis().isHorizontal()) {
                 BlockState wallState = this.getDefaultState().with(FACING, direction.getOpposite());
-                if (wallState.canPlaceAt(ctx.getWorld(), ctx.getBlockPos())) return wallState;
+                if (wallState.canPlaceAt(world, pos)) return wallState;
             }
         }
+
         return null;
+    }
+
+    // Keep a helper for consistency
+    private boolean isIgniter(BlockState state) {
+        return state.isOf(Blocks.LAVA) || state.isOf(Blocks.FIRE) || state.isOf(Blocks.SOUL_FIRE);
     }
 
     @Override

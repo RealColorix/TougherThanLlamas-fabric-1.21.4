@@ -25,7 +25,7 @@ import java.util.Map;
 
 public class CampfireBlockEntity extends BlockEntity {
     private ItemStack inventory = ItemStack.EMPTY;
-    private float fuel = 4000.0f;
+    private float fuel = 3000.0f;
     private float pendingFuel = 0.0f;
     private int cookTime = 0;
     private int burnTimeCounter = 0;
@@ -166,8 +166,16 @@ public class CampfireBlockEntity extends BlockEntity {
     }
 
     private static final Map<Item, Float> FUEL_VALUES = Util.make(new HashMap<>(), map -> {
-        map.put(Items.STICK, 1000.0f);
-        map.put(ModItems.BRANCH, 2000.0f);
+        map.put(Items.STICK, 150.0f);
+        map.put(ModItems.BRANCH, 150.0f);
+        map.put(ModItems.OAK_FIREWOOD, 750.0f);
+        map.put(ModItems.JUNGLE_FIREWOOD, 750.0f);
+        map.put(ModItems.SPRUCE_FIREWOOD, 750.0f);
+        map.put(ModItems.BIRCH_FIREWOOD, 750.0f);
+        map.put(ModItems.OAK_BARK, 75.0f);
+        map.put(ModItems.JUNGLE_BARK, 75.0f);
+        map.put(ModItems.SPRUCE_BARK, 75.0f);
+        map.put(ModItems.BIRCH_BARK, 75.0f);
     });
 
     public ActionResult onRightClick(PlayerEntity player, Hand hand) {

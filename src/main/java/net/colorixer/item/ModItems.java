@@ -1,6 +1,9 @@
 package net.colorixer.item;
 
 import net.colorixer.TougherThanLlamas;
+import net.colorixer.block.ModBlocks;
+import net.colorixer.block.torch.BurningCrudeTorchItem;
+import net.colorixer.block.torch.CrudeTorchItem;
 import net.colorixer.item.items.*;
 import net.colorixer.item.items.HoeItem;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
@@ -16,7 +19,15 @@ import java.util.function.Function;
 public class ModItems {
 
 
-    //MOLDS AND CASTS
+    //TORCH
+
+    // ModItems.java
+    public static final Item BURNING_CRUDE_TORCH_ITEM = registerItem("burning_crude_torch",
+            settings -> new BurningCrudeTorchItem(ModBlocks.BURNING_CRUDE_TORCH, settings), new Item.Settings());
+
+    public static final Item CRUDE_TORCH_ITEM = registerItem("crude_torch",
+            settings -> new CrudeTorchItem(ModBlocks.CRUDE_TORCH, settings), new Item.Settings());
+
 
 
 

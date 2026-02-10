@@ -46,7 +46,7 @@ public abstract class FoodNutrition {
         }
         if (original == FoodComponents.COOKED_BEEF) {
             return new FoodComponent.Builder()
-                    .nutrition(5)
+                    .nutrition(6)
                     .saturationModifier(0.0F) // 2.5 saturation
                     .build();
         }
@@ -62,7 +62,7 @@ public abstract class FoodNutrition {
 
         if (original == FoodComponents.COOKED_PORKCHOP) {
             return new FoodComponent.Builder()
-                    .nutrition(5)
+                    .nutrition(6)
                     .saturationModifier(0.0F) // 2.5 saturation
                     .build();
         }
@@ -78,7 +78,7 @@ public abstract class FoodNutrition {
 
         if (original == FoodComponents.COOKED_MUTTON) {
             return new FoodComponent.Builder()
-                    .nutrition(4)
+                    .nutrition(5)
                     .saturationModifier(0.0F) // 2 saturation
                     .build();
         }
@@ -94,7 +94,7 @@ public abstract class FoodNutrition {
 
         if (original == FoodComponents.COOKED_CHICKEN) {
             return new FoodComponent.Builder()
-                    .nutrition(4)
+                    .nutrition(5)
                     .saturationModifier(0.0F) // 2 saturation
                     .build();
         }
@@ -103,31 +103,54 @@ public abstract class FoodNutrition {
 
         if (original == FoodComponents.COD) {
             return new FoodComponent.Builder()
-                    .nutrition(1)
+                    .nutrition(2)
                     .saturationModifier(0.0F) // 0.5 saturation
                     .build();
         }
 
         if (original == FoodComponents.COOKED_COD) {
             return new FoodComponent.Builder()
-                    .nutrition(3)
+                    .nutrition(5)
                     .saturationModifier(0.0F) // 1.5 saturation
                     .build();
         }
 
         if (original == FoodComponents.SALMON) {
             return new FoodComponent.Builder()
-                    .nutrition(1)
+                    .nutrition(3)
                     .saturationModifier(0.0F) // 0.5 saturation
                     .build();
         }
 
         if (original == FoodComponents.COOKED_SALMON) {
             return new FoodComponent.Builder()
-                    .nutrition(3)
+                    .nutrition(6)
                     .saturationModifier(0.0F) // 1.5 saturation
                     .build();
         }
+
+        if (original == FoodComponents.MELON_SLICE) {
+            return new FoodComponent.Builder()
+                    .nutrition(1)
+                    .saturationModifier(0.0F) // 1.5 saturation
+                    .build();
+        }
+
+        if (original == FoodComponents.APPLE) {
+            return new FoodComponent.Builder()
+                    .nutrition(2)
+                    .saturationModifier(0.0F) // 1.5 saturation
+                    .build();
+        }
+        if (original == FoodComponents.CARROT) {
+            return new FoodComponent.Builder()
+                    .nutrition(1)
+                    .saturationModifier(0.0F) // 1.5 saturation
+                    .build();
+
+        }
+
+
 
         return original;
     }

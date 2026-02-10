@@ -1,13 +1,18 @@
 package net.colorixer;
 
+import dev.lambdaurora.lambdynlights.LambDynLights;
+import dev.lambdaurora.lambdynlights.api.item.ItemLightSourceManager;
 import net.colorixer.block.ModBlockEntities;
 import net.colorixer.block.ModBlocks;
 import net.colorixer.block.campfire.CampfireBlockEntityRenderer;
 import net.colorixer.block.drying_rack.DryingRackBlockEntityRenderer;
 import net.colorixer.block.furnace.FurnaceBlockEntityRenderer;
+import net.colorixer.block.torch.BurningCrudeTorchItem;
+import net.colorixer.component.ModDataComponentTypes;
 import net.colorixer.entity.ModEntities;
 import net.colorixer.entity.client.SimpleThrownItemRenderer;
 import net.colorixer.entity.spiders.JungleSpiderEntity;
+import net.colorixer.item.ModItems;
 import net.colorixer.mixin.LivingEntityRendererInvoker;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
@@ -24,9 +29,9 @@ import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.client.render.entity.model.SpiderEntityModel;
 import net.minecraft.client.render.entity.state.LivingEntityRenderState;
-import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.biome.GrassColors;
+import org.jetbrains.annotations.NotNull;
 
 public class TougherThanLlamasClient implements ClientModInitializer {
 
@@ -105,71 +110,96 @@ public class TougherThanLlamasClient implements ClientModInitializer {
 				return;
 			}
 
-			// 1. Logic Update (Every Second)
+			// 1. Logic Update
 			if (client.world.getTime() != 0) {
 				float health = client.player.getHealth();
 				int hunger = client.player.getHungerManager().getFoodLevel();
 
+				// Health Tiers (kept your original logic)
+				if (health <= 0f) { currentHealthStatus = "Dead"; healthColor = 0xAA0000; }
+				else if (health < 2.01f) { currentHealthStatus = "Dying"; healthColor = 0xFF5555; }
+				else if (health < 4.01f) { currentHealthStatus = "Crippled"; healthColor = 0xFFAA00; }
+				else if (health < 8.01f) { currentHealthStatus = "Injured"; healthColor = 0xFFFF55; }
+				else if (health < 12.01f) { currentHealthStatus = "Hurt"; healthColor = 0xFFFFFF; }
+				else { currentHealthStatus = ""; }
 
-				if (health <= 0f) {
-					currentHealthStatus = "Dead";
-					healthColor = 0xAA0000; // Dark Red
-				} else if (health < 2.01f) {
-					currentHealthStatus = "Dying";
-					healthColor = 0xFF5555; // Red
-				} else if (health < 4.01f) {
-					currentHealthStatus = "Crippled";
-					healthColor = 0xFFAA00; // Orange
-				} else if (health < 8.01f) {
-					currentHealthStatus = "Injured";
-					healthColor = 0xFFFF55; // Yellow
-				} else if (health < 12.01f) {
-					currentHealthStatus = "Hurt";
-					healthColor = 0xFFFFFF; // White
-				} else {
-					currentHealthStatus = "";
-				}
-
-				// Hunger Tiers & Colors
-				if (hunger < 2.01f) {
-					currentHungerStatus = "Starving";
-					hungerColor = 0xFF5555; // Red
-				} else if (hunger < 4.01f) {
-					currentHungerStatus = "Emaciated";
-					hungerColor = 0xFFAA00; // Orange
-				} else if (hunger < 8.01f) {
-					currentHungerStatus = "Famished";
-					hungerColor = 0xFFFF55; // Yellow
-				} else if (hunger < 12.01f) {
-					currentHungerStatus = "Hungry";
-					hungerColor = 0xFFFFFF; // White
-				} else {
-					currentHungerStatus = "";
-				}
+				// Hunger Tiers (kept your original logic)
+				if (hunger < 2.01f) { currentHungerStatus = "Starving"; hungerColor = 0xFF5555; }
+				else if (hunger < 4.01f) { currentHungerStatus = "Emaciated"; hungerColor = 0xFFAA00; }
+				else if (hunger < 8.01f) { currentHungerStatus = "Famished"; hungerColor = 0xFFFF55; }
+				else if (hunger < 12.01f) { currentHungerStatus = "Hungry"; hungerColor = 0xFFFFFF; }
+				else { currentHungerStatus = ""; }
 			}
-// 2. Dynamic Rendering
+
+			// 2. Dynamic Rendering
+			// 2. Dynamic Rendering
 			int screenWidth = client.getWindow().getScaledWidth();
 			int screenHeight = client.getWindow().getScaledHeight();
 			int centerX = screenWidth / 2;
 
-			// Render Health Status (Above HP Bar - Left Aligned)
-			if (!currentHealthStatus.isEmpty()) {
-				int x = centerX - 91;
-				// Offset upward if player has Armor OR Absorption hearts (which create a second row)
-				boolean hasExtraRow = client.player.getArmor() > 0 || client.player.getAbsorptionAmount() > 0;
-				int y = screenHeight - 49 - (hasExtraRow ? 10 : 0);
+// --- STEP 1: Determine Health Status Position ---
+			int healthStatusX = centerX - 91;
+			boolean hasExtraRow = client.player.getArmor() > 0 || client.player.getAbsorptionAmount() > 0;
+			int healthY = screenHeight - 49 - (hasExtraRow ? 10 : 0);
 
-				drawContext.drawTextWithShadow(client.textRenderer, currentHealthStatus, x, y, healthColor);
+// Render Health Status if it exists
+			if (!currentHealthStatus.isEmpty()) {
+				drawContext.drawTextWithShadow(client.textRenderer, currentHealthStatus, healthStatusX, healthY, healthColor);
 			}
 
-			// Render Hunger Status (Above Hunger Bar - Right Aligned)
+// --- STEP 2: Render Gloom Status (Pushed by Health Status) ---
+			if (net.colorixer.util.GloomHelper.gloomLevel > 0.05f) {
+				String gloomText = "Gloom";
+				int gloomColor = 0xFFFFFF;
+				int ticks = net.colorixer.util.GloomHelper.gloomTicks;
+
+				// Get current TPS to keep timing consistent
+				float tps = client.world.getTickManager().getTickRate();
+				int dreadThreshold = (int)(60 * tps);  // 1 minute
+				int terrorThreshold = (int)(120 * tps); // 2 minutes
+				int maxFadeThreshold = (int)(60 * tps); // 1 minute fade duration
+
+				// Logic for Stage Names and Colors
+				if (ticks <= dreadThreshold) {
+					gloomText = "Gloom";
+					gloomColor = 0xFFFFFF;
+				} else if (ticks <= terrorThreshold) {
+					gloomText = "Dread";
+					gloomColor = 0xFFFF55;
+				} else {
+					gloomText = "Terror";
+					float fadeProgress = Math.min(1.0f, (float)(ticks - terrorThreshold) / maxFadeThreshold);
+					int r = (int) (255 - (85 * fadeProgress));
+					int g = (int) (85 - (85 * fadeProgress));
+					int b = (int) (85 - (85 * fadeProgress));
+					gloomColor = (r << 16) | (g << 8) | b;
+				}
+
+				// --- CALCULATE DYNAMIC X OFFSET ---
+				// Added +1 to fix the "too far left" alignment issue
+				int gloomX = healthStatusX + 1;
+
+				if (!currentHealthStatus.isEmpty()) {
+					String separator = " & ";
+					int healthWidth = client.textRenderer.getWidth(currentHealthStatus);
+
+					// Draw separator exactly after the health status width
+					drawContext.drawTextWithShadow(client.textRenderer, separator, healthStatusX + healthWidth, healthY, 0xAAAAAA);
+
+					// Shift the gloom text to start after the health status AND the separator
+					gloomX = healthStatusX + healthWidth + client.textRenderer.getWidth(separator);
+				}
+
+				// Finally, draw the Gloom text
+				drawContext.drawTextWithShadow(client.textRenderer, gloomText, gloomX, healthY, gloomColor);
+			}
+
+// --- STEP 3: Render Hunger Status (Stays alone on the right) ---
 			if (!currentHungerStatus.isEmpty()) {
 				int textWidth = client.textRenderer.getWidth(currentHungerStatus);
 				int x = (centerX + 91) - textWidth;
-				// Offset upward if player is underwater (bubbles) or riding an entity (mount health)
 				boolean hasRightExtraRow = client.player.getAir() < client.player.getMaxAir() || client.player.getVehicle() != null;
 				int y = screenHeight - 49 - (hasRightExtraRow ? 10 : 0);
-
 				drawContext.drawTextWithShadow(client.textRenderer, currentHungerStatus, x, y, hungerColor);
 			}
 		});

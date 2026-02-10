@@ -12,6 +12,7 @@ import net.colorixer.block.logs.TrunkBlock;
 import net.colorixer.block.torch.BurningCrudeTorchBlock;
 import net.colorixer.block.torch.BurningCrudeTorchItem;
 import net.colorixer.block.torch.CrudeTorchBlock;
+import net.colorixer.block.torch.CrudeTorchItem;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.NoteBlockInstrument;
@@ -35,7 +36,7 @@ import static net.minecraft.block.Blocks.createLightLevelFromLitBlockState;
 
 public class ModBlocks {
 
-    public static final Block BURNING_CRUDE_TORCH = registerBlockItem("burning_crude_torch",
+    public static final Block BURNING_CRUDE_TORCH = registerBlockNotItem("burning_crude_torch",
             BurningCrudeTorchBlock::new,
             Block.Settings.copy(Blocks.TORCH)
                     .breakInstantly()
@@ -44,9 +45,16 @@ public class ModBlocks {
             (block, settings) -> new BurningCrudeTorchItem(block, settings)
     );
 
-    public static final Block CRUDE_TORCH = registerBlock("crude_torch", CrudeTorchBlock::new, Block.Settings.create()
-            .noCollision().breakInstantly().sounds(BlockSoundGroup.WOOD).pistonBehavior(PistonBehavior.DESTROY));
-
+    public static final Block CRUDE_TORCH = registerBlockNotItem(
+            "crude_torch",
+            CrudeTorchBlock::new,
+            Block.Settings.create()
+                    .noCollision()
+                    .breakInstantly()
+                    .sounds(BlockSoundGroup.WOOD)
+                    .pistonBehavior(PistonBehavior.DESTROY),
+            (block, itemSettings) -> new CrudeTorchItem(block, itemSettings) // This is your 4th argument
+    );
 
 
     public static final Block COBWEB_FUll = registerBlock(
@@ -251,23 +259,23 @@ public class ModBlocks {
         return block;
     }
 
-    private static Block registerBlockItem(String path,
+    private static Block registerBlockNotItem(String path,
                                            Function<AbstractBlock.Settings, Block> factory,
                                            AbstractBlock.Settings settings,
                                            BiFunction<Block, Item.Settings, Item> itemFactory) {
 
         final Identifier identifier = Identifier.of("ttll", path);
         final RegistryKey<Block> registryKey = RegistryKey.of(RegistryKeys.BLOCK, identifier);
-        final RegistryKey<Item> itemKey = RegistryKey.of(RegistryKeys.ITEM, identifier);
 
         // 1. Register the Block
         final Block block = Blocks.register(registryKey, factory, settings);
 
-        // 2. Register the Item using the lambda you passed: (block, settings) -> new BurningCrudeTorchItem(...)
-        Items.register(itemKey, (itemSettings) -> itemFactory.apply(block, itemSettings));
+        // Skip registering the item entirely
+        // Items.register(itemKey, (itemSettings) -> itemFactory.apply(block, itemSettings));
 
         return block;
     }
+
 
     public static void registerModBlocks() {
         TougherThanLlamas.LOGGER.info("Registering Mod Blocks for " + TougherThanLlamas.MOD_ID);

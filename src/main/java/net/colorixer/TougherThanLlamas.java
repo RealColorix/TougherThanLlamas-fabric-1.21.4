@@ -13,6 +13,7 @@ import net.colorixer.item.ModItems;
 import net.colorixer.player.Chopable;
 import net.colorixer.recipe.ModRecipeSerializers;
 import net.colorixer.sounds.ModSounds;
+import net.colorixer.util.GloomHelper;
 import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
@@ -25,10 +26,7 @@ import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.SlabType;
 import net.minecraft.entity.*;
-import net.minecraft.entity.attribute.EntityAttributeInstance;
-import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.HostileEntity;
-import net.minecraft.registry.tag.BiomeTags;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
@@ -79,6 +77,8 @@ public class TougherThanLlamas implements ModInitializer {
 
 
 
+
+
 		FabricDefaultAttributeRegistry.register(ModEntities.JUNGLE_SPIDER, JungleSpiderEntity.createJungleSpiderAttributes());
 
 
@@ -110,7 +110,12 @@ public class TougherThanLlamas implements ModInitializer {
 				}
 		);
 
-
+		// If using Fabric API
+		ServerTickEvents.END_SERVER_TICK.register(server -> {
+			for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
+				GloomHelper.updateGloom(player);
+			}
+		});
 
 
 

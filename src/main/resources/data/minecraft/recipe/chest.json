@@ -2,11 +2,12 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": "#minecraft:planks"
+    "#": "#minecraft:planks",
+    "I": "minecraft:iron_ingot"
   },
   "pattern": [
     "###",
-    "# #",
+    "#I#",
     "###"
   ],
   "result": {

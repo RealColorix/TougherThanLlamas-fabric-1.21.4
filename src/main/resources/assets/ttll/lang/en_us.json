@@ -114,14 +114,19 @@
   "block.ttll.birch_bottom_log_chiseled": "Chiseled Birch Log Stem",
   "block.ttll.oak_bottom_log_crafting_table": "Oak Crafting Table",
   "block.ttll.birch_bottom_log_crafting_table": "Birch Crafting Table",
-
   "item.ttll.burning_crude_torch": "Burning Crude Torch",
-  "block.ttll.crude_torch": "Crude Torch",
+  "item.ttll.crude_torch": "Crude Torch",
 
   "entity.ttll.jungle_spider": "Jungle Spider",
 
   "options.gamma.normal": "Hardcore Darkness",
   "mixins.seedfinder.title": "Searching For Seeds",
+
+
+  "death.attack.the_dark_force": "%1$s was killed by The Dark Force",
+  "death.attack.the_dark_force.item": "%1$s was killed by The Dark Force using %2$s",
+
+  "tooltip.ttll.weight": "+%1$s Weight",
 
   "advancements.story.vicinity_crafting_table.need_description":    "§cCold Cutter Needed",
   "advancements.story.knitt_wool.need_description":     "§cPoint Taken Needed",

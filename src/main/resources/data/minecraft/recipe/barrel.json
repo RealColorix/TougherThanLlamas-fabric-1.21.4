@@ -3,11 +3,12 @@
   "category": "misc",
   "key": {
     "P": "#minecraft:planks",
-    "S": "#minecraft:wooden_slabs"
+    "S": "#minecraft:wooden_slabs",
+    "I": "minecraft:iron_nugget"
   },
   "pattern": [
     "PSP",
-    "P P",
+    "IPI",
     "PSP"
   ],
   "result": {

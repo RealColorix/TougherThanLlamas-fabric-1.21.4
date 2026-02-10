@@ -47,6 +47,15 @@ public abstract class ReducedMiningSpeed {
         int hunger = player.getHungerManager().getFoodLevel();
         float penaltyMultiplier = 1.0f;
 
+        if (net.colorixer.util.GloomHelper.gloomLevel > 0.05f) {
+            penaltyMultiplier *= 0.5f;
+        }
+
+        int armorWeight = ((net.colorixer.access.PlayerArmorWeightAccessor) player).ttll$getArmorWeight();
+
+        // 0.75% slow per weight point
+        float armorMultiplier = 1.0f - (armorWeight * 0.0075f);
+
         // Health Tiers: 15, 10, 5
         if (health <= 12.1) penaltyMultiplier *= 0.875f;
         if (health <= 8.1) penaltyMultiplier *= 0.75f;
@@ -59,7 +68,7 @@ public abstract class ReducedMiningSpeed {
         if (hunger <= 4.1)  penaltyMultiplier *= 0.7f;
         if (hunger <= 2.1)  penaltyMultiplier *= 0.6f;
         // Combine the base 0.4 with the calculated penalties
-        float finalSpeedMod = baseSpeedMod * penaltyMultiplier;
+        float finalSpeedMod = baseSpeedMod * penaltyMultiplier * armorMultiplier;
         /* ============================= */
         /*   SPECIAL TOOL RULES          */
         /* ============================= */
@@ -121,13 +130,13 @@ public abstract class ReducedMiningSpeed {
 
             // Wrong tool entirely
             if (!correctToolType && !EXCEPTION_BLOCKS.contains(blockState.getBlock())) {
-                cir.setReturnValue(originalSpeed * 0.01f);
+                cir.setReturnValue(originalSpeed *finalSpeedMod* 0.01f);
                 return;
             }
 
             // Correct tool type but tier too low
             if (correctToolType && !toolMeetsTierRequirement(tool, blockState)) {
-                cir.setReturnValue(originalSpeed * 0.04f);
+                cir.setReturnValue(originalSpeed *finalSpeedMod* 0.04f);
                 return;
             }
         }

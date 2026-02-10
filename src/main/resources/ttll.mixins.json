@@ -69,7 +69,15 @@
 		"PlayerActionExhaustionMixin",
 		"LivingEntityExhaustionMixin",
 		"HungerJitterHudMixin",
-		"HungerManagerAccessor"
+		"HungerManagerAccessor",
+		"Gloom",
+		"ItemEntityMixin",
+		"FireBlockMixin",
+		"AbstractFireBlockMixin",
+		"FireChargeMixin",
+		"FlintAndSteelMixin",
+		"PlayerArmorWeight",
+		"ArmorTooltipMixin"
 
 	],
 	"injectors": {

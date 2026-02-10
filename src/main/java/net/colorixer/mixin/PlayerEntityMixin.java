@@ -1,20 +1,17 @@
 package net.colorixer.mixin;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
-import net.colorixer.sounds.ModSounds;
+import net.colorixer.access.PlayerArmorWeightAccessor;
 import net.colorixer.util.IdentifierUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
@@ -38,6 +35,8 @@ public abstract class PlayerEntityMixin {
     @Unique
     private static final TagKey<Block> FOLIAGE_SLOWERS = TagKey.of(RegistryKeys.BLOCK, IdentifierUtil.createIdentifier("ttll", "foliageslowers"));
 
+
+
     // This stores the last block's penalty so it carries into your jump
     @Unique
     private float lastTerrainMultiplier = 1.0f;
@@ -53,12 +52,27 @@ public abstract class PlayerEntityMixin {
                 .add(EntityAttributes.FALL_DAMAGE_MULTIPLIER, 1.5D);
     }
 
+
+
     @Inject(method = "getMovementSpeed", at = @At("RETURN"), cancellable = true)
     private void ttll$applyDynamicSpeed(CallbackInfoReturnable<Float> cir) {
         PlayerEntity player = (PlayerEntity) (Object) this;
         if (player.isCreative() || player.isSpectator()) return;
 
-        // --- 1. HEALTH & HUNGER PENALTY (EXACTLY AS YOU WROTE IT) ---
+        int armorWeight = ((PlayerArmorWeightAccessor) player)
+                .ttll$getArmorWeight();
+
+        /*
+         * 0.1% slow per weight
+         * 1 weight = 0.001 speed reduction
+         */
+        float armorMultiplier = 1.0f - (armorWeight * 0.015f);
+
+// hard floor so speed never collapses
+        armorMultiplier = MathHelper.clamp(armorMultiplier, 0.7f, 1.0f);
+
+
+        // --- 1. HEALTH & HUNGER PENALTY ---
         float healthRatio = player.getHealth() / player.getMaxHealth();
         float hungerRatio = player.getHungerManager().getFoodLevel() / 20.0f;
 
@@ -78,10 +92,16 @@ public abstract class PlayerEntityMixin {
             hungerMultiplier = 0.1f + 0.7f * lowRange * lowRange;
         }
 
-        float statsMultiplier = healthMultiplier * hungerMultiplier;
+        // --- 2. GLOOM PENALTY (NEW) ---
+        // If player is fumbling in the dark, apply a 0.5x speed multiplier
+        float gloomMultiplier = 1.0f;
+        if (net.colorixer.util.GloomHelper.gloomLevel > 0.05f) {
+            gloomMultiplier = 0.5f;
+        }
 
-        // --- 2. TERRAIN PENALTY (PERSISTENT) ---
-        // We only update this when on the ground so the "slow" stays during jumps
+        float statsMultiplier = healthMultiplier * hungerMultiplier * gloomMultiplier;
+
+        // --- 3. TERRAIN PENALTY (PERSISTENT) ---
         if (player.isOnGround()) {
             float terrainMultiplier = 1.0f;
             BlockState floorState = player.getSteppingBlockState();
@@ -96,7 +116,7 @@ public abstract class PlayerEntityMixin {
             this.lastTerrainMultiplier = terrainMultiplier;
         }
 
-        // --- 3. FOLIAGE PENALTY (EXACTLY AS YOU WROTE IT) ---
+        // --- 4. FOLIAGE PENALTY ---
         boolean inFoliage = false;
         Box feetBox = player.getBoundingBox().offset(0.0, -0.1, 0.0);
 
@@ -132,14 +152,13 @@ public abstract class PlayerEntityMixin {
 
         float currentFoliageMultiplier = inFoliage ? 0.66f : 1.0f;
 
-        // --- 4. FINAL COMBINATION ---
+        // --- 5. FINAL COMBINATION ---
         float originalSpeed = cir.getReturnValue();
-        float totalMultiplier = statsMultiplier * lastTerrainMultiplier * currentFoliageMultiplier;
+        float totalMultiplier = statsMultiplier * lastTerrainMultiplier * currentFoliageMultiplier * armorMultiplier;
 
         cir.setReturnValue(originalSpeed * totalMultiplier);
 
-        // --- 5. THE AIR FIX ---
-        // This ensures the slowness applies to your momentum while jumping/falling
+        // --- 6. THE AIR FIX ---
         if (!player.isOnGround() && !player.getAbilities().flying) {
             player.setVelocity(player.getVelocity().multiply(totalMultiplier, 1.0, totalMultiplier));
         }

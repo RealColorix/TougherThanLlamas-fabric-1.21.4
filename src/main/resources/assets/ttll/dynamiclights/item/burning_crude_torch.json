@@ -1,0 +1,11 @@
+{
+  "match": {
+    "items": [
+      "ttll:burning_crude_torch"
+    ]
+  },
+  "luminance": {
+    "type": "block_self"
+  },
+  "water_sensitive": true
+}

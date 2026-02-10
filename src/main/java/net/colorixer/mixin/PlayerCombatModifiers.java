@@ -1,9 +1,12 @@
 package net.colorixer.mixin;
 
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
+import net.colorixer.access.PlayerArmorWeightAccessor;
 import net.colorixer.item.ModItems;
 import net.colorixer.sounds.ModSounds;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
@@ -17,6 +20,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -44,6 +48,33 @@ public abstract class PlayerCombatModifiers {
         KNOCKBACK_MULTIPLIERS.put(Items.DIAMOND_SWORD, 1.0);
         KNOCKBACK_MULTIPLIERS.put(Items.NETHERITE_SWORD, 1.1);
         initialized = true;
+    }
+
+    @Inject(
+            method = "computeFallDamage(FF)I",
+            at = @At("HEAD"),
+            cancellable = true
+    )
+    private void ttll$applyWeightToFallDamage(float fallDistance, float damageMultiplier, CallbackInfoReturnable<Integer> cir) {
+        // Only run for players
+        if ((Object)this instanceof PlayerEntity player) {
+
+            // 1. Get the base damage multiplier attribute (the 1.5x you set in defaults)
+            float baseMultiplier = (float) player.getAttributeValue(EntityAttributes.FALL_DAMAGE_MULTIPLIER);
+
+            // 2. Get the weight from your accessor
+            int armorWeight = ((PlayerArmorWeightAccessor) player).ttll$getArmorWeight();
+
+
+            float finalWeightMultiplier = baseMultiplier + (armorWeight * 0.075f);
+
+            // 4. Calculate exactly how Minecraft does it, but with our new multiplier
+            float safeDistance = (float) player.getAttributeValue(EntityAttributes.SAFE_FALL_DISTANCE);
+            float damageAmount = (fallDistance - safeDistance) * finalWeightMultiplier;
+
+            // Return the final damage (rounded up like vanilla)
+            cir.setReturnValue(Math.max(0, Math.round(damageAmount)));
+        }
     }
 
     @Unique

@@ -113,8 +113,12 @@ public abstract class HungerHeatManager {
     /* PASSIVE BIOME DRAIN     */
     /* ========================= */
 
-    private static final float MIN_EXHAUSTION = 0.0013f;
-    private static final float MAX_EXHAUSTION = 0.0017f;
+    /* ========================= */
+    /* PASSIVE BIOME DRAIN     */
+    /* ========================= */
+
+    private static final float MIN_EXHAUSTION = 0.0018f;
+    private static final float MAX_EXHAUSTION = 0.0026f;
     private static final float IDEAL_TEMP = 0.8f;
     private static final float EXTREME_TEMP_DISTANCE = 0.8f;
 
@@ -138,13 +142,25 @@ public abstract class HungerHeatManager {
                 1.0F
         );
 
+        // Base exhaustion based on how far the biome is from the "Ideal" temperature
         float exhaustionPerTick = MathHelper.lerp(
                 normalized,
                 MIN_EXHAUSTION,
                 MAX_EXHAUSTION
         );
 
-        addExhaustion(exhaustionPerTick);
+        /* ============================= */
+        /* APPLY ARMOR WEIGHT PENALTY    */
+        /* ============================= */
+
+        // 1. Get the weight using your custom Accessor
+        int armorWeight = ((net.colorixer.access.PlayerArmorWeightAccessor) player).ttll$getArmorWeight();
+
+        // 2. Calculate the multiplier (1.5% per point, same as your speed mixin)
+        float weightMultiplier = 1.0f + (armorWeight * 0.015f);
+
+        // 3. Apply the multiplier to make the passive drain faster
+        addExhaustion(exhaustionPerTick * weightMultiplier);
     }
 
 
