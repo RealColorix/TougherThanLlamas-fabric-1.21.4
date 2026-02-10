@@ -60,7 +60,16 @@
 		"AdvancementPositionerMixin",
 		"AdvancementWidgetAccessor",
 		"AdvancementPositionerChange",
-		"AdvancementPositionerAccessor"
+		"AdvancementPositionerAccessor",
+		"RecipeToastMixin",
+		"LivingEntityRendererInvoker",
+		"LandPathNodeMakerMixin",
+		"GlobalSunMixin",
+		"BoggedSpawnMixin",
+		"PlayerActionExhaustionMixin",
+		"LivingEntityExhaustionMixin",
+		"HungerJitterHudMixin",
+		"HungerManagerAccessor"
 
 	],
 	"injectors": {

@@ -104,6 +104,7 @@
   "block.ttll.bedstone_copper_ore": "Bedstone Copper Ore",
   "block.ttll.bedstone_coal_ore": "Bedstone Coal Ore",
   "block.ttll.furnace": "Furnace",
+  "block.ttll.campfire": "Campfire",
   "block.ttll.loose_cobblestone": "Loose Cobblestone",
   "block.ttll.loose_cobblestone_slab": "Loose Cobblestone Slab",
   "block.ttll.grass_slab": "Grassy Dirt Pile",
@@ -117,20 +118,27 @@
   "item.ttll.burning_crude_torch": "Burning Crude Torch",
   "block.ttll.crude_torch": "Crude Torch",
 
+  "entity.ttll.jungle_spider": "Jungle Spider",
 
   "options.gamma.normal": "Hardcore Darkness",
   "mixins.seedfinder.title": "Searching For Seeds",
 
-
+  "advancements.story.vicinity_crafting_table.need_description":    "§cCold Cutter Needed",
   "advancements.story.knitt_wool.need_description":     "§cPoint Taken Needed",
   "advancements.story.iron_nugget.need_description":     "§cFurnace Required",
-  "advancements.story.leather_armor.need_description":  "§cMonster Hunter\nNeeded",
+  "advancements.story.leather_armor.need_description":  "§cWork With What You\n Got Needed",
   "advancements.story.acquire_sinew.need_description":  "§cTendon Heavy Meat\nNeeded",
   "advancements.story.unknown.need_description": "§c??? Needed",
 
 
   "advancements.story.guide.title": "Guide",
-  "advancements.story.guide.description": "§aIn Progress\n§cOther Advancement Needed\n§8Content not yet Known",
+  "advancements.story.guide.description": "§aIn Advancement Line\n§bIn Progression\n§cOther Advancement Needed\n§8Content not yet Known",
+
+  "advancements.story.vicinity_crafting_table.title": "Work With What You Got",
+  "advancements.story.vicinity_crafting_table.description": "Carv Out a Crafting Table From A Stump",
+
+  "advancements.story.iron_chisel.title": "Cold Cutter",
+  "advancements.story.iron_chisel.description": "Combine Four Iron Nuggets",
 
   "advancements.story.destroy_leaves.title": "Leaf It Alone",
   "advancements.story.destroy_leaves.description": "Destroy Leaves",

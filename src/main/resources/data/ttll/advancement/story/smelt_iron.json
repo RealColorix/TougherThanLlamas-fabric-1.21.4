@@ -1,5 +1,5 @@
 {
-  "parent": "ttll:story/sharp_rock",
+  "parent": "ttll:story/vicinity_crafting_table",
   "criteria": {
     "iron": {
       "conditions": {

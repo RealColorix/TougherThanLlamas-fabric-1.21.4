@@ -20,7 +20,7 @@
       "trigger": "ttll:in_vicinity",
       "conditions": {
         "block": {
-          "blocks": "minecraft:campfire",
+          "blocks": "ttll:campfire",
           "state": {
             "lit": "true"
           }

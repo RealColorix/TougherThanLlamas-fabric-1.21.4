@@ -328,6 +328,7 @@
     },
     "frame": "challenge",
     "show_toast": true,
+    "announce_to_chat": false,
     "icon": {
       "count": 1,
       "id": "minecraft:apple"

@@ -88,21 +88,12 @@ public class BurningCrudeTorchBlock extends Block implements BlockEntityProvider
     public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
         super.onPlaced(world, pos, state, placer, itemStack);
         if (world.getBlockEntity(pos) instanceof BurningCrudeTorchBlockEntity be) {
-            int minutesUsed = itemStack.getDamage();
-            long nextMinuteTarget = itemStack.getOrDefault(ModDataComponentTypes.FUEL_TIME, 0L);
-
-            long ticksLeftInCurrentMinute = nextMinuteTarget - world.getTime();
-            // Clamp to 0-1200 range
-            ticksLeftInCurrentMinute = Math.max(0, Math.min(1200, ticksLeftInCurrentMinute));
-
-            // Calculation: (Minutes Remaining) * 1200 + (Ticks left in current minute)
-            // If minutesUsed is 0, we have (20-1) full minutes + the ticking minute.
-            int totalRemaining = ((19 - minutesUsed) * 1200) + (int)ticksLeftInCurrentMinute;
-
+            // DIRECT TRANSFER: Just get the ticks from the item and push to block
+            // Default to 24000 if it's a brand new torch
+            int totalRemaining = itemStack.getOrDefault(ModDataComponentTypes.FUEL_TIME, 24000L).intValue();
             be.setBurnTime(totalRemaining);
         }
     }
-
 
     @Override
     public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
@@ -112,19 +103,19 @@ public class BurningCrudeTorchBlock extends Block implements BlockEntityProvider
                 ItemStack stack = new ItemStack(this);
                 int totalTicks = torchBe.getBurnTime();
 
-                // Reconstruct the item data
-                int minutesLeft = totalTicks / 1200;
-                int subTicksLeft = totalTicks % 1200;
+                // 1. Save exact ticks to the component
+                stack.set(ModDataComponentTypes.FUEL_TIME, (long)totalTicks);
 
-                // Damage is based on full minutes lost
-                stack.setDamage(20 - (minutesLeft + 1));
-                // The hidden timestamp is the current world time + the remainder
-                stack.set(ModDataComponentTypes.FUEL_TIME, world.getTime() + subTicksLeft);
+                // 2. Set the visual durability bar
+                // (Max - Remaining) = Damage
+                stack.setDamage(24000 - totalTicks);
 
                 ItemEntity itemEntity = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, stack);
                 itemEntity.setToDefaultPickupDelay();
                 world.spawnEntity(itemEntity);
             }
+            // IMPORTANT: Clear the block entity so the super call doesn't find it
+            world.removeBlockEntity(pos);
             super.onStateReplaced(state, world, pos, newState, moved);
         }
     }

@@ -4,6 +4,7 @@ import com.mojang.serialization.MapCodec;
 import net.colorixer.TougherThanLlamas;
 import net.colorixer.block.brick_block.DriedBrickBlock;
 import net.colorixer.block.brick_block.WetBrickBlock;
+import net.colorixer.block.campfire.CampfireBlock;
 import net.colorixer.block.drying_rack.DryingRackBlock;
 import net.colorixer.block.furnace.FurnaceBlock;
 import net.colorixer.block.logs.StemBlock;
@@ -85,6 +86,22 @@ public class ModBlocks {
                         return 0;
                     }));
 
+    public static final Block CAMPFIRE = registerBlock("campfire", CampfireBlock::new, Block.Settings.create()
+            .mapColor(MapColor.BROWN)
+            .strength(0.3F, 1)
+            .sounds(BlockSoundGroup.WOOD)
+            .nonOpaque()
+            // This is the "Full Bright/15" glow for the texture pixels
+            .emissiveLighting((state, world, pos) -> state.get(CampfireBlock.LIT))
+            .luminance(state -> {
+                // This is the light cast onto the ground (8, 10, 12)
+                return switch (state.get(CampfireBlock.STAGE)) {
+                    case 1 -> 11;
+                    case 2 -> 13;
+                    case 3 -> 15;
+                    default -> 0;
+                };
+            }));
 
 
 
@@ -291,6 +308,7 @@ public class ModBlocks {
             entries.add(ModBlocks.BEDSTONE_IRON_ORE);
             entries.add(ModBlocks.BEDSTONE_COPPER_ORE);
             entries.add(ModBlocks.BEDSTONE_COAL_ORE);
+            entries.add(ModBlocks.CAMPFIRE);
 
         });
     }

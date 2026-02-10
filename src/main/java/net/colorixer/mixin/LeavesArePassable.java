@@ -3,6 +3,7 @@ package net.colorixer.mixin;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.LeavesBlock;
+import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
@@ -20,6 +21,14 @@ public class LeavesArePassable {
     private void makeLeavesNonSolid(BlockState state, BlockView world, BlockPos pos, ShapeContext context, CallbackInfoReturnable<VoxelShape> cir) {
         if (state.getBlock() instanceof LeavesBlock) {
             cir.setReturnValue(VoxelShapes.empty());
+        }
+    }
+
+    @Inject(method = "canPathfindThrough", at = @At("HEAD"), cancellable = true)
+    private void ttll$makeLeavesPassable(BlockState state, NavigationType type, CallbackInfoReturnable<Boolean> cir) {
+        // We target AbstractBlock, but only apply the logic if the block is a LeavesBlock
+        if (state.getBlock() instanceof LeavesBlock) {
+            cir.setReturnValue(true);
         }
     }
 }

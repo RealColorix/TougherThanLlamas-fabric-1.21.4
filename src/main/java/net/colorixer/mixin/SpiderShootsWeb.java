@@ -138,6 +138,8 @@ public abstract class SpiderShootsWeb {
 
     /* ---------------- CUSTOM GOAL CLASS ---------------- */
 
+    /* ---------------- CUSTOM GOAL CLASS ---------------- */
+
     @Unique
     private static class SpiderTargetGoal<T extends LivingEntity> extends ActiveTargetGoal<T> {
         private final SpiderEntity spider;
@@ -149,18 +151,31 @@ public abstract class SpiderShootsWeb {
 
         @Override
         public boolean canStart() {
-            if (this.spider.getAttacker() != null && !this.spider.getAttacker().isAlive()) {
-                this.spider.setAttacker(null);
+            // Priority 1: Revenge (If hit, always agro)
+            if (this.spider.getAttacker() != null && this.spider.getAttacker().isAlive()) {
+                return super.canStart();
             }
+
+            // Priority 2: Cave Spider specific (Always agro regardless of light)
+            if (this.spider instanceof net.minecraft.entity.mob.CaveSpiderEntity) {
+                return super.canStart();
+            }
+
+            // Priority 3: Normal Spider (Only agro in the dark)
             float brightness = this.spider.getBrightnessAtEyes();
-            return (brightness < 0.5F || this.spider.getAttacker() != null) && super.canStart();
+            return brightness < 0.5F && super.canStart();
         }
 
         @Override
         public boolean shouldContinue() {
-            LivingEntity target = this.spider.getTarget();
-            if (target != null && !target.isAlive()) {
-                this.spider.setAttacker(null);
+            // Cave spiders never stop chasing just because the sun came out
+            if (this.spider instanceof net.minecraft.entity.mob.CaveSpiderEntity) {
+                return super.shouldContinue();
+            }
+
+            // Normal spiders lose interest in daylight unless they've been hit
+            float brightness = this.spider.getBrightnessAtEyes();
+            if (brightness >= 0.5F && this.spider.getAttacker() == null) {
                 return false;
             }
             return super.shouldContinue();

@@ -2,10 +2,13 @@ package net.colorixer;
 
 import net.colorixer.block.ModBlockEntities;
 import net.colorixer.block.ModBlocks;
+import net.colorixer.block.campfire.CampfireBlockEntityRenderer;
 import net.colorixer.block.drying_rack.DryingRackBlockEntityRenderer;
 import net.colorixer.block.furnace.FurnaceBlockEntityRenderer;
 import net.colorixer.entity.ModEntities;
 import net.colorixer.entity.client.SimpleThrownItemRenderer;
+import net.colorixer.entity.spiders.JungleSpiderEntity;
+import net.colorixer.mixin.LivingEntityRendererInvoker;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
@@ -17,7 +20,12 @@ import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
+import net.minecraft.client.render.entity.MobEntityRenderer;
+import net.minecraft.client.render.entity.model.EntityModelLayers;
+import net.minecraft.client.render.entity.model.SpiderEntityModel;
+import net.minecraft.client.render.entity.state.LivingEntityRenderState;
 import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.biome.GrassColors;
 
 public class TougherThanLlamasClient implements ClientModInitializer {
@@ -38,6 +46,33 @@ public class TougherThanLlamasClient implements ClientModInitializer {
 
 
 
+		EntityRendererRegistry.register(ModEntities.JUNGLE_SPIDER, (context) -> {
+			var renderer = new MobEntityRenderer<JungleSpiderEntity, LivingEntityRenderState, SpiderEntityModel>(
+					context,
+					new SpiderEntityModel(context.getPart(EntityModelLayers.CAVE_SPIDER)),
+					0.4f
+			) {
+				@Override
+				public LivingEntityRenderState createRenderState() {
+					return new LivingEntityRenderState();
+				}
+
+				@Override
+				public Identifier getTexture(LivingEntityRenderState state) {
+					return Identifier.of("ttll", "textures/entity/spider/jungle_spider.png");
+				}
+			};
+
+			// Use the Invoker to bypass the 'protected' access
+			// Cast to Object first, then to your Invoker
+			((LivingEntityRendererInvoker) (Object) renderer).callAddFeature(
+					new net.minecraft.client.render.entity.feature.SpiderEyesFeatureRenderer<>(renderer)
+			);
+
+			return renderer;
+		});
+
+
 
 // For the Block
 		ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> {
@@ -55,17 +90,14 @@ public class TougherThanLlamasClient implements ClientModInitializer {
 
 
 		EntityRendererRegistry.register(ModEntities.COBWEB_PROJECTILE, SimpleThrownItemRenderer::new);
-
 		BlockEntityRendererFactories.register(ModBlockEntities.FURNACEBLOCKENTITY, FurnaceBlockEntityRenderer::new);
-
+		BlockEntityRendererFactories.register(ModBlockEntities.CAMPFIREBLOCKENTITY, CampfireBlockEntityRenderer::new);
 		BlockEntityRendererRegistry.register(ModBlockEntities.DRYING_RACK_BLOCK_ENTITY, DryingRackBlockEntityRenderer::new);
 
-
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.COBWEB_FUll, RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.CAMPFIRE, RenderLayer.getCutout());
 		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.GRASS_SLAB, RenderLayer.getCutoutMipped());
-		BlockRenderLayerMap.INSTANCE.putBlock(
-				ModBlocks.FURNACE,
-				RenderLayer.getCutout()
-		);
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.FURNACE, RenderLayer.getCutout());
 
 		HudRenderCallback.EVENT.register((drawContext, renderTickCounter) -> {
 			MinecraftClient client = MinecraftClient.getInstance();

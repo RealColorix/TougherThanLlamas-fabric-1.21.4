@@ -32,7 +32,7 @@ public class CantPlaceSpecificConditions {
 
                 // 2. Kontroll för hälsa och hunger (<= 2.1)
                 // 2.1 i hälsa motsvarar drygt ett hjärta.
-                if (player.getHealth() <= 2.01f || player.getHungerManager().getFoodLevel() <= 2.01f) {
+                if (player.getHealth() <= 2.01f || player.getHungerManager().getFoodLevel() <= 0.01f) {
                     cir.setReturnValue(ActionResult.FAIL);
                 }
             }

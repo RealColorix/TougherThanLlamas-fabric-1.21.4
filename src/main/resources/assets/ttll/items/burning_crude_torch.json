@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "ttll:item/burning_crude_torch"
+    "model": "ttll:block/burning_crude_torch"
   }
 }

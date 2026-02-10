@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "ttll:item/campfire"
+    "model": "ttll:block/campfire_0"
   }
 }

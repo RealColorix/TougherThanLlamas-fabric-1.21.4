@@ -38,15 +38,30 @@ public abstract class AdvancementWidgetMixin {
     @Shadow @Final private List<AdvancementWidget> children;
     @Shadow @Final private int x;
     @Shadow @Final private int y;
-
+    @Shadow @Final private AdvancementDisplay display;
     private static final Set<String> Z_SHAPE_IDS = Set.of(
-            "ttll:story/kill_a_monster",
+            "ttll:story/kill_all_monsters",
             "ttll:story/knitt_wool",
             "ttll:story/eat_food",
             "ttll:story/drying_rack",
             "ttll:story/acquire_leather",
             "ttll:story:vicinity_gravel",
-            "ttll:story:vicinity_stone"
+            "ttll:story:vicinity_stone",
+            "ttll:story/leather_armor",
+            "ttll:story/acquire_flint",
+            "ttll:story/furnace",
+            "ttll:story/campfire_cooking",
+            "ttll:story/smelt_iron",
+            "ttll:story/iron_nugget"
+    );
+
+    @Unique
+    private static final Map<String, String> GATES = Map.of(
+            "ttll:story/leather_armor", "ttll:story/vicinity_crafting_table",
+            "ttll:story/knitt_wool", "ttll:story/acquire_pointy_stick",
+            "ttll:story/acquire_sinew", "ttll:story/helper_kill_cow_or_horse",
+            "ttll:story/iron_nugget", "ttll:story/furnace",
+            "ttll:story/vicinity_crafting_table", "ttll:story/iron_chisel"
     );
 
     /**
@@ -63,18 +78,23 @@ public abstract class AdvancementWidgetMixin {
 
     /**
      * @author YourName
-     *      * @reason
-     * We iterate 5 times to ensure the stacking order:
-     * Yellow on top, then Green, then White, then Gray, then Red at the bottom.
+     * @reason Multi-pass rendering for the entire tree to ensure Yellow stacks on top.
      */
     @Overwrite
     public void renderLines(DrawContext context, int x, int y, boolean border) {
         for (int priority = 1; priority <= 5; priority++) {
-            renderPriorityLayer(context, x, y, border, priority);
+            renderFullTreeLayer(context, x, y, border, priority);
         }
+    }
 
+    @Unique
+    private void renderFullTreeLayer(DrawContext context, int x, int y, boolean border, int currentPriority) {
+        // 1. Render this specific widget's layer if it matches the current priority
+        renderPriorityLayer(context, x, y, border, currentPriority);
+
+        // 2. Recursively force all children to draw ONLY their version of this priority layer
         for (AdvancementWidget child : this.children) {
-            child.renderLines(context, x, y, border);
+            ((AdvancementWidgetMixin)(Object)child).renderFullTreeLayer(context, x, y, border, currentPriority);
         }
     }
 
@@ -85,32 +105,64 @@ public abstract class AdvancementWidgetMixin {
             boolean childDone = this.progress != null && this.progress.isDone();
             boolean pathUntilParentDone = isPathToRootDone(this.parent);
 
+            // Check if this specific node is a "Blue" challenge (started but not finished)
+            boolean isBlueChallenge = !childDone &&
+                    this.display.getFrame() == net.minecraft.advancement.AdvancementFrame.CHALLENGE &&
+                    this.progress != null && this.progress.isAnyObtained();
+
+            // LOOK AHEAD logic remains the same
+            boolean leadsToVisibleNode = false;
+            for (AdvancementWidget child : this.children) {
+                AdvancementWidgetMixin childMixin = (AdvancementWidgetMixin)(Object)child;
+                int childTier = childMixin.getObfuscationTier();
+                if (childTier == 7 || childTier == 3 || childTier == 0) {
+                    leadsToVisibleNode = true;
+                    break;
+                }
+                if (isAnyDescendantStarted(childMixin.advancement)) {
+                    leadsToVisibleNode = true;
+                    break;
+                }
+            }
+
             int linePriority;
             int color;
 
-            // Determine Priority and Color
             if (childDone && pathUntilParentDone) {
-                linePriority = 5; // YELLOW (TOP)
+                linePriority = 5; // YELLOW
                 color = 0xFFB98F2C;
-            } else if (pathUntilParentDone) {
-                linePriority = 4; // GREEN
-                color = 0xFF51A64F;
-            } else if (isNearProgress()) {
+            }
+            // FIX: Only allow Green/Blue if the path is done AND the current node isn't a hard gate
+            else if (pathUntilParentDone && tier != 5 && tier != 6) {
+                if (isBlueChallenge) {
+                    linePriority = 4; // BLUE
+                    color = 0xFF036A96;
+                } else {
+                    linePriority = 4; // GREEN
+                    color = 0xFF51A64F;
+                }
+            }
+            // Red check now correctly captures Tiers 5 and 6
+            else if (tier == 5 || tier == 6) {
+                linePriority = 1; // RED
+                color = 0xFF6B2828;
+            }
+            else if (isNearProgress() || leadsToVisibleNode) {
                 linePriority = 3; // WHITE
                 color = 0xFFFFFFFF;
-            } else if (tier == 5 || tier == 6) {
-                linePriority = 1; // RED (BOTTOM)
-                color = 0xFF6B2828;
-            } else {
+            }
+            else {
                 linePriority = 2; // GRAY
                 color = 0xFF8A8A8A;
             }
 
-            // Only draw if this pass matches the line's priority
             if (linePriority == currentPriority) {
-                int startX = x + ((AdvancementWidgetAccessor)this.parent).getX() + 13;
+                context.getMatrices().push();
+                context.getMatrices().translate(0.5f, 0.0f, 0.0f);
+
+                int startX = x + ((AdvancementWidgetAccessor)this.parent).getX() + 14;
                 int startY = y + ((AdvancementWidgetAccessor)this.parent).getY() + 13;
-                int endX = x + this.x + 13;
+                int endX = x + this.x + 14;
                 int endY = y + this.y + 13;
 
                 int finalColor = border ? 0xFF000000 : color;
@@ -127,6 +179,7 @@ public abstract class AdvancementWidgetMixin {
                         drawLPath(context, startX, startY, endX, endY, false, finalColor, border);
                     }
                 }
+                context.getMatrices().pop();
             }
         }
     }
@@ -135,19 +188,9 @@ public abstract class AdvancementWidgetMixin {
     private boolean isNearProgress() {
         AdvancementWidgetAccessor parentAcc = (AdvancementWidgetAccessor)this.parent;
         AdvancementWidget grandparent = parentAcc.getParentWidget();
-        boolean grandparentDone = false;
         if (grandparent != null) {
             AdvancementProgress gpProg = ((AdvancementWidgetAccessor)grandparent).getProgress();
-            grandparentDone = gpProg != null && gpProg.isDone();
-        }
-        if (grandparentDone) return true;
-
-        if (grandparent != null) {
-            AdvancementWidget greatGP = ((AdvancementWidgetAccessor)grandparent).getParentWidget();
-            if (greatGP != null) {
-                AdvancementProgress ggpProg = ((AdvancementWidgetAccessor)greatGP).getProgress();
-                return ggpProg != null && ggpProg.isDone();
-            }
+            return gpProg != null && gpProg.isDone();
         }
         return false;
     }
@@ -195,13 +238,7 @@ public abstract class AdvancementWidgetMixin {
     }
 
 
-    @Unique
-    private static final Map<String, String> GATES = Map.of(
-            "ttll:story/leather_armor", "ttll:story/kill_a_monster",
-            "ttll:story/knitt_wool", "ttll:story/acquire_pointy_stick",
-            "ttll:story/acquire_sinew", "ttll:story/helper_kill_cow_or_horse",
-            "ttll:story/iron_nugget", "ttll:story/furnace"
-    );
+
 
 
 

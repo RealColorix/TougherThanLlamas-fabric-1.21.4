@@ -1,11 +1,14 @@
 package net.colorixer.mixin;
 
 import net.minecraft.entity.player.HungerManager;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.network.packet.s2c.play.HealthUpdateS2CPacket;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.biome.Biome;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -142,5 +145,33 @@ public abstract class HungerHeatManager {
         );
 
         addExhaustion(exhaustionPerTick);
+    }
+
+
+
+
+
+    @Shadow private float exhaustion;
+
+    @Unique
+    private float ttll$lastSyncExhaustion;
+
+    /**
+     * Synchronizes exhaustion to the client.
+     * Fixed the parameter to ServerPlayerEntity to match the expected descriptor.
+     */
+    @Inject(method = "update(Lnet/minecraft/server/network/ServerPlayerEntity;)V", at = @At("TAIL"))
+    private void ttll$syncExhaustionEveryTick(ServerPlayerEntity serverPlayer, CallbackInfo ci) {
+        // Since the method signature now guarantees a ServerPlayerEntity,
+        // we no longer need the 'instanceof' check.
+
+        if (Math.abs(this.exhaustion - ttll$lastSyncExhaustion) >= 0.05f) {
+            serverPlayer.networkHandler.sendPacket(new HealthUpdateS2CPacket(
+                    serverPlayer.getHealth(),
+                    serverPlayer.getHungerManager().getFoodLevel(),
+                    serverPlayer.getHungerManager().getSaturationLevel()
+            ));
+            ttll$lastSyncExhaustion = this.exhaustion;
+        }
     }
 }

@@ -6,6 +6,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.LeavesBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
@@ -23,67 +24,60 @@ public abstract class LeavesSlowYouDown extends Block {
     public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
         Vec3d v = entity.getVelocity();
 
-        double x = v.x * 0.99;
-        double z = v.z * 0.99;
-        double y = v.y;
-
-        if (!(entity instanceof LivingEntity living)) {
-            entity.setVelocity(x, y, z);
-            entity.velocityModified = true;
-            return;
-        }
-
-        LeavesFallAccess access = (LeavesFallAccess) living;
-
         /* ===================================================== */
-        /* FIRST CONTACT DAMAGE                                  */
+        /* PLAYER - EXACTLY YOUR ORIGINAL PHYSICS                */
         /* ===================================================== */
-        if (y < 0.0 && !access.ttll$hasProcessedLeaves()) {
-            float fall = living.fallDistance;
+        if (entity instanceof PlayerEntity player) {
+            double x = v.x * 0.99;
+            double z = v.z * 0.99;
+            double y = v.y;
 
-            if (fall > 2.0F) {
-                float damage = computeLogScaledFall(fall);
+            LeavesFallAccess access = (LeavesFallAccess) player;
 
-                entity.damage(
-                        (ServerWorld) world,
-                        entity.getDamageSources().generic(),
-                        damage
-                );
+            if (y < 0.0 && !access.ttll$hasProcessedLeaves()) {
+                float fall = player.fallDistance;
+                if (fall > 2.0F && !world.isClient) {
+                    float damage = computeLogScaledFall(fall);
+                    player.damage((ServerWorld) world, player.getDamageSources().generic(), damage);
+                }
+                access.ttll$setProcessedLeaves(true);
             }
 
-            access.ttll$setProcessedLeaves(true);
+            if (y < 0.0) {
+                player.fallDistance = 0.0F;
+            }
+
+            if (y > 0.0) {
+                y *= 0.83;
+            } else if (y < 0.0) {
+                y *= 0.9;
+            }
+
+            if (player.isOnGround() || !world.getBlockState(pos).isOf(this)) {
+                access.ttll$setProcessedLeaves(false);
+            }
+
+            player.setVelocity(x, y, z);
+            player.velocityModified = true;
+            return; // Exit here so mob logic never touches players
         }
 
         /* ===================================================== */
-        /* CRITICAL PART — FULL FALL RESET WHILE FALLING         */
+        /* NON-PLAYER ENTITIES - NO Y MODIFICATION AT ALL        */
         /* ===================================================== */
-        if (y < 0.0) {
-            living.fallDistance = 0.0F;
-        }
+        // slowMovement handles the AI pathing speed horizontally (0.85).
+        // Y is set to 1.0 (Vanilla).
+        entity.slowMovement(state, new Vec3d(0.85D, 1.0D, 0.85D));
 
-        /* ===================================================== */
-        /* VELOCITY MODIFIERS (UNCHANGED)                        */
-        /* ===================================================== */
-        if (y > 0.0) {
-            y *= 0.83;   // jump damping only
-        } else if (y < 0.0) {
-            y *= 0.9;    // fall damping
-        }
+        // Manual velocity override for horizontal only
+        double mx = v.x * 0.99;
+        double mz = v.z * 0.99;
+        double my = v.y; // Keep vanilla Y exactly as it is
 
-        /* ===================================================== */
-        /* RESET STATE WHEN LEAVING LEAVES                       */
-        /* ===================================================== */
-        if (living.isOnGround() || !world.getBlockState(pos).isOf(this)) {
-            access.ttll$setProcessedLeaves(false);
-        }
-
-        living.setVelocity(x, y, z);
-        living.velocityModified = true;
+        entity.setVelocity(mx, my, mz);
+        entity.velocityModified = true;
     }
 
-    /**
-     * fallDistance / (log(fallDistance) + 1)
-     */
     private static float computeLogScaledFall(float fallDistance) {
         if (fallDistance <= 0.0F) {
             return 0.0F;

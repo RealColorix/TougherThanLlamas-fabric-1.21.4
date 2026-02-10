@@ -5,11 +5,14 @@ import net.colorixer.entity.zombie.ZombieEatsAnimalsGoal;
 import net.colorixer.entity.zombie.ZombieKillsAnimalsGoal;
 import net.colorixer.item.ModItems;
 import net.colorixer.util.GoalSelectorUtilForZombie;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageTypes;
+import net.minecraft.entity.mob.SkeletonEntity;
 import net.minecraft.entity.mob.ZombieEntity;
 import net.minecraft.item.*;
 import net.minecraft.registry.tag.DamageTypeTags;
@@ -18,10 +21,13 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.LocalDifficulty;
+import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.UUID;
 
@@ -161,4 +167,5 @@ public abstract class ZombieModifier {
         float remPerc = 0.1f + ((float) Math.pow(zombie.getRandom().nextFloat(), 2.5) * 0.8f);
         stack.setDamage(MathHelper.clamp(Math.round(maxDamage * (1.0f - remPerc)), 0, maxDamage - 1));
     }
+
 }

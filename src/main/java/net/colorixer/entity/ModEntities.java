@@ -2,6 +2,7 @@ package net.colorixer.entity;
 
 import net.colorixer.TougherThanLlamas;
 import net.colorixer.entity.projectile.CobwebProjectileEntity;
+import net.colorixer.entity.spiders.JungleSpiderEntity;
 import net.colorixer.util.IdentifierUtil;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.EntityDimensions;
@@ -26,7 +27,7 @@ public class ModEntities {
     public static final EntityType<CobwebProjectileEntity> COBWEB_PROJECTILE =
             Registry.register(
                     Registries.ENTITY_TYPE,
-                    COBWEB_PROJECTILE_KEY.getValue(), // Identifier
+                    COBWEB_PROJECTILE_KEY.getValue(),
                     FabricEntityTypeBuilder
                             .<CobwebProjectileEntity>create(SpawnGroup.MISC)
                             .entityFactory(CobwebProjectileEntity::new)
@@ -34,6 +35,29 @@ public class ModEntities {
                             .trackRangeBlocks(4)
                             .trackedUpdateRate(10)
                             .build(COBWEB_PROJECTILE_KEY)
+            );
+
+    // --- JUNGLE SPIDER ---
+
+    public static final RegistryKey<EntityType<?>> JUNGLE_SPIDER_KEY =
+            RegistryKey.of(
+                    RegistryKeys.ENTITY_TYPE,
+                    IdentifierUtil.createIdentifier(
+                            TougherThanLlamas.MOD_ID,
+                            "jungle_spider"
+                    )
+            );
+
+    public static final EntityType<JungleSpiderEntity> JUNGLE_SPIDER =
+            Registry.register(
+                    Registries.ENTITY_TYPE,
+                    JUNGLE_SPIDER_KEY.getValue(),
+                    FabricEntityTypeBuilder
+                            .<JungleSpiderEntity>create(SpawnGroup.MONSTER)
+                            .entityFactory(JungleSpiderEntity::new)
+                            // Cave Spider dimensions: 0.7 wide, 0.5 high
+                            .dimensions(EntityDimensions.fixed(0.7F, 0.5F))
+                            .build(JUNGLE_SPIDER_KEY)
             );
 
     public static void register() {

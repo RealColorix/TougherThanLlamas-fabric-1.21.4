@@ -59,7 +59,7 @@ public class ModItems {
     public static final Item SAW_DUST = registerItem("saw_dust", Item::new, new Item.Settings());
     public static final Item KNITTING_STICKS = registerItem("knitting_sticks", Item::new, new Item.Settings());
     public static final Item DRYING_RACK_LEG = registerItem("drying_rack_leg", Item::new, new Item.Settings());
-    public static final Item FIRE_PLOUGH = registerItem("fire_plough", settings -> new FireStarterItem(settings, 0.01333), new Item.Settings().maxCount(1).maxDamage(200));
+    public static final Item FIRE_PLOUGH = registerItem("fire_plough", settings -> new FireStarterItem(settings, 0.00666), new Item.Settings().maxCount(1).maxDamage(200));
     public static final Item BOW_DRILL = registerItem("bow_drill", settings -> new FireStarterItem(settings, 0.025), new Item.Settings().maxCount(1).maxDamage(500));
     public static final Item POINTY_STICK = registerItem("pointy_stick", Item::new, new Item.Settings());
     public static final Item BRANCH = registerItem("branch", Item::new, new Item.Settings());
