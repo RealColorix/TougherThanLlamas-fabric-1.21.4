@@ -1,7 +1,8 @@
 package net.colorixer.block.torch;
 
 import net.colorixer.block.ModBlocks;
-import net.colorixer.item.items.FireStarterItem;
+import net.colorixer.item.items.firestarteritem.FireStarterItem;
+import net.colorixer.item.items.firestarteritem.FireStarterItemSmoke;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -103,7 +104,10 @@ public class CrudeTorchBlock extends Block {
         }
 
         // --- 3. PASS FOR FIRE STARTER ITEM ---
-        if (stackInHand.getItem() instanceof net.colorixer.item.items.FireStarterItem) {
+        if (stackInHand.getItem() instanceof FireStarterItem) {
+            if (!world.isClient) {
+                FireStarterItemSmoke.spawnFrictionEffects(world, hit.getPos(), hit.getSide());
+            }
             return ActionResult.PASS;
         }
 

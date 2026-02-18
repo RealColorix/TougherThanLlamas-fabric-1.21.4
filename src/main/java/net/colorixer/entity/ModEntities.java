@@ -1,6 +1,7 @@
 package net.colorixer.entity;
 
 import net.colorixer.TougherThanLlamas;
+import net.colorixer.entity.creeper.firecreeper.FireCreeperEntity;
 import net.colorixer.entity.projectile.CobwebProjectileEntity;
 import net.colorixer.entity.spiders.JungleSpiderEntity;
 import net.colorixer.util.IdentifierUtil;
@@ -12,6 +13,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.util.Identifier;
 
 public class ModEntities {
 
@@ -38,6 +40,23 @@ public class ModEntities {
             );
 
     // --- JUNGLE SPIDER ---
+
+    // --- FIRE CREEPER ---
+
+    public static final RegistryKey<EntityType<?>> FIRE_CREEPER_KEY =
+            RegistryKey.of(
+                    RegistryKeys.ENTITY_TYPE,
+                    Identifier.of(TougherThanLlamas.MOD_ID, "fire_creeper")
+            );
+
+    public static final EntityType<FireCreeperEntity> FIRE_CREEPER =
+            Registry.register(
+                    Registries.ENTITY_TYPE,
+                    FIRE_CREEPER_KEY.getValue(),
+                    EntityType.Builder.create(FireCreeperEntity::new, SpawnGroup.MONSTER)
+                            .dimensions(0.6F, 1.7f) // Creeper dimensions
+                            .build(FIRE_CREEPER_KEY)
+            );
 
     public static final RegistryKey<EntityType<?>> JUNGLE_SPIDER_KEY =
             RegistryKey.of(

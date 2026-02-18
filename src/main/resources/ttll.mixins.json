@@ -77,7 +77,19 @@
 		"FireChargeMixin",
 		"FlintAndSteelMixin",
 		"PlayerArmorWeight",
-		"ArmorTooltipMixin"
+		"ArmorTooltipMixin",
+		"CreeperModifier",
+		"SkeletonModifier",
+		"SkeletonMobModifier",
+		"FallingFireMixin",
+		"CreeperRendererMixin",
+		"CreeperStateMixin",
+		"OpenToLanMixin",
+		"WorldCreationNukeMixin",
+		"WorldCreationTabNukeMixin",
+		"OptionsDifficultyNukeMixin",
+		"ScreenDifficultyRenderMixin",
+		"ScreenAccessor"
 
 	],
 	"injectors": {

@@ -101,7 +101,19 @@ public class CrudeTorchItem extends BlockItem {
         return ActionResult.SUCCESS;
     }
 
+    // Add this helper to check for your specific campfire block
     private boolean isIgniter(BlockState state) {
-        return state.isOf(Blocks.LAVA) || state.isOf(Blocks.FIRE) || state.isOf(Blocks.SOUL_FIRE);
+        // 1. Check for standard fire/lava
+        if (state.isOf(Blocks.LAVA) || state.isOf(Blocks.FIRE) || state.isOf(Blocks.SOUL_FIRE)) {
+            return true;
+        }
+
+        // 2. Check for your custom campfire (ONLY if it is currently lit)
+        // Replace 'ModBlocks.CAMPFIRE' with your actual block reference
+        if (state.isOf(net.colorixer.block.ModBlocks.CAMPFIRE)) {
+            return state.get(net.colorixer.block.campfire.CampfireBlock.LIT);
+        }
+
+        return false;
     }
 }

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "ttll:creeper_sack",
+    "ttll:fire_creeper_sack",
+    "minecraft:diamond",
+    "minecraft:iron_ingot"
+  ],
+  "result": {
+    "id": "ttll:diamond_ingot",
+    "count": 1
+  }
+}

@@ -69,7 +69,7 @@
   "item.ttll.string_knitting": "String Knitting",
 
 
-
+  "block.ttll.ash": "Ash",
   "block.ttll.drying_rack": "Drying Rack",
   "block.ttll.brick_siding": "Brick Siding",
   "block.ttll.brick_furnace": "Brick Furnace",
@@ -104,7 +104,6 @@
   "block.ttll.bedstone_copper_ore": "Bedstone Copper Ore",
   "block.ttll.bedstone_coal_ore": "Bedstone Coal Ore",
   "block.ttll.furnace": "Furnace",
-  "block.ttll.campfire": "Campfire",
   "block.ttll.loose_cobblestone": "Loose Cobblestone",
   "block.ttll.loose_cobblestone_slab": "Loose Cobblestone Slab",
   "block.ttll.grass_slab": "Grassy Dirt Pile",
@@ -116,8 +115,16 @@
   "block.ttll.birch_bottom_log_crafting_table": "Birch Crafting Table",
   "item.ttll.burning_crude_torch": "Burning Crude Torch",
   "item.ttll.crude_torch": "Crude Torch",
+  "item.ttll.fire_creeper_spawn_egg": "Fire Creeper Spawn Egg",
+  "item.ttll.jungle_spider_spawn_egg": "Jungle Spider Spawn Egg",
+  "item.ttll.fire_creeper_sack": "Fire Creeper Sack",
+  "item.ttll.creeper_sack": "Creeper Sack",
+  "item.ttll.diamond_ingot": "Diamond Ingot",
+  "item.ttll.burned_meat": "Burned Meat",
+
 
   "entity.ttll.jungle_spider": "Jungle Spider",
+  "entity.ttll.fire_creeper": "Fire Creeper",
 
   "options.gamma.normal": "Hardcore Darkness",
   "mixins.seedfinder.title": "Searching For Seeds",

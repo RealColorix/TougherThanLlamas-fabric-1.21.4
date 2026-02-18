@@ -18,7 +18,9 @@ public class GloomHelper {
     public static int gloomTicks = 0;
 
     public static boolean isPlayerInGloom(PlayerEntity player) {
-        if (player == null || player.getAbilities().invulnerable) return false;
+        // 1. Check for Night Vision (Added this line)
+        // If the player has Night Vision, they are never in "Gloom"
+        if (player == null || player.getAbilities().invulnerable || player.hasStatusEffect(StatusEffects.NIGHT_VISION)) return false;
 
         BlockPos pos = BlockPos.ofFloored(player.getEyePos());
         World world = player.getWorld();
@@ -26,13 +28,18 @@ public class GloomHelper {
         int blockLight = world.getLightLevel(LightType.BLOCK, pos);
         int skyLight = world.getLightLevel(LightType.SKY, pos);
 
-        // Dynamic light check (Only works on Client!)
+        // Dynamic light check (LambDynLights)
         int dynamicLight = 0;
         if (world.isClient) {
             dynamicLight = (int) LambDynLights.get().getDynamicLightLevel(pos);
         }
 
-        return blockLight <= 2 && skyLight <= 2 && dynamicLight <= 2;
+        // 2. Logic remains the same...
+        boolean isDeepDark = blockLight <= 2 && skyLight <= 2;
+        boolean isNewMoon = world.getMoonPhase() == 4;
+        boolean isSurfaceNightGloom = blockLight <= 2 && skyLight > 2 && !world.isDay() && isNewMoon;
+
+        return (isDeepDark || isSurfaceNightGloom) && dynamicLight <= 2;
     }
 
     public static void updateGloom(PlayerEntity player) {

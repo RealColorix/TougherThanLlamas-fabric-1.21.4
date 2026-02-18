@@ -59,23 +59,8 @@ public abstract class LeavesSlowYouDown extends Block {
 
             player.setVelocity(x, y, z);
             player.velocityModified = true;
-            return; // Exit here so mob logic never touches players
         }
 
-        /* ===================================================== */
-        /* NON-PLAYER ENTITIES - NO Y MODIFICATION AT ALL        */
-        /* ===================================================== */
-        // slowMovement handles the AI pathing speed horizontally (0.85).
-        // Y is set to 1.0 (Vanilla).
-        entity.slowMovement(state, new Vec3d(0.85D, 1.0D, 0.85D));
-
-        // Manual velocity override for horizontal only
-        double mx = v.x * 0.99;
-        double mz = v.z * 0.99;
-        double my = v.y; // Keep vanilla Y exactly as it is
-
-        entity.setVelocity(mx, my, mz);
-        entity.velocityModified = true;
     }
 
     private static float computeLogScaledFall(float fallDistance) {

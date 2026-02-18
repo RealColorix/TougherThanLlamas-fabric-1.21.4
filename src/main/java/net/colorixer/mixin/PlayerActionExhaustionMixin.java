@@ -22,7 +22,7 @@ public abstract class PlayerActionExhaustionMixin {
     private Vec3d ttll$lastPos;
 
     private final float drainAmount = 0.1f;
-    private final float sprintDrainPerBlock = 0.1f;
+    private final float sprintDrainPerBlock = 0.05f;
 
     @Inject(method = "attack", at = @At("HEAD"))
     private void ttll$exhaustOnAttack(Entity target, CallbackInfo ci) {
@@ -47,7 +47,7 @@ public abstract class PlayerActionExhaustionMixin {
         }
 
         // --- Sprinting Logic ---
-        if (ttll$lastPos != null && player.isSprinting() && player.isOnGround()) {
+        if (ttll$lastPos != null && player.isSprinting()) {
             double distance = Math.sqrt(
                     Math.pow(player.getX() - ttll$lastPos.x, 2) +
                             Math.pow(player.getZ() - ttll$lastPos.z, 2)

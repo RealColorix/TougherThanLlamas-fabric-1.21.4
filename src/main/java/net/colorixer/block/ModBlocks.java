@@ -36,6 +36,8 @@ import static net.minecraft.block.Blocks.createLightLevelFromLitBlockState;
 
 public class ModBlocks {
 
+
+
     public static final Block BURNING_CRUDE_TORCH = registerBlockNotItem("burning_crude_torch",
             BurningCrudeTorchBlock::new,
             Block.Settings.copy(Blocks.TORCH)
@@ -74,6 +76,9 @@ public class ModBlocks {
     public static final Block DRYING_RACK = registerBlock("drying_rack", DryingRackBlock::new, Block.Settings.create()
             .mapColor(MapColor.TERRACOTTA_BROWN).strength(0.05F, 0F).sounds(BlockSoundGroup.WOOD));
 
+    public static final Block ASH = registerBlock("ash", AshLayerBlock::new, Block.Settings.create()
+            .mapColor(MapColor.GRAY).strength(0.1F, 0F).sounds(BlockSoundGroup.SAND).pistonBehavior(PistonBehavior.DESTROY));
+
 
 
     public static final Block DRIED_BRICK = registerBlock("dried_brick", DriedBrickBlock::new, Block.Settings.create()
@@ -100,12 +105,12 @@ public class ModBlocks {
             .sounds(BlockSoundGroup.WOOD)
             .nonOpaque()
             // This is the "Full Bright/15" glow for the texture pixels
-            .emissiveLighting((state, world, pos) -> state.get(CampfireBlock.LIT))
+           // .emissiveLighting((state, world, pos) -> state.get(CampfireBlock.LIT))
             .luminance(state -> {
                 // This is the light cast onto the ground (8, 10, 12)
                 return switch (state.get(CampfireBlock.STAGE)) {
-                    case 1 -> 11;
-                    case 2 -> 13;
+                    case 1 -> 7;
+                    case 2 -> 12;
                     case 3 -> 15;
                     default -> 0;
                 };
@@ -317,7 +322,7 @@ public class ModBlocks {
             entries.add(ModBlocks.BEDSTONE_COPPER_ORE);
             entries.add(ModBlocks.BEDSTONE_COAL_ORE);
             entries.add(ModBlocks.CAMPFIRE);
-
+            entries.add(ModBlocks.ASH);
         });
     }
 }

@@ -13,6 +13,7 @@ import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 
 public class FurnaceBlockEntity extends BlockEntity {
 
@@ -41,9 +42,15 @@ public class FurnaceBlockEntity extends BlockEntity {
             if (this.fuel > 0) {
                 this.fuel--;
                 boolean currentlyLow = this.fuel <= 3000;
+
+                if (world.random.nextInt(100) == 0) {
+                    this.ttll$tryFurnaceSpread();
+                }
+
                 if (currentlyLow != isLow) {
                     world.setBlockState(pos, state.with(FurnaceBlock.LOW_FUEL, currentlyLow), 3);
                 }
+
             } else {
                 this.fuel = 0;
                 world.setBlockState(pos, state.with(FurnaceBlock.LIT, false).with(FurnaceBlock.LOW_FUEL, false), 3);
@@ -130,6 +137,47 @@ public class FurnaceBlockEntity extends BlockEntity {
         if (world != null) {
             world.updateListeners(pos, getCachedState(), getCachedState(), 3);
         }
+    }
+
+    private void ttll$tryFurnaceSpread() {
+        if (this.world == null) return;
+
+        Direction facing = this.getCachedState().get(FurnaceBlock.FACING);
+        BlockPos frontPos = this.pos.offset(facing);
+        Direction side = facing.rotateYClockwise();
+
+        // Define the 6 specific danger points
+        java.util.List<BlockPos> targets = new java.util.ArrayList<>();
+
+        // 1-5: The Cross shape 1 block away
+        targets.add(frontPos);              // Center
+        targets.add(frontPos.up());         // Top
+        targets.add(frontPos.down());       // Bottom
+        targets.add(frontPos.offset(side)); // Right
+        targets.add(frontPos.offset(side.getOpposite())); // Left
+
+        // 6: The Reach block (2 blocks away, center only)
+        targets.add(frontPos.offset(facing));
+
+        // Pick one and try to ignite
+        BlockPos target = targets.get(world.random.nextInt(targets.size()));
+
+        if (world.getBlockState(target).isAir()) {
+            if (this.ttll$isPosBurnable(target)) {
+                world.setBlockState(target, net.minecraft.block.AbstractFireBlock.getState(world, target));
+                world.playSound(null, target, net.minecraft.sound.SoundEvents.BLOCK_LAVA_EXTINGUISH,
+                        net.minecraft.sound.SoundCategory.BLOCKS, 0.3f, 1.2f);
+            }
+        }
+    }
+
+    private boolean ttll$isPosBurnable(BlockPos pos) {
+        for (Direction dir : Direction.values()) {
+            if (world.getBlockState(pos.offset(dir)).isBurnable()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

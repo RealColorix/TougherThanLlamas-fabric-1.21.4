@@ -4,8 +4,10 @@ import net.colorixer.TougherThanLlamas;
 import net.colorixer.block.ModBlocks;
 import net.colorixer.block.torch.BurningCrudeTorchItem;
 import net.colorixer.block.torch.CrudeTorchItem;
+import net.colorixer.entity.ModEntities;
 import net.colorixer.item.items.*;
 import net.colorixer.item.items.HoeItem;
+import net.colorixer.item.items.firestarteritem.FireStarterItem;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.*;
 import net.minecraft.registry.RegistryKey;
@@ -20,14 +22,18 @@ public class ModItems {
 
 
     //TORCH
-
-    // ModItems.java
     public static final Item BURNING_CRUDE_TORCH_ITEM = registerItem("burning_crude_torch",
             settings -> new BurningCrudeTorchItem(ModBlocks.BURNING_CRUDE_TORCH, settings), new Item.Settings());
-
     public static final Item CRUDE_TORCH_ITEM = registerItem("crude_torch",
             settings -> new CrudeTorchItem(ModBlocks.CRUDE_TORCH, settings), new Item.Settings());
 
+
+    //SPAWN EGGS
+    // Change this:
+    public static final Item FIRE_CREEPER_SPAWN_EGG = registerItem("fire_creeper_spawn_egg",
+            settings -> new SpawnEggItem(ModEntities.FIRE_CREEPER, settings), new Item.Settings());
+    public static final Item JUNGLE_SPIDER_SPAWN_EGG = registerItem("jungle_spider_spawn_egg",
+            settings -> new SpawnEggItem(ModEntities.JUNGLE_SPIDER, settings), new Item.Settings());
 
 
 
@@ -75,6 +81,11 @@ public class ModItems {
     public static final Item POINTY_STICK = registerItem("pointy_stick", Item::new, new Item.Settings());
     public static final Item BRANCH = registerItem("branch", Item::new, new Item.Settings());
 
+    public static final Item BURNED_MEAT = registerItem("burned_meat",
+            (settings) -> new Item(settings.food(ModFoodComponents.BURNED_MEAT)), new Item.Settings());
+
+    public static final Item DIAMOND_INGOT = registerItem("diamond_ingot", Item::new, new Item.Settings());
+
 
     // ---------- TOOLS & COMBAT ----------- FROM FIRST --> LAST THROUGH LINEAR PROGRESSION ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     public static final Item FLINT = registerItem("flint",settings -> new DraxItem(TTLLToolMaterial.FLINT, 0.5f, -3.3F, settings), new Item.Settings());
@@ -92,6 +103,10 @@ public class ModItems {
     public static final Item LEATHER_CLOTH = registerItem("leather_cloth", Item::new, new Item.Settings());
     public static final Item MYSTERIOUS_GLAND = registerItem("mysterious_gland", Item::new, new Item.Settings());
     public static final Item TANGLED_WEB = registerItem("tangled_web", Item::new, new Item.Settings());
+    public static final Item CREEPER_SACK = registerItem("creeper_sack", Item::new, new Item.Settings());
+    public static final Item FIRE_CREEPER_SACK = registerItem("fire_creeper_sack", Item::new, new Item.Settings().fireproof());
+
+
 
     // ---------- MISCELLANEOUS ----------
     public static final Item LEATHER_BOOT = registerItem("leather_boot", Item::new, new Item.Settings());
@@ -172,11 +187,19 @@ public class ModItems {
             entries.add(TANGLED_WEB);
             entries.add(WEB_UNTANGLING);
             entries.add(FLINT);
+            entries.add(CREEPER_SACK);
+            entries.add(FIRE_CREEPER_SACK);
             entries.add(SCROLL_OF_ARCANE);
             entries.add(SCROLL_OF_ECHOES);
             entries.add(SCROLL_OF_OCULUS);
+            entries.add(DIAMOND_INGOT);
+            entries.add(BURNED_MEAT);
         });
 
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.SPAWN_EGGS).register(entries -> {
+            entries.add(JUNGLE_SPIDER_SPAWN_EGG);
+            entries.add(FIRE_CREEPER_SPAWN_EGG);
+        });
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register(entries -> {
             entries.add(WOODEN_CLUB);

@@ -1,4 +1,4 @@
-package net.colorixer.item.items;
+package net.colorixer.item.items.firestarteritem;
 
 import net.colorixer.block.ModBlocks;
 import net.colorixer.block.campfire.CampfireBlock;
@@ -6,13 +6,11 @@ import net.colorixer.block.campfire.CampfireBlockEntity;
 import net.colorixer.block.furnace.FurnaceBlock;
 import net.colorixer.block.furnace.FurnaceBlockEntity;
 import net.colorixer.block.torch.CrudeTorchBlock;
-import net.colorixer.block.torch.BurningCrudeTorchBlock;
 import net.colorixer.util.ExhaustionHelper;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -49,7 +47,7 @@ public class FireStarterItem extends Item {
         if (state.getBlock() instanceof FurnaceBlock && !state.get(FurnaceBlock.LIT)) {
             if (world.getBlockEntity(pos) instanceof FurnaceBlockEntity furnace && furnace.getFuel() > 0) {
                 if (!world.isClient) {
-                    player.getHungerManager().addExhaustion(0.05F);
+                    player.getHungerManager().addExhaustion(0.01F);
                     ExhaustionHelper.triggerJitter(5);
                     if (world.random.nextDouble() < this.chance) {
                         furnace.ignite();
@@ -71,7 +69,7 @@ public class FireStarterItem extends Item {
                 // Fix: Use the getter method for fuel (or the variable if it's public)
                 if (campfire.getFuel() > 0) {
                     if (!world.isClient) {
-                        player.getHungerManager().addExhaustion(0.05F);
+                        player.getHungerManager().addExhaustion(0.01F);
                         ExhaustionHelper.triggerJitter(5);
                         // Use the chance variable from your item class
                         if (world.random.nextDouble() < this.chance) {
@@ -94,7 +92,7 @@ public class FireStarterItem extends Item {
         // 2. CRUDE TORCH LOGIC
         if (state.getBlock() instanceof CrudeTorchBlock) {
             if (!world.isClient) {
-                player.getHungerManager().addExhaustion(0.05F);
+                player.getHungerManager().addExhaustion(0.01F);
                 ExhaustionHelper.triggerJitter(5);
                 if (world.random.nextDouble() < this.chance) {
                     Direction currentFacing = state.get(CrudeTorchBlock.FACING);

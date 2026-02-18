@@ -1,6 +1,9 @@
 {
   "item.minecraft.flint": "Crude Flint",
 
+  "selectWorld.gameMode.survival": "§eMediumcore",
+  "selectWorld.gameMode.hardcore": "§4Hardcore",
+
   "options.gamma.": "",
 
   "advancements.story.root.title": "Tougher Than Llamas",

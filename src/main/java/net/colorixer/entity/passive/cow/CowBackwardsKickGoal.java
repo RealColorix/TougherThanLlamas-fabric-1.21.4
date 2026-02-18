@@ -26,19 +26,25 @@ public class CowBackwardsKickGoal extends Goal {
 
         if (cow.isBaby()) return false;
         if (!(cow instanceof Kickable k) || k.ttll$getKickCooldown() > 0) return false;
-        if (!k.ttll$isEnraged() && cow.getRandom().nextFloat() > 0.1f) return false;
+        if (!k.ttll$isEnraged() && cow.getRandom().nextFloat() > 0.05f) return false;
 
         return !getValidTargets().isEmpty();
     }
 
     private List<LivingEntity> getValidTargets() {
-        // Check if we use the 3.5 block range or the standard 2.5
         double range = (cow instanceof Kickable k && k.ttll$isEnraged()) ? 3.5 : 2.5;
 
         return cow.getWorld().getEntitiesByClass(LivingEntity.class,
                 cow.getBoundingBox().expand(range, 1.0, range),
-                entity -> entity != cow && !(entity instanceof CowEntity) && isBehind(entity));
+                entity -> entity != cow
+                        && !(entity instanceof CowEntity)
+                        && !(entity instanceof net.minecraft.entity.passive.HorseEntity)
+                        && !(entity instanceof net.minecraft.entity.passive.MuleEntity)
+                        && !(entity instanceof net.minecraft.entity.passive.DonkeyEntity)
+                        && !(entity instanceof net.minecraft.entity.passive.PigEntity)
+                        && isBehind(entity));
     }
+
 
     private boolean isBehind(Entity entity) {
         Vec3d vecToEntity = entity.getPos().subtract(cow.getPos()).normalize();

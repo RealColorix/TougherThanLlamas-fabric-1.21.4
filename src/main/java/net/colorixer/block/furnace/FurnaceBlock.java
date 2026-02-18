@@ -1,6 +1,8 @@
 package net.colorixer.block.furnace;
 
 import com.mojang.serialization.MapCodec;
+import net.colorixer.item.items.firestarteritem.FireStarterItem;
+import net.colorixer.item.items.firestarteritem.FireStarterItemSmoke;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
@@ -120,8 +122,11 @@ public class FurnaceBlock extends FallingBlock implements BlockEntityProvider {
             boolean lookingInHole = withinHoleWidth && hitY > 0.1 && hitY < 0.9;
             boolean inBottomHole = lookingInHole && hitY < 0.5;
 
+            if (inBottomHole && furnace.getFuel() > 0 && !state.get(Properties.LIT) && player.getStackInHand(player.getActiveHand()).getItem() instanceof FireStarterItem){
+                FireStarterItemSmoke.spawnFrictionEffects(world, hit.getPos(), hit.getSide());
+            }
             // --- 1. LIGHTING CRUDE TORCH FROM LIT FURNACE (NEW) ---
-            if (inBottomHole && state.get(LIT) && stackInHand.isOf(net.colorixer.block.ModBlocks.CRUDE_TORCH.asItem())) {
+            if (inBottomHole  && state.get(LIT) && stackInHand.isOf(net.colorixer.block.ModBlocks.CRUDE_TORCH.asItem())) {
                 ItemStack burningTorch = new ItemStack(net.colorixer.block.ModBlocks.BURNING_CRUDE_TORCH);
 
                 if (stackInHand.getCount() == 1) {
@@ -165,7 +170,7 @@ public class FurnaceBlock extends FallingBlock implements BlockEntityProvider {
                 }
 
                 // C. FIRE STARTER (Let the item handle its own chance/logic)
-                if (stackInHand.getItem() instanceof net.colorixer.item.items.FireStarterItem) {
+                if (stackInHand.getItem() instanceof FireStarterItem) {
                     return ActionResult.PASS;
                 }
             }

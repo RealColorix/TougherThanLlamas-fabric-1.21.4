@@ -11,6 +11,7 @@ import net.colorixer.block.torch.BurningCrudeTorchItem;
 import net.colorixer.component.ModDataComponentTypes;
 import net.colorixer.entity.ModEntities;
 import net.colorixer.entity.client.SimpleThrownItemRenderer;
+import net.colorixer.entity.creeper.firecreeper.FireCreeperEntity;
 import net.colorixer.entity.spiders.JungleSpiderEntity;
 import net.colorixer.item.ModItems;
 import net.colorixer.mixin.LivingEntityRendererInvoker;
@@ -25,10 +26,12 @@ import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
+import net.minecraft.client.render.entity.CreeperEntityRenderer;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.client.render.entity.model.SpiderEntityModel;
 import net.minecraft.client.render.entity.state.LivingEntityRenderState;
+import net.minecraft.entity.mob.CreeperEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.biome.GrassColors;
 import org.jetbrains.annotations.NotNull;
@@ -75,6 +78,22 @@ public class TougherThanLlamasClient implements ClientModInitializer {
 			);
 
 			return renderer;
+		});
+
+		EntityRendererRegistry.register(ModEntities.FIRE_CREEPER, (context) -> {
+			return new CreeperEntityRenderer(context) {
+				private static final Identifier FIRE_TEXTURE = Identifier.of("ttll", "textures/entity/creeper/fire_creeper.png");
+				private static final Identifier FIRE_SHEARED_TEXTURE = Identifier.of("ttll", "textures/entity/creeper/fire_creeper_sheared.png");
+
+				@Override
+				public Identifier getTexture(net.minecraft.client.render.entity.state.CreeperEntityRenderState state) {
+					// Check the accessor you set up in your RenderState mixin
+					if (((net.colorixer.access.CreeperStateAccessor) state).ttll$isSheared()) {
+						return FIRE_SHEARED_TEXTURE;
+					}
+					return FIRE_TEXTURE;
+				}
+			};
 		});
 
 

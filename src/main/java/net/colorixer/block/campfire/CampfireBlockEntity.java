@@ -1,7 +1,9 @@
 package net.colorixer.block.campfire;
 
 import net.colorixer.block.ModBlockEntities;
+import net.colorixer.block.torch.CrudeTorchItem;
 import net.colorixer.item.ModItems;
+import net.colorixer.item.items.firestarteritem.FireStarterItem;
 import net.colorixer.util.ExhaustionHelper;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -19,6 +21,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -46,11 +49,16 @@ public class CampfireBlockEntity extends BlockEntity {
         boolean isLit = state.get(CampfireBlock.LIT);
         int stage = state.get(CampfireBlock.STAGE);
 
+        // Inside the tick() method, within the isLit block:
+
+
         // 1. WATERLOGGED CHECK
         if (state.get(CampfireBlock.WATERLOGGED) && isLit) {
             extinguish(true);
             return;
         }
+
+
 
         // 2. FUEL PROCESSING
         if (pendingFuel > 0) {
@@ -87,7 +95,7 @@ public class CampfireBlockEntity extends BlockEntity {
                     litTimer++;
                     nextStage = 1;
                 } else {
-                    if (fuel > 4000) nextStage = 3;
+                    if (fuel > 5000) nextStage = 3;
                     else if (fuel >= 2000) nextStage = 2;
                     else nextStage = 1;
                 }
@@ -95,6 +103,21 @@ public class CampfireBlockEntity extends BlockEntity {
                 if (nextStage != currentStage) {
                     world.setBlockState(pos, state.with(CampfireBlock.STAGE, nextStage), 3);
                 }
+
+                if ((stage == 2 || stage == 3) && world.random.nextInt(100) < 5) {
+                    this.ttll$trySpreadFire();
+                }
+
+
+                if (nextStage != currentStage) {
+                    // Check if the fire is getting smaller (going from 3 -> 2 or 2 -> 1)
+                    if (nextStage < currentStage) {
+                        world.playSound(null, pos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 0.4f, 1.8f);
+                    }
+
+                    world.setBlockState(pos, state.with(CampfireBlock.STAGE, nextStage), 3);
+                }
+
             } else {
                 this.rainPenalty = 0.0f;
                 extinguish(false); // Natural burn out
@@ -102,37 +125,49 @@ public class CampfireBlockEntity extends BlockEntity {
         }
 
         // 4. COOKING LOGIC
+        // 4. COOKING LOGIC
+        // 4. COOKING LOGIC
         if (!this.inventory.isEmpty()) {
             CampfireRecipe recipe = CampfireRecipes.get(this.inventory);
+            int currentEffectiveStage = this.getCachedState().get(CampfireBlock.STAGE);
+
             if (recipe != null) {
-                boolean finished = false;
+                // FIXED: recipe.input() is already an Item, so we compare it directly to the inventory's item
+                boolean isRaw = this.inventory.isOf(recipe.input());
 
-                // If lit and in stage 2 or 3, cook normally
-                if (isLit && (stage == 2 || stage == 3)) {
-                    this.cookTime++;
-                    if (this.cookTime >= recipe.cookTime()) {
-                        this.inventory = recipe.output().copy();
-                        finished = true;
+                if (isRaw && isLit) {
+                    // Timer 1: Normal Cooking (Always ticks in Stage 2 & 3)
+                    if (currentEffectiveStage == 2 || currentEffectiveStage == 3) {
+                        this.cookTime++;
                     }
 
-                    if (!finished && stage == 3) {
+                    // Timer 2: Burning (Only ticks in Stage 3)
+                    if (currentEffectiveStage == 3) {
                         this.burnTimeCounter++;
-                        if (this.burnTimeCounter >= recipe.burnTime()) {
-                            this.inventory = recipe.burnOutput().copy();
-                            finished = true;
-                        }
                     }
-                }
-                // SHOVEL LOGIC: If unlit and in Stage 4, decrease cook time
-                else if (!isLit && stage == 4) {
-                    if (this.cookTime > 0) {
-                        this.cookTime--; // Cooling down
-                    }
-                }
 
-                if (finished) {
-                    resetTimers();
-                    syncToClient();
+                    // CHECK WINNERS
+                    ItemStack result = ItemStack.EMPTY;
+
+                    // Burn timer takes priority if both goals are met in the same tick
+                    if (this.burnTimeCounter >= recipe.burnTime()) {
+                        result = recipe.burnOutput().copy();
+                    }
+                    else if (this.cookTime >= recipe.cookTime()) {
+                        result = recipe.output().copy();
+                    }
+
+                    // Apply result if a goal was reached
+                    if (!result.isEmpty()) {
+                        this.inventory = result;
+                        this.resetTimers(); // Sets timers to 0 so cooking stops
+                        this.syncToClient();
+                    }
+                }
+                // Logic for cooling down if fire is extinguished
+                else if (!isLit && currentEffectiveStage == 4 && isRaw) {
+                    if (this.cookTime > 0) this.cookTime--;
+                    if (this.burnTimeCounter > 0) this.burnTimeCounter--;
                 }
             }
         } else if (this.inventory.isEmpty()) {
@@ -166,16 +201,16 @@ public class CampfireBlockEntity extends BlockEntity {
     }
 
     private static final Map<Item, Float> FUEL_VALUES = Util.make(new HashMap<>(), map -> {
-        map.put(Items.STICK, 150.0f);
-        map.put(ModItems.BRANCH, 150.0f);
-        map.put(ModItems.OAK_FIREWOOD, 750.0f);
-        map.put(ModItems.JUNGLE_FIREWOOD, 750.0f);
-        map.put(ModItems.SPRUCE_FIREWOOD, 750.0f);
-        map.put(ModItems.BIRCH_FIREWOOD, 750.0f);
-        map.put(ModItems.OAK_BARK, 75.0f);
-        map.put(ModItems.JUNGLE_BARK, 75.0f);
-        map.put(ModItems.SPRUCE_BARK, 75.0f);
-        map.put(ModItems.BIRCH_BARK, 75.0f);
+        map.put(Items.STICK, 200f);
+        map.put(ModItems.BRANCH, 200f);
+        map.put(ModItems.OAK_FIREWOOD, 1250.0f);
+        map.put(ModItems.JUNGLE_FIREWOOD, 1250.0f);
+        map.put(ModItems.SPRUCE_FIREWOOD, 1250.0f);
+        map.put(ModItems.BIRCH_FIREWOOD, 1250.0f);
+        map.put(ModItems.OAK_BARK, 125f);
+        map.put(ModItems.JUNGLE_BARK, 125f);
+        map.put(ModItems.SPRUCE_BARK, 125f);
+        map.put(ModItems.BIRCH_BARK, 125f);
     });
 
     public ActionResult onRightClick(PlayerEntity player, Hand hand) {
@@ -186,6 +221,10 @@ public class CampfireBlockEntity extends BlockEntity {
         Item item = stack.getItem();
 
 
+        if (state.get(CampfireBlock.LIT) && item instanceof CrudeTorchItem) {
+
+            return ActionResult.PASS;
+        }
 
         // 1. SHOVEL / HOE EXTINGUISH (only if Lit)
         if (state.get(CampfireBlock.LIT) &&
@@ -268,7 +307,7 @@ public class CampfireBlockEntity extends BlockEntity {
         // 5. LIGHTING (Stage 0 or 4, fuel > 0)
         if (!state.get(CampfireBlock.LIT) && (state.get(CampfireBlock.STAGE) == 0 || state.get(CampfireBlock.STAGE) == 4) && fuel > 0) {
             // Firestarter
-            if (item instanceof net.colorixer.item.items.FireStarterItem fireStarter) {
+            if (item instanceof FireStarterItem fireStarter) {
                 if (!world.isClient) {
                     player.getHungerManager().addExhaustion(0.1F);
                     ExhaustionHelper.triggerJitter(5);
@@ -306,7 +345,7 @@ public class CampfireBlockEntity extends BlockEntity {
                 pendingFuel += FUEL_VALUES.get(item);
                 if (!player.getAbilities().creativeMode) stack.decrement(1);
                 if (state.get(CampfireBlock.STAGE) >= 4) world.setBlockState(pos, state.with(CampfireBlock.STAGE, 0), 3);
-                world.playSound(null, pos, SoundEvents.BLOCK_WOOD_PLACE, SoundCategory.BLOCKS, 1.0f, 1.5f);
+                world.playSound(null, pos, SoundEvents.ITEM_FIRECHARGE_USE, SoundCategory.BLOCKS, 1.0f, 1.5f);
                 syncToClient();
                 return ActionResult.SUCCESS;
             }
@@ -327,7 +366,49 @@ public class CampfireBlockEntity extends BlockEntity {
         return ActionResult.PASS;
     }
 
+    private void ttll$trySpreadFire() {
+        if (this.world == null) return;
 
+        // 1. SPREAD TO OTHER CAMPFIRES (Targeted Scan)
+        // Check a 3x3x3 area centered on this campfire
+        BlockPos.iterate(this.pos.add(-1, -1, -1), this.pos.add(1, 1, 1)).forEach(targetPos -> {
+            if (targetPos.equals(this.pos)) return;
+
+            BlockState targetState = world.getBlockState(targetPos);
+            if (targetState.getBlock() instanceof CampfireBlock) {
+                // If it's unlit (Stage 0), try to ignite it
+                if (!targetState.get(CampfireBlock.LIT) && targetState.get(CampfireBlock.STAGE) == 0) {
+                    if (world.random.nextInt(10) == 0) {
+                        BlockEntity be = world.getBlockEntity(targetPos);
+                        if (be instanceof CampfireBlockEntity neighborCampfire) {
+                            neighborCampfire.ignite();
+                        }
+                    }
+                }
+            }
+        });
+
+        // 2. SPREAD TO VANILLA BLOCKS (Random Spark)
+        int radius = 3;
+        int rx = world.random.nextInt(radius * 2 + 1) - radius;
+        int ry = world.random.nextInt(radius * 2 + 1) - radius;
+        int rz = world.random.nextInt(radius * 2 + 1) - radius;
+        BlockPos sparkPos = this.pos.add(rx, ry, rz);
+
+        if (world.getBlockState(sparkPos).isAir() && this.ttll$hasFlammableNeighbors(sparkPos)) {
+            world.setBlockState(sparkPos, net.minecraft.block.AbstractFireBlock.getState(world, sparkPos));
+        }
+    }
+
+    private boolean ttll$hasFlammableNeighbors(BlockPos pos) {
+        for (Direction direction : Direction.values()) {
+            // This checks the vanilla 'isFlammable' property (Wool, Wood, Leaves, etc.)
+            if (world.getBlockState(pos.offset(direction)).isBurnable()) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     private void syncToClient() {
         this.markDirty();

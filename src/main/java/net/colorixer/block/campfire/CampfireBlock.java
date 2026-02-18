@@ -1,15 +1,24 @@
 package net.colorixer.block.campfire;
 
 import com.mojang.serialization.MapCodec;
+import net.colorixer.item.ModItems;
+import net.colorixer.item.items.firestarteritem.FireStarterItem;
+import net.colorixer.item.items.firestarteritem.FireStarterItemSmoke;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.FallingBlockEntity;
+import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
@@ -92,6 +101,13 @@ public class CampfireBlock extends FallingBlock implements BlockEntityProvider, 
 
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
+
+        if (!state.get(Properties.LIT) && player.getStackInHand(player.getActiveHand()).getItem() instanceof FireStarterItem){
+            if (!world.isClient) {
+                FireStarterItemSmoke.spawnFrictionEffects(world, hit.getPos(), hit.getSide());
+            }
+        }
+
         if (world.isClient) return ActionResult.SUCCESS;
         if (world.getBlockEntity(pos) instanceof CampfireBlockEntity campfire) {
             return campfire.onRightClick(player, player.getActiveHand());
@@ -111,6 +127,44 @@ public class CampfireBlock extends FallingBlock implements BlockEntityProvider, 
 
     @Override
     protected MapCodec<? extends FallingBlock> getCodec() { return null; }
+
+    // 1. Only allow placement on solid, full-face blocks
+    @Override
+    public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
+        BlockPos downPos = pos.down();
+        return world.getBlockState(downPos).isSideSolidFullSquare(world, downPos, Direction.UP);
+    }
+
+    // 2. Break the attachments when the block falls and lands
+    @Override
+    public void onLanding(World world, BlockPos pos, BlockState fallingBlockState, BlockState currentStateInPos, FallingBlockEntity fallingBlockEntity) {
+        if (!world.isClient) {
+            BlockEntity be = world.getBlockEntity(pos);
+            if (be instanceof CampfireBlockEntity campfire) {
+
+                // Drop the Pointy Stick if it was attached
+                if (fallingBlockState.get(STICK)) {
+                    world.spawnEntity(new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
+                            new ItemStack(ModItems.POINTY_STICK)));
+
+                    // Remove the stick from the block state upon landing
+                    world.setBlockState(pos, world.getBlockState(pos).with(STICK, false), 3);
+                }
+
+                // Drop the inventory (food/cooking item)
+                if (!campfire.getInventory().isEmpty()) {
+                    world.spawnEntity(new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
+                            campfire.getInventory().copy()));
+
+                    campfire.getInventory().setCount(0); // Clear it
+                    campfire.markDirty();
+                }
+
+                // Optional: Play a wood breaking sound on landing
+                world.playSound(null, pos, SoundEvents.BLOCK_WOOD_BREAK, SoundCategory.BLOCKS, 1.0f, 0.8f);
+            }
+        }
+    }
 
     @Override
     public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
@@ -151,6 +205,52 @@ public class CampfireBlock extends FallingBlock implements BlockEntityProvider, 
                             0.0, 0.02, 0.0);
                 }
             }
+        }
+    }
+
+    @Override
+    public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
+        // Damage must happen on the server side
+        if (world instanceof ServerWorld serverWorld && state.get(LIT) && entity instanceof LivingEntity) {
+
+            float damageAmount = switch (state.get(STAGE)) {
+                case 1 -> 0.7f;
+                case 2 -> 1.0f;
+                case 3 -> 1.3f;
+                default -> 1.0f;
+            };
+
+            // Argument 1: The ServerWorld
+            // Argument 2: The DamageSource
+            // Argument 3: The Amount
+            entity.damage(serverWorld, world.getDamageSources().campfire(), damageAmount);
+
+            if (!entity.isFireImmune()) {
+                entity.setOnFireFor(5);
+            }
+        }
+    }
+
+    @Override
+    protected void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
+        if (!state.isOf(newState.getBlock())) {
+            BlockEntity blockEntity = world.getBlockEntity(pos);
+            if (blockEntity instanceof CampfireBlockEntity campfire) {
+                // 1. Drop the cooking item if it exists
+                if (!campfire.getInventory().isEmpty()) {
+                    ItemEntity itemEntity = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, campfire.getInventory().copy());
+                    world.spawnEntity(itemEntity);
+                }
+
+                // 2. Drop the Pointy Stick if the state had one
+                if (state.get(STICK)) {
+                    ItemEntity stickEntity = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, new ItemStack(ModItems.POINTY_STICK));
+                    world.spawnEntity(stickEntity);
+                }
+
+                world.updateComparators(pos, this);
+            }
+            super.onStateReplaced(state, world, pos, newState, moved);
         }
     }
 }

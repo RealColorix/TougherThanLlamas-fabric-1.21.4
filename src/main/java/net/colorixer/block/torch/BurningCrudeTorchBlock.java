@@ -98,23 +98,34 @@ public class BurningCrudeTorchBlock extends Block implements BlockEntityProvider
     @Override
     public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
         if (!state.isOf(newState.getBlock())) {
+            // Check if the block was broken 'normally' (not silently)
+            // In Minecraft, if world.breakBlock is called with 'false', we can check the context.
+            // However, a simpler way for your mod is to check if there's a zombie
+            // currently standing right next to the torch being broken.
+
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if (blockEntity instanceof BurningCrudeTorchBlockEntity torchBe && torchBe.getBurnTime() > 0) {
-                ItemStack stack = new ItemStack(this);
-                int totalTicks = torchBe.getBurnTime();
 
-                // 1. Save exact ticks to the component
-                stack.set(ModDataComponentTypes.FUEL_TIME, (long)totalTicks);
+                // --- NEW ZOMBIE CHECK ---
+                // We check if a zombie is within 2 blocks. If so, we 'destroy' the item.
+                boolean brokenByZombie = !world.getEntitiesByClass(net.minecraft.entity.mob.ZombieEntity.class,
+                        new net.minecraft.util.math.Box(pos).expand(1.5), entity -> true).isEmpty();
 
-                // 2. Set the visual durability bar
-                // (Max - Remaining) = Damage
-                stack.setDamage(24000 - totalTicks);
+                if (!brokenByZombie) {
+                    ItemStack stack = new ItemStack(this);
+                    int totalTicks = torchBe.getBurnTime();
+                    stack.set(ModDataComponentTypes.FUEL_TIME, (long)totalTicks);
+                    stack.setDamage(24000 - totalTicks);
 
-                ItemEntity itemEntity = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, stack);
-                itemEntity.setToDefaultPickupDelay();
-                world.spawnEntity(itemEntity);
+                    ItemEntity itemEntity = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, stack);
+                    itemEntity.setToDefaultPickupDelay();
+                    world.spawnEntity(itemEntity);
+                } else {
+                    // Play a 'crunch' or 'extinguish' sound instead of dropping
+                    world.playSound(null, pos, SoundEvents.ENTITY_ZOMBIE_BREAK_WOODEN_DOOR, SoundCategory.BLOCKS, 0.5f, 1.5f);
+                }
             }
-            // IMPORTANT: Clear the block entity so the super call doesn't find it
+
             world.removeBlockEntity(pos);
             super.onStateReplaced(state, world, pos, newState, moved);
         }

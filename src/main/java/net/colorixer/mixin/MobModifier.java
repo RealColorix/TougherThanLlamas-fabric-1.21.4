@@ -1,5 +1,6 @@
 package net.colorixer.mixin;
 
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.ZombieEntity;
@@ -7,6 +8,7 @@ import net.minecraft.item.*;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(MobEntity.class)
@@ -21,9 +23,17 @@ public abstract class MobModifier {
             if (isIronOrBetter(stack) && (stack.getItem() instanceof SwordItem || stack.getItem() instanceof ShovelItem)) {
                 double distanceSq = zombie.squaredDistanceTo(target);
                 // 3.0 squared = 9.0
-                cir.setReturnValue(distanceSq <= 9.0);
+                cir.setReturnValue(distanceSq <= 4.0);
             }
+
+
         }
+    }
+
+    @Inject(method = "equipLootStack", at = @At("TAIL"))
+    private void ttll$forceDropChanceOnPickup(EquipmentSlot slot, ItemStack stack, CallbackInfo ci) {
+        // Force the 2.0F drop chance whenever ANY mob picks up an item
+        ((MobEntityAccessor) this).callUpdateDropChances(slot);
     }
 
     private boolean isIronOrBetter(ItemStack stack) {
@@ -35,4 +45,6 @@ public abstract class MobModifier {
         }
         return false;
     }
+
+
 }
