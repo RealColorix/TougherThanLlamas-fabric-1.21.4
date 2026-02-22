@@ -1,10 +1,21 @@
 {
   "conditions": [
     {
-      "item": "ttll:stone_hoe",
+      "item": "#ttll:hoes",
       "result": "minecraft:dirt",
       "blockabovedisables": true,
-      "doloottable": false
+      "doloottable": false,
+      "drops": [
+        {
+          "chance": 0.5,
+          "items": ["minecraft:pumpkin_seeds", "minecraft:melon_seeds"]
+        },
+        {
+          "chance": 0.1,
+          "items": ["minecraft:wheat_seeds"]
+        }
+      ],
+      "miningspeed": [3, 1]
     }
   ]
 }

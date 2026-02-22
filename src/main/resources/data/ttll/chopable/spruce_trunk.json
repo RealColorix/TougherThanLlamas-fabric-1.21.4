@@ -1,8 +1,32 @@
 {
   "conditions": [
     {
-      "item": "ttll:sharp_rock",
-      "result": "ttll:spruce_stem"
+      "item": "#ttll:beginner_stone_mining_tools",
+      "result": "ttll:spruce_stem",
+      "doloottable": false,
+      "drops": [
+        {
+          "chance": 0.25,
+          "items": ["ttll:tree_sap"]
+        },
+        {
+          "items": ["ttll:spruce_firewood"]
+        }
+      ]
+    },
+    {
+      "item": "ttll:iron_chisel",
+      "result": "ttll:spruce_stem",
+      "doloottable": false,
+      "drops": [
+        {
+          "chance": 0.25,
+          "items": ["ttll:tree_sap"]
+        },
+        {
+          "items": ["ttll:spruce_firewood"]
+        }
+      ]
     }
   ]
 }

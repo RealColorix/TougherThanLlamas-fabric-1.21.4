@@ -24,6 +24,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
@@ -119,6 +120,30 @@ public class CrudeTorchBlock extends Block {
     }
 
     // --- PROPERTIES & PLACEMENT ---
+    @Override
+    protected BlockState getStateForNeighborUpdate(BlockState state, WorldView world, net.minecraft.world.tick.ScheduledTickView tickView, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, Random random) {
+        Direction facing = state.get(FACING);
+        // Determine which direction we are attached to
+        Direction supportDirection = facing == Direction.UP ? Direction.DOWN : facing.getOpposite();
+
+        // If the block we were attached to is broken
+        if (direction == supportDirection && !state.canPlaceAt(world, pos)) {
+            // Only drop the item if it hasn't been burned yet
+            if (!world.isClient() && !state.get(BURNED)) {
+                // If the world is a real World (not just a View), spawn the item
+                if (world instanceof World actualWorld) {
+                    ItemStack stack = new ItemStack(this);
+                    ItemEntity itemEntity = new ItemEntity(actualWorld, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, stack);
+                    itemEntity.setToDefaultPickupDelay();
+                    actualWorld.spawnEntity(itemEntity);
+                }
+            }
+            // Break the block
+            return Blocks.AIR.getDefaultState();
+        }
+
+        return super.getStateForNeighborUpdate(state, world, tickView, pos, direction, neighborPos, neighborState, random);
+    }
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {

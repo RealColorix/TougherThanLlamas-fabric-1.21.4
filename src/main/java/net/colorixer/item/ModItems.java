@@ -6,7 +6,6 @@ import net.colorixer.block.torch.BurningCrudeTorchItem;
 import net.colorixer.block.torch.CrudeTorchItem;
 import net.colorixer.entity.ModEntities;
 import net.colorixer.item.items.*;
-import net.colorixer.item.items.HoeItem;
 import net.colorixer.item.items.firestarteritem.FireStarterItem;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.*;
@@ -43,6 +42,7 @@ public class ModItems {
     public static final Item GRAVEL_PILE = registerItem("gravel_pile", Item::new, new Item.Settings());
     public static final Item SAND_PILE = registerItem("sand_pile", Item::new, new Item.Settings());
     public static final Item CRUDE_CLAY = registerItem("crude_clay", Item::new, new Item.Settings());
+    public static final Item LAPIS_LAZULI_DUST = registerItem("lapis_lazuli_dust", Item::new, new Item.Settings());
 
     // ---------- SMALL ITEM DROPS ----------
     public static final Item ROCK = registerItem("rock", Item::new, new Item.Settings());
@@ -92,10 +92,9 @@ public class ModItems {
     public static final Item SHARP_ROCK = registerItem("sharp_rock",settings -> new DraxItem(TTLLToolMaterial.SHARP_ROCK, 0.5f, -3.3F, settings), new Item.Settings());
     public static final Item FLINT_AXE = registerItem("flint_axe",settings -> new FlintAxeItem(TTLLToolMaterial.STONE_AXE, 1f, -3f, settings), new Item.Settings());
     public static final Item STONE_SHOVEL = registerItem("stone_shovel",settings -> new ShovelItem(TTLLToolMaterial.STONE, 1f, -3f, settings), new Item.Settings());
-    public static final Item STONE_HOE = registerItem("stone_hoe",settings -> new HoeItem(TTLLToolMaterial.STONE, 1f, -3f, settings), new Item.Settings());
     public static final Item IRON_CHISEL = registerItem("iron_chisel",settings -> new DraxItem(TTLLToolMaterial.STONE, 1f, -3f, settings), new Item.Settings());
-    public static final Item WOODEN_CLUB = registerItem("wooden_club",settings -> new SwordItem(TTLLToolMaterial.WOODEN_CLUB, 2f, -2.4F, settings), new Item.Settings());
-    public static final Item BONE_CLUB = registerItem("bone_club",settings -> new SwordItem(TTLLToolMaterial.BONE, 4f, -3.0F, settings), new Item.Settings());
+    public static final Item WOODEN_CLUB = registerItem("wooden_club",settings -> new SwordItem(TTLLToolMaterial.WOODEN_CLUB, 1f, -2.4F, settings), new Item.Settings());
+    public static final Item BONE_CLUB = registerItem("bone_club",settings -> new SwordItem(TTLLToolMaterial.BONE, 3f, -3.0F, settings), new Item.Settings());
 
     // ---------- MOB DROPS ---------- NATURAL --> ANGRY ----------
     public static final Item TALLOW = registerItem("tallow", Item::new, new Item.Settings());
@@ -192,6 +191,7 @@ public class ModItems {
             entries.add(SCROLL_OF_ARCANE);
             entries.add(SCROLL_OF_ECHOES);
             entries.add(SCROLL_OF_OCULUS);
+            entries.add(LAPIS_LAZULI_DUST);
             entries.add(DIAMOND_INGOT);
             entries.add(BURNED_MEAT);
         });
@@ -209,7 +209,6 @@ public class ModItems {
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(entries -> {
             entries.add(FLINT_AXE);
             entries.add(STONE_SHOVEL);
-            entries.add(STONE_HOE);
             entries.add(SHARP_ROCK);
         });
     }

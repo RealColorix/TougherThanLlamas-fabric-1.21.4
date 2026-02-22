@@ -10,7 +10,7 @@
           "name": "ttll:spruce_firewood"
         }
       ],
-      "rolls": 1
+      "rolls": 2
     },
     {
       "bonus_rolls": 0,
@@ -26,7 +26,7 @@
           "name": "ttll:tree_sap"
         }
       ],
-      "rolls": 1
+      "rolls": 2
     }
   ],
   "random_sequence": "ttll:blocks/spruce_trunk"

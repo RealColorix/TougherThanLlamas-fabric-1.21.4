@@ -1,11 +1,15 @@
 package net.colorixer.block;
 
-import com.mojang.serialization.MapCodec;
 import net.colorixer.TougherThanLlamas;
+import net.colorixer.block.ashlayer.AshLayerBlock;
 import net.colorixer.block.brick_block.DriedBrickBlock;
 import net.colorixer.block.brick_block.WetBrickBlock;
 import net.colorixer.block.campfire.CampfireBlock;
+import net.colorixer.block.crafting_table.LogCraftingTableBlock;
 import net.colorixer.block.drying_rack.DryingRackBlock;
+import net.colorixer.block.falling_block.ModFallingBlock;
+import net.colorixer.block.falling_slabs.FallingGrassSlabBlock;
+import net.colorixer.block.falling_slabs.FallingSlabBlock;
 import net.colorixer.block.furnace.FurnaceBlock;
 import net.colorixer.block.logs.StemBlock;
 import net.colorixer.block.logs.TrunkBlock;
@@ -13,11 +17,11 @@ import net.colorixer.block.torch.BurningCrudeTorchBlock;
 import net.colorixer.block.torch.BurningCrudeTorchItem;
 import net.colorixer.block.torch.CrudeTorchBlock;
 import net.colorixer.block.torch.CrudeTorchItem;
+import net.colorixer.block.volcanic_tuff.VolcanicTuffBlock;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.block.piston.PistonBehavior;
-import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
 import net.minecraft.item.Items;
@@ -59,19 +63,9 @@ public class ModBlocks {
     );
 
 
-    public static final Block COBWEB_FUll = registerBlock(
-            "cobweb_full",
-            CobwebBlock::new,
-            AbstractBlock.Settings.create()
-                    .mapColor(MapColor.WHITE_GRAY)
-                    .sounds(BlockSoundGroup.COBWEB)
-                    .solid()
-                    .noCollision()
-                    .requiresTool()
-                    .strength(4.0F)
-                    .pistonBehavior(PistonBehavior.DESTROY)
-                    .nonOpaque()
-    );
+    public static final Block COBWEB_FUll = registerBlock("cobweb_full", CobwebBlock::new, Block.Settings.create().mapColor(MapColor.WHITE_GRAY).sounds(BlockSoundGroup.COBWEB).solid().noCollision().requiresTool().strength(4.0F).pistonBehavior(PistonBehavior.DESTROY).nonOpaque());
+    public static final Block COBWEB_HALF = registerBlock("cobweb_half", CobwebBlock::new, Block.Settings.create().mapColor(MapColor.WHITE_GRAY).sounds(BlockSoundGroup.COBWEB).solid().noCollision().requiresTool().strength(4.0F).pistonBehavior(PistonBehavior.DESTROY).nonOpaque());
+    public static final Block COBWEB_QUARTER = registerBlock("cobweb_quarter", CobwebBlock::new, Block.Settings.create().mapColor(MapColor.WHITE_GRAY).sounds(BlockSoundGroup.COBWEB).solid().noCollision().requiresTool().strength(4.0F).pistonBehavior(PistonBehavior.DESTROY).nonOpaque());
 
     public static final Block DRYING_RACK = registerBlock("drying_rack", DryingRackBlock::new, Block.Settings.create()
             .mapColor(MapColor.TERRACOTTA_BROWN).strength(0.05F, 0F).sounds(BlockSoundGroup.WOOD));
@@ -79,14 +73,17 @@ public class ModBlocks {
     public static final Block ASH = registerBlock("ash", AshLayerBlock::new, Block.Settings.create()
             .mapColor(MapColor.GRAY).strength(0.1F, 0F).sounds(BlockSoundGroup.SAND).pistonBehavior(PistonBehavior.DESTROY));
 
+    public static final Block VOLCANIC_TUFF = registerBlock("volcanic_tuff", VolcanicTuffBlock::new, Block.Settings.create()
+            .mapColor(MapColor.PURPLE).strength(2.0F, 1F).sounds(BlockSoundGroup.DRIPSTONE_BLOCK).requiresTool());
+
 
 
     public static final Block DRIED_BRICK = registerBlock("dried_brick", DriedBrickBlock::new, Block.Settings.create()
             .mapColor(MapColor.DULL_PINK).strength(0.2F, 0.5F).sounds(BlockSoundGroup.STONE));
-    public static final Block WET_BRICK = registerBlock("wet_brick", WetBrickBlock::new, Block.Settings.copy(Blocks.CLAY));
+    public static final Block WET_BRICK = registerBlock("wet_brick", WetBrickBlock::new, Block.Settings.copy(Blocks.CLAY).noCollision());
 
     public static final Block FURNACE = registerBlock("furnace", FurnaceBlock::new, Block.Settings.create()
-            .mapColor(MapColor.STONE_GRAY)
+            .mapColor(MapColor.DULL_PINK)
             .instrument(NoteBlockInstrument.BASEDRUM)
             .requiresTool()
             .strength(1.5F, 10)
@@ -104,6 +101,7 @@ public class ModBlocks {
             .strength(0.3F, 1)
             .sounds(BlockSoundGroup.WOOD)
             .nonOpaque()
+            .noCollision()
             // This is the "Full Bright/15" glow for the texture pixels
            // .emissiveLighting((state, world, pos) -> state.get(CampfireBlock.LIT))
             .luminance(state -> {
@@ -116,26 +114,10 @@ public class ModBlocks {
                 };
             }));
 
-
-
     //  SLABS
-    public static final Block LOOSE_COBBLESTONE = registerBlock("loose_cobblestone",
-            ModFallingBlock::new,
-            Block.Settings.create()
-                    .mapColor(MapColor.STONE_GRAY)
-                    .instrument(NoteBlockInstrument.BASEDRUM)
-                    .requiresTool()
-                    .strength(1.5F, 4)
-                    .sounds(BlockSoundGroup.STONE)
-    );
-
-    public static final Block LOOSE_COBBLESTONE_SLAB = registerBlock("loose_cobblestone_slab", FallingSlabBlock::new, Block.Settings.copy(ModBlocks.LOOSE_COBBLESTONE));
-
     public static final Block GRAVEL_SLAB = registerBlock("gravel_slab", FallingSlabBlock::new, Block.Settings.copy(Blocks.GRAVEL));
     public static final Block SAND_SLAB = registerBlock("sand_slab", FallingSlabBlock::new, Block.Settings.copy(Blocks.SAND));
     public static final Block LOOSE_DIRT_SLAB = registerBlock("loose_dirt_slab", FallingSlabBlock::new, Block.Settings.copy(Blocks.DIRT));
-
-
     public static final Block GRASS_SLAB = registerBlock("grass_slab", FallingGrassSlabBlock::new, Block.Settings.copy(Blocks.GRASS_BLOCK));
 
     /** STONE **/
@@ -143,21 +125,6 @@ public class ModBlocks {
     public static final Block BEDSTONE = registerBlock("bedstone", Block::new, Block.Settings.create()
             .mapColor(MapColor.BLACK).strength(6.0F, 6F).sounds(BlockSoundGroup.STONE).requiresTool());
 
-
-//WOODS
-
-    public static final Block OAK_BOTTOM_LOG = registerBlock("oak_bottom_log", PillarBlock::new, Block.Settings.copy(Blocks.OAK_LOG)
-           .requiresTool().strength(2F, 6F));
-    public static final Block BIRCH_BOTTOM_LOG = registerBlock("birch_bottom_log", PillarBlock::new, Block.Settings.copy(Blocks.BIRCH_LOG)
-            .requiresTool().strength(2F, 6F));
-    public static final Block OAK_BOTTOM_LOG_CHISELED = registerBlock("oak_bottom_log_chiseled", PillarBlock::new, Block.Settings.copy(Blocks.OAK_LOG)
-            .requiresTool().strength(2F, 6F));
-    public static final Block BIRCH_BOTTOM_LOG_CHISELED = registerBlock("birch_bottom_log_chiseled", PillarBlock::new, Block.Settings.copy(Blocks.BIRCH_LOG)
-            .requiresTool().strength(2F, 6F));
-    public static final Block OAK_BOTTOM_LOG_CRAFTING_TABLE = registerBlock("oak_bottom_log_crafting_table", LogCraftingTableBlock::new, Block.Settings.copy(Blocks.OAK_LOG)
-            .requiresTool().strength(2F, 6F));
-    public static final Block BIRCH_BOTTOM_LOG_CRAFTING_TABLE = registerBlock("birch_bottom_log_crafting_table", LogCraftingTableBlock::new, Block.Settings.copy(Blocks.BIRCH_LOG)
-            .requiresTool().strength(2F, 6F));
 
 
     public static final Block WEATHERED_STONE = registerBlock("weathered_stone", Block::new, Block.Settings.create()
@@ -170,6 +137,45 @@ public class ModBlocks {
             .mapColor(MapColor.STONE_GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1.5F, 6F).sounds(BlockSoundGroup.STONE));
     public static final Block EXCAVATED_STONE = registerBlock("excavated_stone", Block::new, Block.Settings.create()
             .mapColor(MapColor.STONE_GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1.5F, 6F).sounds(BlockSoundGroup.STONE));
+    public static final Block LOOSE_COBBLESTONE = registerBlock("loose_cobblestone",
+            ModFallingBlock::new,
+            Block.Settings.create()
+                    .mapColor(MapColor.STONE_GRAY)
+                    .instrument(NoteBlockInstrument.BASEDRUM)
+                    .requiresTool()
+                    .strength(1.5F, 4)
+                    .sounds(BlockSoundGroup.STONE)
+    );
+    public static final Block LOOSE_COBBLESTONE_SLAB = registerBlock("loose_cobblestone_slab", FallingSlabBlock::new, Block.Settings.copy(ModBlocks.LOOSE_COBBLESTONE));
+    public static final Block LOOSE_BRICK_SLAB = registerBlock("loose_brick_slab", FallingSlabBlock::new, Block.Settings.create()    .mapColor(MapColor.DULL_PINK)
+            .instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1.5F, 10).sounds(BlockSoundGroup.STONE));
+
+
+
+    public static final Block DEEPSLATE = registerBlock("deepslate", Block::new, Block.Settings.create()
+            .mapColor(MapColor.DEEPSLATE_GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(3.0F, 6.0F).sounds(BlockSoundGroup.STONE));
+    public static final Block WEATHERED_DEEPSLATE = registerBlock("weathered_deepslate", Block::new, Block.Settings.copy(ModBlocks.DEEPSLATE));
+    public static final Block COBBLED_DEEPSLATE = registerBlock("cobbled_deepslate", Block::new, Block.Settings.copy(ModBlocks.DEEPSLATE));
+    public static final Block CRACKED_DEEPSLATE = registerBlock("cracked_deepslate", Block::new, Block.Settings.copy(ModBlocks.DEEPSLATE));
+    public static final Block SHATTERED_DEEPSLATE = registerBlock("shattered_deepslate", Block::new, Block.Settings.copy(ModBlocks.DEEPSLATE));
+    public static final Block EXCAVATED_DEEPSLATE = registerBlock("excavated_deepslate", Block::new, Block.Settings.copy(ModBlocks.DEEPSLATE));
+    public static final Block LOOSE_COBBLED_DEEPSLATE = registerBlock("loose_cobbled_deepslate", ModFallingBlock::new, Block.Settings.copy(ModBlocks.DEEPSLATE));
+    public static final Block LOOSE_COBBLED_DEEPSLATE_SLAB = registerBlock("loose_cobbled_deepslate_slab", FallingSlabBlock::new, Block.Settings.copy(ModBlocks.LOOSE_COBBLED_DEEPSLATE));
+
+//WOODS
+
+    public static final Block OAK_BOTTOM_LOG = registerBlock("oak_bottom_log", PillarBlock::new, Block.Settings.copy(Blocks.OAK_LOG)
+            .requiresTool().strength(2F, 6F));
+    public static final Block BIRCH_BOTTOM_LOG = registerBlock("birch_bottom_log", PillarBlock::new, Block.Settings.copy(Blocks.BIRCH_LOG)
+            .requiresTool().strength(2F, 6F));
+    public static final Block OAK_BOTTOM_LOG_CHISELED = registerBlock("oak_bottom_log_chiseled", PillarBlock::new, Block.Settings.copy(Blocks.OAK_LOG)
+            .requiresTool().strength(2F, 6F));
+    public static final Block BIRCH_BOTTOM_LOG_CHISELED = registerBlock("birch_bottom_log_chiseled", PillarBlock::new, Block.Settings.copy(Blocks.BIRCH_LOG)
+            .requiresTool().strength(2F, 6F));
+    public static final Block OAK_BOTTOM_LOG_CRAFTING_TABLE = registerBlock("oak_bottom_log_crafting_table", LogCraftingTableBlock::new, Block.Settings.copy(Blocks.OAK_LOG)
+            .requiresTool().strength(2F, 6F));
+    public static final Block BIRCH_BOTTOM_LOG_CRAFTING_TABLE = registerBlock("birch_bottom_log_crafting_table", LogCraftingTableBlock::new, Block.Settings.copy(Blocks.BIRCH_LOG)
+            .requiresTool().strength(2F, 6F));
 
 
 
@@ -307,7 +313,10 @@ public class ModBlocks {
             entries.add(ModBlocks.WET_BRICK);
             entries.add(ModBlocks.DRYING_RACK);
             entries.add(ModBlocks.FURNACE);
+            entries.add(ModBlocks.LOOSE_BRICK_SLAB);
             entries.add(ModBlocks.COBWEB_FUll);
+            entries.add(ModBlocks.COBWEB_HALF);
+            entries.add(ModBlocks.COBWEB_QUARTER);
             entries.add(ModBlocks.LOOSE_COBBLESTONE);
             entries.add(ModBlocks.BURNING_CRUDE_TORCH);
             entries.add(ModBlocks.CRUDE_TORCH);
@@ -323,6 +332,15 @@ public class ModBlocks {
             entries.add(ModBlocks.BEDSTONE_COAL_ORE);
             entries.add(ModBlocks.CAMPFIRE);
             entries.add(ModBlocks.ASH);
+            entries.add(ModBlocks.DEEPSLATE);
+            entries.add(ModBlocks.WEATHERED_DEEPSLATE);
+            entries.add(ModBlocks.COBBLED_DEEPSLATE);
+            entries.add(ModBlocks.CRACKED_DEEPSLATE);
+            entries.add(ModBlocks.SHATTERED_DEEPSLATE);
+            entries.add(ModBlocks.EXCAVATED_DEEPSLATE);
+            entries.add(ModBlocks.LOOSE_COBBLED_DEEPSLATE);
+            entries.add(ModBlocks.LOOSE_COBBLED_DEEPSLATE_SLAB);
+            entries.add(ModBlocks.VOLCANIC_TUFF);
         });
     }
 }

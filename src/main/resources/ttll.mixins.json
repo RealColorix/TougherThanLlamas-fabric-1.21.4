@@ -13,7 +13,6 @@
 		"AdvancementBackground",
 		"PlayerEntityMixin",
 		"HungerHeatManager",
-		"BlockBreakDropMixin",
 		"ServerPlayerInteractionManagerAccessor",
 		"ResetSaturation",
 		"MobEntityAccessor",
@@ -89,7 +88,10 @@
 		"WorldCreationTabNukeMixin",
 		"OptionsDifficultyNukeMixin",
 		"ScreenDifficultyRenderMixin",
-		"ScreenAccessor"
+		"ScreenAccessor",
+		"ChopableHelperMixin",
+		"ShulkerHitboxMixin",
+		"HoeItemMixin"
 
 	],
 	"injectors": {

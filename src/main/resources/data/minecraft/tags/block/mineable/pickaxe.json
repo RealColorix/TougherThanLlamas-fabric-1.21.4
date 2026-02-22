@@ -15,6 +15,16 @@
     "ttll:bedstone_gold_ore",
     "ttll:bedstone_copper_ore",
     "ttll:loose_cobblestone_slab",
-    "ttll:loose_cobblestone"
+    "ttll:loose_cobblestone",
+    "ttll:deepslate",
+    "ttll:weathered_deepslate",
+    "ttll:cobbled_deepslate",
+    "ttll:cracked_deepslate",
+    "ttll:shattered_deepslate",
+    "ttll:excavated_deepslate",
+    "ttll:loose_cobbled_deepslate",
+    "ttll:loose_cobbled_deepslate_slab",
+    "ttll:loose_brick_slab",
+    "ttll:volcanic_tuff"
   ]
 }

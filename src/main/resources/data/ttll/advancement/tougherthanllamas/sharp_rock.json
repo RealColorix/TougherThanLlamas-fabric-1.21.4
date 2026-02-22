@@ -1,0 +1,36 @@
+{
+  "parent": "ttll:tougherthanllamas/acquire_flint",
+  "criteria": {
+    "sharp_rock": {
+      "conditions": {
+        "items": [
+          {
+            "items": "ttll:sharp_rock"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.tougherthanllamas.sharp_rock.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "ttll:sharp_rock"
+    },
+    "title": {
+      "translate": "advancements.tougherthanllamas.sharp_rock.title"
+    },
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "requirements": [
+    [
+      "sharp_rock"
+    ]
+  ],
+  "sends_telemetry_event": false
+}

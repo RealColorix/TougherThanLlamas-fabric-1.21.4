@@ -21,6 +21,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
+import net.fabricmc.fabric.impl.client.rendering.ColorProviderRegistryImpl;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.option.KeyBinding;
@@ -98,18 +99,23 @@ public class TougherThanLlamasClient implements ClientModInitializer {
 
 
 
-// For the Block
 		ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> {
-			// This 'tintIndex' matches the 'tintindex' in your JSON file.
-			if (tintIndex == 0) {
-				if (world != null && pos != null) {
-					return BiomeColors.getGrassColor(world, pos);
-				}
-				return GrassColors.getDefaultColor();
+			// If tintIndex is anything other than 0, do NOT tint.
+			// Minecraft particles sometimes default to 0, but if you have
+			// multiple layers, we need to be strict.
+			if (tintIndex != 0) {
+				return -1;
 			}
-			// Returning -1 means "Don't tint this texture, use the original file colors"
-			return -1;
+
+			// High-density mobs/harder game logic usually means many block updates.
+			// Ensure we have a valid position for the biome color.
+			if (world != null && pos != null) {
+				return BiomeColors.getGrassColor(world, pos);
+			}
+
+			return GrassColors.getDefaultColor();
 		}, ModBlocks.GRASS_SLAB);
+
 
 
 
@@ -119,6 +125,8 @@ public class TougherThanLlamasClient implements ClientModInitializer {
 		BlockEntityRendererRegistry.register(ModBlockEntities.DRYING_RACK_BLOCK_ENTITY, DryingRackBlockEntityRenderer::new);
 
 		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.COBWEB_FUll, RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.COBWEB_HALF, RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.COBWEB_QUARTER, RenderLayer.getCutout());
 		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.CAMPFIRE, RenderLayer.getCutout());
 		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.GRASS_SLAB, RenderLayer.getCutoutMipped());
 		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.FURNACE, RenderLayer.getCutout());

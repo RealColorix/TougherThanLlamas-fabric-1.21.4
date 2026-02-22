@@ -1,0 +1,29 @@
+{
+  "display": {
+    "icon": {
+      "id": "ttll:furnace"
+    },
+    "title": {
+      "translate": "advancements.tougherthanllamas.furnace.title"
+    },
+    "description": {
+      "translate": "advancements.tougherthanllamas.furnace.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "parent": "ttll:tougherthanllamas/craft_stone_shovel",
+  "criteria": {
+    "advancement_requirement": {
+      "trigger": "ttll:in_vicinity",
+      "conditions": {
+        "block": {
+          "blocks": "ttll:furnace"
+        }
+      }
+    }
+  },
+  "sends_telemetry_event": false
+}

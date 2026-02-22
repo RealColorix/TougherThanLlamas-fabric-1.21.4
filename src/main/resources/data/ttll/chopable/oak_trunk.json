@@ -1,8 +1,32 @@
 {
   "conditions": [
     {
-      "item": "ttll:sharp_rock",
-      "result": "ttll:oak_stem"
+      "item": "#ttll:beginner_stone_mining_tools",
+      "result": "ttll:oak_stem",
+      "doloottable": false,
+      "drops": [
+        {
+          "chance": 0.225,
+          "items": ["ttll:tree_sap"]
+        },
+        {
+          "items": ["ttll:oak_firewood"]
+        }
+      ]
+    },
+    {
+      "item": "ttll:iron_chisel",
+      "result": "ttll:oak_stem",
+      "doloottable": false,
+      "drops": [
+        {
+          "chance": 0.225,
+          "items": ["ttll:tree_sap"]
+        },
+        {
+          "items": ["ttll:oak_firewood"]
+        }
+      ]
     }
   ]
 }

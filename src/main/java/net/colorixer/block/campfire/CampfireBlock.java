@@ -180,7 +180,7 @@ public class CampfireBlock extends FallingBlock implements BlockEntityProvider, 
         }
 
         // Spawn campfire smoke particles
-        world.addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, x + random.nextDouble() * 0.2 - 0.1, y + 0.4, z + random.nextDouble() * 0.2 - 0.1, 0.0, 0.07, 0.0);
+        world.addParticle(ParticleTypes.LARGE_SMOKE, x + random.nextDouble() * 0.2 - 0.1, y + 0.4, z + random.nextDouble() * 0.2 - 0.1, 0.0, 0.07, 0.0);
 
         // 2. LAVA PARTICLES (Sparks)
         if (random.nextInt(5) == 0) {

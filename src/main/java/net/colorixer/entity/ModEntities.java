@@ -79,7 +79,7 @@ public class ModEntities {
                             .build(JUNGLE_SPIDER_KEY)
             );
 
-    public static void register() {
+    public static void registerEntities() {
         // force class loading
     }
 }

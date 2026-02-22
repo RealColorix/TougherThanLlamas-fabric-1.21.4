@@ -2,7 +2,7 @@ package net.colorixer;
 
 import net.colorixer.advancements.DestroyBlockCriterion;
 import net.colorixer.advancements.InVicinityCriterion;
-import net.colorixer.block.FallingSlabBlock;
+import net.colorixer.block.falling_slabs.FallingSlabBlock;
 import net.colorixer.block.ModBlockEntities;
 import net.colorixer.block.ModBlocks;
 import net.colorixer.component.ModDataComponentTypes;
@@ -15,11 +15,11 @@ import net.colorixer.player.Chopable;
 import net.colorixer.recipe.ModRecipeSerializers;
 import net.colorixer.sounds.ModSounds;
 import net.colorixer.util.GloomHelper;
+import net.colorixer.worldgen.OreWorldGen;
 import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
@@ -113,7 +113,7 @@ public class TougherThanLlamas implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		ModEntities.register();
+		ModEntities.registerEntities();
 		ModItems.registerModItems();
 		ModBlocks.registerModBlocks();
 		ModBlockEntities.register();
@@ -122,6 +122,7 @@ public class TougherThanLlamas implements ModInitializer {
 		ModRecipeSerializers.register();
 		ModDataComponentTypes.registerDataComponentTypes();
 		ModSounds.registerSounds();
+		OreWorldGen.registerWorldGen();
 
 
 		ServerLifecycleEvents.SERVER_STARTED.register(server -> {
@@ -132,18 +133,8 @@ public class TougherThanLlamas implements ModInitializer {
 			}
 		});
 
-
-
-
-
-
-
-
-
 		FabricDefaultAttributeRegistry.register(ModEntities.FIRE_CREEPER, FireCreeperEntity.createCreeperAttributes());
-
 		FabricDefaultAttributeRegistry.register(ModEntities.JUNGLE_SPIDER, JungleSpiderEntity.createJungleSpiderAttributes());
-
 
 		BiomeModifications.addSpawn(
 				BiomeSelectors.includeByKey(BiomeKeys.JUNGLE, BiomeKeys.BAMBOO_JUNGLE),
@@ -329,5 +320,9 @@ public class TougherThanLlamas implements ModInitializer {
 		}
 		return false;
 	}
+
+
+
+
 
 }

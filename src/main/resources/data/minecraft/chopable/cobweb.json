@@ -1,9 +1,9 @@
 {
   "conditions": [
     {
-      "item": "",
+      "item": "#ttll:beginner_stone_mining_tools",
       "result": "ttll:cobweb_full",
-      "blockabovedisables": false,
+      "blockdisplay": false,
       "doloottable": false
     }
   ]

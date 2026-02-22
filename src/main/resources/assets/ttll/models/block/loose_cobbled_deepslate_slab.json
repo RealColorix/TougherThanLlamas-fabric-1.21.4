@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "ttll:block/loose_cobbled_deepslate",
+    "top": "ttll:block/loose_cobbled_deepslate",
+    "side": "ttll:block/loose_cobbled_deepslate"
+  }
+}

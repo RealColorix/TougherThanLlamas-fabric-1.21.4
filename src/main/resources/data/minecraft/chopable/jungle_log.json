@@ -4,13 +4,17 @@
       "item": "#ttll:beginner_stone_mining_tools",
       "result": "ttll:jungle_trunk",
       "doloottable": false,
-      "drop_item": "ttll:jungle_bark"
+      "drops": [{
+        "items": ["ttll:jungle_bark"]
+      }]
     },
     {
       "item": "ttll:iron_chisel",
       "result": "ttll:jungle_trunk",
       "doloottable": false,
-      "drop_item": "ttll:jungle_bark"
+      "drops": [{
+        "items": ["ttll:jungle_bark"]
+      }]
     }
   ]
 }

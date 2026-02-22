@@ -1,0 +1,36 @@
+{
+  "parent": "ttll:tougherthanllamas/obtain_a_twine",
+  "criteria": {
+    "craft_stone_shovel": {
+      "conditions": {
+        "items": [
+          {
+            "items": "ttll:stone_shovel"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.tougherthanllamas.craft_stone_shovel.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "ttll:stone_shovel"
+    },
+    "title": {
+      "translate": "advancements.tougherthanllamas.craft_stone_shovel.title"
+    },
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "requirements": [
+    [
+      "craft_stone_shovel"
+    ]
+  ],
+  "sends_telemetry_event": false
+}

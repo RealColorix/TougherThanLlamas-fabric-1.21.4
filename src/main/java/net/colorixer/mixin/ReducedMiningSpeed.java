@@ -7,12 +7,14 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.HoeItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.TagKey;
+import net.minecraft.util.math.BlockPos;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -69,9 +71,7 @@ public abstract class ReducedMiningSpeed {
         if (hunger <= 2.1)  penaltyMultiplier *= 0.6f;
         // Combine the base 0.4 with the calculated penalties
         float finalSpeedMod = baseSpeedMod * penaltyMultiplier * armorMultiplier;
-        /* ============================= */
-        /*   SPECIAL TOOL RULES          */
-        /* ============================= */
+
 
         /* ============================= */
         /* SPECIAL TOOL RULES          */
@@ -83,27 +83,26 @@ public abstract class ReducedMiningSpeed {
             return;
         }
 
-        if (heldItem.isOf(ModItems.WOODEN_CLUB) || heldItem.isOf(ModItems.BONE_CLUB)&& blockState.isOf(Blocks.COBWEB)) {
-            cir.setReturnValue(-1f);
-            return;
+        if (heldItem.isOf(ModItems.WOODEN_CLUB) || heldItem.isOf(ModItems.BONE_CLUB)) {
+            if (blockState.isOf(Blocks.COBWEB)||blockState.isOf(ModBlocks.COBWEB_FUll)||blockState.isOf(ModBlocks.COBWEB_HALF)||blockState.isOf(ModBlocks.COBWEB_QUARTER)) {
+                cir.setReturnValue(-1f);
+                return;
+            }
         }
 
         if (heldItem.isOf(ModItems.IRON_CHISEL))
          {
              if(blockState.isOf(Blocks.IRON_ORE)
+
+                     || blockState.isOf(Blocks.COAL_ORE)
                      || blockState.isOf(Blocks.COPPER_ORE)
                      || blockState.isOf(Blocks.GOLD_ORE)
                      || blockState.isOf(Blocks.LAPIS_ORE)
-                     || blockState.isOf(Blocks.REDSTONE_ORE)
-                     || blockState.isOf(Blocks.EMERALD_ORE)
-                     || blockState.isOf(Blocks.DIAMOND_ORE)
+                     || blockState.isOf(Blocks.DEEPSLATE_COAL_ORE)
                      || blockState.isOf(Blocks.DEEPSLATE_IRON_ORE)
                      || blockState.isOf(Blocks.DEEPSLATE_COPPER_ORE)
                      || blockState.isOf(Blocks.DEEPSLATE_GOLD_ORE)
-                     || blockState.isOf(Blocks.DEEPSLATE_LAPIS_ORE)
-                     || blockState.isOf(Blocks.DEEPSLATE_REDSTONE_ORE)
-                     || blockState.isOf(Blocks.DEEPSLATE_EMERALD_ORE)
-                     || blockState.isOf(Blocks.DEEPSLATE_DIAMOND_ORE)){
+                     || blockState.isOf(Blocks.DEEPSLATE_LAPIS_ORE)){
              cir.setReturnValue(originalSpeed * finalSpeedMod);
             return;
         }else if (blockState.isOf(ModBlocks.BIRCH_BOTTOM_LOG)||blockState.isOf(ModBlocks.OAK_BOTTOM_LOG)||blockState.isOf(ModBlocks.BIRCH_BOTTOM_LOG_CHISELED)||blockState.isOf(ModBlocks.OAK_BOTTOM_LOG_CHISELED))
@@ -119,6 +118,32 @@ public abstract class ReducedMiningSpeed {
             return;
         }
 
+
+
+
+        /* ============================= */
+        /* CHOPABLE DYNAMIC SPEED      */
+        /* ============================= */
+
+        if (heldItem.getItem() instanceof net.minecraft.item.HoeItem) {
+            if (!blockState.isOf(Blocks.GRASS_BLOCK)||!blockState.isOf(Blocks.DIRT)||!blockState.isOf(Blocks.COARSE_DIRT)){
+                float hoePenalty = 0.33f;
+                finalSpeedMod *= hoePenalty;
+            }
+        }
+
+        if (!player.isCreative()) {
+            net.minecraft.util.hit.HitResult hit = player.raycast(5.0, 0.0f, false);
+            if (hit.getType() == net.minecraft.util.hit.HitResult.Type.BLOCK) {
+                BlockPos pos = ((net.minecraft.util.hit.BlockHitResult) hit).getBlockPos();
+
+                // Get the multiplier from your JSON-loaded map
+                float chopableMultiplier = net.colorixer.player.Chopable.getChopableSpeedMultiplier(player.getWorld(), pos, heldItem);
+
+                cir.setReturnValue(originalSpeed * finalSpeedMod * chopableMultiplier);
+                return;
+            }
+        }
 
         /* ============================= */
         /*   TIER ENFORCEMENT (FIX)      */
@@ -171,6 +196,7 @@ public abstract class ReducedMiningSpeed {
         // Stone-required blocks
         if (state.isIn(BlockTags.NEEDS_STONE_TOOL)) {
             return tool == Items.STONE_PICKAXE
+                    || tool == ModItems.IRON_CHISEL
                     || tool == Items.IRON_PICKAXE
                     || tool == Items.DIAMOND_PICKAXE
                     || tool == Items.NETHERITE_PICKAXE;

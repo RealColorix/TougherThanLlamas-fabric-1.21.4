@@ -4,13 +4,17 @@
       "item": "#ttll:beginner_stone_mining_tools",
       "result": "ttll:spruce_trunk",
       "doloottable": false,
-      "drop_item": "ttll:spruce_bark"
+      "drops": [{
+        "items": ["ttll:spruce_bark"]
+      }]
     },
     {
       "item": "ttll:iron_chisel",
       "result": "ttll:spruce_trunk",
       "doloottable": false,
-      "drop_item": "ttll:spruce_bark"
+      "drops": [{
+        "items": ["ttll:spruce_bark"]
+      }]
     }
   ]
 }

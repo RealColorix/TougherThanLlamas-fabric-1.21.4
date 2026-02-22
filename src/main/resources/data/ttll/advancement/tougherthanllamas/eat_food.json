@@ -1,0 +1,88 @@
+{
+  "parent": "ttll:tougherthanllamas/kill_an_animal",
+  "criteria": {
+    "cooked_beef": {
+      "conditions": {
+        "item": {
+          "items": "minecraft:cooked_beef"
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    },
+    "cooked_chicken": {
+      "conditions": {
+        "item": {
+          "items": "minecraft:cooked_chicken"
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    },
+    "cooked_cod": {
+      "conditions": {
+        "item": {
+          "items": "minecraft:cooked_cod"
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    },
+    "cooked_mutton": {
+      "conditions": {
+        "item": {
+          "items": "minecraft:cooked_mutton"
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    },
+    "cooked_porkchop": {
+      "conditions": {
+        "item": {
+          "items": "minecraft:cooked_porkchop"
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    },
+    "cooked_rabbit": {
+      "conditions": {
+        "item": {
+          "items": "minecraft:cooked_rabbit"
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    },
+    "cooked_salmon": {
+      "conditions": {
+        "item": {
+          "items": "minecraft:cooked_salmon"
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.tougherthanllamas.eat_food.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "icon": {
+      "count": 1,
+      "id": "minecraft:cooked_beef"
+    },
+    "title": {
+      "translate": "advancements.tougherthanllamas.eat_food.title"
+    }
+  },
+  "requirements": [
+    [
+      "cooked_porkchop",
+      "cooked_cod",
+      "cooked_salmon",
+      "cooked_beef",
+      "cooked_chicken",
+      "cooked_rabbit",
+      "cooked_mutton"
+    ]
+  ],
+  "sends_telemetry_event": false
+}

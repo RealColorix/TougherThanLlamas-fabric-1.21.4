@@ -6,17 +6,13 @@
   "item.ttll.gravel_pile": "Gravel Pile",
   "item.ttll.sand_pile": "Sand Pile",
   "item.ttll.crude_clay": "Crude Clay",
-
   "item.ttll.chipped_rock": "Chipped Rock",
   "item.ttll.rock": "Rock",
   "item.ttll.flint_fragment": "Flint Fragment",
-
-
   "item.ttll.coal_dust": "Coal Dust",
   "item.ttll.iron_dust": "Iron Dust",
   "item.ttll.gold_dust": "Gold Dust",
   "item.ttll.copper_dust": "Copper Dust",
-
   "item.ttll.oak_firewood": "Oak Firewood",
   "item.ttll.birch_firewood": "Birch Firewood",
   "item.ttll.jungle_firewood": "Jungle Firewood",
@@ -41,15 +37,12 @@
   "item.ttll.sharp_rock": "Sharp Rock",
   "item.ttll.flint_axe": "Flint Axe",
   "item.ttll.stone_shovel": "Stone Shovel",
-  "item.ttll.stone_hoe": "Stone Hoe",
   "item.ttll.wooden_club": "Wooden Club",
   "item.ttll.zombie_arm": "Zombie Arm",
   "item.ttll.bone_club": "Bone Club",
-
   "item.ttll.scroll_of_echoes": "Scroll of Echoes",
   "item.ttll.scroll_of_oculus": "Scroll of Oculus",
   "item.ttll.scroll_of_arcane": "Scroll of Arcane",
-
   "item.ttll.tallow": "Tallow",
   "item.ttll.raw_leather": "Raw Leather",
   "item.ttll.leather_cloth": "Leather Cloth",
@@ -61,14 +54,21 @@
   "item.ttll.sinew_chopping": "Sinew Chopping",
   "item.ttll.flint_sinew_chopping": "Sinew Chopping",
   "item.ttll.spunned_string": "Spunned String",
-
   "item.ttll.white_wool": "White Knitting Wool",
   "item.ttll.cloth_wool_white": "Wool Cloth",
   "item.ttll.knitting_wool_white": "Wool Knitting",
-
+  "item.ttll.burning_crude_torch": "Burning Crude Torch",
+  "item.ttll.crude_torch": "Crude Torch",
+  "item.ttll.fire_creeper_spawn_egg": "Fire Creeper Spawn Egg",
+  "item.ttll.jungle_spider_spawn_egg": "Jungle Spider Spawn Egg",
+  "item.ttll.fire_creeper_sack": "Fire Creeper Sack",
+  "item.ttll.creeper_sack": "Creeper Sack",
+  "item.ttll.diamond_ingot": "Diamond Ingot",
+  "item.ttll.burned_meat": "Burned Meat",
   "item.ttll.string_knitting": "String Knitting",
+  "item.ttll.lapis_lazuli_dust": "Lapis Lazuli Dust",
 
-
+  "block.ttll.volcanic_tuff": "Volcanic Tuff",
   "block.ttll.ash": "Ash",
   "block.ttll.drying_rack": "Drying Rack",
   "block.ttll.brick_siding": "Brick Siding",
@@ -106,6 +106,7 @@
   "block.ttll.furnace": "Furnace",
   "block.ttll.loose_cobblestone": "Loose Cobblestone",
   "block.ttll.loose_cobblestone_slab": "Loose Cobblestone Slab",
+  "block.ttll.loose_brick_slab": "Loose Brick Slab",
   "block.ttll.grass_slab": "Grassy Dirt Pile",
   "block.ttll.oak_bottom_log": "Oak Log Stem",
   "block.ttll.Birch_bottom_log": "Birch Log Stem",
@@ -113,14 +114,21 @@
   "block.ttll.birch_bottom_log_chiseled": "Chiseled Birch Log Stem",
   "block.ttll.oak_bottom_log_crafting_table": "Oak Crafting Table",
   "block.ttll.birch_bottom_log_crafting_table": "Birch Crafting Table",
-  "item.ttll.burning_crude_torch": "Burning Crude Torch",
-  "item.ttll.crude_torch": "Crude Torch",
-  "item.ttll.fire_creeper_spawn_egg": "Fire Creeper Spawn Egg",
-  "item.ttll.jungle_spider_spawn_egg": "Jungle Spider Spawn Egg",
-  "item.ttll.fire_creeper_sack": "Fire Creeper Sack",
-  "item.ttll.creeper_sack": "Creeper Sack",
-  "item.ttll.diamond_ingot": "Diamond Ingot",
-  "item.ttll.burned_meat": "Burned Meat",
+
+  "block.ttll.cobweb_full": "Chipped Cobweb",
+  "block.ttll.cobweb_half": "Chipped Cobweb",
+  "block.ttll.cobweb_quarter": "Chipped Cobweb",
+
+  "block.ttll.deepslate": "Deepslate",
+  "block.ttll.weathered_deepslate": "Weathered Deepslate",
+  "block.ttll.cobbled_deepslate": "Cobbled Deepslate",
+  "block.ttll.cracked_deepslate": "Cracked Deepslate",
+  "block.ttll.shattered_deepslate": "Shattered Deepslate",
+  "block.ttll.excavated_deepslate": "Excavated Deepslate",
+  "block.ttll.loose_cobbled_deepslate": "Loose Cobbled Deepslate",
+  "block.ttll.loose_cobbled_deepslate_slab": "Loose Cobbled Deepslate Slab",
+
+
 
 
   "entity.ttll.jungle_spider": "Jungle Spider",
@@ -135,113 +143,70 @@
 
   "tooltip.ttll.weight": "+%1$s Weight",
 
-  "advancements.story.vicinity_crafting_table.need_description":    "§cCold Cutter Needed",
-  "advancements.story.knitt_wool.need_description":     "§cPoint Taken Needed",
-  "advancements.story.iron_nugget.need_description":     "§cFurnace Required",
-  "advancements.story.leather_armor.need_description":  "§cWork With What You\n Got Needed",
-  "advancements.story.acquire_sinew.need_description":  "§cTendon Heavy Meat\nNeeded",
-  "advancements.story.unknown.need_description": "§c??? Needed",
+  "advancements.tougherthanllamas.iron_chisel.need_description":     "§cFurnace Required",
+  "advancements.tougherthanllamas.leather_armor.need_description":  "§cCrafting Table\nRequired",
+  "advancements.tougherthanllamas.unknown.need_description": "§c??? Needed",
 
+  "advancements.tougherthanllamas.root.title": "Tougher Than Llamas",
+  "advancements.tougherthanllamas.root.description": "Set out on a Journey...",
 
-  "advancements.story.guide.title": "Guide",
-  "advancements.story.guide.description": "§aIn Advancement Line\n§bIn Progression\n§cOther Advancement Needed\n§8Content not yet Known",
+  "advancements.tougherthanllamas.guide.title": "Guide",
+  "advancements.tougherthanllamas.guide.description": "§aIn Advancement Line\n§bIn Progression\n§cOther Advancement Needed\n§8Content not yet Known",
 
-  "advancements.story.vicinity_crafting_table.title": "Work With What You Got",
-  "advancements.story.vicinity_crafting_table.description": "Carv Out a Crafting Table From A Stump",
+  "advancements.tougherthanllamas.vicinity_crafting_table.title": "Work With What You Got",
+  "advancements.tougherthanllamas.vicinity_crafting_table.description": "Carv Out a Crafting Table From A Stump",
 
-  "advancements.story.iron_chisel.title": "Cold Cutter",
-  "advancements.story.iron_chisel.description": "Combine Four Iron Nuggets",
+  "advancements.tougherthanllamas.iron_chisel.title": "Cold Cutter",
+  "advancements.tougherthanllamas.iron_chisel.description": "Combine Four Iron Nuggets",
 
-  "advancements.story.destroy_leaves.title": "Leaf It Alone",
-  "advancements.story.destroy_leaves.description": "Destroy Leaves",
+  "advancements.tougherthanllamas.acquire_wooden_club.title": "Unga Bunga",
+  "advancements.tougherthanllamas.acquire_wooden_club.description": "Craft a Wooden Club",
 
-  "advancements.story.acquire_sinew.title": "Tough Ties",
-  "advancements.story.acquire_sinew.description": "Harvest Sinew From Animal Tendons",
+  "advancements.tougherthanllamas.acquire_flint.title": "Cutting Edge",
+  "advancements.tougherthanllamas.acquire_flint.description": "Sharpen Flint",
 
-  "advancements.story.acquire_branch.title": "Branching Out",
-  "advancements.story.acquire_branch.description": "Get a Branch",
+  "advancements.tougherthanllamas.sharp_rock.title": "Natural Selection",
+  "advancements.tougherthanllamas.sharp_rock.description": "Sharpen Rock",
 
-  "advancements.story.acquire_stick.title": "Sticky Situation",
-  "advancements.story.acquire_stick.description": "Get a Stick",
+  "advancements.tougherthanllamas.obtain_a_twine.title": "Web Designer",
+  "advancements.tougherthanllamas.obtain_a_twine.description": "Obtain a Type of Twine",
 
-  "advancements.story.acquire_wooden_club.title": "Unga Bunga",
-  "advancements.story.acquire_wooden_club.description": "Craft a Wooden Club",
+  "advancements.tougherthanllamas.kill_a_monster.title": "Monster Hunter",
+  "advancements.tougherthanllamas.kill_a_monster.description": "Kill a Hostile Mob",
 
-  "advancements.story.acquire_pointy_stick.title": "Point Taken",
-  "advancements.story.acquire_pointy_stick.description": "Sharpen Sticks & Branches",
+  "advancements.tougherthanllamas.kill_all_monster.title": "Monsters Hunted",
+  "advancements.tougherthanllamas.kill_all_monster.description": "Kill all Hostile Mobs",
 
-  "advancements.story.vicinity_gravel.title": "Gravel Pit",
-  "advancements.story.vicinity_gravel.description": "Find Gravel",
+  "advancements.tougherthanllamas.kill_an_animal.title": "Animal Hunter",
+  "advancements.tougherthanllamas.kill_an_animal.description": "Slaughter an Animal",
 
-  "advancements.story.vicinity_stone.title": "Rolling Stones",
-  "advancements.story.vicinity_stone.description": "Find Stone",
+  "advancements.tougherthanllamas.knitt_wool.title": "Close-Knit",
+  "advancements.tougherthanllamas.knitt_wool.description": "Craft Wool Knitting",
 
-  "advancements.story.acquire_crude_flint.title": "Rough Around the Edges",
-  "advancements.story.acquire_crude_flint.description": "Acquire Crude Flint",
+  "advancements.tougherthanllamas.acquire_raw_leather.title": "Skinning the Game",
+  "advancements.tougherthanllamas.acquire_raw_leather.description": "Acquire Raw Leather",
 
-  "advancements.story.acquire_flint.title": "Cutting Edge",
-  "advancements.story.acquire_flint.description": "Sharpen Flint",
+  "advancements.tougherthanllamas.acquire_leather.title": "Tough as Nails",
+  "advancements.tougherthanllamas.acquire_leather.description": "Get Leather",
 
-  "advancements.story.acquire_rock.title": "Nerf Miner",
-  "advancements.story.acquire_rock.description": "Mine Stone & Weathered Stone",
+  "advancements.tougherthanllamas.eat_food.title": "Calorie Intake",
+  "advancements.tougherthanllamas.eat_food.description": "Eat Cooked Food to Survive",
 
-  "advancements.story.sharp_rock.title": "Natural Selection",
-  "advancements.story.sharp_rock.description": "Sharpen Rock",
+  "advancements.tougherthanllamas.craft_flint_axe.title": "Time for an Upgrade",
+  "advancements.tougherthanllamas.craft_flint_axe.description": "Craft a Flint Axe",
 
-  "advancements.story.destroy_cobweb.title": "Web Designer",
-  "advancements.story.destroy_cobweb.description": "Acquire String From Cobweb",
+  "advancements.tougherthanllamas.craft_stone_shovel.title": "Stone Shovel",
+  "advancements.tougherthanllamas.craft_stone_shovel.description": "Mine Clay",
 
-  "advancements.story.destroy_wood.title": "Chipper",
-  "advancements.story.destroy_wood.description": "Chip Wood",
+  "advancements.tougherthanllamas.leather_armor.title": "Tough Fights",
+  "advancements.tougherthanllamas.leather_armor.description": "Craft a Full Set of Leather Armor",
 
-  "advancements.story.kill_a_monster.title": "Monster Hunter",
-  "advancements.story.kill_a_monster.description": "Kill a Hostile Mob",
+  "advancements.tougherthanllamas.mine_iron_ore.title": "Beyond The Scraps",
+  "advancements.tougherthanllamas.mine_iron_ore.description": "Chip Yourself Your First Iron",
 
-  "advancements.story.kill_all_monster.title": "Monsters Hunted",
-  "advancements.story.kill_all_monster.description": "Kill all Hostile Mobs",
+  "advancements.tougherthanllamas.furnace.title": "Fire Up",
+  "advancements.tougherthanllamas.furnace.description": "Craft and Place a Brick Furnace",
 
-  "advancements.story.kill_an_animal.title": "Animal Hunter",
-  "advancements.story.kill_an_animal.description": "Slaughter an Animal",
-
-  "advancements.story.knitt_wool.title": "Close-Knit",
-  "advancements.story.knitt_wool.description": "Craft Wool Knitting",
-
-  "advancements.story.acquire_raw_leather.title": "Skinning the Game",
-  "advancements.story.acquire_raw_leather.description": "Acquire Raw Leather",
-
-  "advancements.story.drying_rack.title": "Hang Tight",
-  "advancements.story.drying_rack.description": "Set Down a Drying Rack",
-
-  "advancements.story.acquire_leather.title": "Tough as Nails",
-  "advancements.story.acquire_leather.description": "Get Leather",
-
-  "advancements.story.eat_food.title": "Calorie Intake",
-  "advancements.story.eat_food.description": "Eat Food to Survive",
-
-  "advancements.story.campfire_cooking.title": "Local Barbeque",
-  "advancements.story.campfire_cooking.description": "Light a Campfire",
-
-  "advancements.story.craft_flint_axe.title": "Time for an Upgrade",
-  "advancements.story.craft_flint_axe.description": "Craft a Flint Axe",
-
-  "advancements.story.craft_stone_shovel.title": "Stone Shovel",
-  "advancements.story.craft_stone_shovel.description": "Mine Clay",
-
-  "advancements.story.craft_stone_hoe.title": "Petrified by Medusa",
-  "advancements.story.craft_stone_hoe.description": "Craft a Stone Hoe",
-
-  "advancements.story.wood.title": "Root of the Problem",
-  "advancements.story.wood.description": "Chop Logs with your Axe",
-
-  "advancements.story.leather_armor.title": "Tough Fights",
-  "advancements.story.leather_armor.description": "Craft a Full Set of Leather Armor",
-
-  "advancements.story.mine_iron_ore.title": "Beyond The Scraps",
-  "advancements.story.mine_iron_ore.description": "Chip Yourself Your First Iron",
-
-  "advancements.story.furnace.title": "Fire Up",
-  "advancements.story.furnace.description": "Craft and Place a Furnace",
-
-  "advancements.story.iron_nugget.title": "Acquire Smallware",
-  "advancements.story.iron_nugget.description": "Smelt and Acquire Iron Nuggets"
+  "advancements.tougherthanllamas.smelt_iron.title": "Acquire Hardware",
+  "advancements.tougherthanllamas.smelt_iron.description": "Smelt an Iron Ingot"
 }

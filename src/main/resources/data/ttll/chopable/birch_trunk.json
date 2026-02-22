@@ -1,8 +1,32 @@
 {
   "conditions": [
     {
-      "item": "ttll:sharp_rock",
-      "result": "ttll:birch_stem"
+      "item": "#ttll:beginner_stone_mining_tools",
+      "result": "ttll:birch_stem",
+      "doloottable": false,
+      "drops": [
+        {
+          "chance": 0.333,
+          "items": ["ttll:tree_sap"]
+        },
+        {
+          "items": ["ttll:birch_firewood"]
+        }
+      ]
+    },
+    {
+      "item": "ttll:iron_chisel",
+      "result": "ttll:birch_stem",
+      "doloottable": false,
+      "drops": [
+        {
+          "chance": 0.333,
+          "items": ["ttll:tree_sap"]
+        },
+        {
+          "items": ["ttll:birch_firewood"]
+        }
+      ]
     }
   ]
 }

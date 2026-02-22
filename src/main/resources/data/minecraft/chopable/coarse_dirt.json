@@ -1,11 +1,12 @@
 {
   "conditions": [
     {
-      "item": "ttll:stone_hoe",
+      "item": "#ttll:hoes",
       "result": "minecraft:farmland",
+      "blockdisplay": "minecraft:coarse_dirt",
       "blockabovedisables": true,
-      "doloottable": false
+      "doloottable": false,
+      "miningspeed": [3, 1]
     }
-
   ]
 }

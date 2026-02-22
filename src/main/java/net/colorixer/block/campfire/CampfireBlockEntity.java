@@ -228,7 +228,7 @@ public class CampfireBlockEntity extends BlockEntity {
 
         // 1. SHOVEL / HOE EXTINGUISH (only if Lit)
         if (state.get(CampfireBlock.LIT) &&
-                (item instanceof ShovelItem || item instanceof HoeItem || item instanceof net.colorixer.item.items.HoeItem)) {
+                (item instanceof ShovelItem || item instanceof HoeItem)) {
             world.setBlockState(pos, state.with(CampfireBlock.LIT, false).with(CampfireBlock.STAGE, 4), 3);
             world.playSound(null, pos, SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE, SoundCategory.BLOCKS, 0.5f, 1.0f);
             if (!player.getAbilities().creativeMode) stack.damage(1, player, EquipmentSlot.MAINHAND);

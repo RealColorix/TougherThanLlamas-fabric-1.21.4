@@ -1,0 +1,36 @@
+{
+  "parent": "ttll:tougherthanllamas/root",
+  "criteria": {
+    "acquire_flint": {
+      "conditions": {
+        "items": [
+          {
+            "items": "ttll:flint"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.tougherthanllamas.acquire_flint.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "ttll:flint"
+    },
+    "title": {
+      "translate": "advancements.tougherthanllamas.acquire_flint.title"
+    },
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "requirements": [
+    [
+      "acquire_flint"
+    ]
+  ],
+  "sends_telemetry_event": false
+}

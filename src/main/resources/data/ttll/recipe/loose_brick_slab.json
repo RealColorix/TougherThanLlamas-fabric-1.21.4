@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": "ttll:dried_brick"
+  },
+  "result": {
+    "id": "ttll:loose_brick_slab",
+    "count": 1
+  }
+}

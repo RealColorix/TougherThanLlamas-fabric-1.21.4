@@ -2544,7 +2544,7 @@
           "false_at_and_above": {
             "absolute": 37
           },
-          "random_name": "minecraft:deepslate",
+          "random_name": "ttll:deepslate",
           "true_at_and_below": {
             "absolute": 30
           }
@@ -2552,7 +2552,7 @@
         "then_run": {
           "type": "minecraft:block",
           "result_state": {
-            "Name": "minecraft:deepslate",
+            "Name": "ttll:deepslate",
             "Properties": {
               "axis": "y"
             }

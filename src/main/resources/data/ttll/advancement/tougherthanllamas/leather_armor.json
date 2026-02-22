@@ -1,0 +1,47 @@
+{
+  "parent": "ttll:tougherthanllamas/acquire_leather",
+  "criteria": {
+    "leather_armor": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:leather_helmet"
+          },
+          {
+            "items": "minecraft:leather_chestplate"
+          },
+          {
+            "items": "minecraft:leather_leggings"
+          },
+          {
+            "items": "minecraft:leather_boots"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.tougherthanllamas.leather_armor.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "count": 1,
+      "id": "minecraft:leather_chestplate"
+    },
+    "title": {
+      "translate": "advancements.tougherthanllamas.leather_armor.title"
+    },
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+
+  },
+  "requirements": [
+    [
+      "leather_armor"
+    ]
+  ],
+  "sends_telemetry_event": false
+}

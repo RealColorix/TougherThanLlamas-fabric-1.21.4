@@ -5,6 +5,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -20,19 +21,6 @@ public abstract class SwimmingMixin extends LivingEntity {
         super(entityType, world);
     }
 
-    @Unique
-    private boolean ttll$isFlowingWaterNearby(World world, BlockPos center) {
-        // Scans a 3x3 area around the player
-        for (int x = -1; x <= 1; x++) {
-            for (int z = -1; z <= 1; z++) {
-                FluidState state = world.getFluidState(center.add(x, 0, z));
-                if (!state.isEmpty() && !state.isStill()) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
 
     @Inject(method = "travel", at = @At("HEAD"))
     private void ttll$applySwimmingPenalty(Vec3d movementInput, CallbackInfo ci) {
@@ -57,7 +45,7 @@ public abstract class SwimmingMixin extends LivingEntity {
 
         // 2. DETECTION
         boolean touchingAnyWater = this.isTouchingWater();
-        boolean nearbyFlowing = ttll$isFlowingWaterNearby(world, pos);
+
 
         // SUPPORT CHECK (2 blocks down)
         boolean hasSupport = false;
@@ -83,7 +71,7 @@ public abstract class SwimmingMixin extends LivingEntity {
 
         // WATERFALL LOGIC (The "Anti-Bypass" check)
         // If there's flowing water anywhere in the 3x3 and no ground support...
-        if (nearbyFlowing && !hasSupport) {
+        if (!hasSupport && player.isSubmergedInWater()) {
             if (nextY > -0.2) {
                 // Smoothly pull them down, even if they are only "grazing" the waterfall
                 nextY -= 0.05;

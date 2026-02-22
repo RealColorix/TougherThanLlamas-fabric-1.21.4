@@ -4,13 +4,17 @@
       "item": "#ttll:beginner_stone_mining_tools",
       "result": "ttll:cracked_stone",
       "doloottable": false,
-      "drop_item": "ttll:copper_dust"
+      "drops": [{
+        "items": ["ttll:copper_dust"]
+      }]
     },
     {
       "item": "ttll:iron_chisel",
       "result": "ttll:cracked_stone",
       "doloottable": false,
-      "drop_item": "minecraft:raw_copper"
+      "drops": [{
+        "items": ["minecraft:raw_copper"]
+      }]
     }
   ]
 }

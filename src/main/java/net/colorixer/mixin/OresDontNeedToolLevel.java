@@ -42,7 +42,15 @@ public class OresDontNeedToolLevel {
             // 1. ALLOW LIST (The only things wood-tier can "cheat" on)
             if (block == Blocks.IRON_ORE || block == Blocks.DEEPSLATE_IRON_ORE ||
                     block == Blocks.COPPER_ORE || block == Blocks.DEEPSLATE_COPPER_ORE||
+                    block == Blocks.COAL_ORE || block == Blocks.DEEPSLATE_COAL_ORE||
                     block == Blocks.GOLD_ORE || block == Blocks.DEEPSLATE_GOLD_ORE ||
+                    block == Blocks.LAPIS_ORE || block == Blocks.DEEPSLATE_LAPIS_ORE ||
+
+                    block == ModBlocks.DEEPSLATE ||  block == ModBlocks.WEATHERED_DEEPSLATE ||
+                    block == ModBlocks.COBBLED_DEEPSLATE ||  block == ModBlocks.CRACKED_DEEPSLATE ||
+                    block == ModBlocks.SHATTERED_DEEPSLATE ||  block == ModBlocks.EXCAVATED_DEEPSLATE||
+
+
                     block == ModBlocks.BIRCH_BOTTOM_LOG_CHISELED || block == ModBlocks.OAK_BOTTOM_LOG_CHISELED||
                     block == ModBlocks.BIRCH_BOTTOM_LOG || block == ModBlocks.OAK_BOTTOM_LOG) {
                 cir.setReturnValue(true);

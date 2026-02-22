@@ -1,6 +1,6 @@
 package net.colorixer.mixin;
 
-import net.colorixer.block.AshLayerBlock;
+import net.colorixer.block.ashlayer.AshLayerBlock;
 import net.colorixer.block.ModBlocks;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FireBlock;

@@ -36,46 +36,36 @@ public abstract class AdvancementPositionerMixin {
         return 1.75f; // Branch gap
     }
 
-
+    private static final float killAnAnimalYChange = 3;
+    private static final float acquireFlintYChange = -1.5f;
+    private static final float obtainATwineYChange = -0.5f;
+    private static final float mineIronOreYChange = 1f;
 
     private static final Map<String, float[]> POSITIONS = Map.ofEntries(
-            Map.entry("ttll:story/root", new float[]{0.0f, 0.0f}),
-            Map.entry("ttll:story/guide", new float[]{-1.5f, 1.0f}),
-                Map.entry("ttll:story/destroy_leaves", new float[]{-1.0f, -2.0f}),
-                    Map.entry("ttll:story/acquire_branch", new float[]{-3.0f, -1.0f}),
-                        Map.entry("ttll:story/acquire_pointy_stick", new float[]{-5.5f, -2.5f}),
-                    Map.entry("ttll:story/acquire_stick", new float[]{-2.5f, -3.0f}),
-                        Map.entry("ttll:story/acquire_wooden_club", new float[]{-1.0f, -4.0f}),
-                            Map.entry("ttll:story/kill_an_animal", new float[]{-4.0f, -5.0f}),
-                                Map.entry("ttll:story/eat_food", new float[]{-7.0f, -6.0f}),
-                                    Map.entry("ttll:story/balanced_diet", new float[]{-9.0f, -7.0f}),
-                                Map.entry("ttll:story/acquire_raw_leather", new float[]{-2.0f, -6.0f}),
-                                    Map.entry("ttll:story/drying_rack", new float[]{-4.0f, -7.0f}),
-                                        Map.entry("ttll:story/acquire_leather", new float[]{-6.0f, -8.0f}),
-                                            Map.entry("ttll:story/leather_armor", new float[]{-8.0f, -8.0f}),
-                                Map.entry("ttll:story/knitt_wool", new float[]{-6.0f, -4.0f}),
-                            Map.entry("ttll:story/kill_a_monster", new float[]{1.0f, -6.5f}),
-                                Map.entry("ttll:story/kill_all_monsters", new float[]{-2.0f, -9.0f}),
-                Map.entry("ttll:story/vicinity_gravel", new float[]{2.0f, 1.5f}),
-                    Map.entry("ttll:story/acquire_crude_flint", new float[]{-0.5f, 4.0f}),
-                    Map.entry("ttll:story/vicinity_stone", new float[]{4.0f, 0f}),
-                        Map.entry("ttll:story/acquire_flint", new float[]{1.5f, -1.5f}),
-                            Map.entry("ttll:story/acquire_rock", new float[]{4.0f, -4.0f}),
-                                Map.entry("ttll:story/furnace", new float[]{5.5f, -1.5f}),
-                                Map.entry("ttll:story/sharp_rock", new float[]{6.5f, -3.5f}),
-                                    Map.entry("ttll:story/mine_iron_ore", new float[]{8.0f, -2.0f}),
-                                         Map.entry("ttll:story/iron_nugget", new float[]{8.0f, 0.0f}),
-                                            Map.entry("ttll:story/iron_chisel", new float[]{11.0f, -2.5f}),
-                                            Map.entry("ttll:story/vicinity_crafting_table", new float[]{7.0f, 1f}),
-                                                Map.entry("ttll:story/smelt_iron", new float[]{5.0f, 3f}),
-                                    Map.entry("ttll:story/destroy_cobweb", new float[]{9f, -4.5f}),
-                                         Map.entry("ttll:story/craft_flint_axe", new float[]{9f, -7f}),
-                                            Map.entry("ttll:story/wood", new float[]{8f, -9f}),
-                                    Map.entry("ttll:story/destroy_wood", new float[]{5.0f, -5.5f}),
-                                        Map.entry("ttll:story/campfire_cooking", new float[]{3.0f, -7.0f}),
-                            Map.entry("ttll:story/acquire_sinew", new float[]{0.7f, -4f})
 
 
+            Map.entry("ttll:tougherthanllamas/root", new float[]{0f, 0f}),
+                Map.entry("ttll:tougherthanllamas/guide", new float[]{1.0f, 0.0f}),
+                Map.entry("ttll:tougherthanllamas/acquire_wooden_club", new float[]{1.0f, 1.5f}),
+                    Map.entry("ttll:tougherthanllamas/kill_an_animal", new float[]{2.0f, 0f + killAnAnimalYChange}),
+                        Map.entry("ttll:tougherthanllamas/eat_food", new float[]{3.0f, 1f + killAnAnimalYChange}),
+                            Map.entry("ttll:tougherthanllamas/balanced_diet", new float[]{4.0f, 1 + killAnAnimalYChange}),
+                        Map.entry("ttll:tougherthanllamas/acquire_raw_leather", new float[]{3.0f, 0 + killAnAnimalYChange}),
+                            Map.entry("ttll:tougherthanllamas/acquire_leather", new float[]{4.0f, 0 + killAnAnimalYChange}),
+                                Map.entry("ttll:tougherthanllamas/leather_armor", new float[]{5.0f, 0 + killAnAnimalYChange}),
+                         Map.entry("ttll:tougherthanllamas/knitt_wool", new float[]{3.0f, -1f + killAnAnimalYChange}),
+                    Map.entry("ttll:tougherthanllamas/kill_a_monster", new float[]{2.0f, 1f}),
+                        Map.entry("ttll:tougherthanllamas/kill_all_monsters", new float[]{3.0f, 1}),
+                Map.entry("ttll:tougherthanllamas/acquire_flint", new float[]{1f, 0 + acquireFlintYChange}),
+                    Map.entry("ttll:tougherthanllamas/sharp_rock", new float[]{2f, 0 + acquireFlintYChange}),
+                        Map.entry("ttll:tougherthanllamas/obtain_a_twine", new float[]{3f, 0 + acquireFlintYChange + obtainATwineYChange}),
+                            Map.entry("ttll:tougherthanllamas/craft_flint_axe", new float[]{4f, 0.5f + acquireFlintYChange + obtainATwineYChange}),
+                            Map.entry("ttll:tougherthanllamas/craft_stone_shovel", new float[]{4f, -0.5f + acquireFlintYChange + obtainATwineYChange}),
+                                Map.entry("ttll:tougherthanllamas/furnace", new float[]{5f, -0.5f + acquireFlintYChange + obtainATwineYChange}),
+                        Map.entry("ttll:tougherthanllamas/mine_iron_ore", new float[]{3f, 0 + acquireFlintYChange + mineIronOreYChange}),
+                            Map.entry("ttll:tougherthanllamas/iron_chisel", new float[]{4f, 0 + acquireFlintYChange + mineIronOreYChange}),
+                                Map.entry("ttll:tougherthanllamas/vicinity_crafting_table", new float[]{5f, 0 + acquireFlintYChange + mineIronOreYChange}),
+                                    Map.entry("ttll:tougherthanllamas/smelt_iron", new float[]{6f, 0 + acquireFlintYChange + mineIronOreYChange})
     );
 
 
@@ -94,16 +84,16 @@ public abstract class AdvancementPositionerMixin {
 
             // Independent random values so it's not just a 45-degree diagonal shift
 
-            float scale = 1f;
-            float jiggleX = ((random.nextFloat() * 0.6f) - 0.3f) * scale;
-            float jiggleY = ((random.nextFloat() * 0.6f) - 0.3f) * scale;
+            float scale = 1.25f;
+            float jiggleX = 0;// ((random.nextFloat() * 0.2f) - 0.1f) * scale;
+            float jiggleY = 0;//((random.nextFloat() * 0.2f) - 0.1f) * scale;
 
-            float X_Centering = 10.0f;
-            float Y_Centering = 8.0f;
+            float X_Centering =   0f;// 10.0f;
+            float Y_Centering =  - 8f;// 8.0f;
 
             if (POSITIONS.containsKey(id)) {
                 float[] basePos = POSITIONS.get(id);
-                display.setPos((basePos[0] *scale) + jiggleX + X_Centering, (basePos[1]*scale) + jiggleY + Y_Centering);
+                display.setPos((basePos[0] *scale) + jiggleX + X_Centering, ((basePos[1]*scale) + jiggleY + Y_Centering) *-1 );
             }
         }
     }

@@ -1,8 +1,32 @@
 {
   "conditions": [
     {
-      "item": "ttll:sharp_rock",
-      "result": "ttll:jungle_stem"
+      "item": "#ttll:beginner_stone_mining_tools",
+      "result": "ttll:jungle_stem",
+      "doloottable": false,
+      "drops": [
+        {
+          "chance": 0.3,
+          "items": ["ttll:tree_sap"]
+        },
+        {
+          "items": ["ttll:jungle_firewood"]
+        }
+      ]
+    },
+    {
+      "item": "ttll:iron_chisel",
+      "result": "ttll:jungle_stem",
+      "doloottable": false,
+      "drops": [
+        {
+          "chance": 0.3,
+          "items": ["ttll:tree_sap"]
+        },
+        {
+          "items": ["ttll:jungle_firewood"]
+        }
+      ]
     }
   ]
 }

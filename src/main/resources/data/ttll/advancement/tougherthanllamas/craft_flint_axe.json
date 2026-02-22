@@ -1,0 +1,36 @@
+{
+  "parent": "ttll:tougherthanllamas/obtain_a_twine",
+  "criteria": {
+    "craft_flint_axe": {
+      "conditions": {
+        "items": [
+          {
+            "items": "ttll:flint_axe"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.tougherthanllamas.craft_flint_axe.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "ttll:flint_axe"
+    },
+    "title": {
+      "translate": "advancements.tougherthanllamas.craft_flint_axe.title"
+    },
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "requirements": [
+    [
+      "craft_flint_axe"
+    ]
+  ],
+  "sends_telemetry_event": false
+}

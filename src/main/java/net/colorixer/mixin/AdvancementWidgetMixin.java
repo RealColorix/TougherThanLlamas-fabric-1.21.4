@@ -40,28 +40,17 @@ public abstract class AdvancementWidgetMixin {
     @Shadow @Final private int y;
     @Shadow @Final private AdvancementDisplay display;
     private static final Set<String> Z_SHAPE_IDS = Set.of(
-            "ttll:story/kill_all_monsters",
-            "ttll:story/knitt_wool",
-            "ttll:story/eat_food",
-            "ttll:story/drying_rack",
-            "ttll:story/acquire_leather",
-            "ttll:story:vicinity_gravel",
-            "ttll:story:vicinity_stone",
-            "ttll:story/leather_armor",
-            "ttll:story/acquire_flint",
-            "ttll:story/furnace",
-            "ttll:story/campfire_cooking",
-            "ttll:story/smelt_iron",
-            "ttll:story/iron_nugget"
+
+    );
+
+    private static final Set<String> NORMAL = Set.of(
+            "ttll:story"
     );
 
     @Unique
     private static final Map<String, String> GATES = Map.of(
-            "ttll:story/leather_armor", "ttll:story/vicinity_crafting_table",
-            "ttll:story/knitt_wool", "ttll:story/acquire_pointy_stick",
-            "ttll:story/acquire_sinew", "ttll:story/helper_kill_cow_or_horse",
-            "ttll:story/iron_nugget", "ttll:story/furnace",
-            "ttll:story/vicinity_crafting_table", "ttll:story/iron_chisel"
+            "ttll:tougherthanllamas/leather_armor", "ttll:tougherthanllamas/vicinity_crafting_table",
+            "ttll:tougherthanllamas/iron_chisel", "ttll:tougherthanllamas/furnace"
     );
 
     /**
@@ -160,15 +149,15 @@ public abstract class AdvancementWidgetMixin {
                 context.getMatrices().push();
                 context.getMatrices().translate(0.5f, 0.0f, 0.0f);
 
-                int startX = x + ((AdvancementWidgetAccessor)this.parent).getX() + 14;
+                int startX = x + ((AdvancementWidgetAccessor)this.parent).getX() + 15;
                 int startY = y + ((AdvancementWidgetAccessor)this.parent).getY() + 13;
-                int endX = x + this.x + 14;
+                int endX = x + this.x + 15;
                 int endY = y + this.y + 13;
 
                 int finalColor = border ? 0xFF000000 : color;
 
                 String id = this.advancement.getAdvancementEntry().id().toString();
-                if (Z_SHAPE_IDS.contains(id)) {
+                if (Z_SHAPE_IDS.contains(id) || !NORMAL.contains(id)) {
                     drawZPath(context, startX, startY, endX, endY, finalColor, border);
                 } else {
                     int diffX = Math.abs(endX - startX);
@@ -444,7 +433,7 @@ public abstract class AdvancementWidgetMixin {
 
     @Inject(method = "drawText", at = @At("HEAD"), cancellable = true)
     private void swapTextToQuestionMarks(DrawContext context, List<OrderedText> text, int x, int y, int color, CallbackInfo ci) {
-        if (this.advancement.getAdvancementEntry().id().toString().equals("ttll:story/knowledge_book")) return;
+        if (this.advancement.getAdvancementEntry().id().toString().equals("ttll:tougherthanllamas/knowledge_book")) return;
 
         int tier = getObfuscationTier();
 
@@ -475,7 +464,7 @@ public abstract class AdvancementWidgetMixin {
                         }
                         // TIER 5: Generic "You need ??? first" text
                         else {
-                            finalKey = "advancements.story.unknown.need_description";
+                            finalKey = "advancements.tougherthanllamas.unknown.need_description";
                         }
 
                         // Get the requirement name (this method already returns "???" if distance is high)

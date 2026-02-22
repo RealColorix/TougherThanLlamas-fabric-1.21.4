@@ -42,6 +42,19 @@ public class BurningCrudeTorchBlock extends Block implements BlockEntityProvider
                 .with(FACING, Direction.UP));
     }
 
+
+    @Override
+    protected BlockState getStateForNeighborUpdate(BlockState state, WorldView world, net.minecraft.world.tick.ScheduledTickView tickView, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, Random random) {
+        // Calculate which direction the torch is "attached" to
+        Direction facing = state.get(FACING);
+        Direction supportDirection = facing == Direction.UP ? Direction.DOWN : facing.getOpposite();
+
+        // If the update came from the direction of our support, check if we can still stay there
+        if (direction == supportDirection && !state.canPlaceAt(world, pos)) {
+            return Blocks.AIR.getDefaultState();
+        }
+        return super.getStateForNeighborUpdate(state, world, tickView, pos, direction, neighborPos, neighborState, random);
+    }
     // --- PLACEMENT LOGIC ---
 
     @Override

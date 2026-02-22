@@ -1,7 +1,6 @@
 {
   "values": [
     "minecraft:stone",
-
     "minecraft:diamond_ore",
     "minecraft:coal_ore",
     "minecraft:lapis_ore",
@@ -10,7 +9,6 @@
     "minecraft:iron_ore",
     "minecraft:gold_ore",
     "minecraft:copper_ore",
-
     "minecraft:deepslate_diamond_ore",
     "minecraft:deepslate_coal_ore",
     "minecraft:deepslate_lapis_ore",
@@ -19,8 +17,19 @@
     "minecraft:deepslate_iron_ore",
     "minecraft:deepslate_gold_ore",
     "minecraft:deepslate_copper_ore",
+    "ttll:deepslate",
+    "ttll:weathered_deepslate",
+    "ttll:cobbled_deepslate",
+    "ttll:cracked_deepslate",
+    "ttll:shattered_deepslate",
+    "ttll:excavated_deepslate",
+    "ttll:volcanic_tuff",
 
+    "ttll:loose_brick_slab",
     "minecraft:cobweb",
+    "ttll:cobweb_full",
+    "ttll:cobweb_half",
+    "ttll:cobweb_quarter",
     "ttll:oak_trunk",
     "ttll:oak_stem",
     "ttll:birch_trunk",

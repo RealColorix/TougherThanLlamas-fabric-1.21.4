@@ -1,0 +1,12 @@
+{
+  "conditions": [
+    {
+      "item": "ttll:iron_chisel",
+      "result": "ttll:cracked_deepslate",
+      "doloottable": false,
+      "drops": [{
+        "items": ["ttll:lapis_lazuli_dust"]
+      }]
+    }
+  ]
+}

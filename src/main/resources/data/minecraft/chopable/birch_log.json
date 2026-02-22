@@ -10,7 +10,9 @@
       "item": "ttll:iron_chisel",
       "result": "ttll:birch_trunk",
       "doloottable": false,
-      "drop_item": "ttll:birch_bark"
+      "drops": [{
+        "items": ["ttll:birch_bark"]
+      }]
     }
   ]
 }

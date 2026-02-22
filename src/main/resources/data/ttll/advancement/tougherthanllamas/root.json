@@ -1,0 +1,28 @@
+{
+  "criteria": {
+    "spawn": {
+      "trigger": "minecraft:tick"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": "ttll:textures/gui/advancements/backgrounds/stone_age_background.png",
+    "description": {
+      "translate": "advancements.tougherthanllamas.root.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "minecraft:grass_block"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.tougherthanllamas.root.title"
+    }
+  },
+  "requirements": [
+    [
+      "spawn"
+    ]
+  ],
+  "sends_telemetry_event": false
+}

@@ -12,7 +12,7 @@ public abstract class AdvancementBackground {
     private static final int BASE = 64;
     private static final int TILE_SIZE = BASE * 16;
     private static final int Y_PADDING = 113;
-    private static final int X_PADDING = 221;
+    private static final int X_PADDING = 229;
 
     @Shadow private double originX;
     @Shadow private double originY;

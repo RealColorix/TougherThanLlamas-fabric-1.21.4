@@ -4,13 +4,17 @@
       "item": "#ttll:beginner_stone_mining_tools",
       "result": "ttll:cobblestone",
       "doloottable": false,
-      "drop_item": "ttll:rock"
+      "drops": [{
+        "items": ["ttll:rock"]
+      }]
     },
     {
       "item": "ttll:iron_chisel",
       "result": "ttll:cobblestone",
       "doloottable": false,
-      "drop_item": "ttll:chipped_rock"
+      "drops": [{
+        "items": ["ttll:chipped_rock"]
+      }]
     }
   ]
 }

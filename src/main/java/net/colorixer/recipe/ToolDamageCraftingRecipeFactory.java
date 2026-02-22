@@ -370,7 +370,7 @@ public class ToolDamageCraftingRecipeFactory {
                         new ToolDamageRule(
                                 ModItems.TANGLED_WEB,
                                 Items.SHEARS,
-                                new ItemStack(Items.STRING, 2)
+                                new ItemStack(Items.STRING, 1)
                         ),
                         new ToolDamageRule(
                                 Items.COBWEB,
