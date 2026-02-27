@@ -1,5 +1,6 @@
 package net.colorixer.item;
 
+import net.colorixer.TougherThanLlamas;
 import net.colorixer.block.ModBlocks;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.minecraft.block.Block;
@@ -25,6 +26,7 @@ public class ItemsThatCanHitAndBreak {
 
     public static void register() {
         UseBlockCallback.EVENT.register(ItemsThatCanHitAndBreak::onBlockRightClick);
+        TougherThanLlamas.LOGGER.info("Registering ItemsThatCanHitAndBreak for " + TougherThanLlamas.MOD_ID);
     }
 
     private static ActionResult onBlockRightClick(PlayerEntity player, World world, Hand hand, BlockHitResult hitResult) {

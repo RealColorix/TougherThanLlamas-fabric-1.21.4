@@ -1,6 +1,7 @@
 package net.colorixer.component;
 
 import com.mojang.serialization.Codec;
+import net.colorixer.TougherThanLlamas;
 import net.minecraft.component.ComponentType;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.registry.Registries;
@@ -21,6 +22,6 @@ public class ModDataComponentTypes {
     }
 
     public static void registerDataComponentTypes() {
-        // Just used to trigger class loading in the ModInitializer
+        TougherThanLlamas.LOGGER.info("Registering Data Components for " + TougherThanLlamas.MOD_ID);
     }
 }

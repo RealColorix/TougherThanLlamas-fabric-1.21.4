@@ -3,6 +3,8 @@ package net.colorixer.mixin;
 import net.colorixer.sounds.ModSounds;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageTypes;
+import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -57,39 +59,86 @@ public abstract class PlayerAction {
         }
     }
 
-    // Vi behöver en variabel för att hålla koll på tiden.
-// Eftersom detta är en Mixin lägger vi till den så här:
+    @Inject(method = "tick", at = @At("TAIL"))
+    private void ttll$cancelSprintingOnLowStats(CallbackInfo ci) {
+        if ((Object)this instanceof PlayerEntity player) {
+            if (player.isCreative() || player.isSpectator()) return;
+
+            if (player.getHealth() <= 8.0f || player.getHungerManager().getFoodLevel() <= 8) {
+                if (player.isSprinting()) {
+                    player.setSprinting(false);
+                }
+            }
+        }
+    }
+
+
     private int lastDamageSoundTick = 0;
 
-    @Inject(method = "damage", at = @At("HEAD"))
-    private void playCustomDamageSound(ServerWorld world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+    // Make sure to import your effect and StatusEffectInstance at the top!
+// import net.colorixer.registry.ModEffects;
+// import net.minecraft.entity.effect.StatusEffectInstance;
+
+    @Inject(method = "damage", at = @At("TAIL"))
+    private void playCustomDamageSoundAndBleed(ServerWorld world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         if ((Object) this instanceof PlayerEntity player) {
 
-            // 1. Kolla om det har gått minst 10 ticks sedan sist
-            // player.age ökar med 1 varje tick.
-            if (player.age - lastDamageSoundTick < 10) {
-                return;
+            // ==========================================
+            // BLEEDING LOGIC
+            // ==========================================
+
+            if (amount >= 2.0f  && !source.isOf(DamageTypes.STARVE)
+                                && !source.isOf(DamageTypes.DROWN)
+                                && !source.isOf(DamageTypes.ON_FIRE)
+                                && !source.isOf(DamageTypes.FREEZE)
+                    && !source.isOf(DamageTypes.WITHER)
+                    && !source.isOf(DamageTypes.CAMPFIRE)
+                    && !source.isOf(DamageTypes.INDIRECT_MAGIC)
+                    && !source.isOf(DamageTypes.LAVA)
+                    && !source.isOf(DamageTypes.IN_FIRE)) {
+
+                int ticksToAdd = (int) amount * 50;
+                int totalDuration = ticksToAdd;
+
+                if (player.hasStatusEffect(net.colorixer.effect.ModEffects.BLEEDING)) {
+                    totalDuration += player.getStatusEffect(net.colorixer.effect.ModEffects.BLEEDING).getDuration();
+                }
+
+                // Apply the new stacked duration!
+                player.addStatusEffect(new StatusEffectInstance(
+                        net.colorixer.effect.ModEffects.BLEEDING,
+                        totalDuration,
+                        0,
+                        false, // ambient
+                        false,  // show particles
+                        true   // show icon
+                ));
             }
 
-            if (amount > 0 && !player.isInvulnerableTo(world, source)) {
+            // ==========================================
+            // SOUND LOGIC
+            // ==========================================
 
-                // 2. Uppdatera timern så vi vet när vi spelade ljudet senast
-                lastDamageSoundTick = player.age;
+            if (amount <= 0 || player.isInvulnerableTo(world, source)) return;
+            if (player.isUsingItem() && player.getActiveItem().isOf(net.minecraft.item.Items.SHIELD)) return;
 
-                float randomVolume = 0.8f + (player.getRandom().nextFloat() * 0.4f);
-                float healthPercent = player.getHealth() / player.getMaxHealth();
-                float basePitch = 0.8f + (healthPercent * 0.2f);
-                float randomPitch = basePitch + (player.getRandom().nextFloat() * 0.2f - 0.1f);
+            // Skip if it's been less than 10 ticks since last sound
+            if (player.age - lastDamageSoundTick < 10) return;
+            lastDamageSoundTick = player.age;
 
-                world.playSound(
-                        null,
-                        player.getX(), player.getY(), player.getZ(),
-                        ModSounds.CLASSIC_HURT,
-                        SoundCategory.PLAYERS,
-                        randomVolume,
-                        randomPitch
-                );
-            }
+            float randomVolume = 0.8f + (player.getRandom().nextFloat() * 0.4f);
+            float healthPercent = player.getHealth() / player.getMaxHealth();
+            float basePitch = 0.8f + (healthPercent * 0.2f);
+            float randomPitch = basePitch + (player.getRandom().nextFloat() * 0.2f - 0.1f);
+
+            world.playSound(
+                    null,
+                    player.getX(), player.getY(), player.getZ(),
+                    ModSounds.CLASSIC_HURT,
+                    SoundCategory.PLAYERS,
+                    randomVolume,
+                    randomPitch
+            );
         }
     }
 }

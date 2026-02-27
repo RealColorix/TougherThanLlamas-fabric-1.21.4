@@ -27,14 +27,16 @@ public abstract class LivingEntityExhaustionMixin {
             // Match your 1.5% multiplier logic: 1.0 + (Weight * 0.015)
             float weightMultiplier = 1.0f + (armorWeight * 0.015f);
 
-            // Apply the penalized drain
+            if (player.isCreative()) return;
             player.getHungerManager().addExhaustion(drainAmount * weightMultiplier);
 
             if (player.getWorld().isClient) {
                 // Heavier gear feels "chunkier" - we increase jitter based on weight
 
-                ExhaustionHelper.triggerJitter(10);
+                ExhaustionHelper.triggerJitter(11);
             }
         }
     }
+
+
 }

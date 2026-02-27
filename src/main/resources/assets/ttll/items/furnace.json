@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "ttll:block/furnace"
+    "model": "ttll:block/furnace_unlit_0"
   }
 }

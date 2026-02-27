@@ -376,7 +376,18 @@ public class ToolDamageCraftingRecipeFactory {
                                 Items.COBWEB,
                                 Items.SHEARS,
                                 new ItemStack(Items.STRING, 2)
+                        ),
+                        new ToolDamageRule(
+                                Items.SUGAR_CANE,
+                                ModItems.SHARP_ROCK,
+                                new ItemStack(ModItems.SUGAR_CANE_MASH, 1)
+                        ),
+                        new ToolDamageRule(
+                                Items.SUGAR_CANE,
+                                ModItems.FLINT,
+                                new ItemStack(ModItems.SUGAR_CANE_MASH, 1)
                         )
+
 
                 )
         );

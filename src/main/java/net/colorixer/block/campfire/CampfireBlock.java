@@ -102,15 +102,30 @@ public class CampfireBlock extends FallingBlock implements BlockEntityProvider, 
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
 
-        if (!state.get(Properties.LIT) && player.getStackInHand(player.getActiveHand()).getItem() instanceof FireStarterItem){
+        // Get the item the player is actually holding
+        Hand hand = player.getActiveHand();
+        ItemStack stack = player.getStackInHand(hand);
+
+        // Check if campfire is unlit and player is holding the FireStarterItem
+        if (!state.get(LIT) && stack.getItem() instanceof FireStarterItem) {
             if (!world.isClient) {
-                FireStarterItemSmoke.spawnFrictionEffects(world, hit.getPos(), hit.getSide());
+                // Use 'hit' to get position/side and 'stack' for the particle texture
+                if (!stack.isEmpty()) {
+                    FireStarterItemSmoke.spawnFrictionEffects(
+                            world,
+                            hit.getPos(),
+                            hit.getSide(),
+                            player,
+                            stack // Pass the stack here
+                    );
+                }
             }
         }
 
         if (world.isClient) return ActionResult.SUCCESS;
+
         if (world.getBlockEntity(pos) instanceof CampfireBlockEntity campfire) {
-            return campfire.onRightClick(player, player.getActiveHand());
+            return campfire.onRightClick(player, hand);
         }
         return ActionResult.CONSUME;
     }

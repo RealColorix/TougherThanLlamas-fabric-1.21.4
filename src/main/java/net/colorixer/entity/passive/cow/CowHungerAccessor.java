@@ -1,25 +1,25 @@
 package net.colorixer.entity.passive.cow;
 
-public interface CowHungerAccessor {
+import net.colorixer.entity.passive.goals.AnimalDataAccessor;
+
+/**
+ * Cow-specific data.
+ * Note: Methods like isPanicking, isEnraged, and isBlockScared
+ * are inherited automatically from AnimalDataAccessor.
+ */
+public interface CowHungerAccessor extends AnimalDataAccessor {
+    // Hunger System
     int ttll$getHunger();
     void ttll$setHunger(int value);
-    int ttll$getEatAnimTicks();
     void ttll$setEatAnimTicks(int ticks);
+
+    // Lifecycle/Cooldown Tracking
     long ttll$getLastBirthTime();
     void ttll$setLastBirthTime(long time);
-
-    // Keep these for data tracking
     long ttll$getLastMilkTime();
     void ttll$setLastMilkTime(long time);
 
-    // NEW: Boolean flags to prevent math errors on spawn
-    boolean ttll$isPanicking();           // Used by FleeAttackerGoal
-    void ttll$setPanicking(boolean value);
-
-    boolean ttll$isBlockScared();         // Used by FleeBlockBreakGoal
-    void ttll$setBlockScared(boolean value);
-
+    // Specific Cow Trigger
     void ttll$triggerPanic();
 
-    void ttll$setEnraged(boolean enraged);
 }

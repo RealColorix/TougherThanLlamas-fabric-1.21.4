@@ -24,7 +24,7 @@ public class FurnaceBlockEntity extends BlockEntity {
     private int cookTime = 0;
     private int cookTimeTotal = 0;
     private boolean isLit = false;
-    public static final int MAX_FUEL = 14000;
+    public static final int MAX_FUEL = 16000;
 
     public FurnaceBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.FURNACEBLOCKENTITY, pos, state);
@@ -35,42 +35,38 @@ public class FurnaceBlockEntity extends BlockEntity {
 
         BlockState state = this.getCachedState();
         boolean isLit = state.get(FurnaceBlock.LIT);
-        boolean isLow = state.get(FurnaceBlock.LOW_FUEL);
+        int currentFuelLevel = state.get(FurnaceBlock.FUEL_LEVEL);
 
-        // 1. Handle Fuel Consumption
         if (isLit) {
             if (this.fuel > 0) {
                 this.fuel--;
-                boolean currentlyLow = this.fuel <= 3000;
-
                 if (world.random.nextInt(100) == 0) {
                     this.ttll$tryFurnaceSpread();
                 }
-
-                if (currentlyLow != isLow) {
-                    world.setBlockState(pos, state.with(FurnaceBlock.LOW_FUEL, currentlyLow), 3);
-                }
-
             } else {
                 this.fuel = 0;
-                world.setBlockState(pos, state.with(FurnaceBlock.LIT, false).with(FurnaceBlock.LOW_FUEL, false), 3);
+                // Reset to 0 when empty
+                world.setBlockState(pos, state.with(FurnaceBlock.LIT, false).with(FurnaceBlock.FUEL_LEVEL, 0), 3);
                 this.cookTime = 0;
                 this.markDirty();
                 return;
             }
         }
 
-        // 2. Handle Cooking Logic
+        // Updated math: division by 2000 capped at 8
+        // 0: 0 | 1-2000: 1 | ... | 14001-16000: 8
+        int calculatedLevel = (this.fuel == 0) ? 0 : Math.min(8, (this.fuel - 1) / 2000 + 1);
+
+        if (calculatedLevel != currentFuelLevel) {
+            world.setBlockState(pos, this.getCachedState().with(FurnaceBlock.FUEL_LEVEL, calculatedLevel), 3);
+        }
+
+        // 3. Handle Cooking Logic
         if (isLit && !this.inventory.isEmpty()) {
             var recipe = net.colorixer.block.furnace.FurnaceRecipes.get(this.inventory);
-
             if (recipe != null) {
-                // UPDATE: Set the total time from your FurnaceRecipe class
-                this.cookTimeTotal = recipe.cookTime(); // This uses the 12000, 1800, etc.
-
+                this.cookTimeTotal = recipe.cookTime();
                 this.cookTime++;
-
-                // Use the dynamic cookTimeTotal instead of a hardcoded 200
                 if (this.cookTime >= this.cookTimeTotal) {
                     this.inventory = recipe.output().copy();
                     this.cookTime = 0;
@@ -87,6 +83,7 @@ public class FurnaceBlockEntity extends BlockEntity {
 
         this.markDirty();
     }
+
     public boolean onRightClick(PlayerEntity player, Hand hand) {
         ItemStack stackInHand = player.getStackInHand(hand);
 
@@ -124,9 +121,17 @@ public class FurnaceBlockEntity extends BlockEntity {
     }
 
 
-    // Update your addFuel method to be more precise
     public void addFuel(int amount) {
         this.fuel = Math.min(this.fuel + amount, MAX_FUEL);
+        // Updated math here as well for instant visual update
+        int newLevel = (this.fuel == 0) ? 0 : Math.min(8, (this.fuel - 1) / 2000 + 1);
+
+        if (this.world != null && !this.world.isClient) {
+            BlockState state = this.getCachedState();
+            if (state.get(FurnaceBlock.FUEL_LEVEL) != newLevel) {
+                this.world.setBlockState(pos, state.with(FurnaceBlock.FUEL_LEVEL, newLevel), 3);
+            }
+        }
         markDirty();
     }
 

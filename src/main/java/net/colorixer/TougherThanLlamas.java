@@ -6,9 +6,11 @@ import net.colorixer.block.falling_slabs.FallingSlabBlock;
 import net.colorixer.block.ModBlockEntities;
 import net.colorixer.block.ModBlocks;
 import net.colorixer.component.ModDataComponentTypes;
+import net.colorixer.effect.BleedingStatusEffect;
+import net.colorixer.effect.ModEffects;
 import net.colorixer.entity.ModEntities;
-import net.colorixer.entity.creeper.firecreeper.FireCreeperEntity;
-import net.colorixer.entity.spiders.JungleSpiderEntity;
+import net.colorixer.entity.hostile.creeper.firecreeper.FireCreeperEntity;
+import net.colorixer.entity.hostile.spiders.JungleSpiderEntity;
 import net.colorixer.item.ItemsThatCanHitAndBreak;
 import net.colorixer.item.ModItems;
 import net.colorixer.player.Chopable;
@@ -28,7 +30,9 @@ import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.SlabType;
 import net.minecraft.entity.*;
+import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -42,6 +46,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeKeys;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 
 public class TougherThanLlamas implements ModInitializer {
 	public static final String MOD_ID = "ttll";
@@ -123,6 +128,8 @@ public class TougherThanLlamas implements ModInitializer {
 		ModDataComponentTypes.registerDataComponentTypes();
 		ModSounds.registerSounds();
 		OreWorldGen.registerWorldGen();
+		ModEffects.registerEffects();
+
 
 
 		ServerLifecycleEvents.SERVER_STARTED.register(server -> {

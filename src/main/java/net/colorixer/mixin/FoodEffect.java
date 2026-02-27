@@ -55,28 +55,28 @@ public abstract class FoodEffect {
 
 
         if (stack.isOf(Items.BEEF)) {
-            if (random.nextFloat() < 0.333F) {
+            if (random.nextFloat() < 0.5F) {
                 user.addStatusEffect(new StatusEffectInstance(
                         StatusEffects.HUNGER,
-                        1200, 1
+                        2400, 1
                 ));
             }
         }
 
         else if (stack.isOf(Items.PORKCHOP)) {
-            if (random.nextFloat() < 0.333F) {
+            if (random.nextFloat() < 0.5F) {
                 user.addStatusEffect(new StatusEffectInstance(
                         StatusEffects.HUNGER,
-                        1200, 1
+                        2400, 1
                 ));
             }
         }
 
         else if (stack.isOf(Items.CHICKEN)) {
-            if (random.nextFloat() < 0.333F) {
+            if (random.nextFloat() < 0.5F) {
                 user.addStatusEffect(new StatusEffectInstance(
                         StatusEffects.HUNGER,
-                        1200, 1
+                        2400, 1
                 ));
                 user.addStatusEffect(new StatusEffectInstance(
                         StatusEffects.POISON,
@@ -86,10 +86,10 @@ public abstract class FoodEffect {
         }
 
         else if (stack.isOf(Items.COD)) {
-            if (random.nextFloat() < 0.333F) {
+            if (random.nextFloat() < 0.5F) {
                 user.addStatusEffect(new StatusEffectInstance(
                         StatusEffects.HUNGER,
-                        1200, 1
+                        2400, 1
                 ));
                 user.addStatusEffect(new StatusEffectInstance(
                         StatusEffects.POISON,
@@ -99,10 +99,10 @@ public abstract class FoodEffect {
         }
 
         else if (stack.isOf(Items.SALMON)) {
-            if (random.nextFloat() < 0.333F) {
+            if (random.nextFloat() < 0.5F) {
                 user.addStatusEffect(new StatusEffectInstance(
                         StatusEffects.HUNGER,
-                        1200, 1
+                        2400, 1
                 ));
                 user.addStatusEffect(new StatusEffectInstance(
                         StatusEffects.POISON,
@@ -112,10 +112,10 @@ public abstract class FoodEffect {
         }
 
         else if (stack.isOf(Items.MUTTON)) {
-            if (random.nextFloat() < 0.333F) {
+            if (random.nextFloat() < 0.5F) {
                 user.addStatusEffect(new StatusEffectInstance(
                         StatusEffects.HUNGER,
-                        1200, 1
+                        2400, 1
                 ));
             }
         }

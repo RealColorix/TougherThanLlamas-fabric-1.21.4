@@ -1,5 +1,6 @@
 package net.colorixer.worldgen;
 
+import net.colorixer.TougherThanLlamas;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.minecraft.registry.RegistryKey;
@@ -25,7 +26,7 @@ public class OreWorldGen {
     );
 
     public static void registerWorldGen() {
-        // 1. Register the Deepslate Layer/Ore
+        TougherThanLlamas.LOGGER.info("Registering World Gen for " + TougherThanLlamas.MOD_ID);
         BiomeModifications.addFeature(
                 BiomeSelectors.foundInOverworld(),
                 GenerationStep.Feature.UNDERGROUND_ORES,

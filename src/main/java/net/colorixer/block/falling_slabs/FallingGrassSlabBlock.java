@@ -5,9 +5,10 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.enums.SlabType;
-import net.minecraft.fluid.FluidState;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
 
 import static net.minecraft.state.property.Properties.WATERLOGGED;
@@ -21,78 +22,87 @@ public class FallingGrassSlabBlock extends FallingSlabBlock {
     @Override
     public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
 
-        // Grass death logic
-        if (state.get(TYPE) == SlabType.DOUBLE) {
-            BlockState aboveState = world.getBlockState(pos.up());
-            if (aboveState.isFullCube(world, pos.up())
-                    || (aboveState.contains(TYPE) && aboveState.get(TYPE) == SlabType.BOTTOM)) {
+        // 1. DEATH CHECKS
+        if (state.get(WATERLOGGED)) {
+            convertToDirt(state, world, pos);
+            return;
+        }
+
+        if (!world.getFluidState(pos.up()).isEmpty()) {
+            convertToDirt(state, world, pos);
+            return;
+        }
+
+        BlockPos abovePos = pos.up();
+        BlockState aboveState = world.getBlockState(abovePos);
+
+        if (!aboveState.isOf(Blocks.SNOW)) {
+
+            boolean hasFullDownFace =
+                    aboveState.isSideSolidFullSquare(world, abovePos, Direction.DOWN);
+
+            boolean isBottomSlab =
+                    aboveState.contains(Properties.SLAB_TYPE) &&
+                            aboveState.get(Properties.SLAB_TYPE) == SlabType.BOTTOM;
+
+            if (hasFullDownFace || isBottomSlab) {
+                // Trigger death logic instead of instant dirt
                 convertToDirt(state, world, pos);
                 return;
             }
         }
 
-        attemptSpread(world, pos, random);
+        // 2. SPREAD LOGIC (With 1-in-7 chance and Light Check)
+        if (world.getLightLevel(pos.up()) >= 9) {
+            if (random.nextInt(7) == 0) { // Throttle spread speed
+                attemptSpread(world, pos, random);
+            }
+        }
     }
 
     private void attemptSpread(ServerWorld world, BlockPos origin, Random random) {
+        // Pick ONE random offset
+        int dx = random.nextInt(3) - 1;
+        int dy = random.nextInt(5) - 3;
+        int dz = random.nextInt(3) - 1;
 
-        if (random.nextInt(4) != 0) return;
+        BlockPos targetPos = origin.add(dx, dy, dz);
+        BlockState targetState = world.getBlockState(targetPos);
+        BlockPos abovePos = targetPos.up();
+        BlockState aboveState = world.getBlockState(abovePos);
 
-        BlockPos.Mutable targetPos = new BlockPos.Mutable();
+        // --- DEATH CHECK ---
+        if (!aboveState.isOf(Blocks.SNOW)) {
+            boolean hasFullDownFace = aboveState.isSideSolidFullSquare(world, abovePos, Direction.DOWN);
+            boolean isBottomSlab = aboveState.contains(Properties.SLAB_TYPE) && aboveState.get(Properties.SLAB_TYPE) == SlabType.BOTTOM;
 
-        for (int dx = -1; dx <= 1; dx++) {
-            for (int dy = -1; dy <= 1; dy++) {
-                for (int dz = -1; dz <= 1; dz++) {
-
-                    targetPos.set(
-                            origin.getX() + dx,
-                            origin.getY() + dy,
-                            origin.getZ() + dz
-                    );
-
-                    BlockState targetState = world.getBlockState(targetPos);
-                    BlockPos abovePos = targetPos.up();
-                    BlockState aboveState = world.getBlockState(abovePos);
-                    FluidState aboveFluid = aboveState.getFluidState();
-
-                    // No spread if liquid above
-                    if (!aboveFluid.isEmpty()) continue;
-
-                    // Blocked by full block above
-                    if (aboveState.isFullCube(world, abovePos)) continue;
-
-                    // Blocked by bottom slab above
-                    if (aboveState.contains(TYPE) && aboveState.get(TYPE) == SlabType.BOTTOM) continue;
-
-                    // DIRT → vanilla grass block
-                    if (targetState.isOf(Blocks.DIRT)) {
-                        world.setBlockState(
-                                targetPos,
-                                Blocks.GRASS_BLOCK.getDefaultState(),
-                                Block.NOTIFY_ALL
-                        );
-                        continue;
-                    }
-
-                    // LOOSE_DIRT_SLAB → GRASS_SLAB
-                    if (targetState.isOf(ModBlocks.LOOSE_DIRT_SLAB)) {
-
-                        // Reject waterlogged bottom slabs
-                        if (targetState.get(TYPE) == SlabType.BOTTOM
-                                && targetState.get(WATERLOGGED)) {
-                            continue;
-                        }
-
-                        world.setBlockState(
-                                targetPos,
-                                ModBlocks.GRASS_SLAB.getDefaultState()
-                                        .with(TYPE, targetState.get(TYPE))
-                                        .with(WATERLOGGED, targetState.get(WATERLOGGED)),
-                                Block.NOTIFY_ALL
-                        );
-                    }
+            if (hasFullDownFace || isBottomSlab) {
+                if (targetState.isOf(Blocks.GRASS_BLOCK) || targetState.isOf(ModBlocks.GRASS_SLAB)) {
+                    // Note: You might need a more generic dirt conversion here
+                    // if targetPos isn't a slab, but since this is a Slab class:
+                    world.setBlockState(targetPos, Blocks.DIRT.getDefaultState());
                 }
+                return;
             }
+        }
+
+        // --- VALIDATION ---
+        if (world.getLightLevel(abovePos) < 4 || aboveState.getOpacity() > 2) return;
+        if (!world.getFluidState(abovePos).isEmpty()) return;
+
+        // --- SPREAD ---
+        if (targetState.isOf(Blocks.DIRT)) {
+            world.setBlockState(targetPos, Blocks.GRASS_BLOCK.getDefaultState(), Block.NOTIFY_ALL);
+        } else if (targetState.isOf(ModBlocks.LOOSE_DIRT_SLAB)) {
+            if (targetState.contains(Properties.WATERLOGGED) && targetState.get(Properties.WATERLOGGED)) return;
+
+            world.setBlockState(
+                    targetPos,
+                    ModBlocks.GRASS_SLAB.getDefaultState()
+                            .with(Properties.SLAB_TYPE, targetState.get(Properties.SLAB_TYPE))
+                            .with(Properties.WATERLOGGED, false),
+                    Block.NOTIFY_ALL
+            );
         }
     }
 

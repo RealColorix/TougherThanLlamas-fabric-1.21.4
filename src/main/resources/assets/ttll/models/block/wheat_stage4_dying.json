@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/crop",
+  "textures": {
+    "crop": "ttll:block/wheat_stage4_dying"
+  }
+}

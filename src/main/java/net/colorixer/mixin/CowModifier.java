@@ -1,6 +1,10 @@
 package net.colorixer.mixin;
 
 import net.colorixer.entity.passive.cow.*;
+import net.colorixer.entity.passive.goals.AnimalFleeAttackerGoal;
+import net.colorixer.entity.passive.goals.AnimalFleeBlockBreakPlaceGoal;
+import net.colorixer.entity.passive.goals.AnimalFleeZombieGoal;
+import net.colorixer.entity.passive.goals.AnimalStampedeAttackGoal;
 import net.colorixer.util.Kickable;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.*;
@@ -43,15 +47,14 @@ public abstract class CowModifier extends AnimalEntity implements Kickable {
 
         this.goalSelector.getGoals().clear();
         this.kickGoal = new CowBackwardsKickGoal(cow);
-
         this.goalSelector.add(0, new SwimGoal(cow));
         this.goalSelector.add(1, this.kickGoal);
-        this.goalSelector.add(2, new CowStampedeAttackGoal(cow));
-        this.goalSelector.add(3, new CowFleeAttackerGoal(cow, 2.0));
-        this.goalSelector.add(4, new CowFleeBlockBreakGoal(cow, 1.8));
+        this.goalSelector.add(2, new AnimalStampedeAttackGoal(cow, 1.8));
+        this.goalSelector.add(3, new AnimalFleeAttackerGoal(cow, 2.0));
+        this.goalSelector.add(4, new AnimalFleeBlockBreakPlaceGoal(this, 1.8));
         this.goalSelector.add(5, new AnimalMateGoal(cow, 1.0));
-        this.goalSelector.add(6, new TemptGoal(cow, 1.25, stack -> stack.isIn(ItemTags.COW_FOOD), false));
-        this.goalSelector.add(7, new CowFleeZombieGoal(cow, 1.5));
+        this.goalSelector.add(6, new AnimalFleeZombieGoal(cow, 1.5));
+        this.goalSelector.add(7, new TemptGoal(cow, 1.25, stack -> stack.isIn(ItemTags.COW_FOOD), false));
         this.goalSelector.add(8, new CowEatGrassGoal(cow));
         this.goalSelector.add(9, new FollowParentGoal(cow, 1.25));
         this.goalSelector.add(11, new WanderAroundFarGoal(cow, 1.0));

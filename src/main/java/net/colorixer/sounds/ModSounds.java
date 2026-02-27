@@ -1,5 +1,6 @@
 package net.colorixer.sounds;
 
+import net.colorixer.TougherThanLlamas;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.sound.SoundEvent;
@@ -16,7 +17,6 @@ public class ModSounds {
     }
 
     public static void registerSounds() {
-        // This method can be empty, we just call it in our main Mod Initializer
-        // to ensure the static fields (the sounds) are loaded.
+        TougherThanLlamas.LOGGER.info("Registering Sound Effects for " + TougherThanLlamas.MOD_ID);
     }
 }

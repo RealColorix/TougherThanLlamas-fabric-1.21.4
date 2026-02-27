@@ -21,7 +21,7 @@ public class FurnaceBlockEntityRenderer implements BlockEntityRenderer<FurnaceBl
         Direction facing = entity.getCachedState().get(FurnaceBlock.FACING);
 
         matrices.push();
-        matrices.translate(0.5, 0.515625, 0.5);
+        matrices.translate(0.5, 0.390625, 0.5);
         matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-facing.getPositiveHorizontalDegrees()));
         matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(90));
         matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(180));

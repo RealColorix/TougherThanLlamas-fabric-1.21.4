@@ -1,16 +1,16 @@
 package net.colorixer.mixin;
 
-import net.colorixer.entity.zombie.ZombieBreakTorchesGoal;
-import net.colorixer.entity.zombie.ZombieEatsAnimalsGoal;
-import net.colorixer.entity.zombie.ZombieKillsAnimalsGoal;
-import net.colorixer.util.GoalSelectorUtilForZombie;
+import net.colorixer.entity.hostile.zombie.ZombieBreakTorchesGoal;
+import net.colorixer.entity.hostile.zombie.ZombieEatsAnimalsGoal;
+import net.colorixer.entity.hostile.zombie.ZombieKillsAnimalsGoal;
+import net.colorixer.util.GoalSelectorUtilForMob;
+import net.colorixer.util.SkeletonConversionTracker;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.ZombieEntity;
 import net.minecraft.item.*;
 import net.minecraft.registry.tag.DamageTypeTags;
@@ -26,7 +26,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.UUID;
 
 @Mixin(ZombieEntity.class)
-public abstract class ZombieModifier {
+public abstract class ZombieModifier implements SkeletonConversionTracker{
 
     private static final UUID LUNGE_SPEED_ID = UUID.fromString("6a17b680-4564-4632-9721-39659f136611");
     private static final EntityAttributeModifier LUNGE_BOOST = new EntityAttributeModifier(
@@ -93,6 +93,8 @@ public abstract class ZombieModifier {
         boolean burntToDeath = source.isIn(DamageTypeTags.IS_FIRE);
 
         for (EquipmentSlot slot : EquipmentSlot.values()) {
+            if (this.isConvertingToSkeleton()) return;
+
             ItemStack stack = zombie.getEquippedStack(slot);
             if (stack.isEmpty()) continue;
 
@@ -121,9 +123,9 @@ public abstract class ZombieModifier {
     @Inject(method = "initCustomGoals", at = @At("TAIL"))
     private void ttll$setupZombieGoals(CallbackInfo ci) {
         ZombieEntity zombie = (ZombieEntity) (Object) this;
-        GoalSelectorUtilForZombie.addGoal(zombie, 3, new ZombieBreakTorchesGoal(zombie));
-        GoalSelectorUtilForZombie.addGoal(zombie, 4, new ZombieKillsAnimalsGoal(zombie, 1.0));
-        GoalSelectorUtilForZombie.addGoal(zombie, 5, new ZombieEatsAnimalsGoal(zombie, 1.0));
+        GoalSelectorUtilForMob.addGoal(zombie, 3, new ZombieBreakTorchesGoal(zombie));
+        GoalSelectorUtilForMob.addGoal(zombie, 4, new ZombieKillsAnimalsGoal(zombie, 1.0));
+        GoalSelectorUtilForMob.addGoal(zombie, 5, new ZombieEatsAnimalsGoal(zombie, 1.0));
     }
 
     private boolean isAnimalProduct(ItemStack stack) {

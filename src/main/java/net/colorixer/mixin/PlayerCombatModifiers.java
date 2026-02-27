@@ -8,6 +8,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.server.world.ServerWorld;
@@ -19,6 +20,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
@@ -119,13 +121,14 @@ public abstract class PlayerCombatModifiers {
         }
         return amount;
     }
-
     @Inject(method = "playHurtSound", at = @At("HEAD"), cancellable = true)
     private void ttll$swapHandSound(DamageSource source, CallbackInfo ci) {
         if (source.getAttacker() instanceof PlayerEntity player && player.getMainHandStack().isEmpty()) {
-            // Calling the shadowed method that is defined in LivingEntity.java
-            this.playSound(ModSounds.CLASSIC_HURT);
-            ci.cancel();
+
+            if ((Object)this instanceof MobEntity) { // only apply if the hurt entity is a mob
+                this.playSound(ModSounds.CLASSIC_HURT);
+                ci.cancel();
+            }
         }
     }
 }

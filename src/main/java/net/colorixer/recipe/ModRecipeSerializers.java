@@ -15,6 +15,8 @@ public class ModRecipeSerializers {
 
     public static void register() {
 
+        TougherThanLlamas.LOGGER.info("Registering Special Recipe Crafting for " + TougherThanLlamas.MOD_ID);
+
         TOOL_DAMAGE_CRAFTING_SERIALIZER =
                 new SpecialCraftingRecipe.SpecialRecipeSerializer<>(
                         (CraftingRecipeCategory category) ->

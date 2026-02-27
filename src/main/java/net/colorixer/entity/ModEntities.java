@@ -1,9 +1,10 @@
 package net.colorixer.entity;
 
 import net.colorixer.TougherThanLlamas;
-import net.colorixer.entity.creeper.firecreeper.FireCreeperEntity;
+import net.colorixer.entity.hostile.creeper.firecreeper.FireCreeperEntity;
+import net.colorixer.entity.projectile.BoneProjectile;
 import net.colorixer.entity.projectile.CobwebProjectileEntity;
-import net.colorixer.entity.spiders.JungleSpiderEntity;
+import net.colorixer.entity.hostile.spiders.JungleSpiderEntity;
 import net.colorixer.util.IdentifierUtil;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.EntityDimensions;
@@ -38,6 +39,25 @@ public class ModEntities {
                             .trackedUpdateRate(10)
                             .build(COBWEB_PROJECTILE_KEY)
             );
+
+
+
+
+
+    public static final RegistryKey<EntityType<?>> BONE_PROJECTILE_KEY =
+            RegistryKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of(TougherThanLlamas.MOD_ID, "bone_projectile"));
+
+    public static final EntityType<BoneProjectile> BONE_PROJECTILE = Registry.register(
+            Registries.ENTITY_TYPE,
+            BONE_PROJECTILE_KEY,
+            // FIX 1: Use <BoneProjectile> not <CobwebProjectileEntity>
+            EntityType.Builder.<BoneProjectile>create(BoneProjectile::new, SpawnGroup.MISC)
+                    .dimensions(0.25F, 0.25F)
+                    .maxTrackingRange(4)
+                    .trackingTickInterval(10)
+                    // FIX 2: Use BONE_PROJECTILE_KEY here, not COBWEB
+                    .build(BONE_PROJECTILE_KEY)
+    );
 
     // --- JUNGLE SPIDER ---
 
@@ -80,6 +100,6 @@ public class ModEntities {
             );
 
     public static void registerEntities() {
-        // force class loading
+        TougherThanLlamas.LOGGER.info("Registering Entities for " + TougherThanLlamas.MOD_ID);
     }
 }

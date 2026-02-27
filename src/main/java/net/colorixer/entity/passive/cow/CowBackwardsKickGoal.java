@@ -4,6 +4,7 @@ import net.colorixer.util.Kickable;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
+import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.CowEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
@@ -37,11 +38,7 @@ public class CowBackwardsKickGoal extends Goal {
         return cow.getWorld().getEntitiesByClass(LivingEntity.class,
                 cow.getBoundingBox().expand(range, 1.0, range),
                 entity -> entity != cow
-                        && !(entity instanceof CowEntity)
-                        && !(entity instanceof net.minecraft.entity.passive.HorseEntity)
-                        && !(entity instanceof net.minecraft.entity.passive.MuleEntity)
-                        && !(entity instanceof net.minecraft.entity.passive.DonkeyEntity)
-                        && !(entity instanceof net.minecraft.entity.passive.PigEntity)
+                        && !(entity instanceof AnimalEntity)
                         && isBehind(entity));
     }
 

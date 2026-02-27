@@ -1,19 +1,14 @@
 package net.colorixer;
 
-import dev.lambdaurora.lambdynlights.LambDynLights;
-import dev.lambdaurora.lambdynlights.api.item.ItemLightSourceManager;
 import net.colorixer.block.ModBlockEntities;
 import net.colorixer.block.ModBlocks;
 import net.colorixer.block.campfire.CampfireBlockEntityRenderer;
 import net.colorixer.block.drying_rack.DryingRackBlockEntityRenderer;
 import net.colorixer.block.furnace.FurnaceBlockEntityRenderer;
-import net.colorixer.block.torch.BurningCrudeTorchItem;
-import net.colorixer.component.ModDataComponentTypes;
 import net.colorixer.entity.ModEntities;
+import net.colorixer.entity.client.BoneProjectileRenderer;
 import net.colorixer.entity.client.SimpleThrownItemRenderer;
-import net.colorixer.entity.creeper.firecreeper.FireCreeperEntity;
-import net.colorixer.entity.spiders.JungleSpiderEntity;
-import net.colorixer.item.ModItems;
+import net.colorixer.entity.hostile.spiders.JungleSpiderEntity;
 import net.colorixer.mixin.LivingEntityRendererInvoker;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
@@ -21,7 +16,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
-import net.fabricmc.fabric.impl.client.rendering.ColorProviderRegistryImpl;
+import net.minecraft.block.Blocks;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.option.KeyBinding;
@@ -32,10 +27,8 @@ import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.client.render.entity.model.SpiderEntityModel;
 import net.minecraft.client.render.entity.state.LivingEntityRenderState;
-import net.minecraft.entity.mob.CreeperEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.biome.GrassColors;
-import org.jetbrains.annotations.NotNull;
 
 public class TougherThanLlamasClient implements ClientModInitializer {
 
@@ -120,6 +113,7 @@ public class TougherThanLlamasClient implements ClientModInitializer {
 
 
 		EntityRendererRegistry.register(ModEntities.COBWEB_PROJECTILE, SimpleThrownItemRenderer::new);
+		EntityRendererRegistry.register(ModEntities.BONE_PROJECTILE, BoneProjectileRenderer::new);
 		BlockEntityRendererFactories.register(ModBlockEntities.FURNACEBLOCKENTITY, FurnaceBlockEntityRenderer::new);
 		BlockEntityRendererFactories.register(ModBlockEntities.CAMPFIREBLOCKENTITY, CampfireBlockEntityRenderer::new);
 		BlockEntityRendererRegistry.register(ModBlockEntities.DRYING_RACK_BLOCK_ENTITY, DryingRackBlockEntityRenderer::new);
@@ -130,6 +124,9 @@ public class TougherThanLlamasClient implements ClientModInitializer {
 		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.CAMPFIRE, RenderLayer.getCutout());
 		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.GRASS_SLAB, RenderLayer.getCutoutMipped());
 		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.FURNACE, RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(Blocks.FARMLAND, RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.WEEDS, RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.HEMP_SEEDS, RenderLayer.getCutout());
 
 		HudRenderCallback.EVENT.register((drawContext, renderTickCounter) -> {
 			MinecraftClient client = MinecraftClient.getInstance();

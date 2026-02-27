@@ -1,0 +1,9 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "ttll:item/knitting_wool_white",
+    "tints": [
+      { "type": "constant", "value": 1908001 }
+    ]
+  }
+}

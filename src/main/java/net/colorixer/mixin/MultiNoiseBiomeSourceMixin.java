@@ -44,7 +44,7 @@ public abstract class MultiNoiseBiomeSourceMixin {
 
 
 
-        put(BiomeKeys.DARK_FOREST, List.of(BiomeKeys.PLAINS, BiomeKeys.FOREST, BiomeKeys.BIRCH_FOREST));
+        put(BiomeKeys.DARK_FOREST, List.of(BiomeKeys.PLAINS, BiomeKeys.FOREST, BiomeKeys.FLOWER_FOREST, BiomeKeys.SUNFLOWER_PLAINS));
 
 
         put(BiomeKeys.MANGROVE_SWAMP, List.of(BiomeKeys.SWAMP));

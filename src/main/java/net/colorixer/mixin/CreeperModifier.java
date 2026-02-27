@@ -1,8 +1,8 @@
 package net.colorixer.mixin;
 
 import net.colorixer.entity.ModEntities;
-import net.colorixer.entity.creeper.HideGoal;
-import net.colorixer.entity.creeper.firecreeper.FireCreeperEntity;
+import net.colorixer.entity.hostile.creeper.ProximityExplosionGoal;
+import net.colorixer.entity.hostile.creeper.firecreeper.FireCreeperEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
@@ -85,26 +85,17 @@ public abstract class CreeperModifier
 
         this.goalSelector.add(1, new net.minecraft.entity.ai.goal.SwimGoal(creeper));
 
-        // --- NEW FLEE GOAL ---
-        // Runs from players within 16 blocks ONLY if sheared. Speed 1.0 normal, 1.2 sprinting.
-        this.goalSelector.add(2, new net.minecraft.entity.ai.goal.FleeEntityGoal<>(creeper, PlayerEntity.class, 16.0F, 1.0, 1.2, (entity) -> this.ttll$isSheared()));
 
+        this.goalSelector.add(2, new net.minecraft.entity.ai.goal.FleeEntityGoal<>(creeper, PlayerEntity.class, 16.0F, 0.8, 1.2, (entity) -> this.ttll$isSheared()));
         this.goalSelector.add(3, new net.minecraft.entity.ai.goal.CreeperIgniteGoal(creeper));
-
-        if (creeper instanceof FireCreeperEntity) {
-            this.goalSelector.add(4, new HideGoal(creeper));
-        }
-
+        this.goalSelector.add(4, new ProximityExplosionGoal(creeper));
         this.goalSelector.add(5, new net.minecraft.entity.ai.goal.FleeEntityGoal<>(creeper, net.minecraft.entity.passive.OcelotEntity.class, 6.0F, 1.0, 1.2));
         this.goalSelector.add(5, new net.minecraft.entity.ai.goal.FleeEntityGoal<>(creeper, net.minecraft.entity.passive.CatEntity.class, 6.0F, 1.0, 1.2));
 
         // Only attack if NOT sheared
         this.goalSelector.add(6, new net.minecraft.entity.ai.goal.MeleeAttackGoal(creeper, 1.0, false) {
-            @Override public boolean canStart() { return super.canStart() && !ttll$isSheared(); }
-        });
-
+            @Override public boolean canStart() { return super.canStart() && !ttll$isSheared(); }});
         this.goalSelector.add(7, new net.minecraft.entity.ai.goal.WanderAroundFarGoal(creeper, 0.8));
-
         this.targetSelector.add(1, new net.minecraft.entity.ai.goal.ActiveTargetGoal<>(creeper, PlayerEntity.class, false) {
             @Override public boolean canStart() { return super.canStart() && !ttll$isSheared(); }
         });
@@ -134,10 +125,10 @@ public abstract class CreeperModifier
     private void setFuseTimes(EntityType<? extends CreeperEntity> type, World world, CallbackInfo ci) {
         if (type == ModEntities.FIRE_CREEPER) {  // Use your registered EntityType
             this.fuseTime = 21;
-            this.currentFuseTime = 14;
+            this.currentFuseTime = 0;
         } else {
             this.fuseTime = 25;
-            this.currentFuseTime = 18;
+            this.currentFuseTime = 0;
         }
     }
 
@@ -170,18 +161,20 @@ public abstract class CreeperModifier
 
             if (this.currentFuseTime == jumpFuseTime) {
                 LivingEntity target = this.getTarget();
-                double distance = this.squaredDistanceTo(target);
-                Vec3d dir = new Vec3d(target.getX() - this.getX(), 0, target.getZ() - this.getZ()).normalize();
+                if (target != null) {
+                    double distance = Math.sqrt(this.squaredDistanceTo(target)); // distance in blocks
+                    Vec3d dir = new Vec3d(target.getX() - this.getX(), 0, target.getZ() - this.getZ()).normalize();
 
-                // Scale horizontal velocity based on distance, reduce if very close (distance ≤1)
-                double scale = Math.min(1.0, Math.sqrt(distance));
-                if (scale < 1.0) scale = 0.2 + 0.4 * scale;
+                    // Scale jump with distance: (distance / 3) * current horizontal power, capped at 3
+                    double horizontalPower = Math.min(3.0, (distance / 3.0) * 0.7); // 1.0 is base jump power, adjust as needed
 
-                double vertical = 0.25;
-                if (distance < 1.0) vertical = 0.1;
+                    // Vertical jump component can scale with distance too, optional
+                    double vertical = 0.25;
+                    if (distance < 1.0) vertical = 0.1;
 
-                this.addVelocity(dir.x * scale, vertical, dir.z * scale);
-                this.velocityDirty = true;
+                    this.addVelocity(dir.x * horizontalPower, vertical, dir.z * horizontalPower);
+                    this.velocityDirty = true;
+                }
             }
         }
 

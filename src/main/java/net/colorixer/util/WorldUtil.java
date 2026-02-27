@@ -1,22 +1,23 @@
 package net.colorixer.util;
 
-import net.colorixer.entity.passive.cow.CowHungerAccessor;
-import net.minecraft.entity.passive.CowEntity;
+import net.colorixer.entity.passive.goals.AnimalDataAccessor;
+import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 import java.util.List;
 
 public class WorldUtil {
-    public static void scareNearbyCows(World world, BlockPos pos, double radius) {
+    public static void scareNearbyAnimals(World world, BlockPos pos, double radius) {
         if (world == null || world.isClient) return;
 
         Box box = new Box(pos).expand(radius);
-        List<CowEntity> nearbyCows = world.getEntitiesByClass(CowEntity.class, box, cow -> !cow.isBaby());
+        // Changed from CowEntity to AnimalEntity
+        List<AnimalEntity> nearbyAnimals = world.getEntitiesByClass(AnimalEntity.class, box, animal -> !animal.isBaby());
 
-        for (CowEntity cow : nearbyCows) {
-            // FLIP THE SWITCH
-            ((CowHungerAccessor) cow).ttll$setBlockScared(true);
+        for (AnimalEntity animal : nearbyAnimals) {
+            // Cast to the new generic accessor
+            ((AnimalDataAccessor) animal).ttll$setBlockScared(true);
         }
     }
 }

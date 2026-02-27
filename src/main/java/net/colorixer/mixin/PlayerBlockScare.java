@@ -14,11 +14,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(ServerPlayerInteractionManager.class)
 public abstract class PlayerBlockScare {
 
-    @Shadow @Final protected ServerPlayerEntity player; // This makes 'player' accessible!
+    @Shadow @Final protected ServerPlayerEntity player;
 
     @Inject(method = "tryBreakBlock", at = @At("HEAD"))
     private void ttll$scareOnBreak(BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
-        // Now 'this.player' is perfectly legal to use
-        WorldUtil.scareNearbyCows(this.player.getWorld(), pos, 5.0);
+        // Now calling the generalized method for all animals
+        // This will trigger the AnimalDataAccessor 'isBlockScared' flag
+        WorldUtil.scareNearbyAnimals(this.player.getWorld(), pos, 5.0);
     }
 }

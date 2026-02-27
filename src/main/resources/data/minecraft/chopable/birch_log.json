@@ -4,7 +4,9 @@
       "item": "#ttll:beginner_stone_mining_tools",
       "result": "ttll:birch_trunk",
       "doloottable": false,
-      "drop_item": "ttll:birch_bark"
+      "drops": [{
+        "items": ["ttll:birch_bark"]
+      }]
     },
     {
       "item": "ttll:iron_chisel",

@@ -6,6 +6,7 @@ import net.colorixer.block.brick_block.DriedBrickBlock;
 import net.colorixer.block.brick_block.WetBrickBlock;
 import net.colorixer.block.campfire.CampfireBlock;
 import net.colorixer.block.crafting_table.LogCraftingTableBlock;
+import net.colorixer.block.crops.HempBlock;
 import net.colorixer.block.drying_rack.DryingRackBlock;
 import net.colorixer.block.falling_block.ModFallingBlock;
 import net.colorixer.block.falling_slabs.FallingGrassSlabBlock;
@@ -88,13 +89,13 @@ public class ModBlocks {
             .requiresTool()
             .strength(1.5F, 10)
             .sounds(BlockSoundGroup.STONE)
-            // This checks the LIT property: if true, light level 7; if false, 0.
-                    .luminance(state -> {
-                        if (state.get(FurnaceBlock.LIT)) {
-                            return state.get(FurnaceBlock.LOW_FUEL) ? 7 : 14;
-                        }
-                        return 0;
-                    }));
+            .luminance(state -> {
+                if (!state.get(FurnaceBlock.LIT)) {
+                    return 0;}
+                int stage = state.get(FurnaceBlock.FUEL_LEVEL);
+                if (stage == 0) return 7;
+                return 7 + stage;
+            }));
 
     public static final Block CAMPFIRE = registerBlock("campfire", CampfireBlock::new, Block.Settings.create()
             .mapColor(MapColor.BROWN)
@@ -201,8 +202,8 @@ public class ModBlocks {
     public static final Block SPRUCE_STEM = registerBlock("spruce_stem", StemBlock::new, Block.Settings.create()
             .strength(2f).burnable().instrument(NoteBlockInstrument.BASS).requiresTool().mapColor(MapColor.SPRUCE_BROWN).sounds(BlockSoundGroup.WOOD));
 
-    public static final Block WICKER = registerBlock(
-            "wicker", ShortPlantBlock::new,
+    public static final Block WEEDS = registerBlock(
+            "weeds", ShortPlantBlock::new,
             AbstractBlock.Settings.create()
                     .mapColor(MapColor.DARK_GREEN)
                     .replaceable()
@@ -213,6 +214,19 @@ public class ModBlocks {
                     .burnable()
                     .pistonBehavior(PistonBehavior.DESTROY)
                     .nonOpaque()
+    );
+
+    public static final Block HEMP_SEEDS = registerBlock(
+            "hemp_seeds", HempBlock::new,
+            AbstractBlock.Settings.create()
+                    .mapColor(MapColor.LICHEN_GREEN)
+                    .noCollision()
+                    .sounds(BlockSoundGroup.GRASS)
+                    .burnable()
+                    .pistonBehavior(PistonBehavior.DESTROY)
+                    .nonOpaque()
+                    .strength(0.4f)
+
     );
 
     public static final Block BEDSTONE_DIAMOND_ORE = registerBlock("bedstone_diamond_ore",
@@ -341,6 +355,8 @@ public class ModBlocks {
             entries.add(ModBlocks.LOOSE_COBBLED_DEEPSLATE);
             entries.add(ModBlocks.LOOSE_COBBLED_DEEPSLATE_SLAB);
             entries.add(ModBlocks.VOLCANIC_TUFF);
+            entries.add(ModBlocks.WEEDS);
+            entries.add(ModBlocks.HEMP_SEEDS);
         });
     }
 }

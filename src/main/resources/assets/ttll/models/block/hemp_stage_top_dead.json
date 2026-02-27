@@ -1,0 +1,6 @@
+{
+  "parent": "ttll:block/template_hemp",
+  "textures": {
+    "cross": "ttll:block/hemp_top_dead"
+  }
+}

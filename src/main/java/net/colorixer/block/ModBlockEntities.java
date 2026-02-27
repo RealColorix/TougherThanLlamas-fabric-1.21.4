@@ -1,5 +1,6 @@
 package net.colorixer.block;
 
+import net.colorixer.TougherThanLlamas;
 import net.colorixer.block.brick_block.WetBrickBlockEntity;
 import net.colorixer.block.campfire.CampfireBlockEntity;
 import net.colorixer.block.drying_rack.DryingRackBlockEntity;
@@ -20,7 +21,7 @@ public class ModBlockEntities {
     public static BlockEntityType<BurningCrudeTorchBlockEntity> BURNING_CRUDE_TORCH;
 
     public static void register() {
-
+        TougherThanLlamas.LOGGER.info("Registering Mod Block Entities for " + TougherThanLlamas.MOD_ID);
 
         BURNING_CRUDE_TORCH = Registry.register(
                 Registries.BLOCK_ENTITY_TYPE,

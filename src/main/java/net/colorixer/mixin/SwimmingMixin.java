@@ -32,15 +32,17 @@ public abstract class SwimmingMixin extends LivingEntity {
 
         // 1. HEALTH & HUNGER RATIOS
         float healthRatio = player.getHealth() / player.getMaxHealth();
+        // Original min was 0.1, now min is ~0.55 for a "half strength" feel
         float healthMultiplier = healthRatio > 0.25f
-                ? 0.8f + (healthRatio - 0.25f) * (0.2f / 0.75f)
-                : 0.1f + 0.7f * (healthRatio / 0.25f) * (healthRatio / 0.25f);
+                ? 0.9f + (healthRatio - 0.25f) * (0.1f / 0.75f)
+                : 0.55f + 0.35f * (healthRatio / 0.25f);
 
         float hungerRatio = player.getHungerManager().getFoodLevel() / 20.0f;
         float hungerMultiplier = hungerRatio > 0.25f
-                ? 0.8f + (hungerRatio - 0.25f) * (0.2f / 0.75f)
-                : 0.1f + 0.7f * (hungerRatio / 0.25f) * (hungerRatio / 0.25f);
+                ? 0.9f + (hungerRatio - 0.25f) * (0.1f / 0.75f)
+                : 0.55f + 0.45f * (hungerRatio / 0.25f);
 
+        // This multiplier is now much more forgiving
         float totalMultiplier = healthMultiplier * hungerMultiplier;
 
         // 2. DETECTION
@@ -66,6 +68,9 @@ public abstract class SwimmingMixin extends LivingEntity {
         // Only apply horizontal slowness if actually touching water
         if (touchingAnyWater) {
             nextX *= totalMultiplier;
+            if (velocity.y > 0){
+                nextY *= totalMultiplier;
+            }
             nextZ *= totalMultiplier;
         }
 

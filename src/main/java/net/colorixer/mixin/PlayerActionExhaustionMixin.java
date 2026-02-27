@@ -37,7 +37,7 @@ public abstract class PlayerActionExhaustionMixin {
     private void ttll$exhaustTick(CallbackInfo ci) {
         PlayerEntity player = (PlayerEntity) (Object) this;
         float weightMultiplier = ttll$getWeightMultiplier();
-
+        if (player.isCreative()) return;
         // --- Climbing Logic ---
         if (player.isClimbing() && Math.abs(player.getVelocity().y) > 0.1 && !player.isOnGround()) {
             if (!player.getWorld().isClient) {

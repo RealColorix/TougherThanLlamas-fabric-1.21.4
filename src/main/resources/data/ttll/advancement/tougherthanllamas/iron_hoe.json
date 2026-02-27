@@ -1,0 +1,36 @@
+{
+  "parent": "ttll:tougherthanllamas/smelt_iron",
+  "criteria": {
+    "iron": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:iron_hoe"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.tougherthanllamas.iron_hoe.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "minecraft:iron_hoe"
+    },
+    "title": {
+      "translate": "advancements.tougherthanllamas.iron_hoe.title"
+    },
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "requirements": [
+    [
+      "iron"
+    ]
+  ],
+  "sends_telemetry_event": false
+}

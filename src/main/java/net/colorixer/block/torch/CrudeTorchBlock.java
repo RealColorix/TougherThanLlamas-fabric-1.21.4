@@ -107,7 +107,17 @@ public class CrudeTorchBlock extends Block {
         // --- 3. PASS FOR FIRE STARTER ITEM ---
         if (stackInHand.getItem() instanceof FireStarterItem) {
             if (!world.isClient) {
-                FireStarterItemSmoke.spawnFrictionEffects(world, hit.getPos(), hit.getSide());
+                Hand hand = player.getActiveHand();
+                ItemStack stack = player.getStackInHand(hand);
+                if (!stack.isEmpty()) {
+                    FireStarterItemSmoke.spawnFrictionEffects(
+                            world,
+                            hit.getPos(),
+                            hit.getSide(),
+                            player,
+                            stack // Pass the stack here
+                    );
+                }
             }
             return ActionResult.PASS;
         }

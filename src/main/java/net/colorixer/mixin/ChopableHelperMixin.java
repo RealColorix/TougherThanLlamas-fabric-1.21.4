@@ -53,7 +53,7 @@ public class ChopableHelperMixin {
                         if (shulker != null && shulker.isAlive()) shulker.discard();
                     });
                 }
-            }, 0);
+            }, 50);
 
             activeTrackedPos = null;
             return;
@@ -89,17 +89,19 @@ public class ChopableHelperMixin {
                 localGhosts.put(immutablePos, ghost);
 
                 // --- INVISIBLE SHULKER (THE FLOOR) ---
-                ShulkerEntity shulker = new ShulkerEntity(EntityType.SHULKER, client.world);
-                shulker.setInvisible(true);
-                shulker.setAiDisabled(true);
-                shulker.setSilent(true);
-                shulker.setInvulnerable(true);
+                if (resultState.isFullCube(client.world, immutablePos)) {
+                    ShulkerEntity shulker = new ShulkerEntity(EntityType.SHULKER, client.world);
+                    shulker.setInvisible(true);
+                    shulker.setAiDisabled(true);
+                    shulker.setSilent(true);
+                    shulker.setInvulnerable(true);
 
-                // Position shulker precisely at the block center
-                shulker.refreshPositionAndAngles(immutablePos.getX() + 0.5, immutablePos.getY(), immutablePos.getZ() + 0.5, 0, 0);
+                    // Position shulker precisely at the block center
+                    shulker.refreshPositionAndAngles(immutablePos.getX() + 0.5, immutablePos.getY(), immutablePos.getZ() + 0.5, 0, 0);
 
-                client.world.addEntity(shulker);
-                localShulkers.put(immutablePos, shulker);
+                    client.world.addEntity(shulker);
+                    localShulkers.put(immutablePos, shulker);
+                }
             }
         }
     }

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "ttll:knitting_sticks",
+    "ttll:red_wool",
+    "ttll:blue_wool"
+  ],
+  "result": {
+    "count": 1,
+    "id": "ttll:knitting_wool_purple"
+  }
+}

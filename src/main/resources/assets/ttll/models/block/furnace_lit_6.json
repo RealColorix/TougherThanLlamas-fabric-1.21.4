@@ -1,0 +1,9 @@
+{
+  "parent": "ttll:block/template_furnace",
+  "textures": {
+    "furnace_overlay": "ttll:block/furnace_overlay_6",
+    "furnace_side": "ttll:block/furnace_side",
+    "furnace_front": "ttll:block/furnace_front_lit",
+    "furnace_top": "ttll:block/furnace_top"
+  }
+}

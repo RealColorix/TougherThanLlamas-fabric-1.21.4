@@ -55,8 +55,53 @@
   "item.ttll.flint_sinew_chopping": "Sinew Chopping",
   "item.ttll.spunned_string": "Spunned String",
   "item.ttll.white_wool": "White Knitting Wool",
-  "item.ttll.cloth_wool_white": "Wool Cloth",
-  "item.ttll.knitting_wool_white": "Wool Knitting",
+  "item.ttll.cloth_wool_white": "White Cloth",
+  "item.ttll.knitting_wool_white": "White Wool-Knitting",
+  "item.ttll.orange_wool": "Orange Knitting Wool",
+  "item.ttll.cloth_wool_orange": "Orange Cloth",
+  "item.ttll.knitting_wool_orange": "Orange Wool-Knitting",
+  "item.ttll.magenta_wool": "Magenta Knitting Wool",
+  "item.ttll.cloth_wool_magenta": "Magenta Cloth",
+  "item.ttll.knitting_wool_magenta": "Magenta Wool-Knitting",
+  "item.ttll.light_blue_wool": "Light Blue Knitting Wool",
+  "item.ttll.cloth_wool_light_blue": "Light Blue Cloth",
+  "item.ttll.knitting_wool_light_blue": "Light Blue Wool-Knitting",
+  "item.ttll.yellow_wool": "Yellow Knitting Wool",
+  "item.ttll.cloth_wool_yellow": "Yellow Cloth",
+  "item.ttll.knitting_wool_yellow": "Yellow Wool-Knitting",
+  "item.ttll.lime_wool": "Lime Knitting Wool",
+  "item.ttll.cloth_wool_lime": "Lime Cloth",
+  "item.ttll.knitting_wool_lime": "Lime Wool-Knitting",
+  "item.ttll.pink_wool": "Pink Knitting Wool",
+  "item.ttll.cloth_wool_pink": "Pink Cloth",
+  "item.ttll.knitting_wool_pink": "Pink Wool-Knitting",
+  "item.ttll.gray_wool": "Gray Knitting Wool",
+  "item.ttll.cloth_wool_gray": "Gray Cloth",
+  "item.ttll.knitting_wool_gray": "Gray Wool-Knitting",
+  "item.ttll.light_gray_wool": "Light Gray Knitting Wool",
+  "item.ttll.cloth_wool_light_gray": "Light Gray Cloth",
+  "item.ttll.knitting_wool_light_gray": "Light Gray Wool-Knitting",
+  "item.ttll.cyan_wool": "Cyan Knitting Wool",
+  "item.ttll.cloth_wool_cyan": "Cyan Cloth",
+  "item.ttll.knitting_wool_cyan": "Cyan Wool-Knitting",
+  "item.ttll.purple_wool": "Purple Knitting Wool",
+  "item.ttll.cloth_wool_purple": "Purple Cloth",
+  "item.ttll.knitting_wool_purple": "Purple Wool-Knitting",
+  "item.ttll.blue_wool": "Blue Knitting Wool",
+  "item.ttll.cloth_wool_blue": "Blue Cloth",
+  "item.ttll.knitting_wool_blue": "Blue Wool-Knitting",
+  "item.ttll.brown_wool": "Brown Knitting Wool",
+  "item.ttll.cloth_wool_brown": "Brown Cloth",
+  "item.ttll.knitting_wool_brown": "Brown Wool-Knitting",
+  "item.ttll.green_wool": "Green Knitting Wool",
+  "item.ttll.cloth_wool_green": "Green Cloth",
+  "item.ttll.knitting_wool_green": "Green Wool-Knitting",
+  "item.ttll.red_wool": "Red Knitting Wool",
+  "item.ttll.cloth_wool_red": "Red Cloth",
+  "item.ttll.knitting_wool_red": "Red Wool-Knitting",
+  "item.ttll.black_wool": "Black Knitting Wool",
+  "item.ttll.cloth_wool_black": "Black Cloth",
+  "item.ttll.knitting_wool_black": "Black Wool-Knitting",
   "item.ttll.burning_crude_torch": "Burning Crude Torch",
   "item.ttll.crude_torch": "Crude Torch",
   "item.ttll.fire_creeper_spawn_egg": "Fire Creeper Spawn Egg",
@@ -67,6 +112,10 @@
   "item.ttll.burned_meat": "Burned Meat",
   "item.ttll.string_knitting": "String Knitting",
   "item.ttll.lapis_lazuli_dust": "Lapis Lazuli Dust",
+  "item.ttll.weeds": "Weeds",
+  "item.ttll.hemp": "Hemp",
+  "item.ttll.bandages": "Bandages",
+  "item.ttll.sugar_cane_mash": "Mashed Sugar Cane",
 
   "block.ttll.volcanic_tuff": "Volcanic Tuff",
   "block.ttll.ash": "Ash",
@@ -114,6 +163,7 @@
   "block.ttll.birch_bottom_log_chiseled": "Chiseled Birch Log Stem",
   "block.ttll.oak_bottom_log_crafting_table": "Oak Crafting Table",
   "block.ttll.birch_bottom_log_crafting_table": "Birch Crafting Table",
+  "block.ttll.hemp_seeds": "Hemp Seeds",
 
   "block.ttll.cobweb_full": "Chipped Cobweb",
   "block.ttll.cobweb_half": "Chipped Cobweb",
@@ -136,10 +186,18 @@
 
   "options.gamma.normal": "Hardcore Darkness",
   "mixins.seedfinder.title": "Searching For Seeds",
+  "mixins.casttothewinds": "§eYou have been cast to the winds...",
 
 
   "death.attack.the_dark_force": "%1$s was killed by The Dark Force",
-  "death.attack.the_dark_force.item": "%1$s was killed by The Dark Force using %2$s",
+  "death.attack.the_dark_force.item": "%1$s was killed by %2$s using The Dark Force",
+
+  "effect.ttll.bleeding": "Bleeding",
+  "death.attack.bleeding": "%1$s bled out",
+  "death.attack.bleeding.1": "%1$s's organs lost contact",
+  "death.attack.bleeding.2": "%1$s painted the floor red",
+  "death.attack.bleeding.item": "%1$s spilled his guts whilst fighting %2$s",
+
 
   "tooltip.ttll.weight": "+%1$s Weight",
 
@@ -154,59 +212,72 @@
   "advancements.tougherthanllamas.guide.description": "§aIn Advancement Line\n§bIn Progression\n§cOther Advancement Needed\n§8Content not yet Known",
 
   "advancements.tougherthanllamas.vicinity_crafting_table.title": "Work With What You Got",
-  "advancements.tougherthanllamas.vicinity_crafting_table.description": "Carv Out a Crafting Table From A Stump",
+  "advancements.tougherthanllamas.vicinity_crafting_table.description": "Carv out a crafting table from a stump",
 
   "advancements.tougherthanllamas.iron_chisel.title": "Cold Cutter",
-  "advancements.tougherthanllamas.iron_chisel.description": "Combine Four Iron Nuggets",
+  "advancements.tougherthanllamas.iron_chisel.description": "Combine four iron nuggets",
 
   "advancements.tougherthanllamas.acquire_wooden_club.title": "Unga Bunga",
-  "advancements.tougherthanllamas.acquire_wooden_club.description": "Craft a Wooden Club",
+  "advancements.tougherthanllamas.acquire_wooden_club.description": "Craft a wooden club",
 
   "advancements.tougherthanllamas.acquire_flint.title": "Cutting Edge",
-  "advancements.tougherthanllamas.acquire_flint.description": "Sharpen Flint",
+  "advancements.tougherthanllamas.acquire_flint.description": "Sharpen flint",
 
   "advancements.tougherthanllamas.sharp_rock.title": "Natural Selection",
-  "advancements.tougherthanllamas.sharp_rock.description": "Sharpen Rock",
+  "advancements.tougherthanllamas.sharp_rock.description": "Sharpen rock",
 
   "advancements.tougherthanllamas.obtain_a_twine.title": "Web Designer",
-  "advancements.tougherthanllamas.obtain_a_twine.description": "Obtain a Type of Twine",
+  "advancements.tougherthanllamas.obtain_a_twine.description": "Obtain a type of twine",
 
   "advancements.tougherthanllamas.kill_a_monster.title": "Monster Hunter",
-  "advancements.tougherthanllamas.kill_a_monster.description": "Kill a Hostile Mob",
+  "advancements.tougherthanllamas.kill_a_monster.description": "Kill a hostile mob",
 
   "advancements.tougherthanllamas.kill_all_monster.title": "Monsters Hunted",
-  "advancements.tougherthanllamas.kill_all_monster.description": "Kill all Hostile Mobs",
+  "advancements.tougherthanllamas.kill_all_monster.description": "Kill all hostile mobs",
 
   "advancements.tougherthanllamas.kill_an_animal.title": "Animal Hunter",
-  "advancements.tougherthanllamas.kill_an_animal.description": "Slaughter an Animal",
+  "advancements.tougherthanllamas.kill_an_animal.description": "Slaughter an animal",
 
   "advancements.tougherthanllamas.knitt_wool.title": "Close-Knit",
-  "advancements.tougherthanllamas.knitt_wool.description": "Craft Wool Knitting",
+  "advancements.tougherthanllamas.knitt_wool.description": "Craft wool knitting",
 
   "advancements.tougherthanllamas.acquire_raw_leather.title": "Skinning the Game",
-  "advancements.tougherthanllamas.acquire_raw_leather.description": "Acquire Raw Leather",
+  "advancements.tougherthanllamas.acquire_raw_leather.description": "Acquire raw leather",
 
   "advancements.tougherthanllamas.acquire_leather.title": "Tough as Nails",
-  "advancements.tougherthanllamas.acquire_leather.description": "Get Leather",
+  "advancements.tougherthanllamas.acquire_leather.description": "Get leather",
 
   "advancements.tougherthanllamas.eat_food.title": "Calorie Intake",
-  "advancements.tougherthanllamas.eat_food.description": "Eat Cooked Food to Survive",
+  "advancements.tougherthanllamas.eat_food.description": "Eat cooked food to survive",
 
   "advancements.tougherthanllamas.craft_flint_axe.title": "Time for an Upgrade",
-  "advancements.tougherthanllamas.craft_flint_axe.description": "Craft a Flint Axe",
+  "advancements.tougherthanllamas.craft_flint_axe.description": "Craft a flint axe",
 
   "advancements.tougherthanllamas.craft_stone_shovel.title": "Stone Shovel",
-  "advancements.tougherthanllamas.craft_stone_shovel.description": "Mine Clay",
+  "advancements.tougherthanllamas.craft_stone_shovel.description": "Mine clay",
 
   "advancements.tougherthanllamas.leather_armor.title": "Tough Fights",
-  "advancements.tougherthanllamas.leather_armor.description": "Craft a Full Set of Leather Armor",
+  "advancements.tougherthanllamas.leather_armor.description": "Craft a full Set of leather armor",
 
   "advancements.tougherthanllamas.mine_iron_ore.title": "Beyond The Scraps",
-  "advancements.tougherthanllamas.mine_iron_ore.description": "Chip Yourself Your First Iron",
+  "advancements.tougherthanllamas.mine_iron_ore.description": "Chip yourself your first iron",
 
   "advancements.tougherthanllamas.furnace.title": "Fire Up",
-  "advancements.tougherthanllamas.furnace.description": "Craft and Place a Brick Furnace",
+  "advancements.tougherthanllamas.furnace.description": "Craft and place a brick furnace",
 
   "advancements.tougherthanllamas.smelt_iron.title": "Acquire Hardware",
-  "advancements.tougherthanllamas.smelt_iron.description": "Smelt an Iron Ingot"
+  "advancements.tougherthanllamas.smelt_iron.description": "Smelt an iron ingot",
+
+  "advancements.tougherthanllamas.iron_hoe.title": "Claiming the Valley",
+  "advancements.tougherthanllamas.iron_hoe.description": "There were better uses for those ingots",
+
+  "advancements.tougherthanllamas.iron_axe.title": "The Workhorse",
+  "advancements.tougherthanllamas.iron_axe.description": "Upgrade your axe",
+
+
+  "advancements.tougherthanllamas.iron_pickaxe.title": "Isn't It Iron Pick",
+  "advancements.tougherthanllamas.iron_pickaxe.description": "Upgrade to a pickaxe",
+
+  "advancements.tougherthanllamas.shears.title": "A Cut Above",
+  "advancements.tougherthanllamas.shears.description": "Kick off your career in landscaping and textiles"
 }

@@ -104,7 +104,9 @@ public abstract class HungerHeatManager {
             )
     )
     private void ttll$conditionalHeal(ServerPlayerEntity player, float amount) {
-        if ((player.getHealth() * 0.8f) < this.getFoodLevel()) {
+        boolean isBleeding = player.hasStatusEffect(net.colorixer.effect.ModEffects.BLEEDING);
+
+        if (!isBleeding && ((player.getHealth() * 0.8f) < this.getFoodLevel())) {
             player.heal(amount);
         }
     }

@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import net.colorixer.TougherThanLlamas;
 import net.colorixer.block.BlockTags;
 import net.colorixer.util.IdentifierUtilForChopableClass;
 import net.colorixer.util.RegistryUtilForChopableClass;
@@ -88,7 +89,7 @@ public class Chopable implements SimpleSynchronousResourceReloadListener {
 
 
     public static void initialize() {
-        // Logic for Server
+        TougherThanLlamas.LOGGER.info("Registering Chopable for " + TougherThanLlamas.MOD_ID);
         ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new Chopable());
         // Visuals for Client
         ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new Chopable());

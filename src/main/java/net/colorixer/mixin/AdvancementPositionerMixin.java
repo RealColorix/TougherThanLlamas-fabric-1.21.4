@@ -36,10 +36,12 @@ public abstract class AdvancementPositionerMixin {
         return 1.75f; // Branch gap
     }
 
-    private static final float killAnAnimalYChange = 3;
+    private static final float killAnAnimalYChange = 3.5f;
     private static final float acquireFlintYChange = -1.5f;
     private static final float obtainATwineYChange = -0.5f;
     private static final float mineIronOreYChange = 1f;
+    private static final float ironHoeYChange = 1f;
+
 
     private static final Map<String, float[]> POSITIONS = Map.ofEntries(
 
@@ -65,7 +67,11 @@ public abstract class AdvancementPositionerMixin {
                         Map.entry("ttll:tougherthanllamas/mine_iron_ore", new float[]{3f, 0 + acquireFlintYChange + mineIronOreYChange}),
                             Map.entry("ttll:tougherthanllamas/iron_chisel", new float[]{4f, 0 + acquireFlintYChange + mineIronOreYChange}),
                                 Map.entry("ttll:tougherthanllamas/vicinity_crafting_table", new float[]{5f, 0 + acquireFlintYChange + mineIronOreYChange}),
-                                    Map.entry("ttll:tougherthanllamas/smelt_iron", new float[]{6f, 0 + acquireFlintYChange + mineIronOreYChange})
+                                    Map.entry("ttll:tougherthanllamas/smelt_iron", new float[]{6f, 0 + acquireFlintYChange + mineIronOreYChange}),
+                                        Map.entry("ttll:tougherthanllamas/iron_hoe", new float[]{7f, 0 + acquireFlintYChange + mineIronOreYChange + ironHoeYChange}),
+                                            Map.entry("ttll:tougherthanllamas/shears", new float[]{8f, 0 + acquireFlintYChange + mineIronOreYChange + ironHoeYChange}),
+                                        Map.entry("ttll:tougherthanllamas/iron_pickaxe", new float[]{7f, 0 + acquireFlintYChange + mineIronOreYChange}),
+                                        Map.entry("ttll:tougherthanllamas/iron_axe", new float[]{7f, -1 + acquireFlintYChange + mineIronOreYChange})
     );
 
 
@@ -85,8 +91,8 @@ public abstract class AdvancementPositionerMixin {
             // Independent random values so it's not just a 45-degree diagonal shift
 
             float scale = 1.25f;
-            float jiggleX = 0;// ((random.nextFloat() * 0.2f) - 0.1f) * scale;
-            float jiggleY = 0;//((random.nextFloat() * 0.2f) - 0.1f) * scale;
+            float jiggleX =  ((random.nextFloat() * 0.1f) - 0.05f) * scale;
+            float jiggleY = ((random.nextFloat() * 0.1f) - 0.05f) * scale;
 
             float X_Centering =   0f;// 10.0f;
             float Y_Centering =  - 8f;// 8.0f;

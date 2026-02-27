@@ -1,55 +1,46 @@
 package net.colorixer.mixin;
 
 import net.colorixer.entity.passive.cow.CowHungerAccessor;
+import net.colorixer.entity.passive.goals.AnimalDataAccessor;
 import net.colorixer.util.Kickable;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.passive.CowEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.Box;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import java.util.List;
 
 @Mixin(LivingEntity.class)
 public abstract class CowEntityModifier implements Kickable, CowHungerAccessor {
+    // COW SPECIFIC DATA
     @Unique private int ttll$kickTicks = 0;
     @Unique private int ttll$kickCooldown = 0;
-    @Unique private boolean ttll$isEnraged = false;
     @Unique private int ttll$hunger = 4;
     @Unique private int ttll$eatAnimTicks = 0;
     @Unique private long ttll$lastBirthTime = -12001;
     @Unique private long ttll$lastMilkTime = -3601;
 
-    // Trigger flags to prevent "Running on Spawn" bugs
-    @Unique private boolean ttll$panicking = false;
-    @Unique private boolean ttll$blockScared = false;
-
+    // Interface Overrides (Points to variables now hosted in LivingEntityModifier via AnimalDataAccessor)
     @Override
     public void ttll$triggerPanic() {
-        this.ttll$panicking = true;
+        ((AnimalDataAccessor)this).ttll$setPanicking(true);
     }
 
-    @Override public boolean ttll$isPanicking() { return this.ttll$panicking; }
-    @Override public void ttll$setPanicking(boolean value) { this.ttll$panicking = value; }
-
-    @Override public void ttll$setBlockScared(boolean scared) { this.ttll$blockScared = scared; }
-    @Override public boolean ttll$isBlockScared() { return this.ttll$blockScared; }
-
+    // COW ACCESSORS - FIXED: Returning fields instead of calling methods
     @Override public int ttll$getKickTicks() { return this.ttll$kickTicks; }
     @Override public void ttll$setKickTicks(int ticks) { this.ttll$kickTicks = ticks; }
-    @Override public int ttll$getKickCooldown() { return this.ttll$kickCooldown; }
+
+    @Override
+    public int ttll$getKickCooldown() {
+        return this.ttll$kickCooldown;
+    }
+
     @Override public void ttll$setKickCooldown(int ticks) { this.ttll$kickCooldown = ticks; }
-    @Override public boolean ttll$isEnraged() { return this.ttll$isEnraged; }
-    @Override public void ttll$setEnraged(boolean enraged) { this.ttll$isEnraged = enraged; }
     @Override public int ttll$getHunger() { return this.ttll$hunger; }
     @Override public void ttll$setHunger(int value) { this.ttll$hunger = value; }
-    @Override public int ttll$getEatAnimTicks() { return this.ttll$eatAnimTicks; }
     @Override public void ttll$setEatAnimTicks(int ticks) { this.ttll$eatAnimTicks = ticks; }
     @Override public long ttll$getLastBirthTime() { return this.ttll$lastBirthTime; }
     @Override public void ttll$setLastBirthTime(long time) { this.ttll$lastBirthTime = time; }
@@ -61,33 +52,19 @@ public abstract class CowEntityModifier implements Kickable, CowHungerAccessor {
         if (this.ttll$kickTicks > 0) this.ttll$kickTicks--;
         if (this.ttll$kickCooldown > 0) this.ttll$kickCooldown--;
         if (this.ttll$eatAnimTicks > 0) this.ttll$eatAnimTicks--;
-        if (this.ttll$isEnraged && this.ttll$kickTicks <= 0) this.ttll$isEnraged = false;
+
+        // Auto-reset enrage if not kicking/attacking via the interface
+        if (((AnimalDataAccessor)this).ttll$isEnraged() && this.ttll$kickTicks <= 0) {
+            ((AnimalDataAccessor)this).ttll$setEnraged(false);
+        }
 
         if ((Object) this instanceof CowEntity cow) {
             if (!cow.getWorld().isClient) {
+                // Hunger logic
                 if (cow.age % 1200 == 0 && this.ttll$hunger > 0) this.ttll$hunger--;
                 if (this.ttll$hunger <= 0 && cow.age % 40 == 0) {
                     cow.damage((ServerWorld) cow.getWorld(), cow.getDamageSources().starve(), 1.0f);
                 }
-            }
-        }
-    }
-
-    @Inject(method = "damage", at = @At("TAIL"))
-    private void ttll$onDamage(ServerWorld world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
-        if (!((Object) this instanceof CowEntity victim)) return;
-
-        if (source.getAttacker() instanceof LivingEntity attacker) {
-            Box box = victim.getBoundingBox().expand(16.0);
-            List<CowEntity> nearbyCows = world.getEntitiesByClass(CowEntity.class, box, cow -> !cow.isBaby());
-
-            for (CowEntity cow : nearbyCows) {
-                // Trigger the Panic flag so they start fleeing
-                ((CowHungerAccessor) cow).ttll$setPanicking(true);
-
-                // Aggro logic
-                cow.setTarget(attacker);
-                ((CowHungerAccessor) cow).ttll$setEnraged(true);
             }
         }
     }
@@ -98,8 +75,6 @@ public abstract class CowEntityModifier implements Kickable, CowHungerAccessor {
             nbt.putInt("ttll_hunger", this.ttll$hunger);
             nbt.putLong("ttll_last_birth", this.ttll$lastBirthTime);
             nbt.putLong("ttll_last_milk", this.ttll$lastMilkTime);
-            nbt.putBoolean("ttll_panicking", this.ttll$panicking);
-            nbt.putBoolean("ttll_block_scared", this.ttll$blockScared);
         }
     }
 
@@ -109,8 +84,6 @@ public abstract class CowEntityModifier implements Kickable, CowHungerAccessor {
             this.ttll$hunger = nbt.getInt("ttll_hunger");
             this.ttll$lastBirthTime = nbt.getLong("ttll_last_birth");
             this.ttll$lastMilkTime = nbt.getLong("ttll_last_milk");
-            this.ttll$panicking = nbt.getBoolean("ttll_panicking");
-            this.ttll$blockScared = nbt.getBoolean("ttll_block_scared");
         }
     }
 }

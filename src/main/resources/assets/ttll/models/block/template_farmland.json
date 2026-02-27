@@ -1,0 +1,57 @@
+{
+    "parent": "block/block",
+    "textures": {
+        "particle": "#dirt"
+    },
+    "elements": [
+        {
+            "name": "farmland_base",
+            "from": [ 0, 0, 0 ],
+            "to": [ 16, 15, 16 ],
+            "faces": {
+                "down":  { "uv": [ 0, 0, 16, 16 ], "texture": "#dirt", "cullface": "down" },
+                "up":    { "uv": [ 0, 0, 16, 16 ], "texture": "#top" },
+                "north": { "uv": [ 0, 1, 16, 16 ], "texture": "#dirt", "cullface": "north" },
+                "south": { "uv": [ 0, 1, 16, 16 ], "texture": "#dirt", "cullface": "south" },
+                "west":  { "uv": [ 0, 1, 16, 16 ], "texture": "#dirt", "cullface": "west" },
+                "east":  { "uv": [ 0, 1, 16, 16 ], "texture": "#dirt", "cullface": "east" }
+            }
+        },
+        {
+            "name": "weed_1",
+            "from": [0, 15, 3],
+            "to": [16, 31, 3],
+            "faces": {
+                "north": {"uv": [0, 0, 16, 16], "texture": "#weeds"},
+                "south": {"uv": [0, 0, 16, 16], "texture": "#weeds"}
+            }
+        },
+        {
+            "name": "weed_2",
+            "from": [13, 15, 0],
+            "to": [13, 31, 16],
+            "faces": {
+                "west": {"uv": [0, 0, 16, 16], "texture": "#weeds"},
+                "east": {"uv": [0, 0, 16, 16], "texture": "#weeds"}
+            }
+        },
+        {
+            "name": "weed_3",
+            "from": [0, 15, 13],
+            "to": [16, 31, 13],
+            "faces": {
+                "north": {"uv": [0, 0, 16, 16], "texture": "#weeds"},
+                "south": {"uv": [0, 0, 16, 16], "texture": "#weeds"}
+            }
+        },
+        {
+            "name": "weed_4",
+            "from": [3, 15, 0],
+            "to": [3, 31, 16],
+            "faces": {
+                "west": {"uv": [0, 0, 16, 16], "texture": "#weeds"},
+                "east": {"uv": [0, 0, 16, 16], "texture": "#weeds"}
+            }
+        }
+    ]
+}

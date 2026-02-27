@@ -1,7 +1,7 @@
 package net.colorixer.mixin;
 
 import net.colorixer.access.CreeperStateAccessor;
-import net.colorixer.entity.creeper.firecreeper.FireCreeperEntity;
+import net.colorixer.entity.hostile.creeper.firecreeper.FireCreeperEntity;
 import net.minecraft.client.render.entity.CreeperEntityRenderer;
 import net.minecraft.client.render.entity.state.CreeperEntityRenderState;
 import net.minecraft.entity.mob.CreeperEntity;

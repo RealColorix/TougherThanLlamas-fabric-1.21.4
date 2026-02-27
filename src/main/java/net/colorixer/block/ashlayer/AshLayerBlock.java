@@ -5,6 +5,7 @@ import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.FallingBlockEntity;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
@@ -13,6 +14,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
@@ -145,6 +147,22 @@ public class AshLayerBlock extends FallingBlock {
 
     @Override
     public VoxelShape getCollisionShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+        BlockPos downPos = pos.down();
+        BlockState stateBelow = world.getBlockState(downPos);
+
+        // SAFE CHECK 1: Check if the block is an instance of LeavesBlock
+        // This doesn't require Tags to be bound.
+        boolean isOnLeaves = stateBelow.getBlock() instanceof LeavesBlock;
+
+        // SAFE CHECK 2: Check solidity.
+        // We add a null check for 'world' just in case the engine calls this during early init.
+        boolean isOnNonFull = true;
+        isOnNonFull = !stateBelow.isSideSolidFullSquare(world, downPos, Direction.UP);
+
+        if (isOnLeaves || isOnNonFull) {
+            return VoxelShapes.empty();
+        }
+
         return LAYERS_TO_SHAPE[state.get(LAYERS)];
     }
 

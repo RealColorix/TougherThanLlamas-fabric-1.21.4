@@ -1,0 +1,35 @@
+{
+  "variants": {
+    "age=0,crop_status=0": { "model": "minecraft:block/wheat_stage0" },
+    "age=0,crop_status=1": { "model": "ttll:block/wheat_stage0_dying" },
+    "age=0,crop_status=2": { "model": "ttll:block/wheat_stage0_dead" },
+
+    "age=1,crop_status=0": { "model": "minecraft:block/wheat_stage1" },
+    "age=1,crop_status=1": { "model": "ttll:block/wheat_stage1_dying" },
+    "age=1,crop_status=2": { "model": "ttll:block/wheat_stage1_dead" },
+
+    "age=2,crop_status=0": { "model": "minecraft:block/wheat_stage2" },
+    "age=2,crop_status=1": { "model": "ttll:block/wheat_stage2_dying" },
+    "age=2,crop_status=2": { "model": "ttll:block/wheat_stage2_dead" },
+
+    "age=3,crop_status=0": { "model": "minecraft:block/wheat_stage3" },
+    "age=3,crop_status=1": { "model": "ttll:block/wheat_stage3_dying" },
+    "age=3,crop_status=2": { "model": "ttll:block/wheat_stage3_dead" },
+
+    "age=4,crop_status=0": { "model": "minecraft:block/wheat_stage4" },
+    "age=4,crop_status=1": { "model": "ttll:block/wheat_stage4_dying" },
+    "age=4,crop_status=2": { "model": "ttll:block/wheat_stage4_dead" },
+
+    "age=5,crop_status=0": { "model": "minecraft:block/wheat_stage5" },
+    "age=5,crop_status=1": { "model": "ttll:block/wheat_stage5_dying" },
+    "age=5,crop_status=2": { "model": "ttll:block/wheat_stage5_dead" },
+
+    "age=6,crop_status=0": { "model": "minecraft:block/wheat_stage6" },
+    "age=6,crop_status=1": { "model": "ttll:block/wheat_stage6_dying" },
+    "age=6,crop_status=2": { "model": "ttll:block/wheat_stage6_dead" },
+
+    "age=7,crop_status=0": { "model": "minecraft:block/wheat_stage7" },
+    "age=7,crop_status=1": { "model": "ttll:block/wheat_stage7_dying" },
+    "age=7,crop_status=2": { "model": "ttll:block/wheat_stage7_dead" }
+  }
+}

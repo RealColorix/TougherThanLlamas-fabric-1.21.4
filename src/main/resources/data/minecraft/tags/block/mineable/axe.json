@@ -5,6 +5,14 @@
     "ttll:oak_bottom_log_chiseled",
     "ttll:birch_bottom_log_chiseled",
     "ttll:oak_bottom_log_crafting_table",
-    "ttll:birch_bottom_log_crafting_table"
+    "ttll:birch_bottom_log_crafting_table",
+    "ttll:oak_trunk",
+    "ttll:oak_stem",
+    "ttll:birch_trunk",
+    "ttll:birch_stem",
+    "ttll:jungle_trunk",
+    "ttll:jungle_stem",
+    "ttll:spruce_trunk",
+    "ttll:spruce_stem"
   ]
 }

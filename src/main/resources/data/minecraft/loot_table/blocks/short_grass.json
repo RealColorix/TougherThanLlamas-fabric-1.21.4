@@ -2,7 +2,7 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "bonus_rolls": 0,
+      "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:alternatives",
@@ -23,14 +23,8 @@
               "type": "minecraft:item",
               "conditions": [
                 {
-                  "chance": 0.0078125,
+                  "chance": 0.05,
                   "condition": "minecraft:random_chance"
-                },
-                {
-                  "condition": "minecraft:match_tool",
-                  "predicate": {
-                    "items": "ttll:flint"
-                  }
                 }
               ],
               "functions": [
@@ -46,12 +40,12 @@
                   "function": "minecraft:explosion_decay"
                 }
               ],
-              "name": "ttll:grass_fiber"
+              "name": "ttll:grass_seeds"
             }
           ]
         }
       ],
-      "rolls": 1
+      "rolls": 1.0
     }
   ],
   "random_sequence": "minecraft:blocks/short_grass"

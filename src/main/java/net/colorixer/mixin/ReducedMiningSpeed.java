@@ -140,8 +140,8 @@ public abstract class ReducedMiningSpeed {
                 // Get the multiplier from your JSON-loaded map
                 float chopableMultiplier = net.colorixer.player.Chopable.getChopableSpeedMultiplier(player.getWorld(), pos, heldItem);
 
-                cir.setReturnValue(originalSpeed * finalSpeedMod * chopableMultiplier);
-                return;
+                finalSpeedMod *= chopableMultiplier;
+
             }
         }
 

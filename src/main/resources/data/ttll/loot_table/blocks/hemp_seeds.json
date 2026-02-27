@@ -1,0 +1,43 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "ttll:hemp",
+          "conditions": [
+            {
+              "condition": "minecraft:match_tool",
+              "predicate": {
+                "items": [
+                  "minecraft:shears"
+                ]
+              }
+            },
+            {
+              "condition": "minecraft:alternative",
+              "terms": [
+                {
+                  "condition": "minecraft:block_state_property",
+                  "block": "ttll:hemp_seeds",
+                  "properties": {
+                    "age": "4"
+                  }
+                },
+                {
+                  "condition": "minecraft:block_state_property",
+                  "block": "ttll:hemp_seeds",
+                  "properties": {
+                    "age": "5"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -5,6 +5,7 @@ import net.colorixer.access.PlayerArmorWeightAccessor;
 import net.colorixer.util.IdentifierUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -186,6 +187,41 @@ public abstract class PlayerEntityMixin {
                 player.playSound(SoundEvents.ENTITY_PLAYER_BREATH, 1.0f, 1.0f);
             }
         }
+    }
+
+    @Inject(method = "getAttackCooldownProgressPerTick", at = @At("RETURN"), cancellable = true)
+    private void applyHealthAndHungerSlowness(CallbackInfoReturnable<Float> cir) {
+        PlayerEntity player = (PlayerEntity) (Object) this;
+
+        // The speed at which the recharge bar fills
+        float originalSpeed = cir.getReturnValue();
+
+        // --- YOUR FORMULA ---
+        float healthRatio = player.getHealth() / player.getMaxHealth();
+        float hungerRatio = player.getHungerManager().getFoodLevel() / 20.0f;
+
+        float healthMultiplier;
+        if (healthRatio > 0.25f) {
+            healthMultiplier = 0.8f + (healthRatio - 0.25f) * (0.2f / 0.75f);
+        } else {
+            float lowRange = healthRatio / 0.25f;
+            healthMultiplier = 0.3f + 0.5f * lowRange * lowRange;
+        }
+
+        float hungerMultiplier;
+        if (hungerRatio > 0.25f) {
+            hungerMultiplier = 0.8f + (hungerRatio - 0.25f) * (0.2f / 0.75f);
+        } else {
+            float lowRange = hungerRatio / 0.25f;
+            hungerMultiplier = 0.3f + 0.5f * lowRange * lowRange;
+        }
+
+        // Combining multipliers
+        // If totalMultiplier is 0.2, the bar fills 5x slower than usual.
+        float totalMultiplier = healthMultiplier * hungerMultiplier;
+
+        // Multiplying the recharge SPEED by a fraction makes it SLOWER
+        cir.setReturnValue(originalSpeed /totalMultiplier);
     }
 
 }

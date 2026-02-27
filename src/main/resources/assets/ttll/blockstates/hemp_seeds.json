@@ -1,0 +1,27 @@
+{
+  "variants": {
+    "age=0,crop_status=0": { "model": "ttll:block/hemp_stage0" },
+    "age=0,crop_status=1": { "model": "ttll:block/hemp_stage0_dying" },
+    "age=0,crop_status=2": { "model": "ttll:block/hemp_stage0_dead" },
+
+    "age=1,crop_status=0": { "model": "ttll:block/hemp_stage1" },
+    "age=1,crop_status=1": { "model": "ttll:block/hemp_stage1_dying" },
+    "age=1,crop_status=2": { "model": "ttll:block/hemp_stage1_dead" },
+
+    "age=2,crop_status=0": { "model": "ttll:block/hemp_stage2" },
+    "age=2,crop_status=1": { "model": "ttll:block/hemp_stage2_dying" },
+    "age=2,crop_status=2": { "model": "ttll:block/hemp_stage2_dead" },
+
+    "age=3,crop_status=0": { "model": "ttll:block/hemp_stage3" },
+    "age=3,crop_status=1": { "model": "ttll:block/hemp_stage3_dying" },
+    "age=3,crop_status=2": { "model": "ttll:block/hemp_stage3_dead" },
+
+    "age=4,crop_status=0": { "model": "ttll:block/hemp_stage4" },
+    "age=4,crop_status=1": { "model": "ttll:block/hemp_stage4_dying" },
+    "age=4,crop_status=2": { "model": "ttll:block/hemp_stage4_dead" },
+
+    "age=5,crop_status=0": { "model": "ttll:block/hemp_stage_top" },
+    "age=5,crop_status=1": { "model": "ttll:block/hemp_stage_top_dying" },
+    "age=5,crop_status=2": { "model": "ttll:block/hemp_stage_top_dead" }
+  }
+}
