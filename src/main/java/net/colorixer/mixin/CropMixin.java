@@ -88,22 +88,27 @@ public abstract class CropMixin extends PlantBlock {
                 multiplier = 0.0F;
                 if (weedLevel == 3) {
                     if (status == 0 && random.nextInt(20) == 0) {
-                        world.setBlockState(pos, state.with(CROP_STATUS, 1), 2);
+                        world.setBlockState(pos, state.with(CROP_STATUS, 1), Block.NOTIFY_ALL);
+                        return; // Stop here!
                     }
                 } else { // Level 4
                     if (status == 0 && random.nextInt(10) == 0) {
-                        world.setBlockState(pos, state.with(CROP_STATUS, 1), 2);
+                        world.setBlockState(pos, state.with(CROP_STATUS, 1), Block.NOTIFY_ALL);
+                        return; // Stop here!
                     } else if (status == 1 && random.nextInt(10) == 0) {
-                        world.setBlockState(pos, state.with(CROP_STATUS, 2), 2);
-                        return;
+                        world.setBlockState(pos, state.with(CROP_STATUS, 2), Block.NOTIFY_ALL);
+                        return; // Stop here!
                     }
                 }
             } else if (weedLevel <= 1 && status == 1) {
-                if (random.nextInt(15) == 0) {
-                    world.setBlockState(pos, state.with(CROP_STATUS, 0), 2);
+                // If weeds are cleared, chance to recover
+                // Changed from 15 to 3 so it heals in ~3 minutes instead of ~17 minutes!
+                if (random.nextInt(3) == 0) {
+                    // MUST use NOTIFY_ALL so the top Hemp block realizes the bottom healed!
+                    world.setBlockState(pos, state.with(CROP_STATUS, 0), Block.NOTIFY_ALL);
+                    return; // Prevent growth overwrite in the same tick!
                 }
             }
-
             // --- GROWTH LOGIC ---
             if (multiplier > 0 && age < this.getMaxAge()) {
                 if (isFarmland && farmlandState.contains(FERTILIZED) && farmlandState.get(FERTILIZED)) {

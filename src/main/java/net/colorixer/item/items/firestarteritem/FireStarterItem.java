@@ -47,7 +47,7 @@ public class FireStarterItem extends Item {
         if (state.getBlock() instanceof FurnaceBlock && !state.get(FurnaceBlock.LIT)) {
             if (world.getBlockEntity(pos) instanceof FurnaceBlockEntity furnace && furnace.getFuel() > 0) {
                 if (!world.isClient) {
-                    player.getHungerManager().addExhaustion(0.01F);
+                    player.getHungerManager().addExhaustion(0.005F);
                     ExhaustionHelper.triggerJitter(5);
                     if (world.random.nextDouble() < this.chance) {
                         furnace.ignite();
@@ -69,7 +69,7 @@ public class FireStarterItem extends Item {
                 // Fix: Use the getter method for fuel (or the variable if it's public)
                 if (campfire.getFuel() > 0) {
                     if (!world.isClient) {
-                        player.getHungerManager().addExhaustion(0.01F);
+                        player.getHungerManager().addExhaustion(0.005F);
                         ExhaustionHelper.triggerJitter(5);
                         // Use the chance variable from your item class
                         if (world.random.nextDouble() < this.chance) {
@@ -92,7 +92,7 @@ public class FireStarterItem extends Item {
         // 2. CRUDE TORCH LOGIC
         if (state.getBlock() instanceof CrudeTorchBlock) {
             if (!world.isClient) {
-                player.getHungerManager().addExhaustion(0.01F);
+                player.getHungerManager().addExhaustion(0.005F);
                 ExhaustionHelper.triggerJitter(5);
                 if (world.random.nextDouble() < this.chance) {
                     Direction currentFacing = state.get(CrudeTorchBlock.FACING);

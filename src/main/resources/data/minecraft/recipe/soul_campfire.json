@@ -1,18 +1,18 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "category": "misc",
-  "key": {
-    "#": "#minecraft:soul_fire_base_blocks",
-    "L": "#minecraft:logs",
-    "S": "minecraft:stick"
-  },
-  "pattern": [
-    " S ",
-    "S#S",
-    "LLL"
+  "type": "minecraft:crafting_shapeless",
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:not",
+      "value": {
+        "condition": "fabric:all_mods_loaded",
+        "values": [
+          "minecraft"
+        ]
+      }
+    }
   ],
+  "ingredients": [],
   "result": {
-    "count": 1,
-    "id": "minecraft:soul_campfire"
+    "id": "minecraft:air"
   }
 }

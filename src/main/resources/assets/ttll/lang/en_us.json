@@ -1,7 +1,11 @@
 
 {
-
-
+  "item.ttll.wicker": "Wicker",
+  "item.ttll.wicker_weaving": "Wicker Weaving",
+  "item.ttll.bagasse": "Bagasse",
+  "item.ttll.bagasse_weaving": "Bagasse Weaving",
+  "item.ttll.layered_bagasse": "Layered Bagasse",
+  "item.ttll.parchment": "Parchment",
   "item.ttll.dirt_pile": "Dirt Pile",
   "item.ttll.gravel_pile": "Gravel Pile",
   "item.ttll.sand_pile": "Sand Pile",
@@ -164,11 +168,9 @@
   "block.ttll.oak_bottom_log_crafting_table": "Oak Crafting Table",
   "block.ttll.birch_bottom_log_crafting_table": "Birch Crafting Table",
   "block.ttll.hemp_seeds": "Hemp Seeds",
-
   "block.ttll.cobweb_full": "Chipped Cobweb",
   "block.ttll.cobweb_half": "Chipped Cobweb",
   "block.ttll.cobweb_quarter": "Chipped Cobweb",
-
   "block.ttll.deepslate": "Deepslate",
   "block.ttll.weathered_deepslate": "Weathered Deepslate",
   "block.ttll.cobbled_deepslate": "Cobbled Deepslate",
@@ -177,12 +179,23 @@
   "block.ttll.excavated_deepslate": "Excavated Deepslate",
   "block.ttll.loose_cobbled_deepslate": "Loose Cobbled Deepslate",
   "block.ttll.loose_cobbled_deepslate_slab": "Loose Cobbled Deepslate Slab",
-
-
-
+  "block.ttll.grass_seeds": "Grass Seeds",
 
   "entity.ttll.jungle_spider": "Jungle Spider",
   "entity.ttll.fire_creeper": "Fire Creeper",
+
+  "tag.item.ttll.bark": "Bark",
+  "tag.item.ttll.beginner_stone_mining_tools": "Stone Age Tools",
+  "tag.item.ttll.binding_strings": "Twine",
+  "tag.item.ttll.cloth": "Cloths",
+  "tag.item.ttll.firewood": "Firewood",
+  "tag.item.ttll.hoes": "Hoes",
+  "tag.item.ttll.paper": "Paper",
+  "tag.item.ttll.shovels": "Shovels",
+  "tag.item.ttll.uncooked_meats": "Raw Meats",
+
+
+
 
   "options.gamma.normal": "Hardcore Darkness",
   "mixins.seedfinder.title": "Searching For Seeds",

@@ -62,8 +62,11 @@ public class BandageItem extends Item {
                 // Apply Regeneration for 8 seconds (160 ticks)
                 user.addStatusEffect(new StatusEffectInstance(
                         StatusEffects.REGENERATION,
-                        100,
-                        0
+                        120,
+                        0,
+                        false,
+                        false,
+                        false
                 ));
             }
         }

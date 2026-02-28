@@ -1,43 +1,35 @@
 {
   "type": "minecraft:block",
+  "functions": [
+    {
+      "function": "minecraft:explosion_decay"
+    }
+  ],
   "pools": [
     {
-      "rolls": 1,
+      "bonus_rolls": 0.0,
       "entries": [
         {
-          "type": "minecraft:item",
-          "name": "ttll:hemp",
-          "conditions": [
+          "type": "minecraft:alternatives",
+          "children": [
             {
-              "condition": "minecraft:match_tool",
-              "predicate": {
-                "items": [
-                  "minecraft:shears"
-                ]
-              }
-            },
-            {
-              "condition": "minecraft:alternative",
-              "terms": [
+              "type": "minecraft:item",
+              "conditions": [
                 {
-                  "condition": "minecraft:block_state_property",
                   "block": "ttll:hemp_seeds",
-                  "properties": {
-                    "age": "4"
-                  }
-                },
-                {
                   "condition": "minecraft:block_state_property",
-                  "block": "ttll:hemp_seeds",
                   "properties": {
                     "age": "5"
                   }
                 }
-              ]
+              ],
+              "name": "ttll:hemp"
             }
           ]
         }
-      ]
+      ],
+      "rolls": 1.0
     }
-  ]
+  ],
+  "random_sequence": "ttll:blocks/hemp_seeds"
 }

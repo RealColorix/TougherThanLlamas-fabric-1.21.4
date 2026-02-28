@@ -1,5 +1,6 @@
 package net.colorixer.mixin;
 
+import net.colorixer.block.ModBlocks;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -29,8 +30,7 @@ public abstract class CoarseDirtTicksMixin {
     @Inject(method = "randomTick", at = @At("HEAD"))
     private void onRandomTick(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
         if (state.isOf(Blocks.COARSE_DIRT)) {
-            if (isGrassNearby(world, pos)) {
-                // Transform to normal dirt
+            if (random.nextInt(25) == 0 && isGrassNearby(world, pos)) {
                 world.setBlockState(pos, Blocks.DIRT.getDefaultState());
             }
         }
@@ -39,8 +39,8 @@ public abstract class CoarseDirtTicksMixin {
     @Unique
     private boolean isGrassNearby(ServerWorld world, BlockPos pos) {
         // Checks a 1-block radius (3x3x3 cube)
-        for (BlockPos neighborPos : BlockPos.iterate(pos.add(-1, -1, -1), pos.add(1, 1, 1))) {
-            if (world.getBlockState(neighborPos).isOf(Blocks.GRASS_BLOCK)) {
+        for (BlockPos neighborPos : BlockPos.iterate(pos.add(-1, -2, -1), pos.add(1, 2, 1))) {
+            if (world.getBlockState(neighborPos).isOf(Blocks.GRASS_BLOCK)||world.getBlockState(neighborPos).isOf(ModBlocks.GRASS_SLAB)) {
                 return true;
             }
         }

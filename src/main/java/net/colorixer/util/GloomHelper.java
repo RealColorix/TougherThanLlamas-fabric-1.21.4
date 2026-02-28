@@ -35,11 +35,11 @@ public class GloomHelper {
         }
 
         // 2. Logic remains the same...
-        boolean isDeepDark = blockLight <= 2 && skyLight <= 2;
+        boolean isDeepDark = blockLight <= 1 && skyLight <= 0;
         boolean isNewMoon = world.getMoonPhase() == 4;
-        boolean isSurfaceNightGloom = blockLight <= 2 && skyLight > 2 && !world.isDay() && isNewMoon;
+        boolean isSurfaceNightGloom = blockLight <= 1 && skyLight > 1 && !world.isDay() && isNewMoon;
 
-        return (isDeepDark || isSurfaceNightGloom) && dynamicLight <= 2;
+        return (isDeepDark || isSurfaceNightGloom) && dynamicLight <= 1;
     }
 
     public static void updateGloom(PlayerEntity player) {

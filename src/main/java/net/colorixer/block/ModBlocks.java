@@ -6,6 +6,7 @@ import net.colorixer.block.brick_block.DriedBrickBlock;
 import net.colorixer.block.brick_block.WetBrickBlock;
 import net.colorixer.block.campfire.CampfireBlock;
 import net.colorixer.block.crafting_table.LogCraftingTableBlock;
+import net.colorixer.block.crops.GrassSeedsBlock;
 import net.colorixer.block.crops.HempBlock;
 import net.colorixer.block.drying_rack.DryingRackBlock;
 import net.colorixer.block.falling_block.ModFallingBlock;
@@ -216,6 +217,18 @@ public class ModBlocks {
                     .nonOpaque()
     );
 
+    public static final Block GRASS_SEEDS = registerBlock(
+            "grass_seeds", GrassSeedsBlock::new,
+            AbstractBlock.Settings.create()
+                    .mapColor(MapColor.GREEN)
+                    .noCollision()
+                    .sounds(BlockSoundGroup.GRASS)
+                    .burnable()
+                    .pistonBehavior(PistonBehavior.DESTROY)
+                    .nonOpaque()
+                    .breakInstantly()
+    );
+
     public static final Block HEMP_SEEDS = registerBlock(
             "hemp_seeds", HempBlock::new,
             AbstractBlock.Settings.create()
@@ -357,6 +370,7 @@ public class ModBlocks {
             entries.add(ModBlocks.VOLCANIC_TUFF);
             entries.add(ModBlocks.WEEDS);
             entries.add(ModBlocks.HEMP_SEEDS);
+            entries.add(ModBlocks.GRASS_SEEDS);
         });
     }
 }

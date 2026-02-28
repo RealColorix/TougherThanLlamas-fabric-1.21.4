@@ -54,7 +54,7 @@ public class FallingGrassSlabBlock extends FallingSlabBlock {
 
         // 2. SPREAD LOGIC (With 1-in-7 chance and Light Check)
         if (world.getLightLevel(pos.up()) >= 9) {
-            if (random.nextInt(7) == 0) { // Throttle spread speed
+            if (random.nextInt(25) == 0) { // Throttle spread speed
                 attemptSpread(world, pos, random);
             }
         }

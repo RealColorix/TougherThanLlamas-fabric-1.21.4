@@ -3,6 +3,9 @@
     "facing=up,burned=false":  { "model": "ttll:block/crude_torch" },
     "facing=up,burned=true":   { "model": "ttll:block/crude_torch_burned" },
 
+    "facing=down,burned=false":  { "model": "ttll:block/crude_torch" },
+    "facing=down,burned=true":   { "model": "ttll:block/crude_torch_burned" },
+
     "facing=north,burned=false": { "model": "ttll:block/crude_torch_wall", "y": 270 },
     "facing=north,burned=true":  { "model": "ttll:block/crude_torch_wall_burned", "y": 270 },
 

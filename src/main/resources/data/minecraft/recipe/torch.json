@@ -1,19 +1,18 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "category": "misc",
-  "key": {
-    "#": "minecraft:stick",
-    "X": [
-      "minecraft:coal",
-      "minecraft:charcoal"
-    ]
-  },
-  "pattern": [
-    "X",
-    "#"
+  "type": "minecraft:crafting_shapeless",
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:not",
+      "value": {
+        "condition": "fabric:all_mods_loaded",
+        "values": [
+          "minecraft"
+        ]
+      }
+    }
   ],
+  "ingredients": [],
   "result": {
-    "count": 1,
-    "id": "ttll:crude_torch"
+    "id": "minecraft:air"
   }
 }

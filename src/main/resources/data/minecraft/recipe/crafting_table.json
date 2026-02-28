@@ -1,16 +1,18 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "category": "misc",
-  "key": {
-    "#": "#minecraft:planks"
-  },
-  "pattern": [
-    "##",
-    "##"
+  "type": "minecraft:crafting_shapeless",
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:not",
+      "value": {
+        "condition": "fabric:all_mods_loaded",
+        "values": [
+          "minecraft"
+        ]
+      }
+    }
   ],
+  "ingredients": [],
   "result": {
-    "count": 1,
-    "id": "minecraft:crafting_table"
-  },
-  "show_notification": false
+    "id": "minecraft:air"
+  }
 }

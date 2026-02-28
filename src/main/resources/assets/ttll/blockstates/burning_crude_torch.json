@@ -3,6 +3,9 @@
     "facing=up,low_fuel=false":  { "model": "ttll:block/burning_crude_torch" },
     "facing=up,low_fuel=true":   { "model": "ttll:block/burning_crude_torch_low" },
 
+    "facing=down,low_fuel=false":  { "model": "ttll:block/burning_crude_torch" },
+    "facing=down,low_fuel=true":   { "model": "ttll:block/burning_crude_torch_low" },
+
     "facing=north,low_fuel=false": { "model": "ttll:block/burning_crude_torch_wall", "y": 270 },
     "facing=north,low_fuel=true":  { "model": "ttll:block/burning_crude_torch_wall_low", "y": 270 },
 

@@ -8,6 +8,7 @@ import net.colorixer.entity.ModEntities;
 import net.colorixer.item.items.*;
 import net.colorixer.item.items.firestarteritem.FireStarterItem;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.*;
 import net.minecraft.registry.RegistryKey;
@@ -106,21 +107,30 @@ public class ModItems {
     public static final Item TANGLED_WEB = registerItem("tangled_web", Item::new, new Item.Settings());
     public static final Item CREEPER_SACK = registerItem("creeper_sack", Item::new, new Item.Settings());
     public static final Item FIRE_CREEPER_SACK = registerItem("fire_creeper_sack", Item::new, new Item.Settings().fireproof());
+
+    public static final Item BAGASSE = registerItem("bagasse", Item::new, new Item.Settings());
     public static final Item SUGAR_CANE_MASH = registerItem(
             "sugar_cane_mash",
             settings -> new SugarcaneMashItem(
                     settings,
-                    Items.SUGAR, // The item it drops (Swap this with your custom Fibers item later!)
-                    1,           // The amount it drops
-                    SoundEvents.ENTITY_GENERIC_SPLASH // The sound it plays while washing
+                    ModItems.BAGASSE,
+                    1,
+                    SoundEvents.ENTITY_GENERIC_SPLASH
             ),
             new Item.Settings()
     );
+    public static final Item LAYERED_BAGASSE = registerItem("layered_bagasse", Item::new, new Item.Settings());
+    public static final Item BAGASSE_WEAVING = registerItem("bagasse_weaving", settings -> new KnittingSticksItem(settings, 480, ModItems.LAYERED_BAGASSE, 1,  Items.AIR,SoundEvents.ITEM_CROP_PLANT), new Item.Settings().maxCount(1));
+    public static final Item PARCHMENT = registerItem("parchment", Item::new, new Item.Settings());
+
+
+    public static final Item WICKER = registerItem("wicker", Item::new, new Item.Settings());
+    public static final Item WICKER_WEAVING = registerItem("wicker_weaving", settings -> new KnittingSticksItem(settings, 720, ModItems.WICKER, 1,  Items.AIR,SoundEvents.ITEM_CROP_PLANT), new Item.Settings().maxCount(1));
 
     // ---------- MISCELLANEOUS ----------
     public static final Item LEATHER_BOOT = registerItem("leather_boot", Item::new, new Item.Settings());
     public static final Item CRUDE_BRUSH = registerItem("crude_brush", BrushItem::new, new Item.Settings().maxCount(1).maxDamage(16));
-   public static final Item SINEW = registerItem("sinew", Item::new, new Item.Settings());
+    public static final Item SINEW = registerItem("sinew", Item::new, new Item.Settings());
     public static final Item SINEW_CHOPPING = registerItem("sinew_chopping", settings -> new KnittingSticksItem(settings, 720, ModItems.SINEW, 1,  ModItems.SHARP_ROCK,SoundEvents.BLOCK_COBWEB_HIT), new Item.Settings().maxCount(1));
     public static final Item FLINT_SINEW_CHOPPING = registerItem("flint_sinew_chopping", settings -> new KnittingSticksItem(settings, 720, ModItems.SINEW, 1,  ModItems.FLINT,SoundEvents.BLOCK_COBWEB_HIT), new Item.Settings().maxCount(1));
     public static final Item SPUNNED_STRING = registerItem("spunned_string", Item::new, new Item.Settings());
@@ -132,7 +142,7 @@ public class ModItems {
     public static final Item CLOTH_WOOL_WHITE = registerItem("cloth_wool_white", Item::new, new Item.Settings());
     public static final Item KNITTING_WOOL_WHITE = registerItem(
             "knitting_wool_white",
-            settings -> new KnittingSticksItem(settings, 720, ModItems.CLOTH_WOOL_WHITE, 1, ModItems.KNITTING_STICKS, SoundEvents.BLOCK_WOOL_STEP),
+            settings -> new KnittingSticksItem(settings, 720, ModItems.CLOTH_WOOL_WHITE, 1, ModItems.KNITTING_STICKS, SoundEvents.BLOCK_WOOL_STEP, Blocks.WHITE_WOOL),
             new Item.Settings().maxCount(1)
     );
 
@@ -141,7 +151,7 @@ public class ModItems {
     public static final Item CLOTH_WOOL_ORANGE = registerItem("cloth_wool_orange", Item::new, new Item.Settings());
     public static final Item KNITTING_WOOL_ORANGE = registerItem(
             "knitting_wool_orange",
-            settings -> new KnittingSticksItem(settings, 720, ModItems.CLOTH_WOOL_ORANGE, 1, ModItems.KNITTING_STICKS, SoundEvents.BLOCK_WOOL_STEP),
+            settings -> new KnittingSticksItem(settings, 720, ModItems.CLOTH_WOOL_ORANGE, 1, ModItems.KNITTING_STICKS, SoundEvents.BLOCK_WOOL_STEP, Blocks.ORANGE_WOOL),
             new Item.Settings().maxCount(1)
     );
 
@@ -150,7 +160,7 @@ public class ModItems {
     public static final Item CLOTH_WOOL_MAGENTA = registerItem("cloth_wool_magenta", Item::new, new Item.Settings());
     public static final Item KNITTING_WOOL_MAGENTA = registerItem(
             "knitting_wool_magenta",
-            settings -> new KnittingSticksItem(settings, 720, ModItems.CLOTH_WOOL_MAGENTA, 1, ModItems.KNITTING_STICKS, SoundEvents.BLOCK_WOOL_STEP),
+            settings -> new KnittingSticksItem(settings, 720, ModItems.CLOTH_WOOL_MAGENTA, 1, ModItems.KNITTING_STICKS, SoundEvents.BLOCK_WOOL_STEP, Blocks.MAGENTA_WOOL),
             new Item.Settings().maxCount(1)
     );
 
@@ -159,7 +169,7 @@ public class ModItems {
     public static final Item CLOTH_WOOL_LIGHT_BLUE = registerItem("cloth_wool_light_blue", Item::new, new Item.Settings());
     public static final Item KNITTING_WOOL_LIGHT_BLUE = registerItem(
             "knitting_wool_light_blue",
-            settings -> new KnittingSticksItem(settings, 720, ModItems.CLOTH_WOOL_LIGHT_BLUE, 1, ModItems.KNITTING_STICKS, SoundEvents.BLOCK_WOOL_STEP),
+            settings -> new KnittingSticksItem(settings, 720, ModItems.CLOTH_WOOL_LIGHT_BLUE, 1, ModItems.KNITTING_STICKS, SoundEvents.BLOCK_WOOL_STEP, Blocks.LIGHT_BLUE_WOOL),
             new Item.Settings().maxCount(1)
     );
 
@@ -168,7 +178,7 @@ public class ModItems {
     public static final Item CLOTH_WOOL_YELLOW = registerItem("cloth_wool_yellow", Item::new, new Item.Settings());
     public static final Item KNITTING_WOOL_YELLOW = registerItem(
             "knitting_wool_yellow",
-            settings -> new KnittingSticksItem(settings, 720, ModItems.CLOTH_WOOL_YELLOW, 1, ModItems.KNITTING_STICKS, SoundEvents.BLOCK_WOOL_STEP),
+            settings -> new KnittingSticksItem(settings, 720, ModItems.CLOTH_WOOL_YELLOW, 1, ModItems.KNITTING_STICKS, SoundEvents.BLOCK_WOOL_STEP, Blocks.YELLOW_WOOL),
             new Item.Settings().maxCount(1)
     );
 
@@ -177,7 +187,7 @@ public class ModItems {
     public static final Item CLOTH_WOOL_LIME = registerItem("cloth_wool_lime", Item::new, new Item.Settings());
     public static final Item KNITTING_WOOL_LIME = registerItem(
             "knitting_wool_lime",
-            settings -> new KnittingSticksItem(settings, 720, ModItems.CLOTH_WOOL_LIME, 1, ModItems.KNITTING_STICKS, SoundEvents.BLOCK_WOOL_STEP),
+            settings -> new KnittingSticksItem(settings, 720, ModItems.CLOTH_WOOL_LIME, 1, ModItems.KNITTING_STICKS, SoundEvents.BLOCK_WOOL_STEP, Blocks.LIME_WOOL),
             new Item.Settings().maxCount(1)
     );
 
@@ -186,7 +196,7 @@ public class ModItems {
     public static final Item CLOTH_WOOL_PINK = registerItem("cloth_wool_pink", Item::new, new Item.Settings());
     public static final Item KNITTING_WOOL_PINK = registerItem(
             "knitting_wool_pink",
-            settings -> new KnittingSticksItem(settings, 720, ModItems.CLOTH_WOOL_PINK, 1, ModItems.KNITTING_STICKS, SoundEvents.BLOCK_WOOL_STEP),
+            settings -> new KnittingSticksItem(settings, 720, ModItems.CLOTH_WOOL_PINK, 1, ModItems.KNITTING_STICKS, SoundEvents.BLOCK_WOOL_STEP, Blocks.PINK_WOOL),
             new Item.Settings().maxCount(1)
     );
 
@@ -195,7 +205,7 @@ public class ModItems {
     public static final Item CLOTH_WOOL_GRAY = registerItem("cloth_wool_gray", Item::new, new Item.Settings());
     public static final Item KNITTING_WOOL_GRAY = registerItem(
             "knitting_wool_gray",
-            settings -> new KnittingSticksItem(settings, 720, ModItems.CLOTH_WOOL_GRAY, 1, ModItems.KNITTING_STICKS, SoundEvents.BLOCK_WOOL_STEP),
+            settings -> new KnittingSticksItem(settings, 720, ModItems.CLOTH_WOOL_GRAY, 1, ModItems.KNITTING_STICKS, SoundEvents.BLOCK_WOOL_STEP, Blocks.GRAY_WOOL),
             new Item.Settings().maxCount(1)
     );
 
@@ -204,7 +214,7 @@ public class ModItems {
     public static final Item CLOTH_WOOL_LIGHT_GRAY = registerItem("cloth_wool_light_gray", Item::new, new Item.Settings());
     public static final Item KNITTING_WOOL_LIGHT_GRAY = registerItem(
             "knitting_wool_light_gray",
-            settings -> new KnittingSticksItem(settings, 720, ModItems.CLOTH_WOOL_LIGHT_GRAY, 1, ModItems.KNITTING_STICKS, SoundEvents.BLOCK_WOOL_STEP),
+            settings -> new KnittingSticksItem(settings, 720, ModItems.CLOTH_WOOL_LIGHT_GRAY, 1, ModItems.KNITTING_STICKS, SoundEvents.BLOCK_WOOL_STEP, Blocks.LIGHT_GRAY_WOOL),
             new Item.Settings().maxCount(1)
     );
 
@@ -213,7 +223,7 @@ public class ModItems {
     public static final Item CLOTH_WOOL_CYAN = registerItem("cloth_wool_cyan", Item::new, new Item.Settings());
     public static final Item KNITTING_WOOL_CYAN = registerItem(
             "knitting_wool_cyan",
-            settings -> new KnittingSticksItem(settings, 720, ModItems.CLOTH_WOOL_CYAN, 1, ModItems.KNITTING_STICKS, SoundEvents.BLOCK_WOOL_STEP),
+            settings -> new KnittingSticksItem(settings, 720, ModItems.CLOTH_WOOL_CYAN, 1, ModItems.KNITTING_STICKS, SoundEvents.BLOCK_WOOL_STEP, Blocks.CYAN_WOOL),
             new Item.Settings().maxCount(1)
     );
 
@@ -222,7 +232,7 @@ public class ModItems {
     public static final Item CLOTH_WOOL_PURPLE = registerItem("cloth_wool_purple", Item::new, new Item.Settings());
     public static final Item KNITTING_WOOL_PURPLE = registerItem(
             "knitting_wool_purple",
-            settings -> new KnittingSticksItem(settings, 720, ModItems.CLOTH_WOOL_PURPLE, 1, ModItems.KNITTING_STICKS, SoundEvents.BLOCK_WOOL_STEP),
+            settings -> new KnittingSticksItem(settings, 720, ModItems.CLOTH_WOOL_PURPLE, 1, ModItems.KNITTING_STICKS, SoundEvents.BLOCK_WOOL_STEP, Blocks.PURPLE_WOOL),
             new Item.Settings().maxCount(1)
     );
 
@@ -231,7 +241,7 @@ public class ModItems {
     public static final Item CLOTH_WOOL_BLUE = registerItem("cloth_wool_blue", Item::new, new Item.Settings());
     public static final Item KNITTING_WOOL_BLUE = registerItem(
             "knitting_wool_blue",
-            settings -> new KnittingSticksItem(settings, 720, ModItems.CLOTH_WOOL_BLUE, 1, ModItems.KNITTING_STICKS, SoundEvents.BLOCK_WOOL_STEP),
+            settings -> new KnittingSticksItem(settings, 720, ModItems.CLOTH_WOOL_BLUE, 1, ModItems.KNITTING_STICKS, SoundEvents.BLOCK_WOOL_STEP, Blocks.BLUE_WOOL),
             new Item.Settings().maxCount(1)
     );
 
@@ -240,7 +250,7 @@ public class ModItems {
     public static final Item CLOTH_WOOL_BROWN = registerItem("cloth_wool_brown", Item::new, new Item.Settings());
     public static final Item KNITTING_WOOL_BROWN = registerItem(
             "knitting_wool_brown",
-            settings -> new KnittingSticksItem(settings, 720, ModItems.CLOTH_WOOL_BROWN, 1, ModItems.KNITTING_STICKS, SoundEvents.BLOCK_WOOL_STEP),
+            settings -> new KnittingSticksItem(settings, 720, ModItems.CLOTH_WOOL_BROWN, 1, ModItems.KNITTING_STICKS, SoundEvents.BLOCK_WOOL_STEP, Blocks.BROWN_WOOL),
             new Item.Settings().maxCount(1)
     );
 
@@ -249,7 +259,7 @@ public class ModItems {
     public static final Item CLOTH_WOOL_GREEN = registerItem("cloth_wool_green", Item::new, new Item.Settings());
     public static final Item KNITTING_WOOL_GREEN = registerItem(
             "knitting_wool_green",
-            settings -> new KnittingSticksItem(settings, 720, ModItems.CLOTH_WOOL_GREEN, 1, ModItems.KNITTING_STICKS, SoundEvents.BLOCK_WOOL_STEP),
+            settings -> new KnittingSticksItem(settings, 720, ModItems.CLOTH_WOOL_GREEN, 1, ModItems.KNITTING_STICKS, SoundEvents.BLOCK_WOOL_STEP, Blocks.GREEN_WOOL),
             new Item.Settings().maxCount(1)
     );
 
@@ -258,7 +268,7 @@ public class ModItems {
     public static final Item CLOTH_WOOL_RED = registerItem("cloth_wool_red", Item::new, new Item.Settings());
     public static final Item KNITTING_WOOL_RED = registerItem(
             "knitting_wool_red",
-            settings -> new KnittingSticksItem(settings, 720, ModItems.CLOTH_WOOL_RED, 1, ModItems.KNITTING_STICKS, SoundEvents.BLOCK_WOOL_STEP),
+            settings -> new KnittingSticksItem(settings, 720, ModItems.CLOTH_WOOL_RED, 1, ModItems.KNITTING_STICKS, SoundEvents.BLOCK_WOOL_STEP, Blocks.RED_WOOL),
             new Item.Settings().maxCount(1)
     );
 
@@ -267,7 +277,7 @@ public class ModItems {
     public static final Item CLOTH_WOOL_BLACK = registerItem("cloth_wool_black", Item::new, new Item.Settings());
     public static final Item KNITTING_WOOL_BLACK = registerItem(
             "knitting_wool_black",
-            settings -> new KnittingSticksItem(settings, 720, ModItems.CLOTH_WOOL_BLACK, 1, ModItems.KNITTING_STICKS, SoundEvents.BLOCK_WOOL_STEP),
+            settings -> new KnittingSticksItem(settings, 720, ModItems.CLOTH_WOOL_BLACK, 1, ModItems.KNITTING_STICKS, SoundEvents.BLOCK_WOOL_STEP, Blocks.BLACK_WOOL),
             new Item.Settings().maxCount(1)
     );
     // ---------- ANY OTHER KNITTING ITEM
@@ -395,6 +405,12 @@ public class ModItems {
             entries.add(DIAMOND_INGOT);
             entries.add(BURNED_MEAT);
             entries.add(HEMP);
+            entries.add(BAGASSE);
+            entries.add(BAGASSE_WEAVING);
+            entries.add(LAYERED_BAGASSE);
+            entries.add(PARCHMENT);
+            entries.add(WICKER_WEAVING);
+            entries.add(WICKER);
         });
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.SPAWN_EGGS).register(entries -> {

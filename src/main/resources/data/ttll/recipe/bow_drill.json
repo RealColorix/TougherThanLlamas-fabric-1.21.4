@@ -1,7 +1,7 @@
 {
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
-    "#ttll:sticks",
+    "ttll:pointy_stick",
     "minecraft:bow"
   ],
   "result": {

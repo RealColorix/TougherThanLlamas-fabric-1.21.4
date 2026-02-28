@@ -99,40 +99,57 @@ public class HempBlock extends CropBlock {
 
     @Override
     public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        // 1. Get current data
         int age = getAge(state);
         BlockState belowState = world.getBlockState(pos.down());
         boolean isTop = belowState.isOf(this);
         boolean isBase = belowState.isOf(Blocks.FARMLAND);
 
-        // 2. THE SKIP LOGIC: If it's the upper part and about to grow from 3
-        if (isTop && age == 3) {
-            // We skip 4 and go straight to 5
-            world.setBlockState(pos, state.with(AGE, 5), 2);
-            return; // End tick here so super doesn't grow it again
+
+        if (!(random.nextInt(10) == 0)) return;
+
+        // --- 1. TOP BLOCK LOGIC ---
+        // We handle the top block entirely on our own to bypass the vanilla Farmland penalty.
+        if (isTop) {
+            // Check if there is enough light to grow
+            if (world.getBaseLightLevel(pos, 0) >= 9) {
+                // Roll a 1-in-5 chance to grow (adjust this number to make it faster/slower)
+                if (random.nextInt(5) == 0) {
+                    if (age == 2) {
+                        world.setBlockState(pos, state.with(AGE, 3), 2);
+                    } else if (age == 3) {
+                        // Skip 4 and go straight to 5 at a normal, balanced speed
+                        world.setBlockState(pos, state.with(AGE, 5), 2);
+                    }
+                }
+            }
+            // IMPORTANT: Return here so the top block NEVER calls super.randomTick!
+            return;
         }
 
-        // 3. Standard growth (handles base block growing and top block standard increments)
-        super.randomTick(state, world, pos, random);
+        // --- 2. BASE BLOCK LOGIC ---
+        // The base block IS on farmland, so we can let vanilla Minecraft handle it.
+        if (isBase) {
+            super.randomTick(state, world, pos, random);
 
-        // Re-fetch state after super call in case it grew
-        BlockState currentState = world.getBlockState(pos);
-        if (!currentState.isOf(this)) return;
+            // Re-fetch state after super call in case it grew
+            BlockState currentState = world.getBlockState(pos);
+            if (!currentState.isOf(this)) return;
 
-        Property<?> statusProp = currentState.getBlock().getStateManager().getProperty("crop_status");
-        if (!(statusProp instanceof IntProperty intProp)) return;
-        int status = currentState.get(intProp);
+            Property<?> statusProp = currentState.getBlock().getStateManager().getProperty("crop_status");
+            if (!(statusProp instanceof IntProperty intProp)) return;
+            int status = currentState.get(intProp);
+            int currentAge = getAge(currentState);
 
-        // --- GROWTH LOGIC ONLY ON BASE BLOCK ---
-        if (isBase && status == 0) {
-            // If base hits age 2-4, try to spawn the top
-            if (age >= 2 && age <= 4 && world.isAir(pos.up()) && random.nextInt(3) == 0) {
-                world.setBlockState(pos.up(), this.getDefaultState().with(AGE, 2).with(intProp, status), 3);
-            }
+            if (status == 0) {
+                // If base hits age 2-4, try to spawn the top
+                if (currentAge >= 2 && currentAge <= 4 && world.isAir(pos.up()) && random.nextInt(3) == 0) {
+                    world.setBlockState(pos.up(), this.getDefaultState().with(AGE, 2).with(intProp, status), 3);
+                }
 
-            // Keep base capped at 4 (as per your original logic)
-            if (getAge(currentState) > 4) {
-                world.setBlockState(pos, currentState.with(AGE, 4), 2);
+                // Keep base capped at 4
+                if (currentAge > 4) {
+                    world.setBlockState(pos, currentState.with(AGE, 4), 2);
+                }
             }
         }
     }

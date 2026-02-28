@@ -1,12 +1,18 @@
 {
   "type": "minecraft:crafting_shapeless",
-  "category": "building",
-  "group": "planks",
-  "ingredients": [
-    "#minecraft:cherry_logs"
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:not",
+      "value": {
+        "condition": "fabric:all_mods_loaded",
+        "values": [
+          "minecraft"
+        ]
+      }
+    }
   ],
+  "ingredients": [],
   "result": {
-    "count": 4,
-    "id": "minecraft:cherry_planks"
+    "id": "minecraft:air"
   }
 }

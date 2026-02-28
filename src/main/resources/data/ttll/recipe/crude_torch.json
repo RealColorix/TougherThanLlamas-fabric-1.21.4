@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": "minecraft:bone",
+    "C": [
+      "minecraft:coal",
+      "minecraft:charcoal"
+    ]
+  },
+  "pattern": [
+    "C",
+    "I"
+  ],
+  "result": {
+    "count": 1,
+    "id": "ttll:bone_club"
+  }
+}

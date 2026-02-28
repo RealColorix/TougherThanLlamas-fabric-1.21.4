@@ -55,7 +55,7 @@ public abstract class GrassBlockMixin {
 
         // 2. LIGHT CHECK & RANDOM THROTTLE (1-in-7)
         if (world.getLightLevel(pos.up()) >= 9) {
-            if (random.nextInt(7) == 0) {
+            if (random.nextInt(25) == 0) {
                 attemptSpread(world, pos, random);
             }
         }

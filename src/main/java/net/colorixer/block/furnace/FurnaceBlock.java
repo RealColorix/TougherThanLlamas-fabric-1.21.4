@@ -1,6 +1,7 @@
 package net.colorixer.block.furnace;
 
 import com.mojang.serialization.MapCodec;
+import net.colorixer.block.ModBlocks;
 import net.colorixer.item.ModItems;
 import net.colorixer.item.items.firestarteritem.FireStarterItem;
 import net.colorixer.item.items.firestarteritem.FireStarterItemSmoke;
@@ -116,8 +117,8 @@ public class FurnaceBlock extends FallingBlock implements BlockEntityProvider {
             // 1. Play the break sound
             world.playSound(null, pos, net.minecraft.sound.SoundEvents.BLOCK_STONE_BREAK, net.minecraft.sound.SoundCategory.BLOCKS, 1.0f, 0.8f);
 
-            // 2. Determine count (6-10)
-            int count = world.random.nextBetween(6, 10);
+
+            int count = world.random.nextBetween(6, 16);
 
             // 3. Spawn each rock individually with random velocity
             for (int i = 0; i < count; i++) {
@@ -126,7 +127,7 @@ public class FurnaceBlock extends FallingBlock implements BlockEntityProvider {
                 double z = pos.getZ() + 0.5;
 
                 net.minecraft.entity.ItemEntity rockEntity = new net.minecraft.entity.ItemEntity(world, x, y, z,
-                        new ItemStack(net.colorixer.item.ModItems.ROCK, 1));
+                        new ItemStack(ModBlocks.DRIED_BRICK, 1));
 
                 // Apply random "scatter" velocity
                 // Horizontal spread (-0.1 to 0.1) and a slight upward pop (0.2)

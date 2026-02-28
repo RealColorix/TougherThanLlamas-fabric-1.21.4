@@ -113,8 +113,9 @@
 		"LivingAnimalEntityModifier",
 		"RespawnTimeMixin",
 		"WaterFogMixin",
-		"HeldItemRendererMixin"
-
+		"HeldItemRendererMixin",
+		"SwordBlockingMixin",
+		"ResourcePackPriorityMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

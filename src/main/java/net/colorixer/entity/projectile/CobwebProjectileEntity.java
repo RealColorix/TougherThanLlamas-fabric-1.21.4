@@ -10,7 +10,11 @@ import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.thrown.SnowballEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.tag.FluidTags; // --- NEW IMPORT REQUIRED FOR WATER CHECK ---
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
@@ -24,6 +28,13 @@ public class CobwebProjectileEntity extends SnowballEntity {
         super(type, world);
     }
 
+    @Override
+    public void tick() {
+        super.tick();
+        if (this.isTouchingWater()) {
+            this.dissolveInWater();
+        }
+    }
 
     @Override
     protected void onEntityHit(EntityHitResult hitResult) {
@@ -38,7 +49,6 @@ public class CobwebProjectileEntity extends SnowballEntity {
             mob.setTarget(null);
         }
     }
-
 
     /* ---------------- COLLISION ---------------- */
 
@@ -61,6 +71,12 @@ public class CobwebProjectileEntity extends SnowballEntity {
         /* ---- ENTITY HIT: PLACE AT ENTITY FEET ---- */
         if (hitResult instanceof EntityHitResult ehr) {
             Entity entity = ehr.getEntity();
+
+            if (entity.isTouchingWater()) {
+                this.dissolveInWater();
+                return;
+            }
+
             if (entity instanceof LivingEntity living) {
                 placePos = living.getBlockPos();
             }
@@ -69,6 +85,12 @@ public class CobwebProjectileEntity extends SnowballEntity {
         /* ---- BLOCK HIT: PLACE NEAR IMPACT ---- */
         else if (hitResult instanceof BlockHitResult bhr) {
             placePos = bhr.getBlockPos().offset(bhr.getSide());
+
+            // --- FIXED: Using FluidTags instead of isWater() ---
+            if (serverWorld.getBlockState(placePos).getFluidState().isIn(FluidTags.WATER)) {
+                this.dissolveInWater();
+                return;
+            }
         }
 
         boolean placed = false;
@@ -76,6 +98,13 @@ public class CobwebProjectileEntity extends SnowballEntity {
         if (placePos != null) {
             BlockPos grounded = findGroundedPos(serverWorld, placePos);
             if (grounded != null) {
+
+                // --- FIXED: Using FluidTags instead of isWater() ---
+                if (serverWorld.getBlockState(grounded).getFluidState().isIn(FluidTags.WATER)) {
+                    this.dissolveInWater();
+                    return;
+                }
+
                 placed = placeCobwebReplacing(serverWorld, grounded);
             }
         }
@@ -103,22 +132,19 @@ public class CobwebProjectileEntity extends SnowballEntity {
         if (state.isOf(Blocks.SNOW)) {
             int layers = state.get(SnowBlock.LAYERS);
 
-            // Only allow thin snow (≤ 3 layers)
             if (layers > 3) {
                 return false;
             }
 
-            // Break thin snow properly
             world.breakBlock(pos, true);
             world.setBlockState(pos, Blocks.COBWEB.getDefaultState());
             return true;
         }
-        // Only replace air or replaceable blocks
+
         if (!state.isAir() && !state.isReplaceable()) {
             return false;
         }
 
-        // Break existing replaceable block properly (drops items)
         if (!state.isAir()) {
             world.breakBlock(pos, true);
         }
@@ -127,7 +153,15 @@ public class CobwebProjectileEntity extends SnowballEntity {
         return true;
     }
 
-    /* ---------------- DROP FALLBACK ---------------- */
+    /* ---------------- EFFECTS & FALLBACKS ---------------- */
+
+    private void dissolveInWater() {
+        if (this.getWorld() instanceof ServerWorld serverWorld) {
+            serverWorld.spawnParticles(ParticleTypes.SPLASH, this.getX(), this.getY(), this.getZ(), 10, 0.2, 0.2, 0.2, 0.0);
+            serverWorld.playSound(null, this.getBlockPos(), SoundEvents.ENTITY_GENERIC_SPLASH, SoundCategory.PLAYERS, 0.5f, 1.5f);
+        }
+        this.discard();
+    }
 
     private void dropTangledWeb(ServerWorld world) {
         ItemEntity item = new ItemEntity(

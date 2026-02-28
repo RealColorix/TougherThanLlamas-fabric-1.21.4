@@ -7,7 +7,7 @@
   "key": {
     "/": "ttll:drying_rack_leg",
     "#": "#ttll:binding_strings",
-    "-": "#ttll:sticks"
+    "-": "minecraft:stick"
   },
   "result": {
     "id": "ttll:drying_rack",

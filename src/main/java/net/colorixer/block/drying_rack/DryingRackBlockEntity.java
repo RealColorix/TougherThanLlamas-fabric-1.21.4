@@ -5,6 +5,8 @@ import net.colorixer.item.ModItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.CustomModelDataComponent;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemStack;
@@ -15,6 +17,8 @@ import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 public class DryingRackBlockEntity extends BlockEntity {
 
@@ -34,12 +38,29 @@ public class DryingRackBlockEntity extends BlockEntity {
         for (int slot = 0; slot < 2; slot++) {
             ItemStack stack = inventory.get(slot);
 
-            if (!stack.isEmpty() && stack.getItem() == ModItems.RAW_LEATHER) {
-                dryingTime[slot]++;
-                if (dryingTime[slot] >= MAX_DRYING_TIME) {
-                    inventory.set(slot, new ItemStack(Items.LEATHER));
+            if (!stack.isEmpty()) {
+                if (stack.isOf(ModItems.RAW_LEATHER)) {
+                    dryingTime[slot]++;
+                    if (dryingTime[slot] >= MAX_DRYING_TIME) {
+                        inventory.set(slot, new ItemStack(Items.LEATHER));
+                        dryingTime[slot] = 0;
+                        markDirtyAndUpdate();
+                    }
+                } else if (stack.isOf(ModItems.LAYERED_BAGASSE)) {
+                    dryingTime[slot]++;
+                    if (dryingTime[slot] >= MAX_DRYING_TIME) {
+                        ItemStack parchment = new ItemStack(ModItems.PARCHMENT);
+                        // Apply custom texture for Parchment while it stays on the rack
+                        parchment.set(
+                                DataComponentTypes.CUSTOM_MODEL_DATA,
+                                new CustomModelDataComponent(List.of(101f), List.of(), List.of(), List.of())
+                        );
+                        inventory.set(slot, parchment);
+                        dryingTime[slot] = 0;
+                        markDirtyAndUpdate();
+                    }
+                } else {
                     dryingTime[slot] = 0;
-                    markDirtyAndUpdate();
                 }
             } else {
                 dryingTime[slot] = 0;
@@ -47,19 +68,22 @@ public class DryingRackBlockEntity extends BlockEntity {
         }
     }
 
-
     public void dropContents() {
         if (world == null || world.isClient) return;
 
         for (ItemStack stack : inventory) {
             if (!stack.isEmpty()) {
+                ItemStack drop = stack.copy();
+                // Strip the custom texture data when it falls on the ground
+                drop.remove(DataComponentTypes.CUSTOM_MODEL_DATA);
+
                 world.spawnEntity(
                         new ItemEntity(
                                 world,
                                 pos.getX() + 0.5,
                                 pos.getY() + 0.5,
                                 pos.getZ() + 0.5,
-                                stack.copy()
+                                drop
                         )
                 );
             }
@@ -79,6 +103,9 @@ public class DryingRackBlockEntity extends BlockEntity {
 
     public ItemStack removeStack(int slot) {
         ItemStack out = inventory.get(slot).copy();
+        // Strip the custom texture data when the player takes it
+        out.remove(DataComponentTypes.CUSTOM_MODEL_DATA);
+
         inventory.set(slot, ItemStack.EMPTY);
         dryingTime[slot] = 0;
         markDirtyAndUpdate();
@@ -122,9 +149,13 @@ public class DryingRackBlockEntity extends BlockEntity {
         if (world != null && !world.isClient) {
             for (ItemStack st : inventory) {
                 if (!st.isEmpty()) {
+                    ItemStack drop = st.copy();
+                    // Strip the custom texture data when it falls on the ground
+                    drop.remove(DataComponentTypes.CUSTOM_MODEL_DATA);
+
                     world.spawnEntity(new ItemEntity(world,
                             pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
-                            st.copy()));
+                            drop));
                 }
             }
             inventory.clear();

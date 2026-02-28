@@ -22,6 +22,14 @@
 
     "age=5,crop_status=0": { "model": "ttll:block/hemp_stage_top" },
     "age=5,crop_status=1": { "model": "ttll:block/hemp_stage_top_dying" },
-    "age=5,crop_status=2": { "model": "ttll:block/hemp_stage_top_dead" }
+    "age=5,crop_status=2": { "model": "ttll:block/hemp_stage_top_dead" },
+
+    "age=6,crop_status=0": { "model": "ttll:block/hemp_stage_top" },
+    "age=6,crop_status=1": { "model": "ttll:block/hemp_stage_top_dying" },
+    "age=6,crop_status=2": { "model": "ttll:block/hemp_stage_top_dead" },
+
+    "age=7,crop_status=0": { "model": "ttll:block/hemp_stage_top" },
+    "age=7,crop_status=1": { "model": "ttll:block/hemp_stage_top_dying" },
+    "age=7,crop_status=2": { "model": "ttll:block/hemp_stage_top_dead" }
   }
 }

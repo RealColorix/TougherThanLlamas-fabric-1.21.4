@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "on_farmland=true": {"model": "ttll:block/grass_seeds_on_farmland"},
+    "on_farmland=false": {"model": "ttll:block/grass_seeds"}}
+}

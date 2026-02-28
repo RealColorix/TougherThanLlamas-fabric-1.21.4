@@ -127,6 +127,7 @@ public class TougherThanLlamasClient implements ClientModInitializer {
 		BlockRenderLayerMap.INSTANCE.putBlock(Blocks.FARMLAND, RenderLayer.getCutout());
 		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.WEEDS, RenderLayer.getCutout());
 		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.HEMP_SEEDS, RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.GRASS_SEEDS, RenderLayer.getCutout());
 
 		HudRenderCallback.EVENT.register((drawContext, renderTickCounter) -> {
 			MinecraftClient client = MinecraftClient.getInstance();

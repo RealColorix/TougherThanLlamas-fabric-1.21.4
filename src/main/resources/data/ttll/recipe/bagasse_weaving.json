@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "ttll:bagasse",
+    "ttll:bagasse",
+    "ttll:bagasse",
+    "ttll:bagasse"
+  ],
+  "result": {
+    "id": "ttll:bagasse_weaving",
+    "count": 1
+  }
+}

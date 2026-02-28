@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "#ttll:cloth",
+    "#ttll:paper"
+  ],
+  "result": {
+    "id": "ttll:bandages",
+    "count": 1
+  }
+}

@@ -12,11 +12,14 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(BackgroundRenderer.class)
 public class WaterFogMixin {
+
+    // Store the calculated light multiplier so we don't have to run the heavy math twice per frame!
+    @Unique
+    private static float lastWaterLightMultiplier = 1.0f;
 
     @Inject(method = "getFogColor", at = @At("RETURN"), cancellable = true)
     private static void ttll$makeWaterFogDarkInCaves(Camera camera, float tickDelta, ClientWorld world, int clampedViewDistance, float skyDarkness, CallbackInfoReturnable<Vector4f> cir) {
@@ -24,7 +27,6 @@ public class WaterFogMixin {
             Vector4f originalColor = cir.getReturnValue();
 
             // 1. Get the lightmap coordinates for the camera's EXACT position
-            // This method uses the internal lightmap which is already smoothed/interpolated
             Vec3d camPos = camera.getPos();
 
             int x0 = MathHelper.floor(camPos.x);
@@ -58,28 +60,27 @@ public class WaterFogMixin {
 
             float smoothLight = MathHelper.lerp(fz, l0, l1);
 
-
-
             // Normalize light into 0–1 range
             float x = MathHelper.clamp((smoothLight - 0.05f) / 0.95f, 0.0f, 1.0f);
 
-// Exponential curve
-// Higher strength = more aggressive darkness curve
+            // Exponential curve
             float strength = 6.0f;
-            float multiplier = 1.0f - (float)Math.exp(-x * strength);
+            lastWaterLightMultiplier = 1.0f - (float)Math.exp(-x * strength); // Save it for applyFog!
+
             cir.setReturnValue(new Vector4f(
-                    originalColor.x * multiplier,
-                    originalColor.y * multiplier,
-                    originalColor.z * multiplier,
+                    originalColor.x * lastWaterLightMultiplier,
+                    originalColor.y * lastWaterLightMultiplier,
+                    originalColor.z * lastWaterLightMultiplier,
                     originalColor.w
             ));
         }
     }
+
     @Inject(method = "applyFog", at = @At("RETURN"), cancellable = true)
     private static void ttll$makeWaterLayeredEffect(
             Camera camera,
             BackgroundRenderer.FogType fogType,
-            Vector4f color, // This color variable now holds the Dynamic Black/Blue color
+            Vector4f color,
             float viewDistance,
             boolean thickenFog,
             float tickDelta,
@@ -87,21 +88,24 @@ public class WaterFogMixin {
     ) {
         if (camera.getSubmersionType() == CameraSubmersionType.WATER) {
 
-
             float start = 0.0f;
-            float end = 16.0f;
+
+            // Map the multiplier (0.0 to 1.0) directly to our desired distance (1.0 to 16.0)
+            // If it's pitch black, it equals 1. If it's fully lit, it equals 16.
+            float end = 1.0f + (15.0f * lastWaterLightMultiplier);
 
             cir.setReturnValue(new Fog(
                     start,
                     end,
-                    FogShape.SPHERE, // Sphere feels more immersive than Cylinder underwater
-                    color.x(), // Use the Red from getFogColor (Dynamic!)
-                    color.y(), // Use the Green from getFogColor (Dynamic!)
-                    color.z(), // Use the Blue from getFogColor (Dynamic!)
-                    color.w()  // Alpha
+                    FogShape.SPHERE,
+                    color.x(),
+                    color.y(),
+                    color.z(),
+                    color.w()
             ));
         }
     }
+
     @Unique
     private static float getLight(ClientWorld world, int x, int y, int z, float skyDarkness) {
 

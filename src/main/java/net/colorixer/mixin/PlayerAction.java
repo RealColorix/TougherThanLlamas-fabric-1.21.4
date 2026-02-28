@@ -6,10 +6,14 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -139,6 +143,50 @@ public abstract class PlayerAction {
                     randomVolume,
                     randomPitch
             );
+        }
+    }
+    @Inject(method = "modifyAppliedDamage", at = @At("RETURN"), cancellable = true)
+    private void reduceSwordBlockDamage(DamageSource source, float amount, CallbackInfoReturnable<Float> cir) {
+        float currentDamage = cir.getReturnValue();
+
+        // Cast to LivingEntity for item checks
+        LivingEntity livingEntity = (LivingEntity) (Object) this;
+        // Cast to Entity for position and rotation checks (this fixes the getPos error!)
+        net.minecraft.entity.Entity entity = (net.minecraft.entity.Entity) (Object) this;
+
+        // Check if taking damage, actively blocking, and the damage is blockable
+        if (currentDamage > 0.0F && livingEntity.isUsingItem() && !source.isIn(DamageTypeTags.BYPASSES_SHIELD)) {
+            ItemStack activeStack = livingEntity.getActiveItem();
+
+            if (activeStack.isOf(Items.IRON_SWORD) || activeStack.isOf(Items.GOLDEN_SWORD) ||
+                    activeStack.isOf(Items.DIAMOND_SWORD) || activeStack.isOf(Items.NETHERITE_SWORD)) {
+
+                Vec3d attackerPos = source.getPosition();
+                if (attackerPos != null) {
+                    Vec3d lookDir = entity.getRotationVec(1.0F);
+                    Vec3d toAttacker = attackerPos.subtract(entity.getPos());
+
+                    // Flatten vectors to ignore height differences (exactly how vanilla shields work)
+                    lookDir = new Vec3d(lookDir.x, 0, lookDir.z).normalize();
+                    toAttacker = new Vec3d(toAttacker.x, 0, toAttacker.z).normalize();
+
+                    // If dot product is > 0, the attacker is within a 90-degree frontal cone
+                    // If dot product is > 0, the attacker is within a 90-degree frontal cone
+                    if (lookDir.dotProduct(toAttacker) > 0.0) {
+                        cir.setReturnValue(currentDamage * 0.5F); // Cut the damage in half!
+
+                        // --- NEW SWORD CLASH SOUND ---
+                        entity.getWorld().playSound(
+                                null,
+                                entity.getBlockPos(),
+                                net.minecraft.sound.SoundEvents.ITEM_TRIDENT_HIT,
+                                net.minecraft.sound.SoundCategory.PLAYERS,
+                                0.8F,
+                                1.3F + (entity.getWorld().random.nextFloat() * 0.2F) // Pitched up for a sharp metallic ring!
+                        );
+                    }
+                }
+            }
         }
     }
 }

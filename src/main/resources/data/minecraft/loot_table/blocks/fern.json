@@ -18,35 +18,6 @@
                 }
               ],
               "name": "minecraft:fern"
-            },
-            {
-              "type": "minecraft:item",
-              "conditions": [
-                {
-                  "chance": 0.0078125,
-                  "condition": "minecraft:random_chance"
-                },
-                {
-                  "condition": "minecraft:match_tool",
-                  "predicate": {
-                    "items": "ttll:flint"
-                  }
-                }
-              ],
-              "functions": [
-                {
-                  "enchantment": "minecraft:fortune",
-                  "formula": "minecraft:uniform_bonus_count",
-                  "function": "minecraft:apply_bonus",
-                  "parameters": {
-                    "bonusMultiplier": 2
-                  }
-                },
-                {
-                  "function": "minecraft:explosion_decay"
-                }
-              ],
-              "name": "ttll:grass_fiber"
             }
           ]
         }

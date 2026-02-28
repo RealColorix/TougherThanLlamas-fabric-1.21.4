@@ -166,7 +166,7 @@ public abstract class CreeperModifier
                     Vec3d dir = new Vec3d(target.getX() - this.getX(), 0, target.getZ() - this.getZ()).normalize();
 
                     // Scale jump with distance: (distance / 3) * current horizontal power, capped at 3
-                    double horizontalPower = Math.min(3.0, (distance / 3.0) * 0.7); // 1.0 is base jump power, adjust as needed
+                    double horizontalPower = Math.min(2.0, (distance / 4.0) * 0.7); // 1.0 is base jump power, adjust as needed
 
                     // Vertical jump component can scale with distance too, optional
                     double vertical = 0.25;
