@@ -1,0 +1,18 @@
+{
+  "type": "ttll:tool_damage",
+  "category": "building",
+  "group": "spruce_planks",
+  "ingredients": [
+    "#minecraft:axes",
+    [
+      "minecraft:spruce_log",
+      "minecraft:stripped_spruce_log",
+      "minecraft:spruce_wood",
+      "minecraft:stripped_spruce_wood"
+    ]
+  ],
+  "result": {
+    "id": "minecraft:spruce_planks",
+    "count": 1
+  }
+}

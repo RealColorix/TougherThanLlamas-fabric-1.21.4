@@ -1,0 +1,13 @@
+{
+  "type": "ttll:tool_damage",
+  "category": "misc",
+  "group": "pointy_stick",
+  "ingredients": [
+    "minecraft:stick",
+    "#ttll:chipping_tools"
+  ],
+  "result": {
+    "id": "ttll:pointy_stick",
+    "count": 1
+  }
+}

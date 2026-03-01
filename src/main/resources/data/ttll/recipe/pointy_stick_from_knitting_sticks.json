@@ -1,6 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "misc",
+  "group": "pointy_stick",
   "key": {
     "/": "ttll:knitting_sticks"
   },

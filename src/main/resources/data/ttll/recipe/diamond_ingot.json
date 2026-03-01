@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shapeless",
+  "category": "misc",
   "ingredients": [
     "ttll:creeper_sack",
     "ttll:fire_creeper_sack",

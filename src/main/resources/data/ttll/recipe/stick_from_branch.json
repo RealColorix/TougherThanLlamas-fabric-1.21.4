@@ -1,0 +1,13 @@
+{
+  "type": "ttll:tool_damage",
+  "category": "misc",
+  "group": "stick",
+  "ingredients": [
+    "ttll:branch",
+    "#ttll:chipping_tools"
+  ],
+  "result": {
+    "id": "minecraft:stick",
+    "count": 1
+  }
+}

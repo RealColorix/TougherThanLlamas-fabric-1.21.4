@@ -1,0 +1,12 @@
+{
+  "type": "ttll:tool_damage",
+  "category": "misc",
+  "ingredients": [
+    "ttll:tangled_web",
+    "minecraft:shears"
+  ],
+  "result": {
+    "id": "minecraft:string",
+    "count": 1
+  }
+}

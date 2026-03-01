@@ -1,6 +1,7 @@
 {
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
+  "group": "knitting",
   "ingredients": [
     "ttll:knitting_sticks",
     "ttll:light_blue_wool",

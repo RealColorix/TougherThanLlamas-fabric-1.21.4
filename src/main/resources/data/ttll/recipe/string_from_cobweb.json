@@ -1,0 +1,12 @@
+{
+  "type": "ttll:tool_damage",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:cobweb",
+    "minecraft:shears"
+  ],
+  "result": {
+    "id": "minecraft:string",
+    "count": 2
+  }
+}

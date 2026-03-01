@@ -1,0 +1,18 @@
+{
+  "type": "ttll:tool_damage",
+  "category": "building",
+  "group": "jungle_planks",
+  "ingredients": [
+    "#minecraft:axes",
+    [
+      "minecraft:jungle_log",
+      "minecraft:stripped_jungle_log",
+      "minecraft:jungle_wood",
+      "minecraft:stripped_jungle_wood"
+    ]
+  ],
+  "result": {
+    "id": "minecraft:jungle_planks",
+    "count": 1
+  }
+}

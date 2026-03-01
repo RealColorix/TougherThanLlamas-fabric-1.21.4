@@ -1,0 +1,18 @@
+{
+  "type": "ttll:tool_damage",
+  "category": "building",
+  "group": "acacia_planks",
+  "ingredients": [
+    "#minecraft:axes",
+    [
+      "minecraft:acacia_log",
+      "minecraft:stripped_acacia_log",
+      "minecraft:acacia_wood",
+      "minecraft:stripped_acacia_wood"
+    ]
+  ],
+  "result": {
+    "id": "minecraft:acacia_planks",
+    "count": 1
+  }
+}

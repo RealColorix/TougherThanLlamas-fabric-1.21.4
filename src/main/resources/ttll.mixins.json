@@ -115,7 +115,10 @@
 		"WaterFogMixin",
 		"HeldItemRendererMixin",
 		"SwordBlockingMixin",
-		"ResourcePackPriorityMixin"
+		"ResourcePackPriorityMixin",
+		"ShapelessRecipeAccessor",
+		"PlayerInventoryMixin",
+		"RecipeBookAutoFillMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

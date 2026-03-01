@@ -1,0 +1,13 @@
+{
+  "type": "ttll:tool_damage",
+  "category": "misc",
+  "group": "stick",
+  "ingredients": [
+    "#ttll:firewood",
+    "#ttll:beginner_stone_mining_tools"
+  ],
+  "result": {
+    "id": "minecraft:stick",
+    "count": 1
+  }
+}

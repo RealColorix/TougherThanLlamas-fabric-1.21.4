@@ -1,0 +1,18 @@
+{
+  "type": "ttll:tool_damage",
+  "category": "building",
+  "group": "oak_planks",
+  "ingredients": [
+    "#minecraft:axes",
+    [
+      "minecraft:oak_log",
+      "minecraft:stripped_oak_log",
+      "minecraft:oak_wood",
+      "minecraft:stripped_oak_wood"
+    ]
+  ],
+  "result": {
+    "id": "minecraft:oak_planks",
+    "count": 1
+  }
+}

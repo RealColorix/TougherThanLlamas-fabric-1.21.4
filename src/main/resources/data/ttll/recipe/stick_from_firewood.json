@@ -1,0 +1,21 @@
+{
+  "type": "ttll:tool_damage",
+  "category": "misc",
+  "group": "stick",
+  "ingredients": [
+    "#ttll:firewood",
+    [
+      "minecraft:wooden_axe",
+      "minecraft:stone_axe",
+      "minecraft:iron_axe",
+      "minecraft:golden_axe",
+      "minecraft:diamond_axe",
+      "minecraft:netherite_axe",
+      "ttll:flint_axe"
+    ]
+  ],
+  "result": {
+    "id": "minecraft:stick",
+    "count": 2
+  }
+}

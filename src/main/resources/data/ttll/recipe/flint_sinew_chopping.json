@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shapeless",
+  "category": "misc",
   "ingredients": [
     "#ttll:uncooked_meats",
     "#ttll:uncooked_meats",

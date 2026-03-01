@@ -1,0 +1,12 @@
+{
+  "type": "ttll:tool_damage",
+  "category": "misc",
+  "ingredients": [
+    "#ttll:chipping_tools",
+    "minecraft:sugar_cane"
+  ],
+  "result": {
+    "id": "ttll:sugar_cane_mash",
+    "count": 1
+  }
+}

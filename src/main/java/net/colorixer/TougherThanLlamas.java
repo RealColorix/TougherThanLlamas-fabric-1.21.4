@@ -6,7 +6,6 @@ import net.colorixer.block.falling_slabs.FallingSlabBlock;
 import net.colorixer.block.ModBlockEntities;
 import net.colorixer.block.ModBlocks;
 import net.colorixer.component.ModDataComponentTypes;
-import net.colorixer.effect.BleedingStatusEffect;
 import net.colorixer.effect.ModEffects;
 import net.colorixer.entity.ModEntities;
 import net.colorixer.entity.hostile.creeper.firecreeper.FireCreeperEntity;
@@ -30,9 +29,7 @@ import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.SlabType;
 import net.minecraft.entity.*;
-import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.mob.HostileEntity;
-import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -113,6 +110,8 @@ public class TougherThanLlamas implements ModInitializer {
 	}
 
 
+
+
 	public static final DestroyBlockCriterion DESTROY_BLOCK = Criteria.register("ttll:destroy_block", new DestroyBlockCriterion());
 	public static final InVicinityCriterion IN_VICINITY = Criteria.register("ttll:in_vicinity", new InVicinityCriterion());
 
@@ -129,7 +128,6 @@ public class TougherThanLlamas implements ModInitializer {
 		ModSounds.registerSounds();
 		OreWorldGen.registerWorldGen();
 		ModEffects.registerEffects();
-
 
 
 		ServerLifecycleEvents.SERVER_STARTED.register(server -> {

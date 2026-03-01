@@ -36,8 +36,6 @@ public abstract class PlayerEntityMixin {
     @Unique
     private static final TagKey<Block> FOLIAGE_SLOWERS = TagKey.of(RegistryKeys.BLOCK, IdentifierUtil.createIdentifier("ttll", "foliageslowers"));
 
-
-
     // This stores the last block's penalty so it carries into your jump
     @Unique
     private float lastTerrainMultiplier = 1.0f;
@@ -53,8 +51,6 @@ public abstract class PlayerEntityMixin {
                 .add(EntityAttributes.FALL_DAMAGE_MULTIPLIER, 1.5D);
     }
 
-
-
     @Inject(method = "getMovementSpeed", at = @At("RETURN"), cancellable = true)
     private void ttll$applyDynamicSpeed(CallbackInfoReturnable<Float> cir) {
         PlayerEntity player = (PlayerEntity) (Object) this;
@@ -69,9 +65,8 @@ public abstract class PlayerEntityMixin {
          */
         float armorMultiplier = 1.0f - (armorWeight * 0.015f);
 
-// hard floor so speed never collapses
+        // hard floor so speed never collapses
         armorMultiplier = MathHelper.clamp(armorMultiplier, 0.7f, 1.0f);
-
 
         // --- 1. HEALTH & HUNGER PENALTY ---
         float healthRatio = player.getHealth() / player.getMaxHealth();
@@ -119,14 +114,16 @@ public abstract class PlayerEntityMixin {
 
         // --- 4. FOLIAGE PENALTY ---
         boolean inFoliage = false;
-        Box feetBox = player.getBoundingBox().offset(0.0, -0.1, 0.0);
 
-        int minX = MathHelper.floor(feetBox.minX);
-        int maxX = MathHelper.floor(feetBox.maxX);
-        int minY = MathHelper.floor(feetBox.minY);
-        int maxY = MathHelper.floor(feetBox.maxY);
-        int minZ = MathHelper.floor(feetBox.minZ);
-        int maxZ = MathHelper.floor(feetBox.maxZ);
+        // REMOVED the -0.1 Y offset. Now it only checks blocks the player is physically intersecting.
+        Box bodyBox = player.getBoundingBox();
+
+        int minX = MathHelper.floor(bodyBox.minX);
+        int maxX = MathHelper.floor(bodyBox.maxX);
+        int minY = MathHelper.floor(bodyBox.minY);
+        int maxY = MathHelper.floor(bodyBox.maxY);
+        int minZ = MathHelper.floor(bodyBox.minZ);
+        int maxZ = MathHelper.floor(bodyBox.maxZ);
 
         for (int x = minX; x <= maxX; x++) {
             for (int y = minY; y <= maxY; y++) {
@@ -134,14 +131,8 @@ public abstract class PlayerEntityMixin {
                     BlockPos pos = new BlockPos(x, y, z);
                     BlockState state = player.getWorld().getBlockState(pos);
 
-                    if (state.isAir()) continue;
+                    // Strictly checking your tag. Removed the buggy catch-all replaceable check.
                     if (FOLIAGE_SLOWERS != null && state.isIn(FOLIAGE_SLOWERS)) {
-                        inFoliage = true;
-                        break;
-                    }
-
-                    if (!state.getCollisionShape(player.getWorld(), pos).isEmpty()) continue;
-                    if (state.getBlock().getDefaultState().isReplaceable()) {
                         inFoliage = true;
                         break;
                     }

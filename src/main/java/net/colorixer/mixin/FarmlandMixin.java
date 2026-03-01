@@ -1,5 +1,6 @@
 package net.colorixer.mixin;
 
+import net.colorixer.block.ModBlocks;
 import net.colorixer.util.FarmlandHelper;
 import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;

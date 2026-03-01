@@ -1,0 +1,13 @@
+{
+  "type": "ttll:tool_damage",
+  "category": "misc",
+  "group": "firewood",
+  "ingredients": [
+    "minecraft:jungle_log",
+    "ttll:flint_axe"
+  ],
+  "result": {
+    "id": "ttll:jungle_firewood",
+    "count": 2
+  }
+}
