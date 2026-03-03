@@ -25,6 +25,7 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.SlabType;
@@ -110,6 +111,7 @@ public class TougherThanLlamas implements ModInitializer {
 	}
 
 
+	public static final boolean IS_SODIUM_LOADED = FabricLoader.getInstance().isModLoaded("sodium");
 
 
 	public static final DestroyBlockCriterion DESTROY_BLOCK = Criteria.register("ttll:destroy_block", new DestroyBlockCriterion());
@@ -129,6 +131,7 @@ public class TougherThanLlamas implements ModInitializer {
 		OreWorldGen.registerWorldGen();
 		ModEffects.registerEffects();
 
+// In your mod initializer or a dedicated class
 
 		ServerLifecycleEvents.SERVER_STARTED.register(server -> {
 			if (server.getDefaultGameMode() == GameMode.SURVIVAL || server.isHardcore()) {
@@ -199,15 +202,12 @@ public class TougherThanLlamas implements ModInitializer {
 		});
 
 
-
-		// 1. In your JOIN event, just mark the player
+/**
 		ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
 			handler.getPlayer().addCommandTag("needs_recipe_sync");
 		});
 
-// 2. In your END_SERVER_TICK, process them in chunks
 		ServerTickEvents.END_SERVER_TICK.register(server -> {
-			// Only run this logic every 10 ticks to keep it "slow" and safe
 			if (server.getTicks() % 10 != 0) return;
 
 			var recipeManager = server.getRecipeManager();
@@ -216,8 +216,6 @@ public class TougherThanLlamas implements ModInitializer {
 
 			for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
 				if (player.getCommandTags().contains("needs_recipe_sync")) {
-					// Use a custom data component or a simple counter via tags to track progress
-					// For simplicity, we'll use a tag with the current index
 					int currentIndex = getSyncIndex(player);
 
 					int toIndex = Math.min(currentIndex + batchSize, allRecipes.size());
@@ -230,14 +228,13 @@ public class TougherThanLlamas implements ModInitializer {
 						player.removeCommandTag("recipe_index_" + currentIndex);
 						LOGGER.info("Finished syncing all recipes for " + player.getName().getString());
 					} else {
-						// Update the index tag
 						player.removeCommandTag("recipe_index_" + currentIndex);
 						player.addCommandTag("recipe_index_" + toIndex);
 					}
 				}
 			}
 		});
-
+**/
 
 
 		ServerTickEvents.END_SERVER_TICK.register(server -> {

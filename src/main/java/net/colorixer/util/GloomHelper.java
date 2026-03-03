@@ -61,8 +61,6 @@ public class GloomHelper {
 
                 // --- SERVER ONLY: Damage and Status Effects ---
                 if (isServer) {
-                    // Darkness Effect
-                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.DARKNESS, 40, 0, false, false, false));
 
                     // Terror Damage
                     if (gloomTicks > 2400 && player.getRandom().nextInt(100) == 0) {

@@ -30,13 +30,11 @@ public class ModEntities {
     public static final EntityType<CobwebProjectileEntity> COBWEB_PROJECTILE =
             Registry.register(
                     Registries.ENTITY_TYPE,
-                    COBWEB_PROJECTILE_KEY.getValue(),
-                    FabricEntityTypeBuilder
-                            .<CobwebProjectileEntity>create(SpawnGroup.MISC)
-                            .entityFactory(CobwebProjectileEntity::new)
-                            .dimensions(EntityDimensions.fixed(0.25F, 0.25F))
-                            .trackRangeBlocks(4)
-                            .trackedUpdateRate(10)
+                    COBWEB_PROJECTILE_KEY,
+                    EntityType.Builder.create(CobwebProjectileEntity::new, SpawnGroup.MISC)
+                            .dimensions(0.25F, 0.25F)
+                            .maxTrackingRange(4)
+                            .trackingTickInterval(10)
                             .build(COBWEB_PROJECTILE_KEY)
             );
 
@@ -90,12 +88,9 @@ public class ModEntities {
     public static final EntityType<JungleSpiderEntity> JUNGLE_SPIDER =
             Registry.register(
                     Registries.ENTITY_TYPE,
-                    JUNGLE_SPIDER_KEY.getValue(),
-                    FabricEntityTypeBuilder
-                            .<JungleSpiderEntity>create(SpawnGroup.MONSTER)
-                            .entityFactory(JungleSpiderEntity::new)
-                            // Cave Spider dimensions: 0.7 wide, 0.5 high
-                            .dimensions(EntityDimensions.fixed(0.7F, 0.5F))
+                    JUNGLE_SPIDER_KEY,
+                    EntityType.Builder.create(JungleSpiderEntity::new, SpawnGroup.MONSTER)
+                            .dimensions(0.7F, 0.5F)
                             .build(JUNGLE_SPIDER_KEY)
             );
 

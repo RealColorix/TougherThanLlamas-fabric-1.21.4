@@ -226,6 +226,7 @@ public class ModBlocks {
                     .burnable()
                     .pistonBehavior(PistonBehavior.DESTROY)
                     .nonOpaque()
+                    .replaceable()
                     .breakInstantly()
     );
 

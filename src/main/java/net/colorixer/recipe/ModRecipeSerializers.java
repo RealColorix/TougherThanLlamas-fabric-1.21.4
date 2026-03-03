@@ -1,7 +1,7 @@
 package net.colorixer.recipe;
 
 import com.mojang.serialization.MapCodec;
-import net.colorixer.mixin.ShapelessRecipeAccessor;
+import net.colorixer.mixin.options.crafting.ShapelessRecipeAccessor;
 import net.colorixer.recipe.tool_damage_crafting.ToolDamageRecipe;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;

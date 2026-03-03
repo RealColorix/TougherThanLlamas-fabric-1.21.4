@@ -2,7 +2,7 @@ package net.colorixer.util;
 
 import net.colorixer.block.ModBlocks;
 import net.colorixer.block.torch.CrudeTorchBlock;
-import net.colorixer.mixin.StructureBlockInfoAccessor;
+import net.colorixer.mixin.generation.StructureBlockInfoAccessor;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.nbt.NbtCompound;

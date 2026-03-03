@@ -207,6 +207,9 @@ public class CampfireBlockEntity extends BlockEntity {
         map.put(ModItems.JUNGLE_FIREWOOD, 1250.0f);
         map.put(ModItems.SPRUCE_FIREWOOD, 1250.0f);
         map.put(ModItems.BIRCH_FIREWOOD, 1250.0f);
+        map.put(ModItems.COAL_DUST, 1750f);
+        map.put(Items.COAL, 3500f);
+        map.put(Items.CHARCOAL, 3500f);
         map.put(ModItems.OAK_BARK, 125f);
         map.put(ModItems.JUNGLE_BARK, 125f);
         map.put(ModItems.SPRUCE_BARK, 125f);

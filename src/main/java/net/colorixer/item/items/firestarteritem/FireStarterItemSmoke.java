@@ -1,10 +1,12 @@
 package net.colorixer.item.items.firestarteritem;
 
+import net.colorixer.item.ModItems;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ItemStackParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -43,7 +45,7 @@ public class FireStarterItemSmoke {
             double itemZ = player.getZ() + (look.z * 0.6);
 
             serverWorld.spawnParticles(
-                    new ItemStackParticleEffect(ParticleTypes.ITEM, stack),
+                    new ItemStackParticleEffect(ParticleTypes.ITEM, new ItemStack(ModItems.POINTY_STICK)),
                     itemX, itemY, itemZ,
                     3, // Amount of wood chips
                     0.05, 0.1, 0.05, // Spread so they pop outward

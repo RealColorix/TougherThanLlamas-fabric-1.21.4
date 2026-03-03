@@ -105,7 +105,6 @@ public class CampfireBlock extends FallingBlock implements BlockEntityProvider, 
         // Get the item the player is actually holding
         Hand hand = player.getActiveHand();
         ItemStack stack = player.getStackInHand(hand);
-
         // Check if campfire is unlit and player is holding the FireStarterItem
         if (!state.get(LIT) && stack.getItem() instanceof FireStarterItem) {
             if (!world.isClient) {

@@ -1,6 +1,6 @@
 package net.colorixer.util;
 
-import net.colorixer.mixin.MobEntityAccessor;
+import net.colorixer.mixin.entities.hostile.MobEntityAccessor;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.mob.MobEntity;
 

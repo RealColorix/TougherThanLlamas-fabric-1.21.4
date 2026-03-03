@@ -47,6 +47,13 @@ dependencies {
 	// The specific version of SpruceUI requested by your error
 	modLocalRuntime "dev.lambdaurora:spruceui:6.2.2+1.21.4"
 
+
+
+	modCompileOnly "maven.modrinth:sodium:mc1.21.4-0.6.13-fabric"
+	modLocalRuntime "maven.modrinth:sodium:mc1.21.4-0.6.13-fabric"
+
+
+
 }
 
 processResources {

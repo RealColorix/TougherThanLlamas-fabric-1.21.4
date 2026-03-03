@@ -1,0 +1,89 @@
+package net.colorixer.mixin.options.player;
+
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+@Mixin(PlayerEntity.class)
+public abstract class SwimmingMixin extends LivingEntity {
+
+    protected SwimmingMixin(EntityType<? extends LivingEntity> entityType, World world) {
+        super(entityType, world);
+    }
+
+
+    @Inject(method = "travel", at = @At("HEAD"))
+    private void ttll$applySwimmingPenalty(Vec3d movementInput, CallbackInfo ci) {
+        PlayerEntity player = (PlayerEntity) (Object) this;
+        if (player.getAbilities().creativeMode) return;
+
+        World world = this.getWorld();
+        BlockPos pos = this.getBlockPos();
+
+        // 1. HEALTH & HUNGER RATIOS
+        float healthRatio = player.getHealth() / player.getMaxHealth();
+        // Original min was 0.1, now min is ~0.55 for a "half strength" feel
+        float healthMultiplier = healthRatio > 0.25f
+                ? 0.9f + (healthRatio - 0.25f) * (0.1f / 0.75f)
+                : 0.55f + 0.35f * (healthRatio / 0.25f);
+
+        float hungerRatio = player.getHungerManager().getFoodLevel() / 20.0f;
+        float hungerMultiplier = hungerRatio > 0.25f
+                ? 0.9f + (hungerRatio - 0.25f) * (0.1f / 0.75f)
+                : 0.55f + 0.45f * (hungerRatio / 0.25f);
+
+        // This multiplier is now much more forgiving
+        float totalMultiplier = healthMultiplier * hungerMultiplier;
+
+        // 2. DETECTION
+        boolean touchingAnyWater = this.isTouchingWater();
+
+
+        // SUPPORT CHECK (2 blocks down)
+        boolean hasSupport = false;
+        for (int i = 1; i <= 2; i++) {
+            BlockPos checkPos = pos.down(i);
+            if (world.getBlockState(checkPos).isSolid() || world.getFluidState(checkPos).isStill()) {
+                hasSupport = true;
+                break;
+            }
+        }
+
+        // 3. VELOCITY LOGIC
+        Vec3d velocity = this.getVelocity();
+        double nextX = velocity.x;
+        double nextZ = velocity.z;
+        double nextY = velocity.y;
+
+        // Only apply horizontal slowness if actually touching water
+        if (touchingAnyWater) {
+            nextX *= totalMultiplier;
+            if (velocity.y > 0){
+                nextY *= totalMultiplier;
+            }
+            nextZ *= totalMultiplier;
+        }
+
+        // WATERFALL LOGIC (The "Anti-Bypass" check)
+        // If there's flowing water anywhere in the 3x3 and no ground support...
+        if (!hasSupport && player.isSubmergedInWater()) {
+            if (nextY > -0.2) {
+                // Smoothly pull them down, even if they are only "grazing" the waterfall
+                nextY -= 0.05;
+            }
+            if (nextY < -0.2) nextY = -0.2;
+        } else if (touchingAnyWater && nextY > 0) {
+            // Normal penalty for upward swimming in still water
+            nextY *= totalMultiplier;
+        }
+
+        this.setVelocity(nextX, nextY, nextZ);
+    }
+}

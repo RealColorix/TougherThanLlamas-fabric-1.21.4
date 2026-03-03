@@ -9,7 +9,8 @@ import net.colorixer.entity.ModEntities;
 import net.colorixer.entity.client.BoneProjectileRenderer;
 import net.colorixer.entity.client.SimpleThrownItemRenderer;
 import net.colorixer.entity.hostile.spiders.JungleSpiderEntity;
-import net.colorixer.mixin.LivingEntityRendererInvoker;
+import net.colorixer.mixin.entities.hostile.LivingEntityRendererInvoker;
+import net.colorixer.util.SeasonTracker;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
@@ -45,6 +46,72 @@ public class TougherThanLlamasClient implements ClientModInitializer {
 
 	public void onInitializeClient() {
 
+
+		// ==========================================
+// 1. THE BIRCH TREE OVERRIDE (Yellow -> White)
+// ==========================================
+		ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> {
+			int vanillaBirch = 0x80A755;
+			if (world == null || pos == null || MinecraftClient.getInstance().world == null) return vanillaBirch;
+
+			float temp = MinecraftClient.getInstance().world.getBiome(pos).value().getTemperature();
+
+			// Hot biomes (Desert, Jungle) stay permanently vanilla
+			if (temp >= 0.9f) return vanillaBirch;
+			// Snowy biomes (Ice Spikes, Snowy Taiga) stay permanently white!
+			if (temp < 0.15f) return 0xFFFFFF;
+
+			long day = (SeasonTracker.activeSeasonDay - 12 + 96) % 96L;
+			float progress = (day % 24) / 24.0f;
+
+			int colorAutumn = 0xEEDD44; // Brilliant Golden Yellow
+			int colorWinter = 0xFFFFFF; // Pure White
+			int colorSpring = 0x88FF88; // Bright Spring Green
+
+			if (day < 24) {
+				return SeasonTracker.blendColors(vanillaBirch, colorAutumn, progress * 0.95f);
+			} else if (day < 48) {
+				int start = SeasonTracker.blendColors(vanillaBirch, colorAutumn, 0.95f);
+				return SeasonTracker.blendColors(start, colorWinter, progress);
+			} else if (day < 72) {
+				return SeasonTracker.blendColors(colorWinter, colorSpring, progress);
+			} else {
+				return SeasonTracker.blendColors(colorSpring, vanillaBirch, progress);
+			}
+		}, Blocks.BIRCH_LEAVES);
+
+
+// ==========================================
+// 2. THE SPRUCE TREE OVERRIDE (Evergreen -> White)
+// ==========================================
+		ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> {
+			int vanillaSpruce = 0x619961;
+			if (world == null || pos == null || MinecraftClient.getInstance().world == null) return vanillaSpruce;
+
+			float temp = MinecraftClient.getInstance().world.getBiome(pos).value().getTemperature();
+
+			// Hot biomes stay permanently vanilla
+			if (temp >= 0.9f) return vanillaSpruce;
+			// Snowy biomes stay permanently white!
+			if (temp < 0.15f) return 0xFFFFFF;
+
+			long day = (SeasonTracker.activeSeasonDay - 12 + 96) % 96L;
+			float progress = (day % 24) / 24.0f;
+
+			int colorWinter = 0xFFFFFF; // Pure White
+
+			// Spruce is an Evergreen! It skips Autumn and Spring entirely.
+			if (day >= 24 && day < 48) {
+				// Fall -> Winter (Freezing over)
+				return SeasonTracker.blendColors(vanillaSpruce, colorWinter, progress);
+			} else if (day >= 48 && day < 72) {
+				// Winter -> Spring (Thawing out)
+				return SeasonTracker.blendColors(colorWinter, vanillaSpruce, progress);
+			}
+
+			return vanillaSpruce; // Summer and Autumn are normal green
+
+		}, Blocks.SPRUCE_LEAVES);
 
 
 

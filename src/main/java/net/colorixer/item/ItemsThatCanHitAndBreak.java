@@ -192,6 +192,7 @@ public class ItemsThatCanHitAndBreak {
                 ||block == Blocks.COPPER_BLOCK||block == Blocks.GOLD_BLOCK
                 ||block == Blocks.ANCIENT_DEBRIS||block == Blocks.DIAMOND_BLOCK
                 ||block == Blocks.EMERALD_BLOCK||block == Blocks.NETHERITE_BLOCK
-                ||block == Blocks.LAPIS_BLOCK||block == Blocks.REDSTONE_BLOCK;
+                ||block == Blocks.LAPIS_BLOCK||block == Blocks.REDSTONE_BLOCK
+                ||block == Blocks.MOSSY_COBBLESTONE||block == Blocks.MOSSY_STONE_BRICKS;
     }
 }
